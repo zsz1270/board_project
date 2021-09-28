@@ -1,15 +1,15 @@
 package com.java_test.mytest.notice.noticevo;
 
-public class SearchDTO {
-	private String search_option;
-	private String keyword;
+public class SearchpagingDTO extends pagingDTO{
+	private String searchType = "";
+	private String keyword = "";
 	private String con_dv;
 	
-	public String getSearch_option() {
-		return search_option;
+	public String getSearchType() {
+		return searchType;
 	}
-	public void setSearch_option(String search_option) {
-		this.search_option = search_option;
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
 	}
 	public String getKeyword() {
 		return keyword;
@@ -17,6 +17,7 @@ public class SearchDTO {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
+	
 	public String getCon_dv() {
 		return con_dv;
 	}
@@ -25,6 +26,6 @@ public class SearchDTO {
 	}
 	@Override
 	public String toString() {
-		return "SearchDTO [search_option=" + search_option + ", keyword=" + keyword + ", con_dv=" + con_dv + "]";
+		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + "]";
 	}
 }

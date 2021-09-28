@@ -8,6 +8,7 @@
 		<typeAlias type="com.java_test.mytest.notice.noticevo.noticeVO" alias="noticeVO"/>
 		<typeAlias type="com.java_test.mytest.notice.noticevo.pagingDTO" alias="pagingDTO"/>
 		<typeAlias type="com.java_test.mytest.notice.noticevo.SearchDTO" alias="SearchDTO"/>
+		<typeAlias type="com.java_test.mytest.notice.noticevo.SearchpagingDTO" alias="SearchpagingDTO"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member.xml"/>

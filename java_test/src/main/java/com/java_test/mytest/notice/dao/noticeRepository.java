@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.java_test.mytest.notice.noticevo.SearchDTO;
+import com.java_test.mytest.notice.noticevo.SearchpagingDTO;
 import com.java_test.mytest.notice.noticevo.noticeVO;
 import com.java_test.mytest.notice.noticevo.pagingDTO;
 
@@ -19,8 +20,8 @@ public class noticeRepository implements noticeDAO{
 	
 	//게시글 전체조회
 	@Override
-	public List<noticeVO> getlist(HashMap<String, Object> map) {
-		return sqlSession.selectList(NAMESPACE+"getlist",map);
+	public List<noticeVO> getBoardList(SearchpagingDTO scto) {
+		return sqlSession.selectList(NAMESPACE+"getBoardList", scto);
 	}
 	
 	//게시글 상세조회
@@ -55,14 +56,12 @@ public class noticeRepository implements noticeDAO{
 		return sqlSession.update(NAMESPACE+"deleteBoard", nvo);
 	}
 
-	@Override
-	public List<noticeVO> selectSearchBoard(HashMap<String, Object> map) {
-		return sqlSession.selectList(NAMESPACE+"selectSearchBoardList", map);
-	}
 
 	@Override
-	public int countBoardList(SearchDTO sto) {
-		return sqlSession.selectOne(NAMESPACE+"countBoardList", sto);
+	public int countBoardList(SearchpagingDTO scto) {
+		return sqlSession.selectOne(NAMESPACE+"countBoardList", scto);
 	}
+
+	
 
 }

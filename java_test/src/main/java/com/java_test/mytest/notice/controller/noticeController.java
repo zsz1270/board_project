@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.java_test.mytest.notice.noticevo.SearchDTO;
+import com.java_test.mytest.notice.noticevo.SearchpagingDTO;
 import com.java_test.mytest.notice.noticevo.noticeVO;
 import com.java_test.mytest.notice.noticevo.pageMakerDTO;
 import com.java_test.mytest.notice.noticevo.pagingDTO;
@@ -38,52 +39,23 @@ public class noticeController {
 	}
 	
 	@GetMapping("/boardList.do")
-	public ModelAndView boardList(SearchDTO sto ,noticeVO nvo ,pagingDTO pto, HashMap<String, Object> map) {
-		
-		map.put("nvo", nvo);
-		map.put("pto", pto);
+	public ModelAndView boardList(SearchpagingDTO scto) {
 		
 		pageMakerDTO pageMaker = new pageMakerDTO();
-		pageMaker.setPto(pto);
-		pageMaker.setTotalCount(ns.countBoardList(sto));
+		pageMaker.setPto(scto);
+		pageMaker.setTotalCount(ns.countBoardList(scto));
 		
-		List<noticeVO> BoardList = ns.getBoardList(map);	
+		List<noticeVO> BoardList = ns.getBoardList(scto);	
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("/noticeViews/boardList");
-		mv.addObject("getlist", BoardList);
+		mv.addObject("boardList", BoardList);
 		mv.addObject("pageMaker", pageMaker);
+		
 		logger.info(">>> list.do");
-		return mv;
-	}
-	@PostMapping("/search.do")
-	public ModelAndView search(SearchDTO sto,pagingDTO pto, HashMap<String, Object> map) {
-		map.put("search", sto);
-		map.put("pto", pto);
-		
-		List<noticeVO> SearchedBoardList = ns.getSearchedBoardList(map);	
-		ModelAndView mv = new ModelAndView();
-		
-		pageMakerDTO pageMaker = new pageMakerDTO();
-		pageMaker.setPto(pto);
-		pageMaker.setTotalCount(ns.countBoardList(sto));
-		
-		if (sto.getKeyword() == "") {
-			mv.setViewName("redirect:/noticeViews/list.do");		
-			logger.info(">>> search.do >> redirect:list.do");
-
-		} else {
-			mv.setViewName("/noticeViews/boardList");	
-			mv.addObject("getlist", SearchedBoardList);
-			mv.addObject("pageMaker", pageMaker);
-			logger.info(">>> search.do " + sto.toString());
-			
-		}
 		
 		return mv;
-		
 	}
-	
 	@PostMapping("/detailContent.do")
 	public ModelAndView detailContent(noticeVO nvo)  {
 		noticeVO detailcon = ns.detailContents(nvo);

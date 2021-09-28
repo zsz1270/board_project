@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.java_test.mytest.notice.noticevo.SearchDTO;
+import com.java_test.mytest.notice.noticevo.SearchpagingDTO;
 import com.java_test.mytest.notice.noticevo.noticeVO;
 import com.java_test.mytest.notice.noticevo.pagingDTO;
 
@@ -14,7 +15,7 @@ import com.java_test.mytest.notice.noticevo.pagingDTO;
 public interface noticeDAO {
 	
 	//게시글 전체조회
-	public List<noticeVO> getlist(HashMap<String, Object> map) ;
+	public List<noticeVO> getBoardList(SearchpagingDTO scto) ;
 	
 	//상세게시글 조회
 	public noticeVO detailContents(noticeVO noticevo) ;
@@ -34,9 +35,6 @@ public interface noticeDAO {
 	//삭제
 	public int deleteBoard(noticeVO nvo);
 	
-	//검색
-	public List<noticeVO> selectSearchBoard(HashMap<String, Object> map);
-	
 	//페이징
-	public int countBoardList(SearchDTO sto);
+	public int countBoardList(SearchpagingDTO scto);
 }

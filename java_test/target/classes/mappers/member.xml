@@ -5,31 +5,24 @@
 	<mapper namespace="memberMapper">
 	
 	<!-- 게시글 전체 조회 -->
-	<select id="getlist" parameterType="HASHMAP" resultType="noticeVO">
-		SELECT rNum rn, CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, REG_DATE, UPD_DATE 
-	      FROM(SELECT CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, TO_CHAR(REG_DATE,'MM-DD HH24:MI:SS') as REG_DATE,
-	       UPD_DATE, row_number() over(order by ABS(CON_NO) DESC) as rNum
-	            FROM contents_data WHERE CON_DV = #{nvo.con_dv} AND DEL_YN='N' ) 
-	      WHERE rNum BETWEEN #{pto.rowStart} AND #{pto.rowEnd}
-	      order by ABS(CON_NO) DESC
-	</select>
-	
-	<!-- 게시판 검색 목록 조회 -->
-	<select id="selectSearchBoardList" parameterType="HASHMAP" resultType="noticeVO">
-		 SELECT rNum rn, CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, REG_DATE, UPD_DATE 
-	       FROM(SELECT CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, TO_CHAR(REG_DATE,'MM-DD HH24:MI:SS') as REG_DATE, 
-	        UPD_DATE, row_number() over(order by ABS(CON_NO) DESC) as rNum
-	             FROM contents_data 
-	       WHERE CON_DV = #{nvo.con_dv} AND DEL_YN='N' AND
- 			<if test= 'search.search_option eq "title" '>
-		 				CON_TITLE 
-			</if>
-			<if test= 'search.search_option eq "id" '>
-		 				CON_ID
-			</if>	
-			LIKE '%'||#{search.keyword}||'%') A	
-			WHERE rNum BETWEEN  #{pto.rowStart} AND #{pto.rowEnd}
-            order by ABS(CON_NO) DESC
+	<select id="getBoardList" parameterType="SearchpagingDTO" resultType="noticeVO">
+		 SELECT rNum RN, CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, REG_DATE, UPD_DATE 
+                FROM(SELECT CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, 
+                            READ_COUNT, TO_CHAR(REG_DATE,'MM-DD HH24:MI:SS') as REG_DATE, UPD_DATE,
+                            row_number() over(order by ABS(CON_NO) DESC) as rNum
+                        FROM contents_data WHERE CON_DV = #{con_dv} AND DEL_YN='N'
+                    <if test= 'searchType eq "title" '>
+	 					AND CON_TITLE 
+	 					<include refid="search" />
+					</if>
+					<if test= 'searchType eq "id" '>
+				 		AND CON_ID
+				 		<include refid="search" />
+					</if>	
+					 )A	
+					 WHERE rNum BETWEEN 
+	                   	 #{rowStart} AND #{rowEnd}
+	                    	 order by ABS(CON_NO) DESC
 	</select>
 	
 	<!-- 게시글 상세 조회-->
@@ -76,15 +69,18 @@
 	
 	
 	<!-- 게시판 목록 총 갯수 조회 -->
-	<select id="countBoardList" parameterType="SearchDTO" resultType="integer">
+	<select id="countBoardList" parameterType="SearchpagingDTO" resultType="integer">
 		SELECT COUNT(*)
 			FROM CONTENTS_DATA
 				WHERE CON_DV = #{con_dv} AND DEL_YN='N'
-				<if test= 'search_option eq "title" '> <!-- 검색 조건에 해당되는 게시물 갯수 -->
-					AND CON_TITLE LIKE '%'||#{keyword}||'%'
+				<if test= 'searchType eq "title" '> <!-- 검색 조건에 해당되는 게시물 갯수 -->
+					AND CON_TITLE <include refid="search" />
 				</if>
-				<if test= 'search_option eq "id" '>
-					AND CON_ID LIKE '%'||#{keyword}||'%'
+				<if test= 'searchType eq "id" '>
+					AND CON_ID <include refid="search" />
 				</if>
 	</select>
+	<sql id="search">
+		 LIKE '%'||#{keyword}||'%'
+	</sql>
 </mapper>

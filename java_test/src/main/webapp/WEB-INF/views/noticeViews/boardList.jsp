@@ -58,6 +58,7 @@
 		    form.method = "POST";
 		    form.submit();
 		};
+		
 	</script>
 </head>
 
@@ -75,8 +76,8 @@
 		<div id="tbArea" style="width:100%;">
 			<div id="tbHead" style="height: 25px; margin:0 0 10px 0;">
 				<div id="searchBar" style="width:300px; text-align:right; float:right;">
-				<form action='<c:url value="/noticeViews/search.do" />' method="POST">
-					<select name="search_option" >
+				<form action='<c:url value="/noticeViews/boardList.do" />' method="GET">
+					<select name="searchType" >
 						<option value="title">제목</option>
 						<option value="id">작성자</option>
 					</select>
@@ -97,13 +98,13 @@
 					<tr style="background-color:#EAEAEA;">
 						<td>No.</td><td style="text-align:center">제목</td><td>작성자</td><td>등록일</td><td>조회수</td>
 					</tr>
-					<c:forEach items="${getlist}" var="getlist">
+					<c:forEach items="${boardList}" var="boardList">
 					<tr>
-						<td><c:out value="${getlist.getRn()}" /></td>
-						<td><a href="javascript:content(${getlist.getCon_no()});"><c:out value='${getlist.getCon_title()}'/></a> </td>
-						<td><c:out value="${getlist.getCon_id()}" /></td>
-						<td><c:out value="${getlist.getReg_date()}"/></td>
-						<td><c:out value="${getlist.getRead_count()}" /></td>
+						<td><c:out value="${boardList.getRn()}" /></td>
+						<td><a href="javascript:content(${boardList.getCon_no()});"><c:out value='${boardList.getCon_title()}'/></a> </td>
+						<td><c:out value="${boardList.getCon_id()}" /></td>
+						<td><c:out value="${boardList.getReg_date()}"/></td>
+						<td><c:out value="${boardList.getRead_count()}" /></td>
 					</tr>
 					</c:forEach>
 				</table>

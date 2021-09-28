@@ -9,7 +9,7 @@ public class pageMakerDTO {
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	private int displayPageNum = 1;
+	private int displayPageNum = 5;
 	private pagingDTO pto;
 	
 	public void setPto(pagingDTO pto) {

@@ -199,8 +199,9 @@ public class noticeVO {
 
 	@Override
 	public String toString() {
-		return "noticeVO [con_dv=" + con_dv + ", con_no=" + con_no + ", con_title=" + con_title + ", con_txt=" + con_txt
-				+ ", con_id=" + con_id + ", con_password=" + con_password + ", read_count=" + read_count + 
-				", del_yn=\" + del_yn + \", reg_ip="+ reg_ip + ", reg_date=" + reg_date + ", upd_date=" + upd_date + "]";
+		return "BoardDTO [con_dv=" + con_dv + ", con_no=" + con_no + ", con_title=" + con_title + ", con_txt="
+				+ con_txt + ", con_id=" + con_id + ", con_password=" + con_password + ", read_count=" + read_count + ", del_yn="
+				+ del_yn + ", reg_ip=" + reg_ip + ", reg_date=" + reg_date + ", upd_date=" + upd_date + ", key=" + key
+				+ ", rn=" + rn + "]";
 	}
 }
