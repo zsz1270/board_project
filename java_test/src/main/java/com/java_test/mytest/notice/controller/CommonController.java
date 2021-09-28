@@ -10,8 +10,7 @@ public class CommonController {
 	@GetMapping("/")
 	public ModelAndView root() {
 		ModelAndView mv = new ModelAndView(); 
-		mv.setViewName("redirect:/noticeViews/");
-		
+		mv.setViewName("/Home");
 		return mv;
 	}
 }

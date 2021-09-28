@@ -9,7 +9,7 @@ public class pageMakerDTO {
 	private int endPage;
 	private boolean prev;
 	private boolean next;
-	private int displayPageNum = 5;
+	private int displayPageNum = 3;
 	private pagingDTO pto;
 	
 	public void setPto(pagingDTO pto) {
@@ -45,10 +45,10 @@ public class pageMakerDTO {
 		return displayPageNum;
 	}
 	
-	public pagingDTO getCri() {
+	public pagingDTO getPto() {
 		return pto;
 	}
-	 
+	
 	private void calcData() {
 		endPage = (int) (Math.ceil(pto.getPage() / (double)displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
@@ -69,5 +69,16 @@ public class pageMakerDTO {
 							.build();
 		   
 		return uriComponents.toUriString();
+	}
+	public String makeSearch(int page) {
+		UriComponents uriComponents =
+	            UriComponentsBuilder.newInstance()
+	            .queryParam("page", page)
+	            .queryParam("perPageNum", pto.getPerPageNum())
+	            .queryParam("searchType", ((SearchpagingDTO)pto).getSearchType())
+	            .queryParam("keyword", ((SearchpagingDTO)pto).getKeyword())
+	            .build(); 
+		
+	    return uriComponents.toUriString();  
 	}
 }

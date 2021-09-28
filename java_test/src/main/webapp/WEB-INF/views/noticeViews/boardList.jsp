@@ -115,16 +115,16 @@
 			<div id="pagebar" style="display:inline-block;">
 				<ul class="ulPage" style="list-style:none; margin:0px; padding:0px;">
 			 		<c:if test="${pageMaker.prev}">
-			    	<li><a href="boardList.do${pageMaker.makeQuery(pageMaker.startPage - 1)}">&lt;</a></li>
+			    	<li><a href="boardList.do${pageMaker.makeSearch(pageMaker.startPage - 1)}">&lt;</a></li>
 				   	</c:if> 
 			
 				   	<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-				   	<li><a href="boardList.do${pageMaker.makeQuery(idx)}">${idx}</a></li>
+				   	<li><a href="boardList.do${pageMaker.makeSearch(idx)}">${idx}</a></li>
 				   	</c:forEach>
 			
 				   	<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				   	<li><a href="boardList.do${pageMaker.makeQuery(pageMaker.endPage + 1)}">&gt;</a></li>
-				 	</c:if> 
+				   	<li><a href="boardList.do${pageMaker.makeSearch(pageMaker.endPage + 1)}">&gt;</a></li>
+				 	</c:if>
 				 </ul>
 					
 			</div>

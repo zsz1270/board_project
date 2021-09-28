@@ -1,7 +1,6 @@
 package com.java_test.mytest.notice.service;
 
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -9,16 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.java_test.mytest.notice.IPconfig.IPConfig;
 import com.java_test.mytest.notice.dao.noticeDAO;
-import com.java_test.mytest.notice.dao.noticeRepository;
-import com.java_test.mytest.notice.noticevo.SearchDTO;
 import com.java_test.mytest.notice.noticevo.SearchpagingDTO;
 import com.java_test.mytest.notice.noticevo.noticeVO;
-import com.java_test.mytest.notice.noticevo.pagingDTO;
 
 @Service
 public class noticeServiceImpl implements noticeService{
@@ -26,10 +21,10 @@ public class noticeServiceImpl implements noticeService{
 	private noticeDAO dao;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public noticeVO setBoardCon_dv(noticeVO noticevo) {
-		noticevo.setCon_dv("01");
-		logger.info(">>> 게시판 구분자 Board 01 " + noticevo.getCon_dv()+" 설정");
-		return noticevo;
+	public noticeVO setBoardCon_dv(noticeVO nvo) {
+		nvo.setCon_dv("01");
+		logger.info(">>> 게시판 구분자 Board 01 " + nvo.getCon_dv()+" 설정");
+		return nvo;
 	}
 	
 	public SearchpagingDTO setSctoCon_dv(SearchpagingDTO scto) {
@@ -49,34 +44,34 @@ public class noticeServiceImpl implements noticeService{
 	
 	
 	@Override
-	public noticeVO detailContents(noticeVO noticevo){
+	public noticeVO detailContents(noticeVO nvo){
 		// TODO Auto-generated method stub
-		setBoardCon_dv(noticevo);
-		dao.viewCount(noticevo);
+		setBoardCon_dv(nvo);
+		dao.viewCount(nvo);
 		logger.info(">>> 조회수증가");
-		logger.info(">>> 상세내용보기 "+noticevo.toString());
-		return dao.detailContents(noticevo);
+		logger.info(">>> 상세내용보기 "+nvo.toString());
+		return dao.detailContents(nvo);
 	}
 
 	@Override
-	public int writeBoard(HttpServletRequest request, noticeVO noticevo) {
+	public int writeBoard(HttpServletRequest request, noticeVO nvo) {
 		IPConfig ip = new IPConfig();
 		String yourIP = ip.getIPConfig(request);
 		logger.info(">>> IP가져오기 ");
-		setBoardCon_dv(noticevo);
+		setBoardCon_dv(nvo);
 		logger.info(">>> 게시글작성 ");
-		noticevo.setReg_ip(yourIP);
+		nvo.setReg_ip(yourIP);
 		logger.info(">>> 게시글 작성");
-		logger.info(">>> write.do" + noticevo.toString());
-		return dao.insertBoard(noticevo);
+		logger.info(">>> write.do" + nvo.toString());
+		return dao.insertBoard(nvo);
 	}
 
 	@Override
-	public int editContent(noticeVO noticevo) {
-		setBoardCon_dv(noticevo);
+	public int editContent(noticeVO nvo) {
+		setBoardCon_dv(nvo);
 		logger.info(">>> 게시글 수정");
 		
-		return dao.updateBoard(noticevo);
+		return dao.updateBoard(nvo);
 	}
 
 	@Override

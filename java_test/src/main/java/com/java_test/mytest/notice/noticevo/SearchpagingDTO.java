@@ -26,6 +26,6 @@ public class SearchpagingDTO extends pagingDTO{
 	}
 	@Override
 	public String toString() {
-		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + "]";
+		return "SearchpagingDTO [searchType=" + searchType + ", keyword=" + keyword + "]";
 	}
 }

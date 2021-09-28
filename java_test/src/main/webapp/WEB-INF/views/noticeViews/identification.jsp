@@ -128,11 +128,11 @@
 			<div id="privateMain">
 			<table>
 				<tr>
-					<td style="background-color:#EDEDED;"><img src="resources/images/idimage.PNG"></td>
+					<td style="background-color:#EDEDED;">ID</td>
 					<td><input type="text" name="con_id" class="txtBox" maxlength="10" placeholder="user name"></td>
 				</tr>
 				<tr>
-					<td style="background-color:#EDEDED;"><img src="resources/images/pwimage.PNG"></td>
+					<td style="background-color:#EDEDED;">PW</td>
 					<td><input type="password" name="con_password" class="txtBox" maxlength="10" placeholder="＊＊＊＊"></td>
 				</tr>
 			</table>
@@ -153,16 +153,16 @@
 		</form>
 		
 		<div id="privateBottom">
-			<img src="resources/images/icon.PNG">
+			<p>작성자 본인 확인</p>
 			<c:if test="${boardInfo.getKey() eq 2}">
-				<div style="padding-left: 95px">
+				<div >
 					<input class="button-cancel" id="btnCancel" type="button" onclick="window.close();" value="Cancel" />
 					<!-- 비동기 처리 수정 -->
 					<input class="button" type="button" id="btnCancel" value="OK" onClick="submit(${boardInfo.getCon_no()});"/>
 				</div>
 			</c:if>
 			<c:if test="${boardInfo.getKey() eq 3}">
-				<div style="padding-left: 95px">
+				<div >
 					<input class="button-cancel" id="btnCancel" type="button" onclick="window.close();" value="Cancel" />
 					<!-- 비동기 처리 삭제 -->
 					<input class="button" id="btnCancel" type="button"  value="OK" onClick="del(${boardInfo.getCon_no()});"/>

@@ -62,6 +62,9 @@
 <body>
 	
 	<div class="contents" style="width:800px;">
+		<div class="back">
+			<input id="#btnUpdate" type="button" onclick="location.href='/mytest/noticeViews/boardList.do'" value="리스트"/>		
+		</div>
 		<div id="ctHead" style="margin:0 0 50px 0;">
 			<h2>상세내용</h2>
 		</div>

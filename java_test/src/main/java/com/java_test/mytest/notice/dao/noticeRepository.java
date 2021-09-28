@@ -26,24 +26,24 @@ public class noticeRepository implements noticeDAO{
 	
 	//게시글 상세조회
 	@Override
-	public noticeVO detailContents(noticeVO noticevo) {
-		return sqlSession.selectOne(NAMESPACE+"detailContents",noticevo);
+	public noticeVO detailContents(noticeVO nvo) {
+		return sqlSession.selectOne(NAMESPACE+"detailContents",nvo);
 	}
 	
 	//조회수 증가
 	@Override
-	public int viewCount(noticeVO noticevo) {
-		return sqlSession.update(NAMESPACE+"viewCount",noticevo);
+	public int viewCount(noticeVO nvo) {
+		return sqlSession.update(NAMESPACE+"viewCount",nvo);
 	}
 
 	@Override
-	public int insertBoard(noticeVO noticevo) {
-		return  sqlSession.insert(NAMESPACE+"insertBoard", noticevo);
+	public int insertBoard(noticeVO nvo) {
+		return  sqlSession.insert(NAMESPACE+"insertBoard", nvo);
 	}
 
 	@Override
-	public int updateBoard(noticeVO noticevo) {
-		return sqlSession.update(NAMESPACE+"updateBoard", noticevo);
+	public int updateBoard(noticeVO nvo) {
+		return sqlSession.update(NAMESPACE+"updateBoard", nvo);
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public class noticeController {
 	@PostMapping("/detailContent.do")
 	public ModelAndView detailContent(noticeVO nvo)  {
 		noticeVO detailcon = ns.detailContents(nvo);
-		ModelAndView mv = new ModelAndView(); 
+		ModelAndView mv = new ModelAndView();
 		logger.info(">>> detailContent.do");
 		mv.setViewName("/noticeViews/detailContent");
 		mv.addObject("detailcon",detailcon);

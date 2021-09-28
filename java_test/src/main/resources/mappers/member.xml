@@ -20,9 +20,8 @@
 				 		<include refid="search" />
 					</if>	
 					 )A	
-					 WHERE rNum BETWEEN 
-	                   	 #{rowStart} AND #{rowEnd}
-	                    	 order by ABS(CON_NO) DESC
+					 WHERE rNum BETWEEN  #{rowStart} AND #{rowEnd}
+	                 order by ABS(CON_NO) DESC
 	</select>
 	
 	<!-- 게시글 상세 조회-->
@@ -80,6 +79,12 @@
 					AND CON_ID <include refid="search" />
 				</if>
 	</select>
+	
+	<!-- 중복 쿼리 정리 -->
+	<sql id="div_no">
+		CON_DV = #{con_dv} AND CON_NO = #{con_no}
+	</sql>
+	
 	<sql id="search">
 		 LIKE '%'||#{keyword}||'%'
 	</sql>

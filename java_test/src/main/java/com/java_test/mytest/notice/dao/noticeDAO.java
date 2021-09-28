@@ -18,16 +18,16 @@ public interface noticeDAO {
 	public List<noticeVO> getBoardList(SearchpagingDTO scto) ;
 	
 	//상세게시글 조회
-	public noticeVO detailContents(noticeVO noticevo) ;
+	public noticeVO detailContents(noticeVO nvo) ;
 	
 	//조회수 증가
-	public int viewCount(noticeVO noticevo) ;
+	public int viewCount(noticeVO nvo) ;
 	
 	//글작성
-	public int insertBoard(noticeVO noticevo);
+	public int insertBoard(noticeVO nvo);
 	
 	//글수정
-	public int updateBoard(noticeVO noticevo);
+	public int updateBoard(noticeVO nvo);
 
 	//개인정보확인
 	public boolean isCheckIdentify(noticeVO nvo);

@@ -22,13 +22,13 @@ public interface noticeService {
 	public List<noticeVO> getBoardList(SearchpagingDTO scto);
 	
 	//상세게시글 조회,조회수 증가
-	public noticeVO detailContents(noticeVO noticevo) ;
+	public noticeVO detailContents(noticeVO nvo) ;
 	
 	//글작성
-	public int writeBoard(HttpServletRequest request, noticeVO noticevo);
+	public int writeBoard(HttpServletRequest request, noticeVO nvo);
 
 	//글수정
-	public int editContent(noticeVO noticevo);
+	public int editContent(noticeVO nvo);
 
 	//개인정보확인
 	public boolean checkIdentify(noticeVO nvo);
