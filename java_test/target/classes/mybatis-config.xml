@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.java_test.mytest.notice.noticevo.noticeVO" alias="noticeVO"/>
+		<typeAlias type="com.java_test.mytest.notice.noticevo.pagingDTO" alias="pagingDTO"/>
+		<typeAlias type="com.java_test.mytest.notice.noticevo.SearchDTO" alias="SearchDTO"/>
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/member.xml"/>
+	</mappers>
+</configuration>

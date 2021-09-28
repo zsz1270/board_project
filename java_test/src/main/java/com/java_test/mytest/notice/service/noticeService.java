@@ -1,0 +1,43 @@
+package com.java_test.mytest.notice.service;
+
+import java.util.HashMap;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
+
+import com.java_test.mytest.notice.noticevo.SearchDTO;
+import com.java_test.mytest.notice.noticevo.noticeVO;
+import com.java_test.mytest.notice.noticevo.pagingDTO;
+
+@Repository
+public interface noticeService {
+	
+	//게시글 전체조회
+	public List<noticeVO> getBoardList(HashMap<String, Object> map);
+	
+	//상세게시글 조회,조회수 증가
+	public noticeVO detailContents(noticeVO noticevo) ;
+	
+	//글작성
+	public int writeBoard(HttpServletRequest request, noticeVO noticevo);
+
+	//글수정
+	public int editContent(noticeVO noticevo);
+
+	//개인정보확인
+	public boolean checkIdentify(noticeVO nvo);
+
+	//삭제
+	public int deleteContent(noticeVO nvo);
+	
+	//검색
+	public List<noticeVO> getSearchedBoardList(HashMap<String, Object> map);
+
+	//페이징
+	public int countBoardList(SearchDTO sto);
+}
