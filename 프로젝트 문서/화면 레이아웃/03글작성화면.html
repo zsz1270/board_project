@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>업무관리시스템</title>
+	<style type="text/css">
+		.contents{
+			width:500px;
+			height:700px;
+			position:absolute;
+			left:30%;
+		}
+		#writeBottom{
+			float:right;
+			margin:5px 0 0 0;
+		}
+		table {
+		    width:100%;
+			border:1px solid #444444;
+			border-collapse: collapse;
+		}
+		 th, td {
+			border:1px solid #444444;
+			padding:10px;
+		}
+		#btnEdit{
+			background-color:#6297D5;
+			color:white;
+			width:80px;
+			height:30px;
+			border-radius:3px;
+		}
+		.txtBox{
+			width:100%; 
+			border:0;
+			outline:none;
+		}
+		#txtContents{
+			resize:none;
+		}
+	</style>
+</head>
+<body>
+	<div class="contents">
+		<div id="writeHead">
+			<h2>게시물작성</h2>
+		</div>
+		<div id="writeMain">
+			<table id="tbMain">
+				<colgroup>
+					<col style="width:60px;"/>
+				</colgroup>
+				<tr>
+					<td style="background-color:#EDEDED;">제목</td><td><input type="text" class="txtBox" size="50" maxlength="40" placeholder="제목을 입력하세요."></td>
+				</tr>
+				<tr>
+					<td style="background-color:#EDEDED;">내용</td><td><textarea class="txtBox" id="txtContents" cols="50" rows="20" maxlength="1000" placeholder="내용을 입력하세요."></textarea></td>
+				</tr>
+			</table>
+			<table>
+				<colgroup>
+					<col style="width:60px;"/>
+				</colgroup>
+				<tr>
+					<td style="background-color:#EDEDED;">ID</td>
+					<td><input type="text" class="txtBox" maxlength="10" placeholder="user name"></td>
+					<td style="background-color:#EDEDED;">P.W</td>
+					<td><input type="password" class="txtBox" maxlength="10" placeholder="＊＊＊＊"></td>
+				</tr>
+			</table>
+		</div>
+		<div id="writeBottom">
+				<input type="button" id="btnEdit" value="등록" onClick="location.href='01메인화면.html'"/>
+		</div>
+	</div>
+</body>
+</html>
