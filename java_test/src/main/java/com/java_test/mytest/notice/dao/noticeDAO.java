@@ -18,23 +18,25 @@ public interface noticeDAO {
 	public List<noticeVO> getBoardList(SearchpagingDTO scto) ;
 	
 	//상세게시글 조회
-	public noticeVO detailContents(noticeVO nvo) ;
+	public HashMap<String,Object> detailContents(HashMap<String,Object> map) ;
 	
 	//조회수 증가
-	public int viewCount(noticeVO nvo) ;
+	public int viewCount(HashMap<String, Object> map) ;
 	
 	//글작성
-	public int insertBoard(noticeVO nvo);
+	public int insertBoard(HashMap<String, Object> map);
 	
 	//글수정
-	public int updateBoard(noticeVO nvo);
+	public int updateBoard(HashMap<String, Object> map);
 
 	//개인정보확인
-	public boolean isCheckIdentify(noticeVO nvo);
+	public boolean isCheckIdentify(HashMap<String, Object> map);
 
 	//삭제
-	public int deleteBoard(noticeVO nvo);
+	public int deleteBoard(HashMap<String, Object> map);
 	
 	//페이징
 	public int countBoardList(SearchpagingDTO scto);
+
+
 }

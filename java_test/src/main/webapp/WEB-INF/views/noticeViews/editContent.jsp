@@ -39,15 +39,18 @@
 	</style>
 </head>
 <body>
-	<form action=<c:if test="${boardInfo.getKey() eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
-				 <c:if test="${boardInfo.getKey() eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> method="POST">
+	<form action=<c:if test="${boardInfo.get('key') eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
+				 <c:if test="${boardInfo.get('key') eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> method="POST">
 	
 	<div class="contents" style="width:800px;">
+		<div class="back">
+			<input id="#btnUpdate" type="button" onclick="location.href='/mytest/noticeViews/boardList.do'" value="리스트"/>		
+		</div>
 		<div id="writeHead" style="margin:0 0 50px 0;">
-		<c:if test="${boardInfo.getKey() eq 1}">
+		<c:if test="${boardInfo.get('key') eq 1}">
 			<h2>게시물작성</h2>
 		</c:if>
-		<c:if test="${boardInfo.getKey() eq 2}">
+		<c:if test="${boardInfo.get('key') eq 2}">
 			<h2>게시물수정</h2>
 		</c:if>
 			
@@ -60,18 +63,18 @@
 				<tr>
 					<td style="background-color:#EDEDED;">제목</td>
 					<td>
-						<input type="hidden" name="con_no" value="${boardInfo.getCon_no()}" />
-						<input type="text" name="con_title" class="txtBox" size="50" maxlength="40" placeholder="제목을 입력하세요." value="${boardInfo.getCon_title()}">
+						<input type="hidden" name="con_no" value="${boardInfo.get('con_no')}" />
+						<input type="text" name="con_title" class="txtBox" size="50" maxlength="40" placeholder="제목을 입력하세요." value="${boardInfo.get('con_title')}">
 					</td>
 				</tr>
 				<tr>
 					<td style="background-color:#EDEDED;">내용</td>
 					<td>					
-						<textarea name="con_txt" class="txtBox" id="txtContents" cols="50" rows="20" maxlength="1000" placeholder="내용을 입력하세요.">${boardInfo.getCon_txt()}</textarea>
+						<textarea name="con_txt" class="txtBox" id="txtContents" cols="50" rows="20" maxlength="1000" placeholder="내용을 입력하세요.">${boardInfo.get('con_txt')}</textarea>
 					</td>
 				</tr>
 			</table>
-		<c:if test="${boardInfo.getKey() eq 1}">
+		<c:if test="${boardInfo.get('key') eq 1}">
 			<table>
 				<colgroup>
 					<col style="width:60px;"/>
@@ -83,8 +86,8 @@
 					<td><input type="password" class="txtBox" name="con_password" maxlength="10" placeholder="＊＊＊＊"></td>
 				</tr>
 			</table>
-		</div>
 		</c:if>
+		</div>
 		<div id="writeBottom">
 				<input type="submit" id="btnEdit" value="등록"/>
 		</div>		

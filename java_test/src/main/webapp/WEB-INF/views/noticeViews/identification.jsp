@@ -63,9 +63,9 @@
 			window.opener.name = "editContent"; // 부모창의 이름 설정
 		    document.identify.target = "editContent"; // 타켓을 부모창으로 설정
 		    document.identify.key.value = key;
-		    document.identify.con_no.value = "${boardInfo.getCon_no()}"
-		    document.identify.con_title.value = "${boardInfo.getCon_title()}";
-		    document.identify.con_txt.value = "${boardInfo.getCon_txt()}"
+		    document.identify.con_no.value = "${boardInfo.get('con_no')}";
+		    document.identify.con_title.value = "${boardInfo.get('con_title')}";
+		    document.identify.con_txt.value = "${boardInfo.get('con_txt')}";
 		    document.identify.action = "/mytest/noticeViews/editContent.do";
 		    document.identify.method = "POST"
 		    document.identify.submit();
@@ -77,7 +77,7 @@
 			window.opener.name = "deleteContent"; // 부모창의 이름 설정
 		    document.identify.target = "deleteContent"; // 타켓을 부모창으로 설정
 		    document.identify.key.value = key;
-		    document.identify.con_no.value = "${boardInfo.getCon_no()}"
+		    document.identify.con_no.value = "${boardInfo.get('con_no')}";
 		    document.identify.action = "/mytest/noticeViews/delete.do";
 		    document.identify.method = "POST"
 		    document.identify.submit();
@@ -93,9 +93,9 @@
 		
 		var form =  document.beforeIdentify;
 		form.key.value = 2;
-		form.con_no.value = "${boardInfo.getCon_no()}"
-		form.con_title.value = "${boardInfo.getCon_title()}";
-		form.con_txt.value = "${boardInfo.getCon_txt()}"
+		form.con_no.value = "${boardInfo.get('con_no')}";
+		form.con_title.value = "${boardInfo.get('con_title')}";
+		form.con_txt.value = "${boardInfo.get('con_txt')}";
 		form.submit();
 	};
 	// 삭제 본인인증
@@ -105,7 +105,7 @@
 		if(choice){
 			var form =  document.beforeIdentify;
 			form.key.value = 3;
-			form.con_no.value = "${boardInfo.getCon_no()}"
+			form.con_no.value = "${boardInfo.get('con_no')}"
 			form.submit();
 		}
 		else {
@@ -117,10 +117,10 @@
 <body>
 	<div class="contents">
 		<div id="privateHead">
-			<c:if test="${boardInfo.getKey() eq 2}">
+			<c:if test="${boardInfo.get('key') eq 2}">
 				<h2>수정 본인확인</h2>
 			</c:if>
-			<c:if test="${boardInfo.getKey() eq 3}">
+			<c:if test="${boardInfo.get('key') eq 3}">
 				<h2>삭제 본인확인</h2>
 			</c:if>
 		</div>
@@ -154,18 +154,18 @@
 		
 		<div id="privateBottom">
 			<p>작성자 본인 확인</p>
-			<c:if test="${boardInfo.getKey() eq 2}">
+			<c:if test="${boardInfo.get('key') eq 2}">
 				<div >
 					<input class="button-cancel" id="btnCancel" type="button" onclick="window.close();" value="Cancel" />
 					<!-- 비동기 처리 수정 -->
-					<input class="button" type="button" id="btnCancel" value="OK" onClick="submit(${boardInfo.getCon_no()});"/>
+					<input class="button" type="button" id="btnCancel" value="OK" onClick="submit(${boardInfo.get('con_no')});"/>
 				</div>
 			</c:if>
-			<c:if test="${boardInfo.getKey() eq 3}">
+			<c:if test="${boardInfo.get('key') eq 3}">
 				<div >
 					<input class="button-cancel" id="btnCancel" type="button" onclick="window.close();" value="Cancel" />
 					<!-- 비동기 처리 삭제 -->
-					<input class="button" id="btnCancel" type="button"  value="OK" onClick="del(${boardInfo.getCon_no()});"/>
+					<input class="button" id="btnCancel" type="button"  value="OK" onClick="del(${boardInfo.get('con_no')});"/>
 				</div>
 			</c:if>
 		</div>

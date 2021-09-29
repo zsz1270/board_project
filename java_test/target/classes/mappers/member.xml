@@ -25,45 +25,45 @@
 	</select>
 	
 	<!-- 게시글 상세 조회-->
-	<select id="detailContents" parameterType="noticeVO" resultType="noticeVO">
+	<select id="detailContents" parameterType="HASHMAP" resultType="HASHMAP">
 		SELECT CON_NO,CON_TITLE,CON_TXT
 		FROM CONTENTS_DATA
-		WHERE CON_DV = #{con_dv} AND CON_NO = #{con_no}
+		WHERE <include refid="div_no" />
 	</select>
 	
 	 <!--조회수 증가-->
-	<update id="viewCount" parameterType="noticeVO">
-		UPDATE CONTENTS_DATA SET
-		READ_COUNT = READ_COUNT+1 
-		WHERE CON_NO = #{con_no} AND CON_DV = #{con_dv}
+	<update id="viewCount" parameterType="HASHMAP" >
+		UPDATE CONTENTS_DATA 
+		SET READ_COUNT = READ_COUNT+1 
+		WHERE <include refid="div_no" />
 	</update>
 	
 	<!-- 게시글 작성 -->
-	<insert id="insertBoard" parameterType="noticeVO">
+	<insert id="insertBoard" parameterType="HASHMAP">
    		INSERT INTO CONTENTS_DATA (CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, REG_IP) 
    			 VALUES (#{con_dv}, (SELECT NVL(MAX(ABS(CON_NO))+1,1) 
    			 	FROM CONTENTS_DATA), #{con_title}, #{con_txt}, #{con_id}, #{con_password}, #{reg_ip})
    </insert>
    
    <!-- 글 수정 -->
-	<update id="updateBoard" parameterType="noticeVO" >
+	<update id="updateBoard" parameterType="HASHMAP" >
 		UPDATE CONTENTS_DATA 
 			SET CON_TITLE = #{con_title}, CON_TXT = #{con_txt}, UPD_DATE = SYSDATE
-				WHERE CON_DV = #{con_dv} AND CON_NO = #{con_no} 
+				WHERE <include refid="div_no" />
 	</update>
 	
 	 <!-- 본인 인증 -->
    <select id="isCheckIdentify" parameterType="noticeVO" resultType="boolean">
    		SELECT CASE WHEN count(*)=1 THEN 1 ELSE 0 END
    			FROM CONTENTS_DATA
-   				WHERE CON_DV = #{con_dv} AND CON_NO = #{con_no} AND CON_ID = #{con_id} AND CON_PASSWORD = #{con_password}
+   				WHERE <include refid="div_no" /> AND CON_ID = #{con_id} AND CON_PASSWORD = #{con_password}
    	</select>
    	
    <!-- 글 삭제 -->
-	<update id="deleteBoard" parameterType="noticeVO" >
+	<update id="deleteBoard" parameterType="HASHMAP" >
 		UPDATE CONTENTS_DATA 
-			SET DEL_YN = 'Y', UPD_DATE = SYSDATE
-				WHERE CON_DV = #{con_dv} AND CON_NO = #{con_no}
+			SET DEL_YN = 'Y'
+				WHERE <include refid="div_no" />
 	</update>
 	
 	

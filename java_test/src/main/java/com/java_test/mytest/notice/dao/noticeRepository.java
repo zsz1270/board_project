@@ -26,40 +26,44 @@ public class noticeRepository implements noticeDAO{
 	
 	//게시글 상세조회
 	@Override
-	public noticeVO detailContents(noticeVO nvo) {
-		return sqlSession.selectOne(NAMESPACE+"detailContents",nvo);
+	public HashMap<String, Object> detailContents(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE+"detailContents",map);
 	}
 	
 	//조회수 증가
 	@Override
-	public int viewCount(noticeVO nvo) {
-		return sqlSession.update(NAMESPACE+"viewCount",nvo);
+	public int viewCount(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE+"viewCount",map);
 	}
 
+	//개인정보확인
 	@Override
-	public int insertBoard(noticeVO nvo) {
-		return  sqlSession.insert(NAMESPACE+"insertBoard", nvo);
+	public boolean isCheckIdentify(HashMap<String, Object> map) {
+		return sqlSession.selectOne(NAMESPACE+"isCheckIdentify", map);
 	}
-
-	@Override
-	public int updateBoard(noticeVO nvo) {
-		return sqlSession.update(NAMESPACE+"updateBoard", nvo);
-	}
-
-	@Override
-	public boolean isCheckIdentify(noticeVO nvo) {
-		return sqlSession.selectOne(NAMESPACE+"isCheckIdentify", nvo);
-	}
-
-	@Override
-	public int deleteBoard(noticeVO nvo) {
-		return sqlSession.update(NAMESPACE+"deleteBoard", nvo);
-	}
-
 
 	@Override
 	public int countBoardList(SearchpagingDTO scto) {
 		return sqlSession.selectOne(NAMESPACE+"countBoardList", scto);
+	}
+
+	//새 작성
+	@Override
+	public int insertBoard(HashMap<String, Object> map) {
+		return  sqlSession.insert(NAMESPACE+"insertBoard", map);
+
+	}
+
+	//수정
+	@Override
+	public int updateBoard(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE+"updateBoard", map);
+	}
+	
+	//삭제
+	@Override
+	public int deleteBoard(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE+"deleteBoard", map);
 	}
 
 	

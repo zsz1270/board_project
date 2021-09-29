@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -56,7 +57,21 @@ public class noticeController {
 		
 		return mv;
 	}
+	
+	// 게시물 상세보기 화면
 	@PostMapping("/detailContent.do")
+	public ModelAndView detailContent(@RequestParam HashMap<String,Object>map)  {
+		
+		HashMap<String,Object> detailContents= ns.detailContents(map);
+		ModelAndView mv = new ModelAndView();
+		logger.info(">>> detailContent.do");
+		mv.setViewName("/noticeViews/detailContent");
+		mv.addObject("detailContents",detailContents);
+		return mv;
+	}
+	 
+	/* 상세화면 dto 사용
+	 * @PostMapping("/detailContent.do")
 	public ModelAndView detailContent(noticeVO nvo)  {
 		noticeVO detailcon = ns.detailContents(nvo);
 		ModelAndView mv = new ModelAndView();
@@ -64,25 +79,69 @@ public class noticeController {
 		mv.setViewName("/noticeViews/detailContent");
 		mv.addObject("detailcon",detailcon);
 		return mv;
-	}
+	}*/
 	
+	//게시물 작성 화면
 	@PostMapping("/editContent.do")
+	public ModelAndView editContent(@RequestParam HashMap<String,Object>map) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("/noticeViews/editContent");
+		mv.addObject("boardInfo", map);
+		logger.info(">>> editContent.do" + map.toString());
+		
+		return mv;
+	}
+	/*수정작성화면 dto사용
+	 * @PostMapping("/editContent.do")
 	public ModelAndView editContent(noticeVO nvo) throws Exception {
 		ModelAndView mv = new ModelAndView(); 
 		logger.info(">>> editContent.do");
 		mv.setViewName("/noticeViews/editContent");
 		mv.addObject("boardInfo",nvo);
 		return mv;
-	}
+	}*/
 	
+	//본인 인증 화면
 	@PostMapping("/identification.do")
-	public ModelAndView identification(noticeVO nvo) {
-		ModelAndView mv = new ModelAndView(); 
+	public ModelAndView identification(@RequestParam HashMap<String, Object> map) {
+		
+		ModelAndView mv = new ModelAndView();
+				
 		mv.setViewName("/noticeViews/identification");
-		mv.addObject("boardInfo",nvo);
+		mv.addObject("boardInfo", map);
+		logger.info(">>> identification.do" + map.toString());
+		
 		return mv;
 	}
-	// 본인 인증 처리 단계
+	
+	/*본인 인증 화면 DTO
+		@PostMapping("/identification.do")
+		public ModelAndView identification(noticeVO nvo) {
+			ModelAndView mv = new ModelAndView(); 
+			mv.setViewName("/noticeViews/identification");
+			mv.addObject("boardInfo",nvo);
+			return mv;
+		}*/
+	
+	// 본인 인증 처리
+	// key = 2 수정, 3 삭제
+	@PostMapping("/checkIdentify.do")
+	public ModelAndView checkIdentify(@RequestParam HashMap<String, Object> map) { 
+		
+		ModelAndView mv = new ModelAndView();
+		boolean isCheckedUser = ns.checkIdentify(map);
+		
+		mv.setViewName("/noticeViews/identification");
+		mv.addObject("flag", isCheckedUser); // 본인 인증 확인 성공 실패 여부 True or False
+		mv.addObject("key", map.get("key")); // 수정인지 삭제 인증 요청이었는지 판단
+		mv.addObject("boardInfo", map);			
+		logger.info(">>> checkIdentify.do 본인인증 처리 결과 : " + isCheckedUser + " " + map.get("key"));
+		
+		return mv;
+	}
+		
+	/* 본인 인증 처리 DTO
 		@PostMapping("/checkIdentify.do")
 		public ModelAndView checkIdentify(noticeVO nvo) { // key = 2 수정, 3 삭제
 			
@@ -95,42 +154,83 @@ public class noticeController {
 			logger.info(">>> checkIdentify.do 본인인증 처리 결과 : " + ns.checkIdentify(nvo) + " " + nvo.getKey());
 			
 			return mv;
+		}*/
+	
+	// 새 게시물 작성
+	@PostMapping("/write.do")
+	public ModelAndView write(HttpServletRequest request, @RequestParam HashMap<String, Object> map) {
+					
+		ModelAndView mv = new ModelAndView();		
+		ns.writeBoard(request, map);
+			
+		mv.setViewName("redirect:/noticeViews/");
+						
+		return mv;
+	}
+	
+	/* 새 게시물작성 DTO
+		@PostMapping("/write.do")
+		public ModelAndView write(HttpServletRequest request, noticeVO nvo) {
+						
+			ModelAndView mv = new ModelAndView();
+			logger.info(">>> write.do" + nvo.toString());
+			ns.writeBoard(request, nvo);
+			mv.setViewName("redirect:/noticeViews/");
+				
+						
+			return mv;
+		}*/
+	
+	// 게시물 삭제
+		@PostMapping("/delete.do")
+		public ModelAndView delete(@RequestParam HashMap<String, Object> map) {
+			
+			ModelAndView mv = new ModelAndView();		
+			ns.deleteContent(map);
+			
+			mv.setViewName("redirect:/noticeViews/");
+			logger.info(">>> delete.do");
+			
+			return mv;
 		}
 	
-	@PostMapping("/write.do")
-	public ModelAndView write(HttpServletRequest request, noticeVO nvo) {
-				
-		ModelAndView mv = new ModelAndView();
-		logger.info(">>> write.do" + nvo.toString());
-		ns.writeBoard(request, nvo);
-		mv.setViewName("redirect:/noticeViews/");
-		
-				
-		return mv;
-	}
+	/* 게시물 삭제 DTO
+		@PostMapping("/delete.do")
+		public ModelAndView delete(noticeVO nvo) {
+					
+			ModelAndView mv = new ModelAndView();		
+			ns.deleteContent(nvo);
+					
+			mv.setViewName("redirect:/noticeViews/");
+			logger.info(">>> delete.do");
+					
+			return mv;
+		}*/
 	
-	@PostMapping("/delete.do")
-	public ModelAndView delete(noticeVO nvo) {
-				
-		ModelAndView mv = new ModelAndView();		
-		ns.deleteContent(nvo);
-				
-		mv.setViewName("redirect:/noticeViews/");
-		logger.info(">>> delete.do");
-				
-		return mv;
-	}
-	
+	// 게시물 수정
 	@PostMapping("/edit.do")
-	public ModelAndView edit(noticeVO nvo) {
-		
+	public ModelAndView edit(@RequestParam HashMap<String, Object> map) {
+			
 		ModelAndView mv = new ModelAndView();
-		logger.info(">>> edit.do" + nvo.toString());
-		
-		ns.editContent(nvo);
-		
+		ns.editContent(map);
+			
 		mv.setViewName("redirect:/noticeViews/");
+		logger.info(">>> edit.do" + map.toString());
+			
 		return mv;
 	}
+		
+	/*게시물 수정 DTO
+		@PostMapping("/edit.do")
+		public ModelAndView edit(noticeVO nvo) {
+			
+			ModelAndView mv = new ModelAndView();
+			logger.info(">>> edit.do" + nvo.toString());
+			
+			ns.editContent(nvo);
+			
+			mv.setViewName("redirect:/noticeViews/");
+			return mv;
+		}*/
 	
 }

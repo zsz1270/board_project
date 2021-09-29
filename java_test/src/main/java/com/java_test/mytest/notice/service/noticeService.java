@@ -21,21 +21,29 @@ public interface noticeService {
 	//게시글 전체조회
 	public List<noticeVO> getBoardList(SearchpagingDTO scto);
 	
-	//상세게시글 조회,조회수 증가
-	public noticeVO detailContents(noticeVO nvo) ;
-	
+	//HASHMAP변경 상세게시글 ,조회수
+	public HashMap<String, Object> detailContents(HashMap<String, Object> map);
+		
 	//글작성
-	public int writeBoard(HttpServletRequest request, noticeVO nvo);
-
+	public int writeBoard(HttpServletRequest request, HashMap<String, Object> map);
+	
 	//글수정
-	public int editContent(noticeVO nvo);
+	public int editContent(HashMap<String, Object> map);
 
 	//개인정보확인
-	public boolean checkIdentify(noticeVO nvo);
+	public boolean checkIdentify(HashMap<String, Object> map);
 
 	//삭제
-	public int deleteContent(noticeVO nvo);
-	
+	public int deleteContent(HashMap<String, Object> map);
+
 	//페이징
 	public int countBoardList(SearchpagingDTO scto);
+
+	
+
+	
+	
+
+	
+	
 }
