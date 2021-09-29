@@ -78,10 +78,10 @@
 				<div id="searchBar" style="width:300px; text-align:right; float:right;">
 				<form action='<c:url value="/noticeViews/boardList.do" />' method="GET">
 					<select name="searchType" >
-						<option value="title">제목</option>
-						<option value="id">작성자</option>
+						<option value="title"<c:if test="${searchData.getSearchType() eq 'title'}"> selected </c:if>>제목</option>
+						<option value="id"<c:if test="${searchData.getSearchType() eq 'id'}"> selected </c:if>>작성자</option>
 					</select>
-					<input type="text" name="keyword" placeholder="내용을 입력해주세요."/>
+					<input type="text" name="keyword" placeholder="내용을 입력해주세요." value="${searchData.getKeyword()}"/>
 					<input type="submit" id="btnSearch" value="검색"/>
 				</form>
 				</div>
@@ -98,6 +98,7 @@
 					<tr style="background-color:#EAEAEA;">
 						<td>No.</td><td style="text-align:center">제목</td><td>작성자</td><td>등록일</td><td>조회수</td>
 					</tr>
+					<c:if test="${boardList ne null}">
 					<c:forEach items="${boardList}" var="boardList">
 					<tr>
 						<td><c:out value="${boardList.get('RN')}" /></td>
@@ -107,6 +108,12 @@
 	                 	<td><c:out value="${boardList.get('READ_COUNT')}"/></td>
 					</tr>
 					</c:forEach>
+					</c:if>
+					<c:if test="${boardList.isEmpty()}">		       
+	          		<tr>
+	              		<td colspan="5" style="text-align: center;">검색된 데이터 없음</td>
+	              	</tr>
+	          	</c:if>
 				</table>
 			</div>
 		</div>

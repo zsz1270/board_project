@@ -79,6 +79,6 @@ public class pageMakerDTO {
 	            .queryParam("keyword", ((SearchpagingDTO)pto).getKeyword())
 	            .build(); 
 		
-	    return uriComponents.toUriString();  
+	    return uriComponents.toUriString();
 	}
 }

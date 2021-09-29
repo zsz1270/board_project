@@ -6,10 +6,10 @@
 	
 	<!-- 게시글 전체 조회 -->
 	<select id="getBoardList" parameterType="SearchpagingDTO" resultType="HASHMAP">
-		 SELECT rNum RN, CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, REG_DATE, UPD_DATE 
+		 SELECT TOTALCOUNT, rNum RN, CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, REG_DATE, UPD_DATE 
                 FROM(SELECT CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, 
                             READ_COUNT, TO_CHAR(REG_DATE,'MM-DD HH24:MI:SS') as REG_DATE, UPD_DATE,
-                            row_number() over(order by ABS(CON_NO) DESC) as rNum
+                            row_number() over(order by ABS(CON_NO) DESC) as rNum,COUNT(*)OVER() AS TOTALCOUNT
                         FROM contents_data WHERE CON_DV = #{con_dv} AND DEL_YN='N'
                     <if test= 'searchType eq "title" '>
 	 					AND CON_TITLE 
@@ -53,7 +53,7 @@
 	</update>
 	
 	 <!-- 본인 인증 -->
-   <select id="isCheckIdentify" parameterType="noticeVO" resultType="boolean">
+   <select id="isCheckIdentify" parameterType="HASHMAP" resultType="boolean">
    		SELECT CASE WHEN count(*)=1 THEN 1 ELSE 0 END
    			FROM CONTENTS_DATA
    				WHERE <include refid="div_no" /> AND CON_ID = #{con_id} AND CON_PASSWORD = #{con_password}

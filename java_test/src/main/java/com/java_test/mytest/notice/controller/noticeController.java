@@ -38,8 +38,21 @@ public class noticeController {
 		mv.setViewName("redirect:/noticeViews/boardList.do");
 		return mv;
 	}
-	
-	//게시물 리스트 화면
+	//게시물 리스트 및 검색 화면
+	@GetMapping("/boardList.do")
+	public ModelAndView boardList(@RequestParam HashMap<String,Object>map , SearchpagingDTO spto) {
+		ModelAndView mv = new ModelAndView();
+		map = ns.getBoardList(spto);
+		
+		mv.setViewName("/noticeViews/boardList");		
+		
+		mv.addObject("boardList", map.get("BoardList"));
+		mv.addObject("pageMaker", map.get("pageMaker"));
+		mv.addObject("searchData", map.get("searchData"));
+		
+		return mv;
+	}
+	/*게시물 리스트 및 검색 화면  LIST만 HASHMAP 적용
 	@GetMapping("/boardList.do")
 	public ModelAndView boardList(SearchpagingDTO scto) {
 		
@@ -57,8 +70,9 @@ public class noticeController {
 		logger.info(">>> list.do"+BoardList.toString());
 		
 		return mv;
-	}
-	/* 게시물리스트 화면DTO
+	}*/
+	
+	/* 게시물 리스트 및 검색 화면DTO
 	@GetMapping("/boardList.do")
 	public ModelAndView boardList(SearchpagingDTO scto) {
 		
@@ -78,7 +92,7 @@ public class noticeController {
 		return mv;
 	}*/
 	
-	// 게시물 상세보기 화면
+	// 게시물 상세화면
 	@PostMapping("/detailContent.do")
 	public ModelAndView detailContent(@RequestParam HashMap<String,Object>map)  {
 		
@@ -90,7 +104,7 @@ public class noticeController {
 		return mv;
 	}
 	 
-	/* 상세화면 dto 사용
+	/* 게시물 상세리스트 DTO
 	 * @PostMapping("/detailContent.do")
 	public ModelAndView detailContent(noticeVO nvo)  {
 		noticeVO detailcon = ns.detailContents(nvo);
@@ -101,7 +115,7 @@ public class noticeController {
 		return mv;
 	}*/
 	
-	//게시물 작성 화면
+	//게시물 작성 ,수정 화면
 	@PostMapping("/editContent.do")
 	public ModelAndView editContent(@RequestParam HashMap<String,Object>map) {
 		ModelAndView mv = new ModelAndView();
@@ -112,7 +126,7 @@ public class noticeController {
 		
 		return mv;
 	}
-	/*수정작성화면 dto사용
+	/*게시물 작성 ,수정 화면 dto사용
 	 * @PostMapping("/editContent.do")
 	public ModelAndView editContent(noticeVO nvo) throws Exception {
 		ModelAndView mv = new ModelAndView(); 

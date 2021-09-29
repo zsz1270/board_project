@@ -10,11 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.java_test.mytest.notice.IPconfig.IPConfig;
 import com.java_test.mytest.notice.dao.noticeDAO;
 import com.java_test.mytest.notice.noticevo.SearchpagingDTO;
 import com.java_test.mytest.notice.noticevo.noticeVO;
+import com.java_test.mytest.notice.noticevo.pageMakerDTO;
+import com.java_test.mytest.notice.noticevo.pagingDTO;
 
 @Service
 public class noticeServiceImpl implements noticeService{
@@ -22,25 +26,46 @@ public class noticeServiceImpl implements noticeService{
 	private noticeDAO dao;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public noticeVO setBoardCon_dv(noticeVO nvo) {
-		nvo.setCon_dv("01");
-		logger.info(">>> 게시판 구분자 Board 01 " + nvo.getCon_dv()+" 설정");
-		return nvo;
-	}
-	
-	public SearchpagingDTO setSctoCon_dv(SearchpagingDTO scto) {
-		scto.setCon_dv("01");
-		logger.info(">>> 게시판 구분자 Scri 01  " + scto.getCon_dv()+" 설정");
-		return scto;
-	}
-	
-	//게시글 전체조회 ,검색확인
-	@Override
-	public List<HashMap<String, Object>> getBoardList(SearchpagingDTO scto) {
-		logger.info(">>> 게시판 리스트 가져오기");
+	public HashMap<String, Object> setCon_dv(HashMap<String, Object> map) { // 게시판 구분자 지정 메소드
+		map.put("con_dv", "01");
+		logger.info(">>> 게시판 구분자 HashMap 01 : 설정");
 		
-		setSctoCon_dv(scto);
-		return dao.getBoardList(scto);
+		return map;
+	}
+	public SearchpagingDTO setSptoCon_dv(SearchpagingDTO spto) { // 게시판  검색 구분자 지정 메소드
+		spto.setCon_dv("01");
+		logger.info(">>> 게시판 구분자 Scri 01 : 설정");
+		
+		return spto;
+	}
+	//게시글리스트
+	@Override
+	public HashMap<String, Object> getBoardList(SearchpagingDTO spto) {
+		logger.info(">>> 게시판 리스트 가져오기");
+
+		setSptoCon_dv(spto);
+		
+		HashMap<String, Object> BoardListMap = new HashMap<String, Object>();
+		List<HashMap<String, Object>> BoardList = dao.getBoardList(spto);
+		// oracle 데이터 형식 때문에 TotalCount (게시물 총 개수) 정수로 변환
+		int totalCount = 0;
+		if (BoardList.size() != 0) {
+			totalCount = Integer.parseInt(String.valueOf(BoardList.get(0).get("TOTALCOUNT")));	//정수형변
+		}
+		
+		pageMakerDTO pageMaker = new pageMakerDTO();
+		
+		pageMaker.setPto(spto);
+		pageMaker.setTotalCount(totalCount);
+		
+		BoardListMap.put("BoardList", BoardList);
+		BoardListMap.put("pageMaker", pageMaker);
+		BoardListMap.put("searchData", spto);
+		
+		logger.info(">>> result Map : " + BoardListMap.get("BoardList").toString());
+		logger.info(">>> result 게시물 총 갯수 : " + totalCount);
+		
+		return BoardListMap;
 	}
 	
 	//상세화면보기 ,조회수
@@ -64,11 +89,7 @@ public class noticeServiceImpl implements noticeService{
 		return dao.isCheckIdentify(map);
 	}
 	
-	@Override
-	public int countBoardList(SearchpagingDTO scto) {
-	setSctoCon_dv(scto);
-	return dao.countBoardList(scto);	
-	}
+	
 
 	//게시글 작성
 	@Override
@@ -100,6 +121,7 @@ public class noticeServiceImpl implements noticeService{
 		
 		return dao.deleteBoard(map);
 	}
-
+	
+	
 	
 }
