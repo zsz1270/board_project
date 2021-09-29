@@ -5,7 +5,7 @@
 	<mapper namespace="memberMapper">
 	
 	<!-- 게시글 전체 조회 -->
-	<select id="getBoardList" parameterType="SearchpagingDTO" resultType="noticeVO">
+	<select id="getBoardList" parameterType="SearchpagingDTO" resultType="HASHMAP">
 		 SELECT rNum RN, CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, READ_COUNT, REG_DATE, UPD_DATE 
                 FROM(SELECT CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, 
                             READ_COUNT, TO_CHAR(REG_DATE,'MM-DD HH24:MI:SS') as REG_DATE, UPD_DATE,

@@ -20,7 +20,7 @@ public class noticeRepository implements noticeDAO{
 	
 	//게시글 전체조회
 	@Override
-	public List<noticeVO> getBoardList(SearchpagingDTO scto) {
+	public List<HashMap<String, Object>> getBoardList(SearchpagingDTO scto) {
 		return sqlSession.selectList(NAMESPACE+"getBoardList", scto);
 	}
 	
@@ -42,6 +42,7 @@ public class noticeRepository implements noticeDAO{
 		return sqlSession.selectOne(NAMESPACE+"isCheckIdentify", map);
 	}
 
+	//특정단어검색
 	@Override
 	public int countBoardList(SearchpagingDTO scto) {
 		return sqlSession.selectOne(NAMESPACE+"countBoardList", scto);

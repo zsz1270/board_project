@@ -15,7 +15,7 @@ import com.java_test.mytest.notice.noticevo.pagingDTO;
 public interface noticeDAO {
 	
 	//게시글 전체조회
-	public List<noticeVO> getBoardList(SearchpagingDTO scto) ;
+	public List<HashMap<String, Object>> getBoardList(SearchpagingDTO scto) ;
 	
 	//상세게시글 조회
 	public HashMap<String,Object> detailContents(HashMap<String,Object> map) ;

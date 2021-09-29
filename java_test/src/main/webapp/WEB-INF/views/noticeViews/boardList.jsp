@@ -100,11 +100,11 @@
 					</tr>
 					<c:forEach items="${boardList}" var="boardList">
 					<tr>
-						<td><c:out value="${boardList.getRn()}" /></td>
-						<td><a href="javascript:content(${boardList.getCon_no()});"><c:out value='${boardList.getCon_title()}'/></a> </td>
-						<td><c:out value="${boardList.getCon_id()}" /></td>
-						<td><c:out value="${boardList.getReg_date()}"/></td>
-						<td><c:out value="${boardList.getRead_count()}" /></td>
+						<td><c:out value="${boardList.get('RN')}" /></td>
+	                    <td><a href="javascript:content(${boardList.get('CON_NO')});"><c:out value="${boardList.get('CON_TITLE')}" /></a></td>
+	                    <td><c:out value="${boardList.get('CON_ID')}" /></td>
+	                  	<td><c:out value="${boardList.get('REG_DATE')}" /></td>
+	                 	<td><c:out value="${boardList.get('READ_COUNT')}"/></td>
 					</tr>
 					</c:forEach>
 				</table>

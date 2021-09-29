@@ -34,8 +34,9 @@ public class noticeServiceImpl implements noticeService{
 		return scto;
 	}
 	
+	//게시글 전체조회 ,검색확인
 	@Override
-	public List<noticeVO> getBoardList(SearchpagingDTO scto) {
+	public List<HashMap<String, Object>> getBoardList(SearchpagingDTO scto) {
 		logger.info(">>> 게시판 리스트 가져오기");
 		
 		setSctoCon_dv(scto);

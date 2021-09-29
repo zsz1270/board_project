@@ -39,6 +39,26 @@ public class noticeController {
 		return mv;
 	}
 	
+	//게시물 리스트 화면
+	@GetMapping("/boardList.do")
+	public ModelAndView boardList(SearchpagingDTO scto) {
+		
+		pageMakerDTO pageMaker = new pageMakerDTO();
+		pageMaker.setPto(scto);
+		pageMaker.setTotalCount(ns.countBoardList(scto));
+		
+		List<HashMap<String, Object>> BoardList = ns.getBoardList(scto);	
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("/noticeViews/boardList");
+		mv.addObject("boardList", BoardList);
+		mv.addObject("pageMaker", pageMaker);
+		
+		logger.info(">>> list.do"+BoardList.toString());
+		
+		return mv;
+	}
+	/* 게시물리스트 화면DTO
 	@GetMapping("/boardList.do")
 	public ModelAndView boardList(SearchpagingDTO scto) {
 		
@@ -56,7 +76,7 @@ public class noticeController {
 		logger.info(">>> list.do");
 		
 		return mv;
-	}
+	}*/
 	
 	// 게시물 상세보기 화면
 	@PostMapping("/detailContent.do")
