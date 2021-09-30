@@ -45,12 +45,12 @@ public class noticeServiceImpl implements noticeService{
 
 		setSptoCon_dv(spto);
 		
-		HashMap<String, Object> BoardListMap = new HashMap<String, Object>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<HashMap<String, Object>> BoardList = dao.getBoardList(spto);
 		// oracle 데이터 형식 때문에 TotalCount (게시물 총 개수) 정수로 변환
 		int totalCount = 0;
 		if (BoardList.size() != 0) {
-			totalCount = Integer.parseInt(String.valueOf(BoardList.get(0).get("TOTALCOUNT")));	//정수형변
+			totalCount = Integer.parseInt(String.valueOf(BoardList.get(0).get("TOTALCOUNT")));
 		}
 		
 		pageMakerDTO pageMaker = new pageMakerDTO();
@@ -58,14 +58,14 @@ public class noticeServiceImpl implements noticeService{
 		pageMaker.setPto(spto);
 		pageMaker.setTotalCount(totalCount);
 		
-		BoardListMap.put("BoardList", BoardList);
-		BoardListMap.put("pageMaker", pageMaker);
-		BoardListMap.put("searchData", spto);
+		map.put("BoardList", BoardList);
+		map.put("pageMaker", pageMaker);
+		map.put("searchData", spto);
 		
-		logger.info(">>> result Map : " + BoardListMap.get("BoardList").toString());
+		logger.info(">>> result Map : " + map.get("BoardList").toString());
 		logger.info(">>> result 게시물 총 갯수 : " + totalCount);
 		
-		return BoardListMap;
+		return map;
 	}
 	
 	//상세화면보기 ,조회수
@@ -89,8 +89,6 @@ public class noticeServiceImpl implements noticeService{
 		return dao.isCheckIdentify(map);
 	}
 	
-	
-
 	//게시글 작성
 	@Override
 	public int writeBoard(HttpServletRequest request, HashMap<String, Object> map) {
@@ -121,7 +119,5 @@ public class noticeServiceImpl implements noticeService{
 		
 		return dao.deleteBoard(map);
 	}
-	
-	
 	
 }

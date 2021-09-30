@@ -31,6 +31,13 @@
 		.btn{
 			border-radius:3px;
 		}
+		#btnback{
+			background-color:#6297D5;
+			color:white;
+			width:80px;
+			height:30px;
+			border-radius:3px;
+		}
 	</style>
 	<script>
 	var identification = function(key,con_no){ 
@@ -63,7 +70,7 @@
 	
 	<div class="contents" style="width:800px;">
 		<div class="back">
-			<input id="#btnUpdate" type="button" onclick="location.href='/mytest/noticeViews/boardList.do'" value="리스트"/>		
+			<input id="btnback" type="button" onclick="location.href='/mytest/noticeViews/boardList.do'" value="전체목록"/>		
 		</div>
 		<div id="ctHead" style="margin:0 0 50px 0;">
 			<h2>상세내용</h2>

@@ -68,6 +68,7 @@
 		<input type="hidden" name="key"/>
 	</form>
 	<div id="contents" style="width:800px;">
+		<input  id="btnEdit" type="button" onclick="location.href='/mytest'" value="메인화면"/>	
 		<div id="mainHead" style="margin:0 0 50px 0;">
 			<h2>
 			  공지사항
@@ -111,7 +112,7 @@
 					</c:if>
 					<c:if test="${boardList.isEmpty()}">		       
 	          		<tr>
-	              		<td colspan="5" style="text-align: center;">검색된 데이터 없음</td>
+	              		<td colspan="5" style="text-align: center;">${searchData.getKeyword()} 로 검색된 데이터 없음</td>
 	              	</tr>
 	          	</c:if>
 				</table>

@@ -28,6 +28,13 @@
 			height:30px;
 			border-radius:3px;
 		}
+		#btnback{
+			background-color:#5E5E5E;
+			color:white;
+			width:80px;
+			height:30px;
+			border-radius:3px;
+		}
 		.txtBox{
 			width:100%; 
 			border:0;
@@ -37,15 +44,15 @@
 			resize:none;
 		}
 	</style>
+	<script>
+		
+	</script>
 </head>
 <body>
 	<form action=<c:if test="${boardInfo.get('key') eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
 				 <c:if test="${boardInfo.get('key') eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> method="POST">
 	
 	<div class="contents" style="width:800px;">
-		<div class="back">
-			<input id="#btnUpdate" type="button" onclick="location.href='/mytest/noticeViews/boardList.do'" value="리스트"/>		
-		</div>
 		<div id="writeHead" style="margin:0 0 50px 0;">
 		<c:if test="${boardInfo.get('key') eq 1}">
 			<h2>게시물작성</h2>
@@ -89,6 +96,7 @@
 		</c:if>
 		</div>
 		<div id="writeBottom">
+				<input id="btnback" type="button" onclick="location.href='/mytest/noticeViews/boardList.do'" value="작성취소"/>
 				<input type="submit" id="btnEdit" value="등록"/>
 		</div>		
 	</div>
