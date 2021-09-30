@@ -45,7 +45,15 @@
 		}
 	</style>
 	<script>
-		
+		var back = function(){
+			var choice = confirm("작성내용을 버리고 리스트로 가시겠습니까?");
+			if(choice){
+				location.href='/mytest/noticeViews/boardList.do';
+			}
+			else {
+				alert('취소되었습니다.');
+			}
+		}
 	</script>
 </head>
 <body>
@@ -96,7 +104,7 @@
 		</c:if>
 		</div>
 		<div id="writeBottom">
-				<input id="btnback" type="button" onclick="location.href='/mytest/noticeViews/boardList.do'" value="작성취소"/>
+				<input id="btnback" type="button" onClick="back();" value="작성취소"/>
 				<input type="submit" id="btnEdit" value="등록"/>
 		</div>		
 	</div>

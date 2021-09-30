@@ -3,7 +3,7 @@ package com.java_test.mytest.notice.noticevo;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-public class pageMakerDTO {
+public class pageMakerDTO{
 	private int totalCount;
 	private int startPage;
 	private int endPage;
@@ -11,6 +11,16 @@ public class pageMakerDTO {
 	private boolean next;
 	private int displayPageNum = 3;
 	private pagingDTO pto;
+	private int noticeNum;
+	noticeVO nvo= new noticeVO();
+	
+	public int getNoticeNum() {
+		return noticeNum;
+	}
+
+	public void setNoticeNum() {
+		this.noticeNum= totalCount - Integer.parseInt(nvo.getRn());
+	}
 	
 	public void setPto(pagingDTO pto) {
 		this.pto = pto;

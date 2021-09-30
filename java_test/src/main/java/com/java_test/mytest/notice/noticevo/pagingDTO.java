@@ -8,7 +8,7 @@ public class pagingDTO {
 	
 	public pagingDTO() {
 		this.page = 1;
-		this.perPageNum = 7;
+		this.perPageNum = 5;
 	}
 	
 	public void setPage(int page) {

@@ -37,6 +37,34 @@
 			color:white;
 			border-radius:3px;
 		}
+		#ctline{
+			text-decoration-line:none;
+		}
+		.pagination ul{
+		  display: inline-block;
+		  color: black;
+		  float: left;
+		  list-style: none;
+		  border-radius:10%;
+		}
+		
+		.pagination li{
+		  display: inline-block;
+		  padding: 2px 8px;
+		  border-radius:10%;
+		}
+		
+		.pagination a {
+		  text-decoration: none;
+		  display: block;
+		  padding: 8px;
+		}
+		
+		.pagination li.active {
+		  background-color: #3FD1D9;
+		  color: white;
+		}
+		
 	</style>
 	<script>
 		//게시물 상세페이지 이동
@@ -68,10 +96,10 @@
 		<input type="hidden" name="key"/>
 	</form>
 	<div id="contents" style="width:800px;">
-		<input  id="btnEdit" type="button" onclick="location.href='/mytest'" value="메인화면"/>	
 		<div id="mainHead" style="margin:0 0 50px 0;">
+			<input id="btnEdit" type="button" onclick="location.href='/mytest'" value="메인화면"/>
 			<h2>
-			  공지사항
+				공지사항
 			</h2>
 		</div>
 		<div id="tbArea" style="width:100%;">
@@ -103,7 +131,7 @@
 					<c:forEach items="${boardList}" var="boardList">
 					<tr>
 						<td><c:out value="${boardList.get('RN')}" /></td>
-	                    <td><a href="javascript:content(${boardList.get('CON_NO')});"><c:out value="${boardList.get('CON_TITLE')}" /></a></td>
+	                    <td><a id="ctline" href="javascript:content(${boardList.get('CON_NO')});"><c:out value="${boardList.get('CON_TITLE')}" /></a></td>
 	                    <td><c:out value="${boardList.get('CON_ID')}" /></td>
 	                  	<td><c:out value="${boardList.get('REG_DATE')}" /></td>
 	                 	<td><c:out value="${boardList.get('READ_COUNT')}"/></td>
@@ -112,7 +140,12 @@
 					</c:if>
 					<c:if test="${boardList.isEmpty()}">		       
 	          		<tr>
-	              		<td colspan="5" style="text-align: center;">${searchData.getKeyword()} 로 검색된 데이터 없음</td>
+	          			<c:if test="${searchData.getSearchType() eq 'title'}" >
+	          				<td colspan="5" style="text-align: center;">제목: ${searchData.getKeyword()} 로 검색된 데이터 없음</td>
+	          			</c:if>
+	              		<c:if test="${searchData.getSearchType() eq 'id'}" >
+	          				<td colspan="5" style="text-align: center;">작성자: ${searchData.getKeyword()} 로 검색된 데이터 없음</td>
+	          			</c:if>
 	              	</tr>
 	          	</c:if>
 				</table>
@@ -120,21 +153,20 @@
 		</div>
 			
 		<div id="tbBottom" style="height:25px; text-align:center;">
-			<div id="pagebar" style="display:inline-block;">
+			<div id="pagebar" style="display:inline-block;" class="pagination">
 				<ul class="ulPage" style="list-style:none; margin:0px; padding:0px;">
 			 		<c:if test="${pageMaker.prev}">
 			    	<li><a href="boardList.do${pageMaker.makeSearch(pageMaker.startPage - 1)}">&lt;</a></li>
-				   	</c:if> 
+				   	</c:if>
 			
 				   	<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-				   	<li><a href="boardList.do${pageMaker.makeSearch(idx)}">${idx}</a></li>
+				   	<li style="hover:not(.active) {background-color: silver;}"<c:out value="${pageMaker.pto.page == idx ? 'class=active' : '' }"/>> <a href="boardList.do${pageMaker.makeSearch(idx)}">${idx}</a></li>
 				   	</c:forEach>
 			
 				   	<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 				   	<li><a href="boardList.do${pageMaker.makeSearch(pageMaker.endPage + 1)}">&gt;</a></li>
 				 	</c:if>
 				 </ul>
-					
 			</div>
 			<div id="write_btn" style="float:right; display:inline-block; width:100px; text-align:right;">
 				<input type="button" id="btnEdit" onclick="key(1)" value="글쓰기" />
