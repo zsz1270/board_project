@@ -76,17 +76,18 @@
 			<h2>상세내용</h2>
 		</div>
 		<div id="ctMain">
-			<table id="tbMain">
+			<table id="tbMain" style="width:100%;">
 				<colgroup>
 					<col style="width:60px;"/>
+					<col style="width:1000px;">
 				</colgroup>
 				<tr>
 					<td style="background-color:#EDEDED;">제목</td>
-					<td colspan="3"><span style="font:20px bold;">${detailContents.get("CON_TITLE")}</span></td>
+					<td><c:out value="${detailContents.get('CON_TITLE')}"/></td>
 				</tr>
 				<tr>
 					<td style="background-color:#EDEDED;">내용</td>
-					<td colspan="3"><span style="font:20px bold; word-break:keep-all;">${detailContents.get("CON_TXT")}</span></td>
+					<td  style="word-break:break-all"><c:out value="${detailContents.get('CON_TXT')}"/></td>
 				</tr>
 			</table>
 		</div>
