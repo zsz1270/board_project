@@ -86,7 +86,7 @@
 				</tr>
 				<tr>
 					<td style="background-color:#EDEDED;">내용</td>
-					<td colspan="3"><span style="font:20px bold; ">${detailContents.get("CON_TXT")}</span></td>
+					<td colspan="3"><span style="font:20px bold; word-break:keep-all;">${detailContents.get("CON_TXT")}</span></td>
 				</tr>
 			</table>
 		</div>

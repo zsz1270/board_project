@@ -40,6 +40,20 @@ public class noticeController {
 	}
 	//게시물 리스트 및 검색 화면
 	@GetMapping("/boardList.do")
+	public ModelAndView boardList(@RequestParam HashMap<String, Object> map) {
+		
+		map= ns.getBoardList(map);
+		ModelAndView mv = new ModelAndView();
+		
+		logger.info(">>> detailContent.do");
+		
+		mv.setViewName("/noticeViews/boardList");
+		mv.addObject("boardList",map.get("BoardList"));
+		mv.addObject("pageMaker",map.get("pageMaker"));
+		mv.addObject("searchData",map.get("searchData"));
+		return mv;
+	}
+	/*@GetMapping("/boardList.do")
 	public ModelAndView boardList(@RequestParam HashMap<String,Object>map , SearchpagingDTO spto) {
 		ModelAndView mv = new ModelAndView();
 		map = ns.getBoardList(spto);
@@ -51,7 +65,8 @@ public class noticeController {
 		mv.addObject("searchData", map.get("searchData"));
 		
 		return mv;
-	}
+		
+	}*/
 	/*게시물 리스트 및 검색 화면  LIST만 HASHMAP 적용
 	@GetMapping("/boardList.do")
 	public ModelAndView boardList(SearchpagingDTO scto) {

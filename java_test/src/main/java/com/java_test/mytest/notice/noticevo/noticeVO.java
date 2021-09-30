@@ -12,7 +12,7 @@ public class noticeVO {
 	private String reg_date;
 	private String upd_date;	
 	private int key;
-	private String rn;	
+	private String rn;
 	
 
 	public String getRn() {

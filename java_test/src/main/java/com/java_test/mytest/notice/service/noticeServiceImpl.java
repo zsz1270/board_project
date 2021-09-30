@@ -38,8 +38,9 @@ public class noticeServiceImpl implements noticeService{
 		
 		return spto;
 	}
+	
 	//게시글리스트
-	@Override
+	/*@Override
 	public HashMap<String, Object> getBoardList(SearchpagingDTO spto) {
 		logger.info(">>> 게시판 리스트 가져오기");
 
@@ -66,7 +67,19 @@ public class noticeServiceImpl implements noticeService{
 		logger.info(">>> result 게시물 총 갯수 : " + totalCount);
 		
 		return map;
-	}
+	}*/
+	//게시글리스트
+		@Override
+		public HashMap<String, Object> getBoardList(HashMap<String, Object> map) {
+			logger.info(">>> 게시판 리스트 가져오기");
+
+			setCon_dv(map);
+			
+			List<HashMap<String, Object>> BoardList = dao.getBoardList(map);
+			map.put("BoardList", BoardList);
+			map.put("searchData", map);
+			return map;
+		}
 	
 	//상세화면보기 ,조회수
 	@Override
@@ -119,5 +132,6 @@ public class noticeServiceImpl implements noticeService{
 		
 		return dao.deleteBoard(map);
 	}
+	
 	
 }

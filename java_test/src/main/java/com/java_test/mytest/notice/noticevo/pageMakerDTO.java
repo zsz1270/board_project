@@ -19,7 +19,7 @@ public class pageMakerDTO{
 	}
 
 	public void setNoticeNum() {
-		this.noticeNum= totalCount - Integer.parseInt(nvo.getRn());
+		this.noticeNum= totalCount - Integer.parseInt(String.valueOf((nvo.getRn())));
 	}
 	
 	public void setPto(pagingDTO pto) {

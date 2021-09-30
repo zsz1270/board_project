@@ -107,10 +107,10 @@
 				<div id="searchBar" style="width:300px; text-align:right; float:right;">
 				<form action='<c:url value="/noticeViews/boardList.do" />' method="GET">
 					<select name="searchType" >
-						<option value="title"<c:if test="${searchData.getSearchType() eq 'title'}"> selected </c:if>>제목</option>
-						<option value="id"<c:if test="${searchData.getSearchType() eq 'id'}"> selected </c:if>>작성자</option>
+						<option value="title"<c:if test="${searchData.get('SearchType') eq 'title'}"> selected </c:if>>제목</option>
+						<option value="id"<c:if test="${searchData.get('SearchType') eq 'id'}"> selected </c:if>>작성자</option>
 					</select>
-					<input type="text" name="keyword" placeholder="내용을 입력해주세요." value="${searchData.getKeyword()}"/>
+					<input type="text" name="keyword" placeholder="내용을 입력해주세요." value="${searchData.get('Keyword')}"/>
 					<input type="submit" id="btnSearch" value="검색"/>
 				</form>
 				</div>
@@ -130,7 +130,7 @@
 					<c:if test="${boardList ne null}">
 					<c:forEach items="${boardList}" var="boardList">
 					<tr>
-						<td><c:out value="${boardList.get('RN')}" /></td>
+						<td><c:out value="${boardList.get('RNO')}" /></td>
 	                    <td><a id="ctline" href="javascript:content(${boardList.get('CON_NO')});"><c:out value="${boardList.get('CON_TITLE')}" /></a></td>
 	                    <td><c:out value="${boardList.get('CON_ID')}" /></td>
 	                  	<td><c:out value="${boardList.get('REG_DATE')}" /></td>
@@ -138,13 +138,13 @@
 					</tr>
 					</c:forEach>
 					</c:if>
-					<c:if test="${boardList.isEmpty()}">		       
+					<c:if test="${boardList eq null}">		       
 	          		<tr>
-	          			<c:if test="${searchData.getSearchType() eq 'title'}" >
-	          				<td colspan="5" style="text-align: center;">제목: ${searchData.getKeyword()} 로 검색된 데이터 없음</td>
+	          			<c:if test="${searchData.get('SearchType') eq 'title'}" >
+	          				<td colspan="5" style="text-align: center;">제목: ${searchData.get('Keyword')} 로 검색된 데이터 없음</td>
 	          			</c:if>
-	              		<c:if test="${searchData.getSearchType() eq 'id'}" >
-	          				<td colspan="5" style="text-align: center;">작성자: ${searchData.getKeyword()} 로 검색된 데이터 없음</td>
+	              		<c:if test="${searchData.get('SearchType') eq 'id'}" >
+	          				<td colspan="5" style="text-align: center;">작성자: ${searchData.get('Keyword')} 로 검색된 데이터 없음</td>
 	          			</c:if>
 	              	</tr>
 	          	</c:if>
