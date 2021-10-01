@@ -19,10 +19,10 @@
 					<if test= 'searchType eq "id" '>
 				 		AND CON_ID
 				 		<include refid="search" />
-					</if>	
+					</if>
 					 )A	
-					<!--  WHERE rNum BETWEEN  #{rowStart} AND #{rowEnd}
-	                 order by ABS(CON_NO) DESC-->
+					 WHERE rNum BETWEEN  #{rowStart} AND #{rowEnd}
+	                 order by ABS(CON_NO) DESC
 	</select>
 	
 	<!-- 게시글 상세 조회-->
@@ -69,7 +69,7 @@
 	
 	
 	<!-- 게시판 목록 총 갯수 조회 -->
-	<select id="countBoardList" parameterType="SearchpagingDTO" resultType="integer">
+	<select id="countBoardList" parameterType="HASHMAP" resultType="HASHMAP">
 		SELECT COUNT(*)
 			FROM CONTENTS_DATA
 				WHERE CON_DV = #{con_dv} AND DEL_YN='N'

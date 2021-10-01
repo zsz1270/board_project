@@ -86,15 +86,21 @@
 		    form.method = "POST";
 		    form.submit();
 		};
+		var paging = function(page){
+			var form = document.paging;
+			form.page.value = page;
+			form.searchType.value = "${SearchAndPagingData.get('searchType')}";
+			form.keyword.value = "${SearchAndPagingData.get('keyword')}";
+		    form.action = "<c:url value='/noticeViews/boardList.do' />";
+		    form.method = "GET";
+		    form.submit();
+		};
 		
 	</script>
 </head>
 
 <body>
-	<form name="content" style="width:0px; height:0px;">
-		<input type="hidden" name="con_no"/>
-		<input type="hidden" name="key"/>
-	</form>
+	
 	<div id="contents" style="width:800px;">
 		<div id="mainHead" style="margin:0 0 50px 0;">
 			<input id="btnEdit" type="button" onclick="location.href='/mytest'" value="메인화면"/>
@@ -107,10 +113,11 @@
 				<div id="searchBar" style="width:300px; text-align:right; float:right;">
 				<form action='<c:url value="/noticeViews/boardList.do" />' method="GET">
 					<select name="searchType" >
-						<option value="title"<c:if test="${searchData.get('SearchType') eq 'title'}"> selected </c:if>>제목</option>
-						<option value="id"<c:if test="${searchData.get('SearchType') eq 'id'}"> selected </c:if>>작성자</option>
+						<option value="title"<c:if test="${SearchAndPagingData.get('searchType') eq 'title'}"> selected </c:if>>제목</option>
+						<option value="id"<c:if test="${SearchAndPagingData.get('searchType') eq 'id'}"> selected </c:if>>작성자</option>
 					</select>
-					<input type="text" name="keyword" placeholder="내용을 입력해주세요." value="${searchData.get('Keyword')}"/>
+					<input type="text" name="keyword" placeholder="내용을 입력해주세요." value="${SearchAndPagingData.get('keyword')}"/>
+					<input type="hidden" name="page" value="1"/>
 					<input type="submit" id="btnSearch" value="검색"/>
 				</form>
 				</div>
@@ -138,34 +145,31 @@
 					</tr>
 					</c:forEach>
 					</c:if>
-					<c:if test="${boardList eq null}">		       
+					<c:if test="${empty boardList}">		       
 	          		<tr>
-	          			<c:if test="${searchData.get('SearchType') eq 'title'}" >
-	          				<td colspan="5" style="text-align: center;">제목: ${searchData.get('Keyword')} 로 검색된 데이터 없음</td>
-	          			</c:if>
-	              		<c:if test="${searchData.get('SearchType') eq 'id'}" >
-	          				<td colspan="5" style="text-align: center;">작성자: ${searchData.get('Keyword')} 로 검색된 데이터 없음</td>
-	          			</c:if>
+	          			<td colspan="5" style="text-align: center;">검색어가 포함된 게시글이 존재하지않습니다.</td>
 	              	</tr>
-	          	</c:if>
+	          		</c:if>
 				</table>
 			</div>
 		</div>
 			
 		<div id="tbBottom" style="height:25px; text-align:center;">
 			<div id="pagebar" style="display:inline-block;" class="pagination">
-				<ul class="ulPage" style="list-style:none; margin:0px; padding:0px;">
-			 		<c:if test="${pageMaker.prev}">
-			    	<li><a href="boardList.do${pageMaker.makeSearch(pageMaker.startPage - 1)}">&lt;</a></li>
-				   	</c:if>
-			
-				   	<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
-				   	<li style="hover:not(.active) {background-color: silver;}"<c:out value="${pageMaker.pto.page == idx ? 'class=active' : '' }"/>> <a href="boardList.do${pageMaker.makeSearch(idx)}">${idx}</a></li>
-				   	</c:forEach>
-			
-				   	<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-				   	<li><a href="boardList.do${pageMaker.makeSearch(pageMaker.endPage + 1)}">&gt;</a></li>
-				 	</c:if>
+				 <ul class="ulPage" style="list-style:none; margin:0px; padding:0px;">
+					 <c:if test="${SearchAndPagingData.prev}">
+						<li> <a href="javascript:paging(${SearchAndPagingData.startPage - 1})">&lt;</a></li>
+				    </c:if> 
+					
+					
+					    <c:forEach begin="${SearchAndPagingData.get('startPage')}" end="${SearchAndPagingData.get('endPage')}" var="idx">
+							<li <c:out value="${SearchAndPagingData.page == idx ? 'class=active' : '' }"/>> <a href="javascript:paging(${idx});">${idx}</a></li>
+					    </c:forEach>		
+					
+				
+				    <c:if test="${SearchAndPagingData.next && SearchAndPagingData.endPage > 0}">
+						<li><a href="javascript:paging(${SearchAndPagingData.endPage + 1})">&gt;</a></li>
+				    </c:if> 
 				 </ul>
 			</div>
 			<div id="write_btn" style="float:right; display:inline-block; width:100px; text-align:right;">
@@ -173,5 +177,14 @@
 			</div>
 		</div>
 	</div>
+	<form name="content" style="width:0px; height:0px;">
+		<input type="hidden" name="con_no"/>
+		<input type="hidden" name="key"/>
+	</form>
+	 <form name="paging"> <!-- 상세보기 와 글쓰기 판단 후 POST 하기 위한 FORM -->
+    	<input type="hidden" name="page"/>
+    	<input type="hidden" name="searchType"/>
+    	<input type="hidden" name="keyword"/>
+    </form>
 </body>
 </html>

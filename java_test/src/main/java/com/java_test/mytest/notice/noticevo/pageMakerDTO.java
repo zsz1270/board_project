@@ -11,16 +11,8 @@ public class pageMakerDTO{
 	private boolean next;
 	private int displayPageNum = 3;
 	private pagingDTO pto;
-	private int noticeNum;
 	noticeVO nvo= new noticeVO();
 	
-	public int getNoticeNum() {
-		return noticeNum;
-	}
-
-	public void setNoticeNum() {
-		this.noticeNum= totalCount - Integer.parseInt(String.valueOf((nvo.getRn())));
-	}
 	
 	public void setPto(pagingDTO pto) {
 		this.pto = pto;

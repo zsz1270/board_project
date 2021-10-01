@@ -49,8 +49,7 @@ public class noticeController {
 		
 		mv.setViewName("/noticeViews/boardList");
 		mv.addObject("boardList",map.get("BoardList"));
-		mv.addObject("pageMaker",map.get("pageMaker"));
-		mv.addObject("searchData",map.get("searchData"));
+		mv.addObject("SearchAndPagingData", map.get("SearchAndPagingData"));
 		return mv;
 	}
 	/*@GetMapping("/boardList.do")

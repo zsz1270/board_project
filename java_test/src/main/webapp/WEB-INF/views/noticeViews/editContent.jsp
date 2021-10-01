@@ -54,9 +54,38 @@
 				alert('취소되었습니다.');
 			}
 		}
+		
+		var Check = function(title,txt,id,pw){
+			 
+			  if(title.value == ""){
+			   alert("제목을 입력해 주세요.");
+			   title.focus();
+			   return false;
+			  }
+			  
+			  if(txt.value == ""){
+			   alert("내용을 입력해 주세요.");
+			   txt.focus();
+			   return false;
+			  }
+			  if(id.value == ""){
+				alert("아이디를 입력해 주세요.");
+				id.focus();
+				return false;
+			  }
+				  
+			  if(pw.value == ""){
+				alert("비밀번호를 입력해 주세요.");
+				pw.focus();
+				return false;
+			  }
+			  return true;
+			 }
+		}
 	</script>
 </head>
 <body>
+
 	<form action=<c:if test="${boardInfo.get('key') eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
 				 <c:if test="${boardInfo.get('key') eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> method="POST">
 	
@@ -68,8 +97,8 @@
 		<c:if test="${boardInfo.get('key') eq 2}">
 			<h2>게시물수정</h2>
 		</c:if>
-			
 		</div>
+		
 		<div id="writeMain">
 			<table id="tbMain">
 				<colgroup>
@@ -105,7 +134,7 @@
 		</div>
 		<div id="writeBottom">
 				<input id="btnback" type="button" onClick="back();" value="작성취소"/>
-				<input type="submit" id="btnEdit" value="등록"/>
+				<input type="submit" id="btnEdit" value="등록"  onClick="Check(con_title,con_txt_con_id_con_password);"/>
 		</div>		
 	</div>
 	</form>
