@@ -145,11 +145,18 @@
 					</tr>
 					</c:forEach>
 					</c:if>
-					<c:if test="${empty boardList}">		       
-	          		<tr>
-	          			<td colspan="5" style="text-align: center;">검색어가 포함된 게시글이 존재하지않습니다.</td>
-	              	</tr>
-	          		</c:if>
+					<c:if test="${empty boardList}">
+						<c:if test="${SearchAndPagingData.get('searchType') eq 'title'}">
+							<tr>
+	          					<td colspan="5" style="text-align: center;">제목에 ${SearchAndPagingData.get('keyword')}가 포함된 게시글이 존재하지않습니다.</td>
+	              			</tr>
+						</c:if>	       
+		          		<c:if test="${SearchAndPagingData.get('searchType') eq 'id'}">
+								<tr>
+		          					<td colspan="5" style="text-align: center;">등록자명에 ${SearchAndPagingData.get('keyword')}가 포함된 게시글이 존재하지않습니다.</td>
+		              			</tr>
+							</c:if>	    
+		          		</c:if>
 				</table>
 			</div>
 		</div>

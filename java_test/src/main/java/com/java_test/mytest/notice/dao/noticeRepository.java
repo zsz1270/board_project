@@ -19,15 +19,11 @@ public class noticeRepository implements noticeDAO{
 	private static final String NAMESPACE = "memberMapper.";
 	
 	//게시글 전체조회
-	/*@Override
-	public List<HashMap<String, Object>> getBoardList(SearchpagingDTO spto) {
-		return sqlSession.selectList(NAMESPACE+"getBoardList", spto);
-	}*/
-	
 	@Override
 	public List<HashMap<String, Object>> getBoardList(HashMap<String, Object> map) {
 		return sqlSession.selectList(NAMESPACE+"getBoardList", map);
 	}
+	
 	//게시글 상세조회
 	@Override
 	public HashMap<String, Object> detailContents(HashMap<String, Object> map) {
@@ -50,7 +46,6 @@ public class noticeRepository implements noticeDAO{
 	@Override
 	public int insertBoard(HashMap<String, Object> map) {
 		return  sqlSession.insert(NAMESPACE+"insertBoard", map);
-
 	}
 
 	//수정
@@ -64,8 +59,6 @@ public class noticeRepository implements noticeDAO{
 	public int deleteBoard(HashMap<String, Object> map) {
 		return sqlSession.update(NAMESPACE+"deleteBoard", map);
 	}
-
-	
 
 
 }

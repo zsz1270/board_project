@@ -31,6 +31,7 @@ public class noticeController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	//공지사항 루트페이지(redirect로 바로 리스트페이지 띄움)
 	@GetMapping("/")
 	public ModelAndView root() {
 		ModelAndView mv = new ModelAndView(); 
@@ -38,7 +39,10 @@ public class noticeController {
 		mv.setViewName("redirect:/noticeViews/boardList.do");
 		return mv;
 	}
-	//게시물 리스트 및 검색 화면
+	/*게시물 리스트 및 검색 화면
+	 * 리스트 출력용 boardList
+	 * 검색및 페이징용 SearchAndPagingData
+	 */
 	@GetMapping("/boardList.do")
 	public ModelAndView boardList(@RequestParam HashMap<String, Object> map) {
 		

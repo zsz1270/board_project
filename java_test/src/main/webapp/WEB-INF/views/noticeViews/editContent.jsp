@@ -55,39 +55,38 @@
 			}
 		}
 		
-		var Check = function(title,txt,id,pw){
-			 
-			  if(title.value == ""){
+		var Check = function(){
+			  var write = document.write;
+			  if(write.title.value == ""){
 			   alert("제목을 입력해 주세요.");
-			   title.focus();
+			   write.title.focus();
 			   return false;
 			  }
 			  
-			  if(txt.value == ""){
+			  else if(write.txt.value == ""){
 			   alert("내용을 입력해 주세요.");
-			   txt.focus();
+			   write.txt.focus();
 			   return false;
 			  }
-			  if(id.value == ""){
+			  else if(write.id.value == ""){
 				alert("아이디를 입력해 주세요.");
-				id.focus();
+				write.id.focus();
 				return false;
 			  }
-				  
-			  if(pw.value == ""){
+			  else if(write.pw.value == ""){
 				alert("비밀번호를 입력해 주세요.");
-				pw.focus();
+				write.pw.focus();
 				return false;
 			  }
-			  return true;
-			 }
+			  else return true;
 		}
 	</script>
 </head>
 <body>
 
-	<form action=<c:if test="${boardInfo.get('key') eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
-				 <c:if test="${boardInfo.get('key') eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> method="POST">
+	<form  name="write" action=<c:if test="${boardInfo.get('key') eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
+				 <c:if test="${boardInfo.get('key') eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> 
+				 onsubmit="return check()" method="POST">
 	
 	<div class="contents" style="width:800px;">
 		<div id="writeHead" style="margin:0 0 50px 0;">
@@ -108,13 +107,13 @@
 					<td style="background-color:#EDEDED;">제목</td>
 					<td>
 						<input type="hidden" name="con_no" value="${boardInfo.get('con_no')}" />
-						<input type="text" name="con_title" class="txtBox" size="50" maxlength="40" placeholder="제목을 입력하세요." value="${boardInfo.get('con_title')}">
+						<input type="text" name="title" class="txtBox" size="50" maxlength="40" placeholder="제목을 입력하세요." value="${boardInfo.get('con_title')}">
 					</td>
 				</tr>
 				<tr>
 					<td style="background-color:#EDEDED;">내용</td>
 					<td>					
-						<textarea name="con_txt" class="txtBox" id="txtContents" cols="50" rows="20" maxlength="1000" placeholder="내용을 입력하세요.">${boardInfo.get('con_txt')}</textarea>
+						<textarea name="txt" class="txtBox" id="txtContents" cols="50" rows="20" maxlength="1000" placeholder="내용을 입력하세요.">${boardInfo.get('con_txt')}</textarea>
 					</td>
 				</tr>
 			</table>
@@ -125,16 +124,16 @@
 				</colgroup>
 				<tr>
 					<td style="background-color:#EDEDED;">ID</td>
-					<td><input type="text" name="con_id" class="txtBox" maxlength="10" placeholder="user name"></td>
+					<td><input type="text" name="id" class="txtBox" maxlength="10" placeholder="user name"></td>
 					<td style="background-color:#EDEDED;">P.W</td>
-					<td><input type="password" class="txtBox" name="con_password" maxlength="10" placeholder="＊＊＊＊"></td>
+					<td><input type="password" class="txtBox" name="pw" maxlength="10" placeholder="＊＊＊＊"></td>
 				</tr>
 			</table>
 		</c:if>
 		</div>
 		<div id="writeBottom">
 				<input id="btnback" type="button" onClick="back();" value="작성취소"/>
-				<input type="submit" id="btnEdit" value="등록"  onClick="Check(con_title,con_txt_con_id_con_password);"/>
+				<input type="submit" id="btnEdit" value="등록"/>
 		</div>		
 	</div>
 	</form>

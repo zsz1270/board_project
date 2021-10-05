@@ -19,9 +19,8 @@ import com.java_test.mytest.notice.noticevo.pagingDTO;
 public interface noticeService {
 	
 	//게시글전체조회
-	//public HashMap<String, Object> getBoardList(SearchpagingDTO spto);
-	
 	public HashMap<String, Object> getBoardList(HashMap<String, Object> map);
+	
 	//상세게시글 ,조회수
 	public HashMap<String, Object> detailContents(HashMap<String, Object> map);
 		
@@ -36,7 +35,4 @@ public interface noticeService {
 
 	//삭제
 	public int deleteContent(HashMap<String, Object> map);
-
-	
-
 }

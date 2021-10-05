@@ -26,7 +26,7 @@ public class noticeServiceImpl implements noticeService{
 	private noticeDAO dao;
 	private int page = 1;
 	private int perPageNum = 5;
-	private int displayPageNum = 3;
+	private int displayPageNum = 4;
 	private int startPage;
 	private int endPage;
 	private int rowStart;
@@ -37,7 +37,8 @@ public class noticeServiceImpl implements noticeService{
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	public HashMap<String, Object> setCon_dv(HashMap<String, Object> map) { // 게시판 구분자 지정 메소드
+	// 게시판 구분자 지정 메소드
+	public HashMap<String, Object> setCon_dv(HashMap<String, Object> map) { 
 		map.put("con_dv", "01");
 		logger.info(">>> 게시판 구분자 HashMap 01 : 설정");
 		
@@ -45,7 +46,7 @@ public class noticeServiceImpl implements noticeService{
 	}
 	
 	
-	//게시글리스트
+	//게시글리스트 DTO 사용
 	/*@Override
 	public HashMap<String, Object> getBoardList(SearchpagingDTO spto) {
 		logger.info(">>> 게시판 리스트 가져오기");
@@ -74,28 +75,30 @@ public class noticeServiceImpl implements noticeService{
 		
 		return map;
 	}*/
+	
 	//게시글리스트
 	@Override
 	public HashMap<String, Object> getBoardList(HashMap<String, Object> map) {
 		setCon_dv(map);
 		
 		// DB에 들어갈 페이징 시작과 끝 숫자 계산
-		map = calRowStartEnd(map);
+		map = startEndNum(map);
 		
 		logger.info(">>> 게시판 리스트 가져오기" + map.toString());
 		
-		
-		
+			
 		// 검색되거나 전체 목록 게시물 리스트 불러오기
 		List<HashMap<String, Object>> BoardList = dao.getBoardList(map); 
 		
-		if (BoardList.size() != 0) { // 검색된 총 페이지 개수 계산
+		// 검색된 총 페이지 개수 계산
+		if (BoardList.size() != 0) { 
 			totalCount = Integer.parseInt(String.valueOf(BoardList.get(0).get("TOTALCOUNT"))); 	
 		}
 		
 		// view단에 나타나는 페이지 계산
-		map = calPageStartEnd(map, totalCount);
+		map = pageStartEnd(map, totalCount);
 			
+		
 		prev = startPage == 1 ? false : true;
 		next = endPage * perPageNum >= totalCount ? false : true;
 		
@@ -109,13 +112,14 @@ public class noticeServiceImpl implements noticeService{
 		return map;	
 	}
 	
-	private HashMap<String, Object> calRowStartEnd(HashMap<String, Object> map) {
+	// DB에 들어갈 페이징 시작과 끝 숫자 계산
+	private HashMap<String, Object> startEndNum(HashMap<String, Object> map) {
 		if (map.get("page") != null) {
 			this.page = Integer.valueOf((String) map.get("page"));
 		}
 
 		rowStart = ((page - 1) * perPageNum) + 1;
-		rowEnd = rowStart + perPageNum -1;
+		rowEnd = ((page - 1) * perPageNum) + perPageNum;
 				
 		map.put("rowStart", rowStart);
 		map.put("rowEnd", rowEnd);
@@ -123,13 +127,14 @@ public class noticeServiceImpl implements noticeService{
 		return map;
 	}
 
-
-	private HashMap<String, Object> calPageStartEnd(HashMap<String, Object> map, int totalCount) {
+	// view단에 나타나는 페이지 계산
+	private HashMap<String, Object> pageStartEnd(HashMap<String, Object> map, int totalCount) {
 		endPage = (int) Math.ceil(page / (double) displayPageNum) * displayPageNum;
-		startPage = (endPage - displayPageNum) + 1;	
+		startPage = ((int) Math.ceil(page / (double) displayPageNum) * displayPageNum )- displayPageNum + 1;	
 		
+		//리스트 값이 없어도 생성되는 페이지 제거
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) perPageNum));
-		if (endPage > tempEndPage) { // 끝 페이지가 필요한 총 페이지보다 크게되면 그 뒤 페이지들은 필요없어 제거하는 If문
+		if (endPage > tempEndPage) { 
 			endPage = tempEndPage;
 		}
 		
