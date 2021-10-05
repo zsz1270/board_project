@@ -57,28 +57,28 @@
 		
 		var Check = function(){
 			  var write = document.write;
-			  if(write.title.value == ""){
+			  if(write.con_title.value == ""){
 			   alert("제목을 입력해 주세요.");
-			   write.title.focus();
+			   write.con_title.focus();
 			   return false;
 			  }
 			  
-			  else if(write.txt.value == ""){
+			  else if(write.con_txt.value == ""){
 			   alert("내용을 입력해 주세요.");
-			   write.txt.focus();
+			   write.con_txt.focus();
 			   return false;
 			  }
-			  else if(write.id.value == ""){
+			  else if(write.con_id.value == ""){
 				alert("아이디를 입력해 주세요.");
-				write.id.focus();
+				write.con_id.focus();
 				return false;
 			  }
-			  else if(write.pw.value == ""){
+			  else if(write.con_password.value == ""){
 				alert("비밀번호를 입력해 주세요.");
-				write.pw.focus();
+				write.con_password.focus();
 				return false;
 			  }
-			  else return true;
+			  else return submit;
 		}
 	</script>
 </head>
@@ -86,7 +86,7 @@
 
 	<form  name="write" action=<c:if test="${boardInfo.get('key') eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
 				 <c:if test="${boardInfo.get('key') eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> 
-				 onsubmit="return check()" method="POST">
+				 onsubmit="return Check()" method="POST">
 	
 	<div class="contents" style="width:800px;">
 		<div id="writeHead" style="margin:0 0 50px 0;">
@@ -107,13 +107,13 @@
 					<td style="background-color:#EDEDED;">제목</td>
 					<td>
 						<input type="hidden" name="con_no" value="${boardInfo.get('con_no')}" />
-						<input type="text" name="title" class="txtBox" size="50" maxlength="40" placeholder="제목을 입력하세요." value="${boardInfo.get('con_title')}">
+						<input type="text" name="con_title" class="txtBox" size="50" maxlength="40" placeholder="제목을 입력하세요." value="${boardInfo.get('con_title')}">
 					</td>
 				</tr>
 				<tr>
 					<td style="background-color:#EDEDED;">내용</td>
 					<td>					
-						<textarea name="txt" class="txtBox" id="txtContents" cols="50" rows="20" maxlength="1000" placeholder="내용을 입력하세요.">${boardInfo.get('con_txt')}</textarea>
+						<textarea name="con_txt" class="txtBox" id="txtContents" cols="50" rows="20" maxlength="1000" placeholder="내용을 입력하세요.">${boardInfo.get('con_txt')}</textarea>
 					</td>
 				</tr>
 			</table>
@@ -124,9 +124,9 @@
 				</colgroup>
 				<tr>
 					<td style="background-color:#EDEDED;">ID</td>
-					<td><input type="text" name="id" class="txtBox" maxlength="10" placeholder="user name"></td>
+					<td><input type="text" name="con_id" class="txtBox" maxlength="10" placeholder="user name"></td>
 					<td style="background-color:#EDEDED;">P.W</td>
-					<td><input type="password" class="txtBox" name="pw" maxlength="10" placeholder="＊＊＊＊"></td>
+					<td><input type="password" class="txtBox" name="con_password" maxlength="10" placeholder="＊＊＊＊"></td>
 				</tr>
 			</table>
 		</c:if>
