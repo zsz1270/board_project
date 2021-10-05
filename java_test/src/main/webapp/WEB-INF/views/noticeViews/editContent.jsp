@@ -45,6 +45,7 @@
 		}
 	</style>
 	<script>
+		
 		var back = function(){
 			var choice = confirm("작성내용을 버리고 리스트로 가시겠습니까?");
 			if(choice){
@@ -54,7 +55,7 @@
 				alert('취소되었습니다.');
 			}
 		}
-		
+		//submit시 빈값 확인
 		var Check = function(){
 			  var write = document.write;
 			  if(write.con_title.value == ""){
@@ -87,7 +88,7 @@
 	<form  name="write" action=<c:if test="${boardInfo.get('key') eq 1}">"<c:url value="/noticeViews/write.do" />"</c:if> 
 				 <c:if test="${boardInfo.get('key') eq 2}">"<c:url value="/noticeViews/edit.do" />"</c:if> 
 				 onsubmit="return Check()" method="POST">
-	
+				<!-- submit시 확인 -->
 	<div class="contents" style="width:800px;">
 		<div id="writeHead" style="margin:0 0 50px 0;">
 		<c:if test="${boardInfo.get('key') eq 1}">

@@ -25,8 +25,8 @@ public class noticeServiceImpl implements noticeService{
 	@Autowired
 	private noticeDAO dao;
 	private int page = 1;
-	private int perPageNum = 5;
-	private int displayPageNum = 4;
+	private int perPageNum = 5;		//한페이지 리스트갯수
+	private int displayPageNum = 4; //한번에 보여줄 페이지갯수
 	private int startPage;
 	private int endPage;
 	private int rowStart;
@@ -98,7 +98,7 @@ public class noticeServiceImpl implements noticeService{
 		// view단에 나타나는 페이지 계산
 		map = pageStartEnd(map, totalCount);
 			
-		
+		//페이징단 이전,다음 페이징 묶음으로 이동값
 		prev = startPage == 1 ? false : true;
 		next = endPage * perPageNum >= totalCount ? false : true;
 		
@@ -112,12 +112,12 @@ public class noticeServiceImpl implements noticeService{
 		return map;	
 	}
 	
-	// DB에 들어갈 페이징 시작과 끝 숫자 계산
+	// DB에 들어갈 페이징 시작과 끝 숫자 계산 (한페이지에 보여줄 리스트 번호 시작 ,끝)
 	private HashMap<String, Object> startEndNum(HashMap<String, Object> map) {
 		if (map.get("page") != null) {
 			this.page = Integer.valueOf((String) map.get("page"));
 		}
-
+		
 		rowStart = ((page - 1) * perPageNum) + 1;
 		rowEnd = ((page - 1) * perPageNum) + perPageNum;
 				
@@ -127,12 +127,12 @@ public class noticeServiceImpl implements noticeService{
 		return map;
 	}
 
-	// view단에 나타나는 페이지 계산
+	// view단에 나타나는 페이지 계산(한번에 보여줄 페이징버튼 시작과 끝)
 	private HashMap<String, Object> pageStartEnd(HashMap<String, Object> map, int totalCount) {
 		endPage = (int) Math.ceil(page / (double) displayPageNum) * displayPageNum;
 		startPage = ((int) Math.ceil(page / (double) displayPageNum) * displayPageNum )- displayPageNum + 1;	
 		
-		//리스트 값이 없어도 생성되는 페이지 제거
+		//리스트 값이 없어도 생성될 페이지 제거
 		int tempEndPage = (int) (Math.ceil(totalCount / (double) perPageNum));
 		if (endPage > tempEndPage) { 
 			endPage = tempEndPage;
@@ -202,14 +202,37 @@ public class noticeServiceImpl implements noticeService{
 	//게시글 작성
 	@Override
 	public int writeBoard(HttpServletRequest request, HashMap<String, Object> map) {
-		IPConfig ip = new IPConfig();
-		String yourIP = ip.getIPConfig(request);
-
+		
+		String yourIP = getIPConfig(request);
+		
+		
 		map.put("con_dv", "01");
 		map.put("reg_ip", yourIP);
-		logger.info(">>> 게시판 글쓰기");
+		logger.info(">>> 게시판 글쓰기 , 작성자 IP:"+yourIP);
 		
 		return dao.insertBoard(map);
+	}
+	//작성자 IP주소 가져오기
+	public String getIPConfig(HttpServletRequest request) {
+		String ip = request.getHeader("X-FORWARDED-FOR");
+		if (ip == null) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null) {
+			ip = request.getHeader("HTTP_Client_IP:"+ip);
+		}
+		if (ip == null) {
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR:"+ip);
+		}
+		if (ip == null) {
+			ip = request.getRemoteAddr();
+		}
+		
+		logger.info(" IP : " + ip);
+		return ip;
 	}
 
 	//게시글 수정
