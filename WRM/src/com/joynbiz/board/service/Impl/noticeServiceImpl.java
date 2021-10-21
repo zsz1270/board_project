@@ -19,8 +19,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class noticeServiceImpl implements com.joynbiz.board.service.noticeService{
 	@Autowired
 	private com.joynbiz.board.dao.noticeDAO dao;
-	private int page = 1;
-	private int perPageNum = 100;		//한페이지 리스트갯수
+	private int page ;
+	private int perPageNum = 5;		//한페이지 리스트갯수
 	private int displayPageNum = 4; //한번에 보여줄 페이지갯수
 	private int startPage;
 	private int endPage;
@@ -29,7 +29,7 @@ public class noticeServiceImpl implements com.joynbiz.board.service.noticeServic
 	private boolean prev;
 	private boolean next;
 	private int totalCount = 0;
-	
+	private int display; 
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	// 게시판 구분자 지정 메소드
@@ -74,6 +74,7 @@ public class noticeServiceImpl implements com.joynbiz.board.service.noticeServic
 	//게시글리스트
 	@Override
 	public HashMap<String, Object> getBoardList(HashMap<String, Object> map) {
+		page = 1;
 		setCon_dv(map);
 		
 		// DB에 들어갈 페이징 시작과 끝 숫자 계산
@@ -247,4 +248,32 @@ public class noticeServiceImpl implements com.joynbiz.board.service.noticeServic
 		
 		return dao.deleteBoard(map);
 	}	
+	@Override
+	public HashMap<String, Object> wsgetBoardList(HashMap<String, Object> board) {
+		logger.info(board.toString());
+		
+		HashMap<String, Object> result = new HashMap<String, Object>();
+		setCon_dv(board);
+		
+		board = calRowStartEnd(board);
+	 
+		List<HashMap<String, Object>> BoardList = dao.getBoardList(board); 
+		
+		result.put("boardList", BoardList);
+
+		return result;
+	}
+	public HashMap<String, Object> calRowStartEnd(HashMap<String, Object> board) {
+		
+		this.page = Integer.valueOf(String.valueOf(board.get("page")));
+		this.display = Integer.valueOf(String.valueOf(board.get("display")));
+	
+		rowStart = ((page - 1) * display) + 1;
+		rowEnd = rowStart + display -1;
+				
+		board.put("rowStart", rowStart);
+		board.put("rowEnd", rowEnd);
+		
+		return board;
+	}
 }

@@ -14,9 +14,11 @@
         			<w2:keyInfo>
         				<w2:key id="searchType" name="타입" dataType="text"></w2:key>
         				<w2:key id="keyword" name="내용" dataType="text"></w2:key>
+        				<w2:key id="page" name="현페이지" dataType="text"></w2:key>
+        				<w2:key id="display" name="페이지 게시물수" dataType="text"></w2:key>
         			</w2:keyInfo>
         		</w2:dataMap>
-        		<w2:dataList baseNode="list" repeatNode="map" id="BoardList" saveRemovedData="true">
+        		<w2:dataList baseNode="list" repeatNode="map" id="boardList" saveRemovedData="true">
         			<w2:columnInfo>
         				<w2:column id="RNO" name="번호" dataType="text"></w2:column>
         				<w2:column id="CON_TITLE" name="제목" dataType="text"></w2:column>
@@ -24,53 +26,19 @@
         				<w2:column id="REG_DATE" name="날짜" dataType="text"></w2:column>
         				<w2:column id="READ_COUNT" name="조회수" dataType="text"></w2:column>
         				<w2:column id="CON_NO" name="공지번호" dataType="text"></w2:column>
-        			</w2:columnInfo>
-        		</w2:dataList>
-        		<w2:dataMap baseNode="map" id="contents_no">
-        			<w2:keyInfo>
-        				<w2:key id="CON_NO" name="CON_NO" dataType="text"></w2:key>
-        			</w2:keyInfo>
-        		</w2:dataMap>
-        		<w2:dataList baseNode="list" repeatNode="map" id="detailcon" saveRemovedData="true">
-        			<w2:columnInfo>
-        				<w2:column id="CON_TITLE" name="CON_TITLE" dataType="text"></w2:column>
-        				<w2:column id="CON_TXT" name="CON_TXT" dataType="text"></w2:column>
-        			</w2:columnInfo>
-        		</w2:dataList>
-        		<w2:dataMap baseNode="map" id="searchData" style="">
-        			<w2:keyInfo>
-        				<w2:key dataType="text" id="keyword" name="키워드"></w2:key>
-        				<w2:key dataType="text" id="searchType" name="검색조건"></w2:key>
-        				<w2:key dataType="text" id="key1" name="현재페이지"></w2:key>
-        				<w2:key dataType="text" id="display" name="화면표시될게시물수"></w2:key>
-        			</w2:keyInfo>
-        			<w2:data>
-        				<keyword></keyword>
-        				<searchType></searchType>
-        				<page></page>
-        				<display></display>
-        			</w2:data>
-        		</w2:dataMap>
-        		<w2:dataList baseNode="list" id="boardList" repeatNode="map" saveRemovedData="true" style="">
-        			<w2:columnInfo>
-        				<w2:column dataType="text" id="RNO" name="No."></w2:column>
-        				<w2:column dataType="text" id="CON_TITLE" name="제목"></w2:column>
-        				<w2:column dataType="text" id="CON_ID" name="작성자"></w2:column>
-        				<w2:column dataType="text" id="REG_DATE" name="작성일"></w2:column>
-        				<w2:column dataType="text" id="READ_COUNT" name="조회수"></w2:column>
-        				<w2:column dataType="text" id="CON_NO" name="게시글번호"></w2:column>
-        				<w2:column dataType="text" id="TOTALCOUNT" name="총게시글"></w2:column>
+        				<w2:column id="TOTALCOUNT" name="전체수" dataType="text"></w2:column>
         			</w2:columnInfo>
         		</w2:dataList>
         	</w2:dataCollection>
         	<w2:workflowCollection></w2:workflowCollection>
-        	<xf:submission id="sbm_search" ref="data:json,searchParam" target="data:json,BoardList" action="/websViews/wsBoardList.do"
+        	<xf:submission id="sbm_search" ref="data:json,searchParam" target="data:json,boardList" action="/websViews/wsBoardList.do"
         		method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler=""
-        		mode="asynchronous" processMsg="조회중.." ev:submit="scwin.sbm_search_submit" ev:submitdone="scwin.sbm_search_submitdone" ev:submiterror="" abortTrigger="">
+        		mode="asynchronous" processMsg="조회중.." ev:submit="scwin.sbm_search_submit" ev:submitdone="scwin.sbm_search_submitdone"
+        		ev:submiterror="" abortTrigger="">
         	</xf:submission>
-        	<xf:submission id="sbm_detail" ref="data:json,contents_no" target="data:json,detailcon" action="/websViews/wsdetailContent.do" method="post"
-        		mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
-        		processMsg="" ev:submit="scwin.sbm_detail_submit" ev:submitdone="" ev:submiterror="" abortTrigger="">
+        	<xf:submission id="sbm_paging" ref="data:json,searchParam" target="data:json,boardList" action="/websViews/wsBoardList.do"
+        		method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler=""
+        		mode="asynchronous" processMsg="조회중.." ev:submit="" ev:submitdone="" ev:submiterror="" abortTrigger="">
         	</xf:submission>
         </xf:model>
         <script type="text/javascript" lazy="false"><![CDATA[
@@ -82,10 +50,7 @@
 
 	};
 
-	scwin.trigger1_onclick = function(e) {
-		location.href = '/board';
-	};
-
+	
 	scwin.trigger2_onclick = function(e) {
 		var options = {
 			param : {
@@ -98,47 +63,47 @@
 
 	//검색버튼
 	scwin.trigger3_onclick = function(e) {
-		searchData.set("page", "1");
+		searchParam.set("page", "1");
 		$p.executeSubmission("sbm_search");
 	};
 
 	scwin.grd_gridView1_oncelldblclick = function(row,col,colId) {
 		if (colId == "CON_TITLE") {
 				var options = {
-					param : BoardList.getRowJSON(row)
+					param : boardList.getRowJSON(row)
 				};
 				
 				$p.url("/ui/board/detailContent.xml", options)
 		}
 	};
 	
-	scwin.sbm_detail_submit = function(e) {
-		location.href = '/websquare/websquare.html?w2xPath=/ui/board/detailContent.xml';
-	};
-	
-	scwin.page_onchange = function(current,before) {
-		// 클릭된 페이지 등록	
-		searchData.set("page", current);
-		$p.executeSubmission("pagingBoardList");
-	};
 	
 	scwin.sbm_search_submitdone = function(e) {
 		// pageList view 선언
 		var totalCount = boardList.getDataRow(0).TOTALCOUNT;
-		var display = searchData.get("display", display); // 화면에 보여줄 게시물의 수
+		var display = searchParam.get("display", display); // 화면에 보여줄 게시물의 수
 		
 		var remainderYn = (totalCount % display) ? 1 : 0; // 페이징수보다 데이터 많으면 +1 
 		var count = parseInt(totalCount / display , 10) + remainderYn;
 				   // parseInt(String , 진법(10진법,2진법 등))
 		page.setCount(count);
 	};
+	scwin.page_onchange = function(current,before) {
+		// 클릭된 페이지 등록	
+		searchParam.set("page", current);
+		$p.executeSubmission("sbm_paging");
+	};
 	
 	scwin.sbm_search_submit = function(e) {
 		// 현재 페이지
 		var page = 1;
-		searchData.set("page", page);
+		searchParam.set("page", page);
 		var display = 10; // 화면에 보여줄 게시물의 수
-		searchData.set("display", display);
+		searchParam.set("display", display);
+	};
+	
+	scwin.trigger1_onclick = function(e) {
+		location.href = '/board';
 	};
 	]]></script>
     </head>
@@ -149,7 +114,7 @@
     	<w2:textbox id="" label="자료실" style="width: 150px;height: 23px;font-size:20px;"></w2:textbox>
     	<xf:group id="" style=";float:right;">
     		<xf:select1 id="" chooseOption="" style="position:static; top:282px; left:328px; width:148px; height:21px; ;margin-top:30px;"
-    			submenuSize="auto" allOption="true" disabled="false" direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled"
+    			submenuSize="auto" allOption="" disabled="false" direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled"
     			ref="data:searchParam.searchType">
     			<xf:choices>
     				<xf:item>
@@ -171,12 +136,12 @@
     		</xf:trigger>
     	</xf:group>
     	<w2:gridView id="grd_gridView1" style="width:100%;height:150px;" scrollByColumn="false" defaultCellHeight="20"
-    		scrollByColumnAdaptive="false" dataList="data:BoardList" autoFit="lastColumn" readOnly="true"
+    		scrollByColumnAdaptive="false" dataList="data:boardList" autoFit="lastColumn" readOnly="true"
     		ev:oncelldblclick="scwin.grd_gridView1_oncelldblclick">
     		<w2:caption style="" id="caption5" value="this is a grid caption."></w2:caption>
     		<w2:header style="" id="header5">
     			<w2:row style="" id="row9">
-    				<w2:column width="70" id="column11" value="번호"></w2:column>
+    				<w2:column width="70" id="column1" value="번호"></w2:column>
     				<w2:column width="508" id="column2" value="제목"></w2:column>
     				<w2:column width="70" inputType="text" style="height:20px" id="column63" value="작성자" displayMode="label"></w2:column>
     				<w2:column width="136" inputType="text" style="height:20px" id="column62" value="날짜" displayMode="label"></w2:column>

@@ -33,4 +33,7 @@ public interface noticeService {
 	//삭제
 	public int deleteContent(HashMap<String, Object> map);
 	
+	//ws게시글조회
+	public HashMap<String, Object> wsgetBoardList(HashMap<String, Object> board);
+	
 }

@@ -29,14 +29,7 @@ public class webSquareBoardController {
 	private com.joynbiz.board.service.webSquarePageService ws;
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	//공지사항 루트페이지(redirect로 바로 리스트페이지 띄움)
-	@RequestMapping("/")
-	public ModelAndView root() {
-		ModelAndView mv = new ModelAndView();
-		logger.info("ws >>> /");
-		mv.setViewName("redirect:/websViews/wsBoardList.do");
-		return mv;
-	}
+
 	/* 게시물 리스트 및 검색 화면
 	 * 리스트 출력용 boardList
 	 * 검색및 페이징용 SearchAndPagingData
@@ -45,14 +38,12 @@ public class webSquareBoardController {
 	@RequestMapping(value = "/wsBoardList.do", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> wsBoardList(@RequestBody HashMap<String, Object> param) {
 		param = (HashMap<String, Object>) param.get("searchParam");
-		 Map result = new HashMap<String, Object>();
-		 logger.info(">>> wsboardList.do");
-		 
-		 param = ns.getBoardList(param);
-		 
-		 result.put("BoardList", param.get("BoardList"));
-		 
-		 return result;
+		
+		Map result = new HashMap();
+
+		logger.info(param.toString());
+		result = ns.wsgetBoardList(param);
+		return result;
 	}
 	//상세글
 	@RequestMapping(value = "/wsdetailContent.do", method = RequestMethod.POST)
