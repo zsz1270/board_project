@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+    	<w2:type>DEFAULT</w2:type>
+        <w2:buildDate/>
+        <xf:model>
+        	<xf:instance>
+        		<data xmlns="" />
+        	</xf:instance>
+        	<w2:dataCollection baseNode="map">
+        		<w2:dataMap baseNode="map" id="con_no_map">
+        			<w2:keyInfo>
+        				<w2:key id="CON_NO" name="번호" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        		<w2:dataMap baseNode="map" id="con_data">
+        			<w2:keyInfo>
+        				<w2:key id="CON_TITLE" name="제목" dataType="text"></w2:key>
+        				<w2:key id="CON_TXT" name="내용" dataType="text"></w2:key>
+        				<w2:key id="CON_NO" name="번호" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        		<w2:dataMap baseNode="map" id="edit_con_data">
+        			<w2:keyInfo>
+        				<w2:key id="CON_TITLE" name="제목" dataType="text"></w2:key>
+        				<w2:key id="CON_TXT" name="내용" dataType="text"></w2:key>
+        				<w2:key id="CON_NO" name="번호" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        		<w2:dataMap baseNode="map" id="edit_result">
+        			<w2:keyInfo>
+        				<w2:key id="result" name="결과" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        	</w2:dataCollection>
+        	<w2:workflowCollection></w2:workflowCollection>
+        	<xf:submission id="sbm_searchcon" ref="data:json,con_no_map" target="data:json,con_data" action="/websViews/editcon.do"
+        		method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler=""
+        		mode="asynchronous" processMsg="조회중..." ev:submit="" ev:submitdone="scwin.sbm_searchcon_submitdone" ev:submiterror=""
+        		abortTrigger="">
+        	</xf:submission>
+        	<xf:submission id="sbm_edit" ref="data:json,edit_con_data" target="data:json,edit_result" action="/websViews/edit.do"
+        		method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler=""
+        		mode="asynchronous" processMsg="수정중..." ev:submit="" ev:submitdone="scwin.sbm_edit_submitdone" ev:submiterror=""
+        		abortTrigger="">
+        	</xf:submission>
+        </xf:model>
+        <script type="text/javascript" lazy="false"><![CDATA[
+        
+	scwin.onpageload = function() {
+		var CON_NO = $p.getParameter("CON_NO");
+			con_no_map.set("CON_NO", CON_NO);
+			
+			$p.executeSubmission("sbm_searchcon");
+	};
+	
+	scwin.onpageunload = function() {
+		
+	};
+	
+	
+	scwin.sbm_searchcon_submitdone = function(e) {
+		ipt_contitle.setValue(con_data.get("CON_TITLE"));
+		ta_contxt.setValue(con_data.get("CON_TXT"));
+	};
+	
+	scwin.edit_btn_onclick = function(e) {
+		edit_con_data.set("CON_TITLE", ipt_contitle.getValue());
+		edit_con_data.set("CON_TXT", ta_contxt.getValue());
+		edit_con_data.set("CON_NO", con_no_map.get("CON_NO"));
+		
+		$p.executeSubmission("sbm_edit");
+	};
+	
+	scwin.sbm_edit_submitdone = function(e) {
+		if ( edit_result.get("result") == 1) {
+			alert("수정이 왼료 되었습니다.");	
+			// 메인화면으로 전환
+			var x2xPath = "/ui/board/boardList.xml";
+			$w.url(x2xPath);
+		} else {
+			alert("수정이 실패 되었습니다.");	
+		}
+	};
+	
+	scwin.trigger2_onclick = function(e) {
+		var choice = confirm("작성내용을 버리고 리스트로 가시겠습니까?");
+			if(choice){
+				location.href='/websquare/websquare.html?w2xPath=/ui/board/boardList.xml';
+			}
+			else {
+				alert('취소되었습니다.');
+			}
+	};
+	]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onpageunload="scwin.onpageunload">
+    	<w2:textbox id="" label="글 수정" style="width:70%;height: 23px;font-size:20px;"></w2:textbox>
+    	<xf:group class="w2tb" id="" style="position:static; top:87px; left:80px;width:70%; height:30; ;" tagname="table">
+    		<w2:attributes>
+    			<w2:summary></w2:summary>
+    		</w2:attributes>
+    		<xf:group tagname="caption"></xf:group>
+    		<xf:group tagname="colgroup">
+    			<xf:group style="width:5.35%;" tagname="col"></xf:group>
+    			<xf:group style="width:50.00%" tagname="col"></xf:group>
+    		</xf:group>
+    		<xf:group style="" tagname="tr">
+    			<xf:group class="w2tb_th" style=";width:0%;" tagname="th">
+    				제목
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group class="w2tb_td" style=";width:70%;" tagname="td">
+    				<xf:input adjustMaxLength="false" id="ipt_contitle" placeholder="제목 입력" ref="data:new_content.con_title"
+    					style="position:static;top:64px;left:143px;width:98.86%;height:21px;outline-style:hidden;border:0;">
+    				</xf:input>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group style="" tagname="tr">
+    			<xf:group class="w2tb_th" style=";height:200px;width:0%;" tagname="th">
+    				내용
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group class="w2tb_td" style=";height:200px;width:70%;" tagname="td">
+    				<xf:textarea id="ta_contxt" placeholder="내용 입력" ref="data:new_content.con_txt"
+    					style="width:99.24%;height:191px;outline-style:;border:0;">
+    				</xf:textarea>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    	<table id="" style="position:static; top:356px; left:93px;width:70%; height:30; ;" summary=""></table>
+    	<xf:group id="" style="float:right;">
+    		<xf:trigger ev:onclick="scwin.trigger2_onclick" id="trigger2" style="width: 80px;height: 23px;" type="button">
+    			<xf:label><![CDATA[작성취소]]></xf:label>
+    		</xf:trigger>
+    		<xf:trigger ev:ondblclick="" id="edit_btn" style="width: 80px;height: 23px;" type="button" ev:onclick="scwin.edit_btn_onclick">
+    			<xf:label><![CDATA[등록]]></xf:label>
+    		</xf:trigger>
+    	</xf:group>
+    </body>
+</html>

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="DataObject_ParameterSend" meta_programName="샘플화면-화면간 정보전달-url방식(send)" meta_programDesc="본 화면은 화면전환시 Parameter를 넘겨주는 방법을 제공한다." meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileDesc">
+					<w2:keyInfo>
+						<w2:key id="desc" name="" dataType="text"></w2:key>
+						<w2:key id="test" name="" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<desc><![CDATA[
+<pre class="textNor" style="">
+<div class="etcbox">본 화면은 화면전환시 Parameter를 넘겨주는 방법을 제공한다. 
+열려진 화면의 url을 변경하는 방식과 
+새 탭을 열어 보여주는 방식에 대하여 설명한다.
+</div>
+<div class="etc_tit">1. url 변경</div>
+  - $p.url 을 사용하며, 아래의 예시는 json형태의 데이터를 parameter로 전송하는 방법이다.
+  - 예시
+  var options = {};
+  options.param = dma_basic.getJSON();
+  $p.url(../../../SP/Parameter/Url_ParameterReceive.xml" , options );
+<div class="expTit">2. 새 탭으로 열기</div>
+  - 탭 컨트롤의 addTab을 사용하여 새로운 탭으로 화면을 열고, parameter로 전송하는 방법이다.
+  - 예시
+  var move_url = gcm.CONTEXT_PATH + "/ui/SP/Parameter/Url_ParameterReceive.xml&CODE="+dma_basic.get("CODE");
+  var classObj = {src:move_url};
+  parent.tac_layout.addTab( "Get Parameter", tabObj, classObj );
+</pre>
+						]]></desc>
+						<test><![CDATA[
+<pre class="textNor" style="">						
+<div class="etc_tit">1. 과정</div>
+1. url 방식 테스트: [코드],[성명],[기타] 값을 차례로 입력 후 [url]버튼을 클릭한다.
+2. addTab 방식 테스트: [코드],[성명],[기타] 값을 차례로 입력 후 [new Tab]버튼을 클릭한다.
+<div class="etc_tit">2. 결과</div>
+1. url방식 결과: 화면이 전환되면서 이전 화면에서 넘겨준 [코드],[성명],[기타]이 새 화면에 맵핑되어 보여진다.
+2. addTab 방식 결과: 새 탭이 열리면서 이전 화면에서 넘겨준 [코드],[성명],[기타]이 새 화면에 맵핑되어 보여진다.
+</pre>
+						]]></test>
+					</w2:data>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_basic">
+					<w2:keyInfo>
+						<w2:key id="CODE" name="코드" dataType="text"></w2:key>
+						<w2:key id="NAME" name="이름" dataType="text"></w2:key>
+						<w2:key id="ETC" name="기타" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<CODE><![CDATA[A001]]></CODE>
+						<NAME><![CDATA[가나다]]></NAME>
+						<ETC><![CDATA[***]]></ETC>
+					</w2:data>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	/**
+	 * url로 이동시 Parameter 전달 값을 확인한다.
+	 */
+	scwin.onpageload = function() {
+		var gubun = com.data.getParameter("gubun");
+		if (gubun == "2") {
+			ibx_code.setValue(com.data.getParameter("cd"));
+			ibx_name.setValue(com.data.getParameter("nm"));
+			ibx_etc.setValue(com.data.getParameter("etc"));
+		}
+	}; 
+	
+	/**
+	 * url로 이동시 Parameter 전달 값을 확인한다.
+	 */
+	scwin.btn_confirm_onclick = function() {
+		var moveUrl = "/ui/SP/Parameter/DataObject_ParameterReceive.xml";
+		
+		var param = {};
+		param.CODE = dma_basic.get("CODE");
+		param.NAME = dma_basic.get("NAME");
+		param.ETC = dma_basic.get("ETC");
+		param.gubun = 1;
+		
+		com.win.moveUrl(moveUrl, param);
+	};
+	
+	/**
+	 * 새 탭으로 열어준 뒤 Parameter 전달 값을 확인한다.
+	 */
+	scwin.btn_addTab_onclick = function() {
+		var moveUrl = "/ui/SP/Parameter/DataObject_ParameterReceive.xml";		
+		var paramObj = { CODE : dma_basic.get("CODE"), 
+						 NAME : dma_basic.get("NAME"),
+						 ETC : $p.URLEncoder(dma_basic.get("ETC")),
+						 gubun : "2" }; 
+		
+		com.win.openMenu("DataObject 방식 Parameter 전달결과", moveUrl, "999999", paramObj);
+	};
+]]></script>
+		
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents" id="" style="">
+			<w2:wframe id="" style="" src="../../cm/xml/contentHeader.xml" scope=""></w2:wframe>
+			<w2:wframe id="" src="../../cm/xml/contentDesc.xml" scope=""></w2:wframe>
+			<xf:group class="dfbox" id="" style="">
+				<w2:textbox class="df_tit fl" id="" label="sessionStorage를 통한 Prameter 전달" style=""></w2:textbox>
+				<xf:group id="" class="fr">
+					<xf:trigger style="" id="btn_confirm" type="button" class="btn_cm  search" ev:onclick="scwin.btn_confirm_onclick">
+						<xf:label><![CDATA[url]]></xf:label>
+					</xf:trigger>
+					<xf:trigger style="" id="btn_addTab" type="button" class="btn_cm" ev:onclick="scwin.btn_addTab_onclick">
+						<xf:label><![CDATA[New Tab]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+			<xf:group class="tbbox" id="" style="">
+				<xf:group adaptive="layout" adaptiveThreshold="600" class="w2tb tb" id="" style="" tagname="table">
+					<w2:attributes>
+						<w2:summary></w2:summary>
+					</w2:attributes>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:140px;" tagname="col"></xf:group>
+						<xf:group tagname="col"></xf:group>
+						<xf:group style="width:140px;" tagname="col"></xf:group>
+						<xf:group tagname="col"></xf:group>
+						<xf:group tagname="col"></xf:group>
+						<xf:group style="" tagname="col"></xf:group>
+					</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th " style="" tagname="th">
+							<w2:textbox class="" id="" label="코드" ref="" style="" userData2=""></w2:textbox>
+						</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:input minlength="13" id="ibx_code" applyFormat="" ref="data:dma_basic.CODE" maxlength="13" style="" mandatory="true" displayFormat="" allowChar="" displayFormatter="">
+							</xf:input>
+						</xf:group>
+						<xf:group class="w2tb_th re" tagname="th" text="">
+							<w2:attributes></w2:attributes>
+							<w2:textbox class="" id="" label="성명" ref="" style="" userData2=""></w2:textbox>
+						</xf:group>
+						<xf:group class="w2tb_td" tagname="td">
+							<w2:attributes></w2:attributes>
+							<xf:input id="ibx_name" ref="data:dma_basic.NAME" style="" mandatory="true"></xf:input>
+						</xf:group>
+						<xf:group tagname="th" class="w2tb_th" tabIndex="">
+							<w2:attributes></w2:attributes>
+							<w2:textbox class="" id="" label="기타" ref="" style="" userData2=""></w2:textbox>
+						</xf:group>
+						<xf:group tagname="td" class="w2tb_td">
+							<w2:attributes></w2:attributes>
+							<xf:input id="ibx_etc" ref="data:dma_basic.ETC" style="" mandatory="true" class="fl"></xf:input>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+
+		</xf:group>
+
+	</body>
+</html>

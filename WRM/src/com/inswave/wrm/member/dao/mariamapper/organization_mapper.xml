@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.inswave.wrm.member.dao.OrganizationDao">
+	<select id="selectOrganizaion" resultType="Map" parameterType="Map">
+		SELECT a.ORG_CD, a.ORG_CLASS_CD, a.ORG_NM, a.ORG_ALIAS_NM, a.ORG_EN_NM, a.ORG_EN_ALIAS_NM, a.SORT_ORDER, a.ORG_LEVEL,
+			 COALESCE(( select b.ORG_NM FROM HM_ORGAN_BASIC b where b.ORG_CD = a.PARENT_ORG_CD ), 'Parent Category') as PARENT_ORG_NM
+			, PARENT_ORG_CD , a.ORG_BOSS_EMP_CD, a.START_DATE, a.END_DATE, a.NOTE
+		FROM HM_ORGAN_BASIC a  where 1 = 1
+		<if test="TYPE == 'ORG_NM'">
+			and ORG_NM LIKE concat('%',#{CONTENT},'%')
+		</if>
+		<if test="TYPE == 'ORG_CD'">
+			and ORG_CD LIKE concat('%',#{CONTENT},'%')
+		</if>		
+		<if test="TYPE == 'PARENT_ORG_CD'">
+			<if test="CONTENT == ''">
+				and ORG_CD is not null
+			</if>
+			<if test="CONTENT != ''">
+				and PARENT_ORG_CD = #{CONTENT} 
+			</if> 
+		</if>		  
+		<if test="TYPE == 'ORG_BOSS_EMP_CD'">
+			<if test="CONTENT == ''">
+				and ORG_CD is not null
+			</if>
+			<if test="CONTENT != ''">
+				and ORG_BOSS_EMP_CD = #{CONTENT} 
+			</if>
+		</if>
+		ORDER BY ORG_CD
+	</select>	
+	
+	<select id="selectOrganizaionBasicList" resultType="Map">	
+		SELECT ORG_CD, ORG_CLASS_CD, ORG_NM, ORG_ALIAS_NM, ORG_EN_NM, ORG_EN_ALIAS_NM, SORT_ORDER, ORG_LEVEL, PARENT_ORG_CD
+			 , ORG_BOSS_EMP_CD, START_DATE, END_DATE, NOTE
+		  FROM HM_ORGAN_BASIC
+		<where> 
+			<if test="ORG_CD != null and ORG_CD != ''">
+				 AND ORG_CD = #{ORG_CD}
+			</if>
+		</where>
+		 ORDER BY ORG_CD 
+	</select>
+	
+	<select id="selectOrganizaionBoss" resultType="Map">
+		select EMP_NM, EMP_CD from HM_MEMBER_BASIC
+	</select>	
+
+	<select id="selectOrganizaionSearchItem" resultType="Map">
+		select ORG_CD, ORG_NM
+		, COALESCE(( select b.ORG_NM FROM HM_ORGAN_BASIC b where b.ORG_CD = a.PARENT_ORG_CD ), 'Parent Category') as PARENT_ORG_NM
+		, PARENT_ORG_CD from HM_ORGAN_BASIC a
+	</select>
+	
+	<insert id="insertOrganizaionBasic" parameterType="Map">
+	INSERT INTO HM_ORGAN_BASIC (ORG_CD, ORG_CLASS_CD, ORG_NM, ORG_ALIAS_NM, ORG_EN_NM, ORG_EN_ALIAS_NM, SORT_ORDER, ORG_LEVEL   
+							  , PARENT_ORG_CD, ORG_BOSS_EMP_CD, START_DATE, END_DATE, NOTE)
+	VALUES (#{ORG_CD}, #{ORG_CLASS_CD}, #{ORG_NM}, #{ORG_ALIAS_NM}, #{ORG_EN_NM}, #{ORG_EN_ALIAS_NM}, #{SORT_ORDER}, #{ORG_LEVEL}
+				   , #{PARENT_ORG_CD}, #{ORG_BOSS_EMP_CD}, #{START_DATE}, #{END_DATE}, #{NOTE})
+	</insert>
+	
+	<update id="updateOrganizaionBasic" parameterType="Map">
+		UPDATE HM_ORGAN_BASIC 
+		   SET ORG_CLASS_CD = #{ORG_CLASS_CD}, ORG_NM = #{ORG_NM}, ORG_ALIAS_NM = #{ORG_ALIAS_NM}, ORG_EN_NM = #{ORG_EN_NM}, ORG_EN_ALIAS_NM = #{ORG_EN_ALIAS_NM}, SORT_ORDER = #{SORT_ORDER}
+			 , ORG_LEVEL = #{ORG_LEVEL}, PARENT_ORG_CD = #{PARENT_ORG_CD}, ORG_BOSS_EMP_CD = #{ORG_BOSS_EMP_CD}, START_DATE = #{START_DATE}, END_DATE = #{END_DATE}, NOTE = #{NOTE} 
+		 WHERE ORG_CD = #{ORG_CD}
+	</update>
+	
+	<delete id="deleteOrganizaionBasic" parameterType="Map">
+		DELETE FROM HM_ORGAN_BASIC WHERE ORG_CD = #{ORG_CD}
+	</delete>
+ 
+</mapper>

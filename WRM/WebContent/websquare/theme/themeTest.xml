@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+
+				</data>
+			</xf:instance>
+		</xf:model>
+		<script type="javascript"><![CDATA[
+			
+			grid1.insertRow();
+        	grid1.insertRow();
+        	grid1.insertRow();
+        	grid1.insertRow(); 
+		]]></script>
+	</head>
+	<body>
+		<w2:calendar id="calendar3"
+			style="position:absolute;left:953px;;top:1px" calendarValueType="">
+		</w2:calendar>
+		<w2:calendar id="calendar2"
+			style="position:absolute;left:694px;;top:1px"
+			calendarValueType="yearMonthDate" cancleButtonShow="true">
+		</w2:calendar>
+		<w2:calendar id="calendar4"
+			style="position:absolute;left:1204px;;top:1px"
+			calendarValueType="yearMonthDateTime">
+		</w2:calendar>
+		<xf:trigger id="trigger4"
+			style="position:absolute;height: 23px;width: 148px;left:187px;top:260px;"
+			class="" type="image">
+			<xf:label>trigger</xf:label>
+		</xf:trigger>
+		<xf:trigger disabled="true" id="trigger3"
+			style="position:absolute;height: 23px;width: 148px;left:25px;top:260px;"
+			type="image">
+			<xf:label>trigger</xf:label>
+		</xf:trigger>
+		<w2:slider class="" id="slider6" setBackground="true"
+			style="position:relative;width: 379px;height: 28px;margin-top:20px;;left:144px;top:102px">
+		</w2:slider>
+		<w2:slider class="" id="slider8" setBackground=""
+			style="position:relative;width: 379px;height: 28px;margin-top:20px;;left:144px;top:102px">
+		</w2:slider>
+		<w2:slider class="" id="slider9" setBackground=""
+			style="position:relative;width: 36px;height: 100px;margin-top:20px;;left:75px;top:-2px"
+			vertical="true">
+		</w2:slider>
+		<w2:slider class="" id="slider10" setBackground="true"
+			style="position:relative;width: 36px;height: 100px;margin-top:20px;;left:24px;top:-123px"
+			vertical="true">
+		</w2:slider>
+		<xf:output id="output148"
+			style="position:absolute;margin-top:20px;vertical-align:middle;word-wrap:break-word;font-size:20px;font-family:맑은 고딕;;left:44px;top:352px"
+			toolTip="what do you put in here &lt;br/&gt;that makes it taste so good!"
+			dataType="">
+			<xf:label>tooltip</xf:label>
+		</xf:output>
+		<w2:tabContainer id="tabContainer2"
+			style="position: absolute ;left:361px;top:450px;width: 254px;height: 204px;"
+			tabDefaultCenterImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabDefaultLeftImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabDefaultRightImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabHoverCenterImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabHoverLeftImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabHoverRightImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabSelectedCenterImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabSelectedLeftImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			tabSelectedRightImageStyle="position:absolute;vertical-align:middle;word-wrap:break-word">
+			<w2:contents id="contents4"
+				style="position: absolute;left: 1px;top: 31px;width: 252px;height: 173px;">
+			</w2:contents>
+			<w2:tab id="tab4"
+				style="position:absolute;top:1px;left:1px;width:100px;height:30px;"
+				value="tab1">
+			</w2:tab>
+			<w2:contents id="contents5"
+				style="position: absolute; left: 1px; top: 31px; width: 252px; height: 173px">
+			</w2:contents>
+			<w2:tab id="tab5"
+				style="position: absolute; width: 100px; height: 30px; top: 1px; left:101px"
+				value="tab1">
+			</w2:tab>
+		</w2:tabContainer>
+		<w2:tabControl alwaysDraw="true" confirmFalseAction='"new"'
+			confirmTrueAction='"exist"' id="tabControl3"
+			style="position: absolute ;left:651px;top:451px;width: 254px;height: 204px;"
+			useConfirmMessage="false" useTabKeyOnly="true">
+			<w2:tabs disabled="false" id="tabs5" label="tab1"
+				style="width:70px;height:30px;">
+			</w2:tabs>
+			<w2:tabs disabled="false" id="tabs6" label="tab1"
+				style="width:70px;height:30px">
+			</w2:tabs>
+			<w2:tabs disabled="false" id="tabs7" label=""
+				style="width:70px;height:30px">
+			</w2:tabs>
+			<w2:content alwaysDraw="true" id="content5" style="">
+			</w2:content>
+			<w2:content alwaysDraw="true" id="content6" style="">
+			</w2:content>
+			<w2:content alwaysDraw="true" id="content7" style="">
+			</w2:content>
+		</w2:tabControl>
+		<xf:input id="input1"
+			style="position: absolute ;left:25px;top:59px;width: 148px;height: 23px;">
+		</xf:input>
+		<xf:secret id="secret4"
+			style="position: absolute ;left:185px;top:59px;width: 148px;height: 23px;">
+		</xf:secret>
+		<xf:select id="multiselect1" appearance="minimal"
+			style="position: absolute ;height:106px;width:148px;left:435px;top:247px;">
+			<xf:choices>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+			</xf:choices>
+		</xf:select>
+		<w2:grid baseNode="vector" repeatNode="data/INFO" id="grid1"
+			style="position: absolute ;left:625px;top:246px;width: 336px;height: 173px;">
+			<w2:header id="header1" style="">
+				<w2:row id="row1" style="">
+					<w2:column id="column3" style="height:20px"
+						inputType="text" width="70" value="column01">
+					</w2:column>
+					<w2:column id="column5" style="height:20px"
+						inputType="text" width="70">
+					</w2:column>
+					<w2:column id="column7" style="height:20px"
+						inputType="text" width="70">
+					</w2:column>
+					<w2:column id="column1" style="height:20px"
+						width="70" inputType="text">
+					</w2:column>
+				</w2:row>
+			</w2:header>
+			<w2:gBody id="gBody1" style="">
+				<w2:row id="row2" style="">
+					<w2:column id="column4" style="height:20px"
+						inputType="text" width="70">
+					</w2:column>
+					<w2:column id="column6" style="height:20px"
+						inputType="text" width="70">
+					</w2:column>
+					<w2:column id="column8" style="height:20px"
+						inputType="text" width="70">
+					</w2:column>
+					<w2:column id="column2" style="height:20px"
+						width="70" inputType="text">
+					</w2:column>
+				</w2:row>
+			</w2:gBody>
+		</w2:grid>
+		<w2:pageList pageSize="10" displayFormat="#" id="pageList1"
+			style="position: absolute ;left:19px;top:305px;width:352px;height:16px;">
+		</w2:pageList>
+		<w2:inputCalendar id="inputCalendar1"
+			calendarValueType="yearMonthDate"
+			style="position: absolute ;left:348px;top:210px;top:59px;width: 148px;height: 21px;">
+		</w2:inputCalendar>
+		<w2:autoComplete id="autoComplete1" appearance="minimal"
+			activeStyle=""
+			style="position:absolute;height: 21px;width: 148px;;left:25px;top:20px"
+			search="contain" tabIndex="3" displayMode="label" class=""
+			defaultStyle="text-align:center;vertical-align:middle"
+			defaultClass="123" submenuSize="auto" activeClass="123">
+			<w2:choices>
+				<w2:itemset nodeset="itemset/data">
+					<w2:label ref="label"></w2:label>
+					<w2:value ref="value"></w2:value>
+				</w2:itemset>
+			</w2:choices>
+			<script ev:event="onchange()" type="javascript"><![CDATA[
+				var text = textarea1.getValue();			   
+				textarea1.setValue(text + "(selected1)item selected =" + selectbox1.getValue() + "\r\n");
+			  ]]></script>
+		</w2:autoComplete>
+		<w2:searchbox id="searchbox1"
+			style="position:absolute;height: 21px;width: 148px;;left:185px;top:20px"
+			class="">
+		</w2:searchbox>
+		<xf:select1 id="selectbox1" appearance="minimal"
+			style="position:absolute;height: 23px;width: 148px;;left:348px;top:20px"
+			direction="auto" chooseOption="" displayMode="label" allOption=""
+			submenuSize="auto" disabled="false">
+			<xf:choices>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+				<xf:item>
+					<xf:label>new row</xf:label>
+					<xf:value></xf:value>
+				</xf:item>
+			</xf:choices>
+		</xf:select1>
+		<w2:upload id="upload1"
+			style="position:absolute;height: 21px;width: 148px;;left:508px;top:20px"
+			imageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			inputStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+			class="" type="image" disabled="">
+		</w2:upload>
+
+
+
+
+
+
+
+
+
+
+
+
+		<w2:floatingLayer id="floatingLayer5" useResizeDrag="false"
+			title="Title" dragAlwaysView="false"
+			style="width: 290px;height: 213px;left:38px;top:450px;position: absolute ;"
+			class="" bodyComplex="true">
+		</w2:floatingLayer>
+	</body>
+</html>

@@ -1,0 +1,1012 @@
+{
+    "dlt_advancedExcel": [{
+
+        "MENU_CD": "010000",
+        "MENU_NM": "SETUP",
+        "PARENT_MENU_NM": "Parent Category",
+        "MENU_LEVEL": 1,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "000000"
+
+    }, {
+
+        "MENU_CD": "010100",
+        "MENU_NM": "Menu",
+        "PARENT_MENU_NM": "SETUP",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "010000"
+
+    }, {
+
+        "MENU_CD": "010101",
+        "MENU_NM": "공통코드관리",
+        "PARENT_MENU_NM": "Menu",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/BM/BM001M01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "010100"
+
+    }, {
+
+        "MENU_CD": "010102",
+        "MENU_NM": "권한관리",
+        "PARENT_MENU_NM": "Menu",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/BM/BM002M01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "010100"
+
+    }, {
+
+        "MENU_CD": "010103",
+        "MENU_NM": "메뉴관리",
+        "PARENT_MENU_NM": "Menu",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/BM/BM003M01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "010100"
+
+    }, {
+
+        "MENU_CD": "010104",
+        "MENU_NM": "TransData",
+        "PARENT_MENU_NM": "Menu",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/transData.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "010100"
+
+    }, {
+
+        "MENU_CD": "010105",
+        "MENU_NM": "ReceiveData",
+        "PARENT_MENU_NM": "Menu",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/receiveData.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "010100"
+
+    }, {
+
+        "MENU_CD": "010106",
+        "MENU_NM": "gridViewAdvancedExcel",
+        "PARENT_MENU_NM": "Menu",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/gridViewAdvancedExcel.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "010100"
+
+    }, {
+
+        "MENU_CD": "010200",
+        "MENU_NM": "Authorization",
+        "PARENT_MENU_NM": "SETUP",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "010000"
+
+    }, {
+
+        "MENU_CD": "010201",
+        "MENU_NM": "조직기본관리",
+        "PARENT_MENU_NM": "Authorization",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/HM/HM001M01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "010200"
+
+    }, {
+
+        "MENU_CD": "010202",
+        "MENU_NM": "인사기본관리",
+        "PARENT_MENU_NM": "Authorization",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/HM/HM002M01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "010200"
+
+    }, {
+
+        "MENU_CD": "010300",
+        "MENU_NM": "LargeData",
+        "PARENT_MENU_NM": "SETUP",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "010000"
+
+    }, {
+
+        "MENU_CD": "010301",
+        "MENU_NM": "largeResult.xml",
+        "PARENT_MENU_NM": "LargeData",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/cm/common/largeResult.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "010300"
+
+    }, {
+
+        "MENU_CD": "020000",
+        "MENU_NM": "Publishing",
+        "PARENT_MENU_NM": "Parent Category",
+        "MENU_LEVEL": 1,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "000000"
+
+    }, {
+
+        "MENU_CD": "020100",
+        "MENU_NM": "Component",
+        "PARENT_MENU_NM": "Publishing",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "020000"
+
+    }, {
+
+        "MENU_CD": "020101",
+        "MENU_NM": "01.title",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/01.title.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020102",
+        "MENU_NM": "02.button",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/02.button.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020103",
+        "MENU_NM": "03.checkbox_radio",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/03.checkbox_radio.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020104",
+        "MENU_NM": "04.table",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/04.table.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 4,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020105",
+        "MENU_NM": "05.gridview",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/05.gridview.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 5,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020106",
+        "MENU_NM": "06.searchbox",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/06.searchbox.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 6,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020107",
+        "MENU_NM": "07.groupbox",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/07.groupbox.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 7,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020108",
+        "MENU_NM": "08.icon_images",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/08.icon_images.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 8,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020109",
+        "MENU_NM": "09.pagelist.xml",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/09.pagelist.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 9,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020110",
+        "MENU_NM": "10.tabcontrol",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/10.tabcontrol",
+        "IS_USE": "Y",
+        "SORT_ORDER": 10,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020111",
+        "MENU_NM": "11.inputcalendar_combo",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/11.inputcalendar_combo.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 11,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020112",
+        "MENU_NM": "12.upload",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/12.upload.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 12,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020113",
+        "MENU_NM": "13.autocomplete",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/13.autocomplete.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 13,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020114",
+        "MENU_NM": "14.generator",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/14.generator.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 14,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020115",
+        "MENU_NM": "15.inputcalendar",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/15.inputcalendar.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 15,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020116",
+        "MENU_NM": "16.html5_layout",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/16.html5_layout.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 16,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020117",
+        "MENU_NM": "17.html5_layout2",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/17.html5_layout2.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 17,
+        "PARENT_MENU_CD": "020100"
+    }, {
+
+        "MENU_CD": "020118",
+        "MENU_NM": "18.treeview",
+        "PARENT_MENU_NM": "Component",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/component/18.treeview.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 18,
+        "PARENT_MENU_CD": "020100"
+
+    }, {
+
+        "MENU_CD": "020200",
+        "MENU_NM": "Page",
+        "PARENT_MENU_NM": "Publishing",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "020000"
+
+    }, {
+
+        "MENU_CD": "020201",
+        "MENU_NM": "board_list.xml",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/board_list.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020202",
+        "MENU_NM": "board_news_list",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/board_news_list.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020203",
+        "MENU_NM": "board_photo_list",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/board_photo_list.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020204",
+        "MENU_NM": "board_read",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/board_read.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 4,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020205",
+        "MENU_NM": "board_update",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/board_update.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 5,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020206",
+        "MENU_NM": "board_write",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/board_write.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 6,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020207",
+        "MENU_NM": "faq",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/faq.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 7,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020208",
+        "MENU_NM": "layer_popup",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/layer_popup.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 8,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020209",
+        "MENU_NM": "pop_L",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/pop_L.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 9,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020210",
+        "MENU_NM": "pop_M",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/pop_M.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 10,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020211",
+        "MENU_NM": "pop_S",
+        "PARENT_MENU_NM": "Page",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/page/pop_S.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 11,
+        "PARENT_MENU_CD": "020200"
+
+    }, {
+
+        "MENU_CD": "020300",
+        "MENU_NM": "Template",
+        "PARENT_MENU_NM": "Publishing",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "020000"
+
+    }, {
+
+        "MENU_CD": "020301",
+        "MENU_NM": "template01",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020302",
+        "MENU_NM": "template02",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template02.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020303",
+        "MENU_NM": "template03",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template03.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020304",
+        "MENU_NM": "template04",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template04.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 4,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020305",
+        "MENU_NM": "template05",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template05.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 5,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020306",
+        "MENU_NM": "template06",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template06.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 6,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020307",
+        "MENU_NM": "template07",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template07.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 7,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020308",
+        "MENU_NM": "template08",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template08.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 8,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020309",
+        "MENU_NM": "template09",
+        "PARENT_MENU_NM": "Template",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/template/template09.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 9,
+        "PARENT_MENU_CD": "020300"
+
+    }, {
+
+        "MENU_CD": "020400",
+        "MENU_NM": "Training",
+        "PARENT_MENU_NM": "Publishing",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 4,
+        "PARENT_MENU_CD": "020000"
+
+    }, {
+
+        "MENU_CD": "020401",
+        "MENU_NM": "expand_01",
+        "PARENT_MENU_NM": "Training",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/expand_01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "020400"
+
+    }, {
+
+        "MENU_CD": "020402",
+        "MENU_NM": "list_detail_01",
+        "PARENT_MENU_NM": "Training",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/pattern/list_detail_01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "020400"
+
+    }, {
+
+        "MENU_CD": "030000",
+        "MENU_NM": "Sample",
+        "PARENT_MENU_NM": "Parent Category",
+        "MENU_LEVEL": 1,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "000000"
+
+    }, {
+
+        "MENU_CD": "030100",
+        "MENU_NM": "Basic",
+        "PARENT_MENU_NM": "Sample",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "030000"
+
+    }, {
+
+        "MENU_CD": "030101",
+        "MENU_NM": "01",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030102",
+        "MENU_NM": "02",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/02.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030103",
+        "MENU_NM": "03",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/03.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030104",
+        "MENU_NM": "04",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/04.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 4,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030105",
+        "MENU_NM": "05",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/05.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 5,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030107",
+        "MENU_NM": "06_01",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/06_01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 7,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030108",
+        "MENU_NM": "06_02",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/06_02.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 8,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030109",
+        "MENU_NM": "06_04",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/06_04.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 9,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030110",
+        "MENU_NM": "06_05",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/06_05.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 10,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030111",
+        "MENU_NM": "07",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/07.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 11,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030112",
+        "MENU_NM": "08",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/08.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 12,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030113",
+        "MENU_NM": "09",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/09.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 13,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030114",
+        "MENU_NM": "09-1",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/09-1.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 14,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030115",
+        "MENU_NM": "10",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/10.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 15,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030116",
+        "MENU_NM": "12",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/12.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 16,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030117",
+        "MENU_NM": "12-popup",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/12-popup.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 17,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030118",
+        "MENU_NM": "13",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/13.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 18,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030119",
+        "MENU_NM": "14",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/14.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 19,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030120",
+        "MENU_NM": "15",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/15.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 20,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030121",
+        "MENU_NM": "15_org",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/15_org.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 21,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030122",
+        "MENU_NM": "leftMenu",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/leftMenu.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 22,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030123",
+        "MENU_NM": "main_iframe",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/main_iframe.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 23,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030124",
+        "MENU_NM": "main_windowContainer",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/main_windowContainer.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 24,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030125",
+        "MENU_NM": "main_without_spa",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/main_without_spa.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 25,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030126",
+        "MENU_NM": "basic_main",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/BASIC/basic_main.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 26,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030127",
+        "MENU_NM": "inputbox_01",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/ADVANCE/inputbox_01.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030128",
+        "MENU_NM": "inputbox_02",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/ADVANCE/inputbox_02.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030129",
+        "MENU_NM": "inputbox_03",
+        "PARENT_MENU_NM": "Basic",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/ADVANCE/inputbox_03.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 3,
+        "PARENT_MENU_CD": "030100"
+
+    }, {
+
+        "MENU_CD": "030200",
+        "MENU_NM": "Advance",
+        "PARENT_MENU_NM": "Sample",
+        "MENU_LEVEL": 2,
+        "SRC_PATH": "",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "030000"
+    }, {
+
+        "MENU_CD": "030201",
+        "MENU_NM": "validation_check",
+        "PARENT_MENU_NM": "Advance",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/ADVANCE/validation_check.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "030200"
+    }, {
+
+        "MENU_CD": "030203",
+        "MENU_NM": "gridView_PageList",
+        "PARENT_MENU_NM": "Advance",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/ADVANCE/gridView_PageList.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 1,
+        "PARENT_MENU_CD": "030200"
+
+    }, {
+
+        "MENU_CD": "030204",
+        "MENU_NM": "gridView_onScrollEnd_Paging",
+        "PARENT_MENU_NM": "Advance",
+        "MENU_LEVEL": 3,
+        "SRC_PATH": "/ui/SP/ADVANCE/gridView_onScrollEnd_Paging.xml",
+        "IS_USE": "Y",
+        "SORT_ORDER": 2,
+        "PARENT_MENU_CD": "030200"
+
+    }]
+}

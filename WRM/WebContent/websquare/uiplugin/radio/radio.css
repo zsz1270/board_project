@@ -1,0 +1,19 @@
+.w2radio_main {
+	height:100%; width:100%;
+	border-collapse:collapse;
+	overflow:auto;
+}
+.w2radio_row {
+}
+.w2radio_td_input {
+	width:13px; 
+}
+.w2radio_input{
+}
+.w2radio_td_label {
+}
+.w2radio_label{
+	font-family:dotum;
+	font-size:12px;
+	cursor:pointer;
+}

@@ -1,0 +1,422 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Calendar</title>
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style type="text/css">
+		body		{ background-color: #FFFFFF; margin-top: 0px; margin-left: 5px; overflow:auto;  }
+		font		{ font-size: 9pt; font-family:돋움, 돋움체, 굴림, 굴림체,  arial, Verdana, "Courier New", "Times New Roman"; line-height:14pt }
+		p		    { font-size: 9pt; font-family:굴림, 굴림체, 돋움, 돋움체, arial, Verdana, "Courier New", "Times New Roman"; line-height:14pt }
+		div		    { font-size: 9pt; font-family: 돋움, 돋움체, 굴림, 굴림체,  arial, Verdana, "Courier New", "Times New Roman"; line-height: 14pt; }
+		table		{ background-color: transparent; border-collapse: collapse; border: 1px solid #E0E7F4 ;  padding: 0px;}
+		td		    { border: 1px solid #FFFFFF; background-color:transparent; vertical-align: middle ;font-size: 9pt; font-family: 굴림, 굴림체, 돋움, 돋움체,arial, Verdana, "Courier New", "Times New Roman"; padding-top: 0pt; padding-left: 0pt; padding-right: 0pt; height: 15px; }
+		form	{ display:inline }
+		/* Link style sheet */
+		A		{ text-decoration: underline; }
+		A:link		{ text-decoration: underline; color: #0056BA; font-size: 9pt; font-family: 굴림, 굴림체, 돋움, 돋움체,arial, Verdana, "Courier New", "Times New Roman"; }
+		A:visited	{ text-decoration: underline; color: #0056BA; font-size: 9pt; font-family: 굴림, 굴림체, 돋움, 돋움체,arial, Verdana, "Courier New", "Times New Roman"; }
+		A:hover		{ text-decoration: underline; color: #FC4700; font-size: 9pt; font-family: 굴림, 굴림체, 돋움, 돋움체,arial, Verdana, "Courier New", "Times New Roman"; }
+		A:active	{ text-decoration: underline; color: #FC4700; font-size: 9pt; font-family: 굴림, 굴림체, 돋움, 돋움체,arial, Verdana, "Courier New", "Times New Roman"; }
+    </style>
+	<script type="text/javascript" src="../javascript.wq?q=/bootloader"></script>
+	<script language="JavaScript">
+		window.onload = calendar;
+		
+		var _calendar = null;
+		var delimiter = "";
+		function calendar() {
+			_calendar = new _calendarObj();
+			var curDate = WebSquare.net.getParameter( "curDate" );
+		
+		
+			delimiter = WebSquare.net.getParameter("delimiter");
+			if( delimiter == "" ) {
+				delimiter = WebSquare.proworks.getConfiguration( "calendarDelimiter" );
+				if( delimiter == "" ) {
+					delimiter = "/";
+				}
+			}
+		
+			var monthNames = new Array('1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월');
+			if( curDate != null && curDate != "" ) {
+				var re = /[^0-9]/g;	//Initialize pattern.
+				curDate = curDate.replace( re ,"");
+				if( curDate.length == 8 ) {
+					var tmpYear  = parseInt( curDate.substring(0, 4) );
+					var tmpMonth = parseInt( curDate.substring(4, 6) );
+					var tmpDate  = parseInt( curDate.substring(6, 8) );
+					if( isNaN(tmpYear) || isNaN(tmpMonth) || isNaN(tmpDate) || tmpYear < _calendar.minYear || tmpYear > _calendar.maxYear || tmpMonth < 1 || tmpMonth > 12 ) {
+						_calendar.date = new Date();
+					} else {
+						_calendarCehckLeapYear( tmpYear );
+						if( tmpDate < 1 || tmpDate > _calendar.monthDays[tmpMonth - 1] ) {
+							_calendar.date = new Date();
+						} else {
+							_calendar.date = new Date( tmpYear, tmpMonth - 1, tmpDate );
+						}
+					}
+				} else {
+					_calendar.date = new Date();
+				}
+			} else {
+				_calendar.date = new Date();
+			}
+		
+			try {
+				document.getElementById("_calendarLayer").load("cache");
+					var holidayStr = _calendarLayer.getAttribute("holidays");
+				var holiday = null;
+				if( holidayStr == null ) {
+					holidayStr = WebSquare.proworks.getAllHolidays().xml;
+					var expire = new Date(); // Start Time
+					expire.setDate(expire.getDate() + 1);
+					_calendarLayer.expires = expire.toUTCString();
+					_calendarLayer.setAttribute("holidays", holidayStr );
+					_calendarLayer.save("cache");
+				}
+				var vecHoliday = WebSquare.collection.toVector( holidayStr );
+				for( var i = 0; i < vecHoliday.size() ; i++ ) {
+					var element = vecHoliday.elementAt(i);
+					_calendar.holiday[ WebSquare.xml.getString( element, "sDate" ) ] = WebSquare.xml.getString( element, "sDesc" );
+				}
+			} catch( e ) {}
+		
+			var year  = _calendar.date.getFullYear();
+			var month = _calendar.date.getMonth() + 1;
+			var day   = _calendar.date.getDate();
+			if( year > _calendar.maxYear ) {
+				year = _calendar.maxYear;
+			}
+			if( year < _calendar.minYear ) {
+				year = _calendar.minYear;
+			}
+			_calendarCehckLeapYear( year );
+		
+			_calendar.calendarTitle = document.all["_calendarLayer"].children[0].rows[0].cells[0].children[0].children[0];
+			_calendar.yearSelect    = document.all["_calendarLayer"].children[0].rows[0].cells[0].children[0].children[1];
+			_calendar.monthSelect   = document.all["_calendarLayer"].children[0].rows[0].cells[0].children[0].children[2];
+		
+			for(var row = 1; row < 7; row++) {
+				for(var cell = 0; cell < 7; cell++)	{
+					_calendar.dayCell[((row-1)*7) + cell] = document.all["_calendarLayer"].children[0].rows[row + 1].cells[cell];
+					_calendar.dayCell[((row-1)*7) + cell].style.width  = "29px";
+					_calendar.dayCell[((row-1)*7) + cell].style.textAlign  = "left";
+					_calendar.dayCell[((row-1)*7) + cell].style.fontSize  = "11px";
+					_calendar.dayCell[((row-1)*7) + cell].style.cursor = "hand";
+					_calendar.dayCell[((row-1)*7) + cell].attachEvent("onmouseover", fnOver);
+					_calendar.dayCell[((row-1)*7) + cell].attachEvent("onmouseout",  fnOut );
+				}
+		
+			}
+		
+			for (var i = _calendar.minYear; i <= _calendar.maxYear; i++) {
+				e = document.createElement("OPTION");
+				e.text = i + "년";
+				_calendar.yearSelect.options.add(e);
+			}
+		
+			for (var i=0 ; i < 12; i++) {
+				e = document.createElement("OPTION");
+				e.text = monthNames[i];
+				_calendar.monthSelect.options.add(e);
+			}
+		
+			_calendar.monthSelect.attachEvent("onchange", _calendarMonthSelectOnChange);
+			_calendar.yearSelect.attachEvent( "onchange", _calendarYearSelectOnChange);
+			_calendarUpdate();
+			try {
+				if( parent != null ) {
+					parent.document.all["_calendarLayer"].style.visibility = "visible";
+					parent.document.all["_calendarLayer"].style.display = "";
+				}
+			} catch( e ) {}
+		}
+		
+		function fnOver() {
+			try {
+			var obj = event.srcElement;
+			//_calendar.outColor = obj.style.backgroundColor;
+			 document.all["_calendarLayer"].children[0].rows[obj.rowCount].style.backgroundColor = "#CECEFF";
+			 document.all["_calendarLayer"].children[0].rows[obj.todayRow].style.backgroundColor = "#EEEEEE";
+			} catch ( e ) {}
+		}
+		
+		function fnOut() {
+			try {
+			var obj = event.srcElement;
+			document.all["_calendarLayer"].children[0].rows[obj.todayRow].style.backgroundColor = "#EEEEEE";
+			document.all["_calendarLayer"].children[0].rows[obj.rowCount].style.backgroundColor = "#FFFFFF";
+			} catch ( e ) {}
+		}
+		
+		
+		function _calendarMonthSelectOnChange() {
+			_calendar.date.setMonth( _calendar.monthSelect.selectedIndex );
+			_calendarUpdate();
+		}
+		
+		function _calendarYearSelectOnChange() {
+			_calendar.date.setYear( _calendar.yearSelect.selectedIndex + _calendar.minYear );
+			_calendarUpdate();
+		}
+		
+		function _calendarOnDblClick() {
+			var e = window.event.srcElement;
+			if (e.tagName == "TD")	{
+				if( typeof e.year == 'undefined' || typeof e.month == 'undefined' || typeof e.day == 'undefined' ) {
+					return;
+				}
+				if ((e.year < _calendar.minYear) || (e.year > _calendar.maxYear)) {
+					return;
+				}
+				if( e.year == _calendar.date.getFullYear() && e.month == (_calendar.date.getMonth() + 1) ) {
+					_calendarOnClick();
+		//			_calendarClose();
+				}
+			}
+		}
+		
+		function _calendarOnClick() {
+			var e = window.event.srcElement;
+			if (e.tagName == "TD")	{
+				if( typeof e.year == 'undefined' || typeof e.month == 'undefined' || typeof e.day == 'undefined' ) {
+					return;
+				}
+				if ((e.year < _calendar.minYear) || (e.year > _calendar.maxYear)) {
+					return;
+				}
+		
+				if( e.day == _calendar.date.getDate() ) {
+					var tmpValue = e.year + delimiter + WebSquare.text.fillZero( e.month, 2 ) + delimiter + WebSquare.text.fillZero( e.day, 2 );
+					if( _calendar.selectDate != null && _calendar.selectDate == tmpValue ) {
+						if( document.all["_calendarLayer"].children[0].rows[8].cells[0].innerText != "닫기" ) {
+							_calendarClose();
+							return;
+						}
+					}
+				}
+				_calendar.currentDayCell.style.backgroundColor = "#FFFFFF";
+				_calendar.currentDayCell = e;
+				_calendar.currentDayCell.style.backgroundColor = "#DEDEEE";
+				_calendar.outColor = "#DEDEEE";
+				_calendar.date.setDate( e.day );
+		
+				try {
+					var tmpValue = e.year + delimiter + WebSquare.text.fillZero( e.month, 2 ) + delimiter + WebSquare.text.fillZero( e.day, 2 );
+					if( parent != null ) {
+						if( _calendar.selectDate == null || _calendar.selectDate != tmpValue ) {
+							parent.WebSquare.form.setCalendarWeekDate( tmpValue );
+						}
+					}
+					_calendar.selectDate = tmpValue;
+				} catch( e ) {}
+		
+				_calendarClose();	//한번 클릭으로 닫히도록 변경
+			}
+		}
+		
+		function gotoToday() {
+			_calendar.date = new Date();
+			_calendarUpdate();
+			var year  = _calendar.date.getFullYear();
+			var month = _calendar.date.getMonth() + 1;
+			var day   = _calendar.date.getDate();
+			try {
+				var tmpValue = year + delimiter + WebSquare.text.fillZero( month, 2 ) + delimiter + WebSquare.text.fillZero( day, 2 );
+				if( parent != null ) {
+					if( _calendar.selectDate == null || _calendar.selectDate != tmpValue ) {
+						parent.WebSquare.form.setCalendarWeekDate( tmpValue );
+					}
+				}
+				_calendar.selectDate = tmpValue;
+			} catch( e ) {}
+			_calendarClose();	//한번 클릭으로 닫히도록 변경
+		}
+		
+		function gotoCalendar( str ) {
+			if( str.length == 8 ) {
+				var tmpYear  = parseInt( str.substring(0, 4) );
+				var tmpMonth = parseInt( str.substring(4, 6) );
+				var tmpDate  = parseInt( str.substring(6, 8) );
+				if( isNaN(tmpYear) || isNaN(tmpMonth) || isNaN(tmpDate) || tmpYear < _calendar.minYear || tmpYear > _calendar.maxYear || tmpMonth < 1 || tmpMonth > 12 ) {
+					_calendar.date = new Date();
+				} else {
+					_calendarCehckLeapYear( tmpYear );
+					if( tmpDate < 1 || tmpDate > _calendar.monthDays[tmpMonth - 1] ) {
+						_calendar.date = new Date();
+					} else {
+						_calendar.date = new Date( tmpYear, tmpMonth - 1, tmpDate );
+					}
+				}
+			}
+			_calendarUpdate();
+		}
+		
+		function _calendarOnSelectStart() {
+			_calendarOnClick();
+			window.event.returnValue = false;
+			window.event.cancelBubble = false;
+		}
+		
+		function _calendarCehckLeapYear( year ) {
+			_calendar.monthDays[1] = (((!(year % 4)) && (year % 100) ) || !(year % 400)) ? 29 : 28;
+		}
+		
+		function _calendarObj() {
+			this.selectDate		= null;
+			this.date           = null;
+			this.target         = null;
+			this.monthDays      = new Array( 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
+			this.minYear        = 1900;
+			this.maxYear        = 2099;
+			this.yearSelect     = null;
+			this.monthSelect    = null;
+			this.calendarTitle  = null;
+			this.holiday        = new Object();
+			this.dayCell        = new Array();
+			this.currentDayCell = null;
+			this.outColor       = "#FFFFFF";
+			this.todayRow	    = null;
+			this.rowCount	    = null;
+		}
+		
+		function _calendarClose() {
+			try {
+				document.all["_calendarLayer"].style.display = "none";
+				if( typeof parent != 'undefined' && parent != null && parent != window ) {
+					parent.WebSquare.form.calendarClose();
+				}
+			} catch( e ) {}
+		}
+		
+		function _calendarUpdate() {
+		
+			var year  = _calendar.date.getFullYear();
+			var month = _calendar.date.getMonth() + 1;
+			var day   = _calendar.date.getDate();
+			_calendarCehckLeapYear( year );
+		
+			_calendar.calendarTitle.innerText = year + delimiter + month;
+		
+			_calendar.yearSelect.options[ year - _calendar.minYear ].selected = true;
+			_calendar.monthSelect.options[ month - 1 ].selected = true;
+		
+			var cellIdx = 0;
+			var iStartDay, iLastMonthYear, iLastMonthDays, iLastMonth, iNextMonthYear, iNextMonthDays, iNextMonth;
+		
+			iLastMonthDays = _calendar.monthDays[ ((month - 1 == 0) ? 12 : month - 1) - 1];
+			iNextMonthDays = _calendar.monthDays[ ((month + 1 == 13) ? 1 : month + 1) - 1];
+		
+			iLastMonthYear = (month == 1)  ? year - 1 : year;
+			iLastMonth     = (month == 1)  ? 12       : month - 1;
+			iNextMonthYear = (month == 12) ? year + 1 : year;
+			iNextMonth     = (month == 12) ? 1        : month + 1;
+		
+			var oDate = new Date(year, (month - 1), 1);
+		
+			iStartDay = oDate.getDay();
+			if (iStartDay < 1) {
+				iStartDay += 7;
+			}
+			iStartDay = iLastMonthDays - iStartDay + 1;
+		
+			var SunDay;
+			var month2;
+			var year2;
+			var rowCount = 2;
+			var rowCount2 = 0;
+			for (var i = iStartDay ; i <= iLastMonthDays  ; i++ , cellIdx++)	{
+				if( cellIdx % 7 == 0){
+					SunDay = i;
+					month2 = iLastMonth;
+					year2 = iLastMonthYear;
+				}
+				_calendar.dayCell[cellIdx].innerText = i;
+				_calendar.dayCell[cellIdx].day = SunDay;
+				_calendar.dayCell[cellIdx].month = month2;
+				_calendar.dayCell[cellIdx].year = year2;
+				_calendar.dayCell[cellIdx].rowCount = rowCount;
+				_calendar.dayCell[cellIdx].style.color = "gray";
+				//_calendar.dayCell[cellIdx].style.backgroundColor = "#FFFFFF";
+			}
+			for (var i = 1 ; i <= _calendar.monthDays[month - 1] ; i++, cellIdx++)	{
+				if( cellIdx % 7 == 0){
+					SunDay = i;
+					month2 = month;
+					year2 = year;
+					rowCount = rowCount +1;
+				}
+				_calendar.dayCell[cellIdx].innerText = i;
+				_calendar.dayCell[cellIdx].day = SunDay;
+				_calendar.dayCell[cellIdx].month = month2;
+				_calendar.dayCell[cellIdx].year = year2;
+				_calendar.dayCell[cellIdx].sDesc = "";
+				_calendar.dayCell[cellIdx].rowCount = rowCount;
+				_calendar.dayCell[cellIdx].rowCount = rowCount;
+		
+				var idx = year + WebSquare.text.fillZero( month, 2 ) + WebSquare.text.fillZero( i, 2 );
+				if( typeof _calendar.holiday[idx] != 'undefined' ) {
+					_calendar.dayCell[cellIdx].style.color = "red";
+					_calendar.dayCell[cellIdx].sDesc = _calendar.holiday[idx];
+				} else if( cellIdx % 7 == 0 ) {
+					_calendar.dayCell[cellIdx].style.color = "red";
+				} else if ( cellIdx % 7 == 6 ) {
+					_calendar.dayCell[cellIdx].style.color = "blue";
+				} else {
+					_calendar.dayCell[cellIdx].style.color = "black";
+				}
+				_calendar.currentDayCell = document.all["_calendarLayer"].children[0].rows[rowCount];
+		
+				if(day == i) {
+					rowCount2 = rowCount;
+				}
+				//alert(rowCount + " , " + rowCount2);
+			}
+			var j =0;
+			for (var i = 1 ; cellIdx < 42 ; i++, cellIdx++)	{
+				if( cellIdx % 7 == 0){
+					j = 1;
+					SunDay = i;
+					month2 = iNextMonth;
+					year2 = iNextMonthYear;
+				}
+				if(j ==0){
+					_calendar.dayCell[cellIdx].innerText = i;
+					_calendar.dayCell[cellIdx].day = SunDay;
+					_calendar.dayCell[cellIdx].month = month2;
+					_calendar.dayCell[cellIdx].year = year2;
+					_calendar.dayCell[cellIdx].style.color = "gray";
+					//_calendar.dayCell[cellIdx].style.backgroundColor = "#FFFFFF";
+					_calendar.dayCell[cellIdx].rowCount = rowCount;
+				}
+			}
+			if(rowCount2 == rowCount){
+				_calendar.currentDayCell.style.backgroundColor = "#EEEEEE";
+			} else {
+		
+				_calendar.currentDayCell.style.backgroundColor = "#FFFFFF";
+			}
+		
+			for (var i = 0 ; i < 42 ; i++)	{
+				_calendar.dayCell[i].todayRow = rowCount2;
+			}
+		
+		}
+    </script>
+</head>
+<body style="margin-top: 0px; margin-left: 0px; " oncontextmenu="return false;">
+	<div id='_calendarLayer' style="behavior:url('#default#userData')" onclick="_calendarOnClick()" ondblclick="_calendarOnDblClick()" onselectstart="_calendarOnSelectStart()"><table style='width:182px' cellpadding="0" cellspacing="0" border="0">
+		<tr><td style='height:22px;vertical-align:bottom;' colspan='7'><nobr><span style='width:60px;padding-left:4px;padding-top:4px;font-size:11px'></span><select></select><select></select></nobr></td></tr>
+		<tr><td style='height:20px;vertical-align:bottom;background-color:#DEDEFE;text-align:center;font-size:11px'>일</td><td style='height:20px;vertical-align:bottom;background-color:#DEDEFE;text-align:center;font-size:11px'>월</td><td style='height:20px;vertical-align:bottom;background-color:#DEDEFE;text-align:center;font-size:11px'>화</td><td style='height:20px;vertical-align:bottom;background-color:#DEDEFE;text-align:center;font-size:11px'>수</td><td style='height:20px;vertical-align:bottom;background-color:#DEDEFE;text-align:center;font-size:11px'>목</td><td style='height:20px;vertical-align:bottom;background-color:#DEDEFE;text-align:center;font-size:11px'>금</td><td style='height:20px;vertical-align:bottom;background-color:#DEDEFE;text-align:center;font-size:11px'>토</td></tr>
+		<tr><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td></tr>
+		<tr><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td></tr>
+		<tr><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td></tr>
+		<tr><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td></tr>
+		<tr><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td></tr>
+		<tr><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td><td style='height:20px;vertical-align:bottom;'></td></tr>
+		<tr><td colspan='7' style='height:20px;vertical-align:bottom;text-align:right'><a href='javascript:gotoToday()' style='text-decoration:none'>현재일</a>&nbsp;&nbsp;&nbsp;<a href='javascript:_calendarClose()' style='text-decoration:none'>닫기</a></td></tr></table>
+	</div>
+	</body>
+</html>

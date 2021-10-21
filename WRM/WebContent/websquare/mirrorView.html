@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>	Mirror View </title>
+		<script type="text/javascript" src="externalJS/html2canvas/html2canvas.js"></script>
+		<script type="text/javascript">
+			var parentObj = opener || parent;
+			function init() {
+				mirrorView();
+			}
+
+			function mirrorView() {
+				var start =  performance.now();
+				var mirrorObj = parentObj.document.body;
+				html2canvas(mirrorObj, { onrendered : 
+					function(canvas) {
+						document.getElementById("mirrorImg").src = canvas.toDataURL("image/png");
+
+//						document.body.style.backgroundImage='url('+canvas.toDataURL("image/png")+')';
+//						document.body.style.backgroundSize='100% auto';
+
+
+//						if(document.body.lastChild && document.body.lastChild.tagName && document.body.lastChild.tagName.toLowerCase() == 'canvas') document.body.removeChild(document.body.lastChild);
+//						document.body.appendChild(canvas); 
+//						document.body.scrollTop = parentObj.document.body.scrollTop;
+
+						var end = performance.now();
+						console.log("render time: " + Math.round((end-start),0) + "ms" );
+						window.setTimeout(function() { mirrorView() }, 1000);
+					} });
+			
+			}
+			init();
+		</script>
+		<style>
+		</style>
+	</head>
+	<body><img id='mirrorImg' width="100%" /></body>
+</html>

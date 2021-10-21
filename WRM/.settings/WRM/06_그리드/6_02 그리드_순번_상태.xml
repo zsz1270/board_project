@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="6.02 그리드_순번_상태"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+	<w2:gridView autoFit="allColumn" autoFitMinWidth="968" checkReadOnlyOnPasteEnable="" class="wq_gvw" dataList="data:dataList1" defaultCellHeight="20" id="" rowNumHeaderValue="No" rowNumVisible="true" rowNumWidth="50" rowStatusHeaderValue="상태" rowStatusVisible="true" rowStatusWidth="50" scrollByColumn="false" scrollByColumnAdaptive="false" style="height: 150px;" visibleRowNum="all" keepDefaultColumnWidth="true">
+		<w2:caption id="caption2" style="" value="this is a grid caption.">
+		</w2:caption>
+		<w2:header id="header2" style="">
+			<w2:row id="row3" style="">
+				<w2:column blockSelect="false" displayMode="label" id="column11" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column10" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column9" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column8" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column7" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column6" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column5" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column4" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="column3" inputType="text" removeBorderStyle="false" style="height:34px;" value="타이틀" width="70">
+</w2:column>
+</w2:row>
+</w2:header>
+		<w2:gBody id="gBody2" style="">
+			<w2:row id="row4" style="">
+				<w2:column blockSelect="false" displayMode="label" id="col2" inputType="text" removeBorderStyle="false" style="height:34px;" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col3" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col4" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col5" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col6" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col7" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col8" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col9" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+				<w2:column blockSelect="false" displayMode="label" id="col10" inputType="text" removeBorderStyle="false" style="height:20px" width="70">
+</w2:column>
+</w2:row>
+</w2:gBody>
+</w2:gridView>
+</xf:group>
+</body>
+</html>

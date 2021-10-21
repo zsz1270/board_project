@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JS Doc List Creator</title>
+<script type="text/javascript" src="/websquare/externalJS/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+	var funcInfos = [];
+	var funcIndex = 0;
+	var JSDOC_URL = "/cm/jsdoc/api/";
+
+	var moduleName = [ "com.sbm", "com.data", "com.util", "com.win", "com.num", "com.str", "com.date", "com.ext", "console" ];
+	var loadCount = 0;
+	var apiStr = "";
+
+	function createBasicDiv() {
+		$("body").append("<h1>UI Common API List Creator by Markdown Format</h1><hr>");
+		$("body").append("<input type='button' style='margin-right:5px; float:left;' onclick=\"javascript:location.reload();\" value='Reload'>");
+		$("body").append("<input type='button' style='margin-right:5px; float:left;' onclick=\"javascript:createApiDiv();\" value='Create JS Docs List'>");
+		$("body").append("<input type='button' style='margin-right:5px; float:left;' onclick=\"javascript:copyText();\" value='Copy Text'><br>");
+		$("body").append("<textarea id='apiText' cols='120' rows='20' style='margin-top:5px;'></textarea>");
+	};
+	
+	function createApiDiv() {
+		for (var moduleIndex = 0; moduleIndex < moduleName.length; moduleIndex++) {
+			var apiDivId = moduleName[moduleIndex].replace(".", "_");
+			var apiHtmlUrl = JSDOC_URL + moduleName[moduleIndex] + ".html";
+
+			$("body").append("<iframe id='" + apiDivId + "' class='apiBox' src='" + apiHtmlUrl + "' style='display:block;'></iframe>");
+			$("#" + apiDivId).load(function(event) {
+				$("#" + apiDivId).append("<script type='text/javascript' src='/websquare/externalJS/jquery/jquery-1.10.2.min.js'/>");
+				loadCount++;
+				if (loadCount === moduleName.length) {
+					setTimeout(function() {
+						createDocument();
+					}, 1000);
+				}
+			});
+		}
+	};
+	
+	function createDocument() {
+		for (var moduleIndex = 0; moduleIndex < moduleName.length; moduleIndex++) {
+			var subFuncInfos = [];
+			var frameId = moduleName[moduleIndex].replace(".", "_");
+			var apiWindow = $("#" + frameId).contents();
+
+			apiWindow.find("article > .name").each(function(index, Element) {
+				var funcName = moduleName[moduleIndex] + $(this).context.id;
+				var url = moduleName[moduleIndex] + ".html#" + $(this).context.id;
+				var subFuncInfo = {
+					funcName : funcName,
+					description : "",
+					url : url,
+				};
+				subFuncInfos[index] = subFuncInfo;
+			});
+
+			apiWindow.find("article > div.description").each(function(index, Element) {
+				subFuncInfos[index].description = $(this).children().filter("p").text().trim().replace(/\n/gi, "<br>")
+			});
+
+			var description = apiWindow.find("article > .container-overview > .description").text().trim();
+			funcInfos[moduleIndex] = {
+				moduleName : moduleName[moduleIndex],
+				description : description,
+				url : moduleName[moduleIndex] + ".html",
+				subFuncInfos : subFuncInfos
+			}
+		}
+		
+		write("# UI 공통 함수 소개");
+		write("> * UI 공통 기능에서 제공하는 서버 통신(com.sbm), 데이터 처리(com.data), 유틸리티(util), 화면 제어(com.win), 숫자 처리(com.num), " +
+			  "외부 솔루션 연동(com.ext), 개발자 도구 콘솔 로그 출력(console)을 위한 함수를 설명합니다.");
+		write("> * <span style='color:red'>각 함수명을 클릭하면 해당 함수에 대한 상세 스펙과 예제 코드를 보여주는 Javascript Document가 새창으로 오픈됩니다. </span>");
+
+		for (var moduleIndex = 0; moduleIndex < moduleName.length; moduleIndex++) {
+			//write("# <a href='" + funcInfos[moduleIndex].url + "'>"+ moduleIndex + ". " + funcInfos[moduleIndex].moduleName + "</a>");
+			write("# " + funcInfos[moduleIndex].moduleName);
+			write(funcInfos[moduleIndex].description);
+			write("| API Name | API Description |");
+			write("| --- | --- |");
+
+			var subFuncInfos = funcInfos[moduleIndex].subFuncInfos;
+			for (var subFuncIndex = 0; subFuncIndex < subFuncInfos.length; subFuncIndex++) {
+				write("| <a href='" + subFuncInfos[subFuncIndex].url + "' target='_blank'>" + subFuncInfos[subFuncIndex].funcName
+						+ "</a> | " + subFuncInfos[subFuncIndex].description + " |");
+			}
+		}
+		$("#apiText").val(apiStr);
+		setTimeout(function() {
+			alert("Completed to create the markdown document to view the JS API List");
+		}, 1);
+	};
+	
+	function write(str) {
+		apiStr += str + "\n";
+	};
+	
+	function copyText() {
+		$("#apiText").select();
+		document.execCommand("Copy");
+	};
+
+	$(document).ready(function() {
+		createBasicDiv();
+	});	
+	
+</script>
+<style type="text/css">
+.apiBox {
+	width: 860px;
+	height: 50px;
+	overflow: scroll;
+}
+</style>
+</head>
+<body>
+</body>

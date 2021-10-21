@@ -1,0 +1,76 @@
+.w2balloonTip {
+	
+	height : 30px;
+	width : 50px;
+
+}
+
+.w2balloonTip_over {
+}
+
+.w2balloonTip_editor {
+	position : relative;
+	width : 90%;
+}
+
+.w2balloonTip_label {
+	position : relative;
+}
+
+.w2balloonTip_table {
+	table-layout : fixed;
+	border-collapse : collapse;
+	width : 100%;
+	height : 100%;
+}
+
+.w2balloonTip_col {
+}
+
+.w2balloonTip_col_topleft {
+	width : 20px;
+	height : 5px;
+	background : url(uiplugin/balloonTip/images/leftTop.gif) no-repeat right bottom;
+}
+
+.w2balloonTip_col_topcenter {
+	height : 5px;
+	background : url(uiplugin/balloonTip/images/top.gif) repeat-x center bottom;
+}
+
+.w2balloonTip_col_topright {
+	width : 20px;
+	height : 5px;
+	background : url(uiplugin/balloonTip/images/rightTop.gif) no-repeat left bottom;
+	
+}
+
+.w2balloonTip_col_centerleft {
+	width : 20px;
+	background : url(uiplugin/balloonTip/images/left.gif) repeat-y right center;
+}
+
+.w2balloonTip_col_centercenter {
+}
+
+.w2balloonTip_col_centerright {
+	width : 20px;
+	background : url(uiplugin/balloonTip/images/right.gif) repeat-y left center;
+}
+
+.w2balloonTip_col_bottomleft {
+	width : 20px;
+	height : 5px;
+	
+	background : url(uiplugin/balloonTip/images/tailBottom.gif) no-repeat right top;
+}
+
+.w2balloonTip_col_bottomcenter {
+	background : url(uiplugin/balloonTip/images/bottom.gif) repeat-x center top;
+}
+
+.w2balloonTip_col_bottomright {
+	width : 20px;
+	height : 5px;
+	background : url(uiplugin/balloonTip/images/rightBottom.gif) no-repeat left top;
+}

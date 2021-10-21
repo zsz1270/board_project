@@ -1,0 +1,148 @@
+.w2menu {
+/*	border: solid 1px black;	*/
+	padding : 0px;
+	margin : 0px;
+	font-size : 12px;
+	overflow : visible;
+}
+
+/* basic */
+.w2menu_main {
+}
+
+.w2menu_child {
+/*	display : none;	*/	
+	position : absolute;
+	margin-left : -5px;	
+	margin-top : -5px;
+	padding : 5px;
+}
+
+.w2menu_depth2 {
+	margin-left : -20px;
+	margin-top : 0px;
+}
+
+.w2menu_vertical .w2menu_depth2 {
+	margin-left : 0px;
+	margin-top : 0px;
+}
+
+.w2menu_node {
+/*	border : solid 1px green;	*/
+	cursor : pointer;
+	position : absolute;
+	padding : 0px 1px 0px 1px;
+}
+
+/* group */
+.w2menu_main .w2menu_child {
+	left : -40px;
+	top : 30px;
+}
+
+.w2menu_vertical .w2menu_main .w2menu_child {
+	top : -1px;
+	left : 110px;
+}
+
+.w2menu_child .w2menu_child {
+	top : -1px;
+	left : 165px;
+}
+
+/* node */ 
+.w2menu_main .w2menu_node {
+	font-size : 12px;
+	min-width : 40px;
+/*	height : 30px;
+	line-height : 30px;	
+	padding : 10px 0px 0px 10px;	*/
+}
+
+.w2menu_vertical .w2menu_main .w2menu_node {
+	font-size : 12px;
+/*	width : 165px;
+	height : 25px;	
+	line-height : 25px;	*/
+	padding : 10px 0px 0px 10px;
+}
+
+.w2menu_child .w2menu_node {
+	position : relative;
+	width : 165px;
+	height : 25px;
+	line-height : 25px;
+	font-size : 12px;
+	padding : 0px;
+}
+
+/* label */
+.w2menu_label {
+	position : static;	/* relative, absolute 주면 min-width는 대신 display:block, none왔다갔다할때 위치를 td안에 잘 못찾음..*/
+	min-width : 75px;
+	cursor : pointer;
+	overflow : hidden;
+	text-overflow : ellipsis;
+	white-space : nowrap;
+}
+
+.w2menu_main .w2menu_label {
+/*	color : red;	*/
+}
+
+.w2menu_vertical .w2menu_main .w2menu_label {
+/*	color : red;	*/
+}
+
+.w2menu_child .w2menu_label {
+/*	color : blue;	*/
+}
+
+.w2menu_node_over {
+/*	background-color : #80ffff;	*/
+}
+
+.w2menu_sub {
+	position:absolute;
+	/*
+	width : 50px;
+	height : 50px;
+	border : solid 1px red;
+	*/
+}
+
+.w2menu_menuLayer {
+	position : absolute;
+}
+
+.w2menu_child_container {
+	position : relative;
+	left : 0px;
+	top : 0px;
+}
+
+.w2menu_sub_wrap {
+	position : absolute;
+	left : 0px;
+	top : 0px;
+	width : 0px;
+	height : 0px;
+}
+
+.w2menu_child_table {
+	table-layout : auto;		 
+	border-collapse : collapse;
+}
+
+.w2menu_main_node_table {
+	table-layout : auto;		 
+	border-collapse : collapse;
+	vertical-align : middle;
+}
+
+.w2menu_child_table td {
+	padding : 0px;
+	margin : 0px;
+}
+

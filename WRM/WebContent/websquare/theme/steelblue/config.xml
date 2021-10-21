@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebSquare>
+    
+    <!--
+        $THEME_PATH/skin/stylesheet_ext.css loading
+    -->    
+	<stylesheet value="" import="link" enabled="true"/>
+    
+    <!-- 
+        processMsgURL  : 프로세스 메세지 URL (default:/websquare/message/processMsg.html)
+
+        <processMsgURL value="/websquare/message/processMsg.html"/>
+    -->
+    
+    <grid>
+			<rowMouseOverColor       value="#f1f4f6"/> 
+			<selectedCellColor       value="#e4e9ed"/>
+            <selectedCellOverColor   value="#f1f4f6"/>
+			<selectedRowColor        value="#e4e9ed"/>
+            <selectedRowOverColor    value="#f1f4f6"/>
+			<tooltipStyle value="padding:1px 3px 0;line-height:14px;font-size:12px;border:0;background-color:#859bbc;color:#fff"/>
+		<!-- 
+            excelUploadPopupURL           : 파일 업로드 사용시 팝업 URL (default:/websquare/uiplugin/grid/upload/fileUpload.html)
+            advancedExcelUploadPopupURL   : Advanced 액셀 업로드시 사용시 팝업 URL (default:/websquare/uiplugin/grid/upload/advancedfileUpload.html)
+            advancedExcelDownloadPopupURL : Advanced 액셀 다운로드 팝업 URL (default:/websquare/uiplugin/grid/download/advancedfileDownload.html)
+            disabledBackgroundColor       : disabled 되어 있는 셀의 배경색
+            disabledFontColor             : disabled 되어 있는 셀의 폰트색
+            readOnlyBackgroundColor       : 읽기 전용으로 지정된 셀의 배경색
+            rowMouseOverColor             : 마우스 오버시 행의 배경색
+            selectedCellColor             : 선택된 셀의 배경색
+            selectedCellOverColor         : 선택된 셀에 마우스 오버시 배경색(지정하지 않으면 rowMouseOverColor을 사용)
+            selectedRowColor              : 선택된 행의 배경색
+            selectedRowOverColor          : 선택된 행에 마우스 오버시 배경색(지정하지 않으면 rowMouseOverColor을 사용)
+            <useConfig value="true"/>
+            <excelUploadPopupURL value="/websquare/uiplugin/grid/upload/fileUpload.html"/>
+            <advancedExcelUploadPopupURL value="/websquare/uiplugin/grid/upload/advancedfileUpload.html"/>
+            <advancedExcelDownloadPopupURL value="/websquare/uiplugin/grid/download/advancedfileDownload.html"/>
+            <disabledBackgroundColor value=""/>
+            <disabledFontColor       value=""/>
+            <readOnlyBackgroundColor value=""/>
+            <rowMouseOverColor       value=""/>
+            <selectedCellColor       value=""/>
+            <selectedCellOverColor   value=""/>
+            <selectedRowColor        value=""/>
+            <selectedRowOverColor    value=""/>
+        -->
+     </grid>
+     <gridView>
+            <rowMouseOverColor       value="#f1f4f6"/> 
+            <selectedCellColor       value="#e4e9ed"/>
+            <selectedCellOverColor   value="#f1f4f6"/>
+            <selectedRowColor        value="#e4e9ed"/>
+            <selectedRowOverColor    value="#f1f4f6"/>
+            <tooltipStyle value="padding:1px 3px 0;line-height:14px;font-size:12px;border:0;background-color:#859bbc;color:#fff"/>
+        <!-- 
+            excelUploadPopupURL           : 파일 업로드 사용시 팝업 URL (default:/websquare/uiplugin/grid/upload/fileUpload.html)
+            advancedExcelUploadPopupURL   : Advanced 액셀 업로드시 사용시 팝업 URL (default:/websquare/uiplugin/grid/upload/advancedfileUpload.html)
+            advancedExcelDownloadPopupURL : Advanced 액셀 다운로드 팝업 URL (default:/websquare/uiplugin/grid/download/advancedfileDownload.html)
+            disabledBackgroundColor       : disabled 되어 있는 셀의 배경색
+            disabledFontColor             : disabled 되어 있는 셀의 폰트색
+            readOnlyBackgroundColor       : 읽기 전용으로 지정된 셀의 배경색
+            rowMouseOverColor             : 마우스 오버시 행의 배경색
+            selectedCellColor             : 선택된 셀의 배경색
+            selectedCellOverColor         : 선택된 셀에 마우스 오버시 배경색(지정하지 않으면 rowMouseOverColor을 사용)
+            selectedRowColor              : 선택된 행의 배경색
+            selectedRowOverColor          : 선택된 행에 마우스 오버시 배경색(지정하지 않으면 rowMouseOverColor을 사용)
+            <useConfig value="true"/>
+            <excelUploadPopupURL value="/websquare/uiplugin/grid/upload/fileUpload.html"/>
+            <advancedExcelUploadPopupURL value="/websquare/uiplugin/grid/upload/advancedfileUpload.html"/>
+            <advancedExcelDownloadPopupURL value="/websquare/uiplugin/grid/download/advancedfileDownload.html"/>
+            <disabledBackgroundColor value=""/>
+            <disabledFontColor       value=""/>
+            <readOnlyBackgroundColor value=""/>
+            <rowMouseOverColor       value=""/>
+            <selectedCellColor       value=""/>
+            <selectedCellOverColor   value=""/>
+            <selectedRowColor        value=""/>
+            <selectedRowOverColor    value=""/>
+        -->
+     </gridView>	
+    <chart>
+        <!-- 
+            chartTypeURL            : 차트 타입 팝업 URL (default:/websquare/uiplugin/chart/config/SelectChartConfig.xml)
+            chartOptionURL          : 차트 옵션 팝업 URL (default:/websquare/uiplugin/chart/config/Config_FF.xml)
+            chartFormURL            : 차트 서식 팝업 URL (default:/websquare/uiplugin/chart/config/ChartFormConfig_FF.xml)
+            chartSeriesURL          : 차트 계열 옵션  팝업 URL (default:/websquare/uiplugin/chart/config/SeriesConfig.xml)
+            chartTypeConfigURL      : 차트 타입 Config URL (default:/websquare/uiplugin/chart/config/ChartTypeConfig_FF.xml)
+            xis3dBackgroundColor    : 3D 차트 X,Y축 배경 색상 코드 String
+            axis3dBorderColor       : 3D 차트 X,Y축 Border 색상 코드 String
+            backgroundBorderColor   : 배경 테두리 색
+            backgroundBorderWidth   : 배경 테두리 두깨
+            backgroundGradient      : 배경 그라데이션 사용 여부
+            bgColorPalette          : 배경 그리드 색상 코드 값을 공백으로 구분한 string
+            gradientColorPalette    : 배경 그라데이션 색상 코드 값을 공백으로 구분한 string
+            mainGrid                : 주축 눈금 선을 표시할지 여부
+            mainGridLineOnly        : 주축 눈금선만 표시(투명 그리드 배경)
+            roundRectangle          : 배경 둥근 모서리 사용 여부            
+            <useConfig value="true"/>
+            <chartTypeURL value="/websquare/uiplugin/chart/config/SelectChartConfig.xml"/>
+            <chartOptionURL value="/websquare/uiplugin/chart/config/Config_FF.xml"/>
+            <chartFormURL value="/websquare/uiplugin/chart/config/ChartFormConfig_FF.xml"/>
+            <chartSeriesURL value="/websquare/uiplugin/chart/config/SeriesConfig.xml"/>
+            <chartTypeConfigURL value="/websquare/uiplugin/chart/config/ChartTypeConfig_FF.xml"/>
+            <xis3dBackgroundColor  value="" />
+            <axis3dBorderColor     value="" />
+            <backgroundBorderColor value="" />
+            <backgroundBorderWidth value="" />
+            <backgroundGradient    value="" />
+            <bgColorPalette        value="" />
+            <gradientColorPalette  value="" />
+            <mainGrid              value="" />
+            <mainGridLineOnly      value="" />
+            <roundRectangle        value="" />
+        -->
+    </chart>
+    <input>
+        <!--
+            onFocusClass    : focus시 적용할 class
+            readOnlyClass   : readOnly 상태일때 적용할 class
+
+            <useConfig value="true"/>
+            <onFocusClass value=""/>
+            <readOnlyClass value = ""/>
+        -->
+    </input>
+    <inputCalendar>
+			<useConfig value="true"/>
+            <calendarImage value="theme/stealblue/images/inputCalendar/icon_calendar.gif" />
+            <calendarImageOver value="theme/stealblue/images/inputCalendar/icon_calendar_over.gif" />
+		<!--
+            calendarImage       : 달력버튼의 이미지파일의 경로(default:/websquare/uiplugin/inputCalendar/images/icon_calendar.gif)
+            calendarImageOver   : 달력버튼에 마우스가 올라갔을 때 이미지파일의 경로(default:/websquare/uiplugin/inputCalendar/images/calendarImageOver.gif)
+            
+            <useConfig value="true"/>
+            <calendarImage value="/websquare/uiplugin/inputCalendar/images/icon_calendar.gif" />
+            <calendarImageOver value="/websquare/uiplugin/inputCalendar/images/icon_calendar_over.gif" />
+        -->
+    </inputCalendar>
+    <pageList>
+        <!--
+            leftPageBackImage       : 페이지를 왼쪽으로 pageSize단위 만큼 바꾸는 버튼의 이미지(default:/websquare/uiplugin/pageList/images/b_first.gif)
+            leftPageImage           : 페이지를 왼쪽으로 한칸 바꾸는 버튼의 이미지default:/websquare/uiplugin/pageList/images/b_prev.gif)
+            rightPageImage          : 페이지를 오른쪽으로 pageSize단위 만큼 바꾸는 버튼의 이미지default:/websquare/uiplugin/pageList/images/b_next.gif)
+            rightPageBackImage      : 페이지를 왼쪽으로 한칸 바꾸는 버튼의 이미지default:/websquare/uiplugin/pageList/images/b_end.gif)
+            
+            <useConfig value="true"/>
+            <leftPageBackImage       vaue=""/>
+            <leftPageImage           vaue=""/>
+            <rightPageImage          vaue=""/>
+            <rightPageBackImage      vaue=""/>
+        -->
+    </pageList>
+    <searchbox>
+        <!--
+            readOnlyClass : readOnly 상태일때 적용할 class
+            
+            <useConfig value="true"/>
+            <readOnlyClass       vaue=""/>
+        -->
+    </searchbox>
+    <secret>
+        <!--
+            readOnlyClass : readOnly 상태일때 적용할 class
+            
+            <useConfig value="true"/>
+            <readOnlyClass vaue=""/>
+        -->
+    </secret>
+    <treeview>
+        <!--
+            defaultImage    : node의 기본 이미지
+            expandedImage   : 폴더가 펼쳐졌을때 이미지
+            tooltipClass    : tooltip의 class
+            labelclass      : tree의 각 노드의 label에 적용할 class
+            
+            <useConfig value="true"/>
+            <defaultImage       value="" />
+            <expandedImage      value="" />
+        -->
+    </treeview>
+</WebSquare>

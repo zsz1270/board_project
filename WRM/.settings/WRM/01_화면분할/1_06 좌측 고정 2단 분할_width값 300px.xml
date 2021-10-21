@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="1.06 좌측 고정 2단 분할_width값 300px"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:group class="lybox left_fix3" id="" style="">
+	<xf:group adaptiveThreshold="" class="ly_columnfix_left" id="" style="">
+		<w2:textbox id="" label="가로 : 300px" style="line-height:28px;height: 30px;text-align:center;width: 100%;border:1px solid #ccc;">
+</w2:textbox>
+</xf:group>
+	<xf:group class="ly_columnfix_right" id="" style="">
+		<w2:textbox id="" label="가로 : Auto" style="line-height:28px;height: 30px;text-align:center;width: 100%;border:1px solid #ccc;">
+</w2:textbox>
+</xf:group>
+</xf:group>
+</body>
+</html>

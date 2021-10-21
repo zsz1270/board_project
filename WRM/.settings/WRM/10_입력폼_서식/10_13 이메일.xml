@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="10.13 이메일"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:input class="" id="" placeholder="" style="width:200px;">
+</xf:input>
+<w2:span id="" label="@" style="">
+</w2:span>
+<xf:input class="" id="" placeholder="" style="width:150px;">
+</xf:input>
+<xf:select1 allOption="" appearance="minimal" chooseOption="" class="" direction="auto" disabled="false" disabledClass="w2selectbox_disabled" id="" ref="" renderType="native" style="width:100px;" submenuSize="auto">
+	<xf:choices>
+		<xf:item>
+			<xf:label>
+<![CDATA[직접입력]]></xf:label>
+			<xf:value>
+			</xf:value>
+</xf:item>
+</xf:choices>
+</xf:select1>
+</body>
+</html>

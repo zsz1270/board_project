@@ -1,0 +1,9 @@
+{
+   "charset": "UTF-8",
+   "reqMethod": "POST",
+   "serviceURL": "http://localhost:8080/websViews/wsBoardList.do",
+   "contentType": "application/json",
+   "requestContent": "{\"searchParam\": {\n   \"search\": \"SampleValue_1\",\n   \"searchType\": \"SampleValue_0\"\n}}",
+   "responseContent": "{\"BoardList\":[{\"CON_TITLE\":\"1\",\"RNO\":34,\"CON_TXT\":\"1\",\"READ_COUNT\":4,\"REG_DATE\":\"10-18 17:23:58\",\"CON_ID\":\"1\",\"RN\":1,\"CON_NO\":\"43\",\"CON_DV\":\"01\",\"CON_PASSWORD\":\"1\",\"UPD_DATE\":1634545438000,\"TOTALCOUNT\":34},{\"CON_TITLE\":\"ip test2\",\"RNO\":33,\"CON_TXT\":\"iptest2\",\"READ_COUNT\":5,\"REG_DATE\":\"10-05 16:21:52\",\"CON_ID\":\"1\",\"RN\":2,\"CON_NO\":\"42\",\"CON_DV\":\"01\",\"CON_PASSWORD\":\"1\",\"UPD_DATE\":1633418512000,\"TOTALCOUNT\":34},{\"CON_TITLE\":\"ip test\",\"RNO\":32,\"CON_TXT\":\"ip test\",\"READ_COUNT\":4,\"REG_DATE\":\"10-05 16:20:14\",\"CON_ID\":\"1\",\"RN\":3,\"CON_NO\":\"41\",\"CON_DV\":\"01\",\"CON_PASSWORD\":\"1\",\"UPD_DATE\":1633418414000,\"TOTALCOUNT\":34},{\"CON_TITLE\":\"1\",\"RNO\":31,\"CON_TXT\":\"1\",\"READ_COUNT\":2,\"REG_DATE\":\"10-05 16:11:12\",\"CON_ID\":\"1\",\"RN\":4,\"CON_NO\":\"40\",\"CON_DV\":\"01\",\"CON_PASSWORD\":\"1\",\"UPD_DATE\":1633417872000,\"TOTALCOUNT\":34},{\"CON_TITLE\":\"1\",\"RNO\":30,\"CON_TXT\":\"수정확인테스트\",\"READ_COUNT\":2,\"REG_DATE\":\"10-05 13:35:23\",\"CON_ID\":\"1\",\"RN\":5,\"CON_NO\":\"39\",\"CON_DV\":\"01\",\"CON_PASSWORD\":\"1\",\"UPD_DATE\":1633408541000,\"TOTALCOUNT\":34}]}",
+   "sendTime": "2021-10-19 14:42:23"
+}

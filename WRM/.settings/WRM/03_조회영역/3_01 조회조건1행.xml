@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="3.01 조회조건1행"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:group class="shbox" id="" style="">
+	<xf:group class="shbox_inner" id="" style="">
+		<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb " id="" style="" tagname="table">
+			<w2:attributes>
+				<w2:summary>
+				</w2:summary>
+</w2:attributes>
+			<xf:group tagname="colgroup">
+				<xf:group style="width:100px;" tagname="col">
+				</xf:group>
+				<xf:group style="" tagname="col">
+				</xf:group>
+				<xf:group style="width:100px;" tagname="col">
+				</xf:group>
+				<xf:group style="" tagname="col">
+				</xf:group>
+</xf:group>
+			<xf:group class="" id="" style="" tagname="tr">
+				<xf:group class="w2tb_th" style="" tagname="th">
+					<w2:textbox class="req" id="" label="기준년월" style="">
+					</w2:textbox>
+</xf:group>
+				<xf:group class="w2tb_td" style="" tagname="td">
+					<xf:select1 allOption="" appearance="minimal" chooseOption="" class="req" direction="auto" disabled="false" disabledClass="w2selectbox_disabled" id="" ref="" renderType="" style="width:100px;" submenuSize="auto">
+						<xf:choices>
+							<xf:item>
+								<xf:label>
+<![CDATA[2020년]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[2019년]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[2018년]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+</xf:choices>
+</xf:select1>
+					<xf:select1 allOption="" appearance="minimal" chooseOption="" class="req" direction="auto" disabled="false" disabledClass="w2selectbox_disabled" id="" ref="" renderType="" style="width:100px;" submenuSize="auto">
+						<xf:choices>
+							<xf:item>
+								<xf:label>
+<![CDATA[1월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[2월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[3월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[4월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[5월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[6월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[7월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[8월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[9월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[10월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[11월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[12월]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+</xf:choices>
+</xf:select1>
+					<xf:trigger class="btn_cm " id="" style="" type="button">
+						<xf:label>
+<![CDATA[조회]]></xf:label>
+</xf:trigger>
+</xf:group>
+				<xf:group class="w2tb_th" style="" tagname="th">
+					<w2:textbox class="" id="" label="사용여부" style="">
+					</w2:textbox>
+</xf:group>
+				<xf:group class="w2tb_td" id="" style="" tagname="td">
+					<xf:select1 appearance="full" cols="" disabled="" id="" ref="" renderType="radiogroup" rows="" selectedIndex="1" style="">
+						<xf:choices>
+							<xf:item>
+								<xf:label>
+<![CDATA[전체]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[사용]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+							<xf:item>
+								<xf:label>
+<![CDATA[미사용]]></xf:label>
+								<xf:value>
+								</xf:value>
+</xf:item>
+</xf:choices>
+</xf:select1>
+</xf:group>
+</xf:group>
+</xf:group>
+</xf:group>
+	<xf:group class="btn_shbox" id="" style="">
+		<xf:trigger class="btn_cm sch" disabled="" escape="false" id="" style="" type="button">
+			<xf:label>
+<![CDATA[조회]]></xf:label>
+</xf:trigger>
+</xf:group>
+</xf:group>
+</body>
+</html>

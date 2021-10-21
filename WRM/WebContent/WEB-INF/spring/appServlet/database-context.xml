@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<beans:bean id="dataSourceOrigin" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></beans:property>
+		<beans:property name="url" value="jdbc:oracle:thin:@localhost:1521/xe"></beans:property>
+		<beans:property name="username" value="system"></beans:property>
+		<beans:property name="password" value="123123"></beans:property>
+	</beans:bean>
+
+	<beans:bean id="dataSource" class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
+		<beans:constructor-arg ref="dataSourceOrigin" />
+	</beans:bean>
+ 
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="configLocation" value="/WEB-INF/spring/appServlet/mybatis-config.xml"></beans:property>
+		<beans:property name="mapperLocations">
+			<beans:array>
+				<beans:value>classpath:com/inswave/wrm/common/dao/mariamapper/*mapper.xml</beans:value>
+				<beans:value>classpath:com/inswave/wrm/member/dao/mariamapper/*mapper.xml</beans:value>
+				<beans:value>classpath:com/inswave/wrm/sample/dao/mariamapper/*mapper.xml</beans:value>
+				<beans:value>classpath:com/joynbiz/board/mapper/member.xml</beans:value>
+			</beans:array>
+		</beans:property>
+		<!-- <beans:property name="configurationProperties"> <props> <prop key="callSettersOnNulls">true</prop> </props> </beans:property> -->
+	</beans:bean>
+
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+	</beans:bean>
+
+	<!-- mapper 인식  : 클래스패스를 지정하여 자동스캔 기능 사용.-->
+	<!--  1. <mybatis:scan/> 엘리먼트 사용. -->
+	<!--  2. @MapperScan 애노테이션 사용. -->
+	<!--  3. 스프링 XML파일을 사용해서 MapperScannerConfigurer를 등록. -->
+
+	<!-- mapper 인터페이스와  mapper XML에 의해 생성되는 mapper class에 대한 빈 설정. -->
+	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<beans:property name="basePackage" value="com.inswave.wrm.common.dao,com.inswave.wrm.member.dao,com.inswave.wrm.sample.dao" />
+		<beans:property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+	</beans:bean>
+
+
+	<!-- 트랜잭션 설정. -->
+	<!-- 1. 선언적 트랜잭션  -->
+	<!-- 2. 명시적 어노테이션 지정 방법 -->
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+	</beans:bean>
+
+	<!-- * 선언적 트랜잭션 방법. -->
+	<!-- 트랜잭션 부가기능 정의. Exception -->
+	<!-- 1. checked exception (IOException, SQLException(DataAccessException)...) : rollback 하지 않음. --> 
+	<!-- 2. unchecked exception (= RuntimeException ) (NullPointerException, IndexOutOfBoundException ...) : rollback 함. -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" rollback-for="RuntimeException" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 정의한 트랜잭션 부가기능을 적용할 대상 빈 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="requiredTx" expression="execution(* com.inswave.wrm.*.service.impl.*Impl.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
+	</aop:config>
+
+</beans:beans>

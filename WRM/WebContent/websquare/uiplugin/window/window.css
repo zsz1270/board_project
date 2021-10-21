@@ -1,0 +1,177 @@
+.w2window {
+	position : absolute;
+	background-color : #ffffff;
+	border : solid 1px #42536b;
+}
+
+.w2window_header {
+	position : absolute;
+	top : 0px;
+	left : 1px;
+	right : 1px;
+	height : 24px;
+	background-image : url(uiplugin/window/images/bg_mdiTitle.gif);
+}
+
+.w2window_header_icon {
+	position : absolute;
+	top : 0px;
+	left : 3px;
+	width : 44px;
+	height : 24px;
+	background : url(uiplugin/window/images/logo_mdi.gif) center center no-repeat;
+}
+
+.w2window_header_title {
+	position : absolute;
+	top : 0px;
+	left : 53px;
+	width : 300px;
+	height : 21px;
+	padding : 7px 0px 0px 0px;
+	font-size : 12px;
+	font-family : dotum;
+	font-weight : bold;
+	color : #003473;
+}
+
+.w2window_header_control {
+	position : absolute;
+	top : 0px;
+	right : 0px;
+	width : 55px;
+	height : 24px;
+}
+
+.w2window_minimize {
+	position : absolute;
+	top : 5px;
+	left : 1px;
+	width : 14px;
+	height : 14px;
+	background : url(uiplugin/window/images/btn_minimize.gif) center center no-repeat;
+	cursor : pointer;
+}
+
+ .w2window_restore {
+	position : absolute;
+	top : 5px;
+	left : 18px;
+	width : 14px;
+	height : 14px;
+	background : url(uiplugin/window/images/btn_restore.gif) center center no-repeat;
+	cursor : pointer;
+}
+
+.w2window_close {
+	position : absolute;
+	top : 5px;
+	left : 35px;
+	width : 14px;
+	height : 14px;
+	background : url(uiplugin/window/images/btn_close.gif) center center no-repeat;
+	cursor : pointer;
+}
+
+.w2window_minimize_on {
+	position : absolute;
+	top : 5px;
+	left : 1px;
+	width : 14px;
+	height : 14px;
+	background : url(uiplugin/window/images/btn_minimize_on.gif) center center no-repeat;
+	cursor : pointer;
+}
+
+ .w2window_restore_on {
+	position : absolute;
+	top : 5px;
+	left : 18px;
+	width : 14px;
+	height : 14px;
+	background : url(uiplugin/window/images/btn_restore_on.gif) center center no-repeat;
+	cursor : pointer;
+}
+
+.w2window_close_on {
+	position : absolute;
+	top : 5px;
+	left : 35px;
+	width : 14px;
+	height : 14px;
+	background : url(uiplugin/window/images/btn_close_on.gif) center center no-repeat;
+	cursor : pointer;
+}
+
+.w2window_body {
+	background-color : #abb9cc;
+	position : absolute;
+	top : 24px;
+	left : 1px;
+	bottom : 1px;
+	right : 1px;
+}
+
+.w2window_content {
+	background-color : #ffffff;
+	position : absolute;
+	top : 0px;
+	left : 2px;
+	bottom : 22px;
+	right : 2px;
+	border-top : 1px solid #7f95b3;
+	border-left : 1px solid #7f95b3;
+	border-right : 1px solid #536A88;
+	border-bottom : 0px solid #536A88;
+}
+
+.w2window_iframe {
+	background-color : #ffffff;
+	position : absolute;
+	width : 100%;
+	height : 100%;
+	border : 0px;
+	padding : 0px;
+}
+
+.w2window_status {
+	background-color : #dae0e8;
+	position : absolute;
+	left : 2px;
+	bottom : 2px;
+	right : 2px;
+	height : 20px;
+	border-top : 0px solid #7f95b3;
+	border-left : 1px solid #7f95b3;
+	border-right : 1px solid #536A88;
+	border-bottom : 1px solid #536A88;
+}
+
+.w2window_msg {
+	background : url(uiplugin/window/images/icon_msg.gif) left center no-repeat;
+	position : absolute;
+	over-flow : hidden;
+	top : 3px;
+	left : 2px;
+	width : 160px;
+	height : 14px;
+	padding : 3px 0px 0px 18px;
+	font-size : 12px;
+	font-family : dotum;
+	color : #033771;
+}
+
+
+
+.w2window_maximized {
+	position : absolute;
+	left : 0px;
+	top : 0px;
+	right : 0px;
+	bottom : 0px;
+}
+
+
+.w2window_restored {
+	position : absolute;
+}

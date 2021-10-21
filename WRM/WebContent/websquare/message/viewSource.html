@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>Source</title>
+    <style type="text/css">
+		body		{ background-color:#F6F4F1; margin-top:0pt; margin-left:0pt; margin-right:0pt }
+		#title 		{ margin-left:5pt;  padding-top:5pt; height:22pt; color:#B3550A; font-size:9pt; font-family:굴림; line-height:14pt; visibility:visible }
+		#main 		{ margin-left:0pt; text-align:center; visibility:visible; font-family:monospace; tab-size:4}
+		#sub 		{ text-align:center; padding-top:7px; visibility:visible }
+	</style>
+	<script type="text/javascript" src="htmlCommon.js"></script>
+	<script type="text/javascript">
+		try {
+		    var domain = getParameter("domain");  
+		    if(domain) {
+		        document.domain = domain;   
+		    }
+		} catch (e) {
+			opener.WebSquare.exception.printStackTrace(e);
+		}
+		
+		window.onload = function () {
+			setTimeout(doInit,300);
+		};
+
+		window.onresize = function() {
+			var height = (document.documentElement.clientHeight - 95);   //-title, sub
+			if( height < 200 ) {
+				height = 200;
+			}
+			document.getElementById("main").style.height = height + "px";
+		};
+
+
+		function doInit() {
+			var height = (document.documentElement.clientHeight - 95);   //-title, sub
+			if( height < 200 ) {
+				height = 200;
+			}
+			document.getElementById("main").style.height = height + "px";     
+			document.getElementById("title").innerHTML = "<img src='images/bullet_info.gif' style='vertical-align:middle; margin-right:5px' /><b>" + opener.WebSquare.language.getMessage( "E_viewSource_title" ) + "</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color='#000'><input type='checkbox' id='highlight' onclick='reloadSource()'>  <label for='highlight'>SourceHighlight</label></font>";
+			
+			var str = opener.WebSquare.util.getSource('text', getParameter("scope"));
+			document.getElementById("main").style.whiteSpace="pre";
+
+			if( document.getElementById("main").innerText ) {
+				document.getElementById("main").innerText =  str;	
+			} else {
+				document.getElementById("main").textContent =  str;	
+			}
+			
+		}
+		
+		function reloadSource() {
+			if( document.getElementById("highlight").checked ) {
+				var str = opener.WebSquare.util.getSource(undefined, getParameter("scope"));
+				document.getElementById("main").style.whiteSpace="normal";
+				document.getElementById("main").innerHTML =  str;
+			} else {
+				var str = opener.WebSquare.util.getSource('text', getParameter("scope"));
+				document.getElementById("main").style.whiteSpace="pre";
+
+				if( document.getElementById("main").innerText ) {
+					document.getElementById("main").innerText =  str;	
+				} else {
+					document.getElementById("main").textContent =  str;	
+				}
+
+			}
+			
+			
+		}
+	</script>
+</head>
+<body>
+	<div id="title"></div>
+	<!--textArea id="main" style='line-height:20px; width:100%; border:1pt #777777; border-style:solid; text-align:left;' readOnly="true"></textArea-->
+	<div id="main" style='overflow:auto;width:98%; margin-left:3px;border:4px #d7d7d7; border-style:solid; text-align:left;font-size:9pt;' contentEditable="true"></div>
+	<div id="sub">
+		<input type="button" class="Button1" value=" close " onClick="self.close()" />
+	</div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+.w2tabContainer {
+	background-color : #ffffff;
+	font-size : 12px;
+}
+
+.w2tabContainer_tab_layer {
+	padding : 1px;
+}
+
+.w2tabContainer_contents_layer {
+	clear : both;
+	border : #3479e4 1px solid;
+	overflow : auto;
+}
+
+.w2tabContainer_tab_control {
+	position : relatvie;
+	cursor : pointer;
+	font-weight : bold;
+	color : #6f6f6f;
+	float : left;
+/*
+	width : 100px;
+	height : 30px;
+*/
+}
+
+.w2tabContainer_tab_table {
+	width : 100%;
+	height : 100%;
+	border-collapse : collapse;
+}
+
+.w2tabContainer_tab_del {
+	width : 10px;
+	background-repeat : no-repeat;
+	background-position : center center;
+}
+
+.w2tabContainer_tab_left {
+	width : 8px;
+	background-repeat : no-repeat;
+	background-position : top right;
+}
+
+.w2tabContainer_tab_center {
+	background-repeat : repeat-x;
+	background-position : top center;
+	text-align : center;
+	vertical-align : middle;
+	padding-top : 10px;
+}
+
+.w2tabContainer_tab_right {
+	width : 8px;
+	background-repeat : no-repeat;
+	background-position : top left;
+}
+
+.w2tabContainer_tab_selected .w2tabContainer_tab_left {
+}
+
+.w2tabContainer_tab_selected .w2tabContainer_tab_center {
+	color : #1b66ea;
+}
+
+.w2tabContainer_tab_selected .w2tabContainer_tab_del {
+}
+
+.w2tabContainer_tab_selected .w2tabContainer_tab_right {
+}
+
+/* selected */
+.w2tabContainer_tab_selected .w2tabContainer_tab_left {
+	background-image : url(uiplugin/tabContainer/images/tab01_on.gif);
+}
+
+.w2tabContainer_tab_selected .w2tabContainer_tab_center {
+	color : #1b66ea;
+	background-image : url(uiplugin/tabContainer/images/tab02_on.gif);
+}
+
+.w2tabContainer_tab_selected .w2tabContainer_tab_del {
+	background-image : url(uiplugin/tabContainer/images/btn_del_on.gif);
+}
+
+.w2tabContainer_tab_selected .w2tabContainer_tab_right {
+	background-image : url(uiplugin/tabContainer/images/tab03_on.gif);
+}
+
+/* deselected */
+.w2tabContainer_tab_deselected .w2tabContainer_tab_left {
+	background-image : url(uiplugin/tabContainer/images/tab01_off.gif);
+}
+
+.w2tabContainer_tab_deselected .w2tabContainer_tab_center {
+	color : #6f6f6f;
+	background-image : url(uiplugin/tabContainer/images/tab02_off.gif);
+}
+
+.w2tabContainer_tab_deselected .w2tabContainer_tab_del {
+	background-image : url(uiplugin/tabContainer/images/btn_del_off.gif);
+}
+
+.w2tabContainer_tab_deselected .w2tabContainer_tab_right {
+	background-image : url(uiplugin/tabContainer/images/tab03_off.gif);
+}
+
+/* over */
+.w2tabContainer_tab_over .w2tabContainer_tab_left {
+	background-image : url(uiplugin/tabContainer/images/tab01_on.gif);
+}
+
+.w2tabContainer_tab_over .w2tabContainer_tab_center {
+	color : #6f6f6f;
+	background-image : url(uiplugin/tabContainer/images/tab02_on.gif);
+}
+
+.w2tabContainer_tab_over .w2tabContainer_tab_del {
+	background-image : url(uiplugin/tabContainer/images/btn_del_on.gif);
+}
+
+.w2tabContainer_tab_over .w2tabContainer_tab_right {
+	background-image : url(uiplugin/tabContainer/images/tab03_on.gif);
+}

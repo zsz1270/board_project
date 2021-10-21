@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:type>DEFAULT</w2:type>
+        <w2:buildDate />
+        <xf:model>
+            <xf:instance>
+                <data xmlns="" />
+            </xf:instance>
+            <w2:dataCollection baseNode="map"></w2:dataCollection>
+            <w2:workflowCollection></w2:workflowCollection>
+        </xf:model>
+        <style>
+            .w2_proc {
+                position : absolute;
+                z-index : 9800;
+            }
+            .w2_proc_group_wrapper {
+                position : relative;
+                padding : 20px 0 0 13px; 
+                width : 280px; 
+                height : 81px; 
+                border : 1px solid #b3b3b3; 
+                background : url("message/images/bg_ly.gif") left top repeat-x;
+            }
+            .w2_proc_text_msg {
+                width : 200px;
+                height : 20px;
+                font-size : 13px;
+                color : #3f3f67;
+                font-weight : bold;
+                overflow : hidden;
+                white-space:nowrap;
+                text-overflow:ellipsis;
+            }
+            .w2_proc_image_bar {
+                width : 267px;
+                height : 23px;
+            }
+            .w2_proc_btn_hide {
+                position:absolute;
+                top:20px;
+                right:14px;
+                height:20px;
+                text-align:center;
+                word-wrap:break-word;
+                padding:3px;
+                display:none;
+            }
+            .w2_proc_btn_cancel {
+                position:absolute;
+                top:20px;
+                right:14px;
+                height:20px;
+                text-align:center;
+                word-wrap:break-word;
+                padding:3px;
+                display:none;
+            }
+            .w2_proc_modal {
+                position : absolute;
+                left : 0;
+                top : 0;
+                width : 100%;
+                height : 100%;
+                background-color : #cccccc;
+                filter : alpha(opacity=30);
+                opacity : 0.3;
+                z-index: 5800;
+            }
+        </style>
+        <script type="text/javascript" lazy="false"><![CDATA[
+        
+    scwin.onpageload = function() {
+        image_bar.setSrc(WebSquare.baseURI + "message/images/progressingbar.gif");
+        btn_hide.dom.input.value = WebSquare.language.getMessage("Window_close");
+        btn_cancel.dom.input.value = WebSquare.language.getMessage("Window_cancel");
+    };
+    
+    scwin.onpageunload = function() {
+        
+    };
+    
+    scwin.btn_hide_onclick = function() {
+        $p._getProcessMsgTargetFrame().hideProcessMessage();
+    };
+    
+    scwin.btn_cancel_onclick = function() {
+        var submissionList = $p._getProcessMsgTargetFrame()._processMsgQueue;
+        for(var i = 0; i < submissionList.length; i++){
+            WebSquare.ModelUtil.abort(submissionList[i].org_id, submissionList[i].scope_id);
+        }
+    };
+    ]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onpageunload="scwin.onpageunload">
+        <xf:group class="w2_proc_group_wrapper" id="group_wrapper" style="">
+        	<w2:textbox class="w2_proc_text_msg" label="" id="text_msg" style=""></w2:textbox>
+        	<xf:image class="w2_proc_image_bar" id="image_bar" style="" src="" alt="로딩중"></xf:image>
+        	<xf:trigger type="button" class="w2_proc_btn_hide" id="btn_hide" style="" ev:onclick="scwin.btn_hide_onclick">
+        	</xf:trigger>
+        	<xf:trigger type="button" class="w2_proc_btn_cancel" id="btn_cancel" style="" ev:onclick="scwin.btn_cancel_onclick">
+        	</xf:trigger>
+        </xf:group>
+    </body>
+</html>

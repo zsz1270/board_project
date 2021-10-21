@@ -1,0 +1,9 @@
+{
+   "charset": "UTF-8",
+   "reqMethod": "POST",
+   "serviceURL": "http://localhost:8080/websViews/wsdetailContent.do",
+   "contentType": "application/json",
+   "requestContent": "{\"detailno\": {\"CON_NO\": \"11\"}}",
+   "responseContent": "{\"detailcon\":null}",
+   "sendTime": "2021-10-19 21:53:22"
+}

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="Common_multiLang" meta_programName="샘플화면-서버다국어" meta_programDesc="본 화면은 WebSquare5의 다국어 설정을 위한 가이드를 제공한다." meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileDesc">
+					<w2:keyInfo>
+						<w2:key id="desc" name="" dataType="text"></w2:key>
+						<w2:key id="test" name="" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<desc><![CDATA[
+<pre class="textNor" style="">
+<div class="etcbox">본 화면은 WebSquare5의 다국어 설정을 위한 가이드를 제공한다.
+본 화면은 서버 다국어 설정으로 적용되어 있으며, 설정내용은 아래의 설정을 확인한다.
+본 화면에서는 &lt;pageURLPrefix type="function" value="com.getI18NUrl" ignoreW2xPath="true"/&gt; 
+이 설정의 주석만 풀어주면, 적용이 가능하다.
+</div>
+<div class="etc_tit">1. websqaure.xml</div>
+  - C:\WS5_SAMPLE\RESOURCE\websquare_home\config\websqaure.xml 파일에서 아래의 i18n 설정을 추가한다.
+  - websqaure.xml 파일 변경 후 반드시 was를 리부팅한다.
+  &lt;i18n&gt;
+	&lt;baseDir value="C:\WS5_SAMPLE\WORKSPACE\WEBSQUARE5_SAMPLE\WebContent\WEB-INF\lang"/&gt;
+	&lt;defaultLocale value="ko"&gt;
+		&lt;domain name="localhost" locale="en"/&gt;
+		&lt;domain name="ko.inswave.co.kr" locale="ko"/&gt;
+		&lt;domain name="en.inswave.co.kr" locale="en"/&gt;
+		&lt;domain name="jp.inswave.co.kr" locale="jp"/&gt;
+	&lt;/defaultLocale&gt;
+	&lt;localeParam value="locale"/&gt;
+	&lt;xmlInfo baseDir="C:\WS5_SAMPLE\WORKSPACE\WEBSQUARE5_SAMPLE\WebContent" cache="false"/&gt;
+  &lt;/i18n&gt;
+<div class="etc_tit">2. 다국어 처리함수(com.getI18NUrl) </div>
+  - 공통함수 선언부에서 getI18NUrl 함수를 확인한다.
+  com.getI18NUrl = function(xmlUrl){
+	var baseURL = gcm.CONTEXT_PATH + "/websquare/I18N"; //org"/websquare/engine/servlet/I18N.jsp?w2xPath=";
+	var rsUrl;
+	var locale = WebSquare.cookie.getCookie( "locale" );
+	var bXml = "/blank.xml";
+	xmlUrl = xmlUrl.replace(/\?.*/,'');
+	xmlUrl = xmlUrl.replace(gcm.CONTEXT_PATH,'');
+	if(xmlUrl.search(bXml) > -1 && xmlUrl.search(WebSquare.baseURI) == -1){
+		xmlUrl = WebSquare.baseURI + "/blank.xml";
+	}
+	rsURL =  baseURL+"?w2xPath="+xmlUrl;
+	
+	if( locale != null && locale != '' ) {
+		rsURL = rsURL + "&locale="+unescape(locale);
+	}
+	
+	return rsURL;
+  };
+<div class="etc_tit">3. 다국어 properties 파일 확인 </div>
+  - /WEB-INF/lang 하위의 다국어 properties 파일을 확인한다.
+  - 예시 
+  /WEB-INF/la../../../ko.properties, /WEB-INF/la../../../en.properties
+<div class="etc_tit">4. config.xml 확인 </div>
+  1. 2번의 다국어 처리함수를 포함한 js 파일을 반드시 읽어들인다.
+  - 예시
+	&lt;engine&gt;
+		&lt;module src../../../js/com.js" /&gt;
+		... 중략 .....
+	&lt;/engine&gt;
+  2. 아래의 설정을 적용한다.
+	 <font color=red>(다국어 설정이 필요없는 경우 아래의 내용을 삭제하면 다국어가 적용되지 않는다.)</font>
+   - &lt;pageURLPrefix type="function" value="com.getI18NUrl" ignoreW2xPath="true"/&gt;  
+</pre>
+						]]></desc>
+						<test><![CDATA[
+<pre class="textNor">						
+<div class="etc_tit">1. 과정</div>
+1. 오른쪽에 위치한 [언어 선택]를 선택한다.
+<div class="etc_tit">2. 결과</div>
+1. 변경된 [언어 선택]에 따른 화면의 다국어 설정을 확인한다.
+</pre>
+						]]></test>
+					</w2:data>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_memberBasic">
+					<w2:keyInfo>
+						<w2:key id="EMP_CD" name="사원코드" dataType="text"></w2:key>
+						<w2:key id="EMP_NM" name="사원명" dataType="text"></w2:key>
+						<w2:key id="JOIN_DATE" name="입사일" dataType="text"></w2:key>
+						<w2:key id="RESIDENT_NO" name="주민번호" dataType="text"></w2:key>
+						<w2:key id="EMP_CN_NM" name="사원한자명" dataType="text"></w2:key>
+						<w2:key id="ASSIGNED_TASK" name="담당업무" dataType="text"></w2:key>
+						<w2:key id="EMP_EN_NM" name="사원영문명" dataType="text"></w2:key>
+						<w2:key id="POSITION_UPDATED_DATE" name="호칭변경일" dataType="text"></w2:key>
+						<w2:key id="LAST_APPOINT_DATE" name="최종발령일" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataList id="dlt_sample" baseNode="list" saveRemovedData="true" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="col1" name="기본코드" dataType="text"></w2:column>
+						<w2:column id="col2" name="기본사항" dataType="text"></w2:column>
+						<w2:column id="col3" name="입력사항" dataType="text"></w2:column>
+						<w2:column id="col4" name="확인사항" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	scwin.flag = false;
+	
+	scwin.onpageload = function() {
+		var cookie_val = WebSquare.cookie.getCookie("locale");
+		sel_multiLang.setValue(cookie_val);
+		if (cookie_val != "en") {
+			scwin.flag = true;
+		}
+	};
+	
+	scwin.sel_multiLang_onchange = function() {
+		if (scwin.flag) {
+			WebSquare.cookie.setCookie("locale", sel_multiLang.getValue());
+			if ($p.top().scwin.getLayoutId() == "M") {
+				var move_url = com.win.getFullPath("../../../ui/SP/Common/Common_multiLang.xml");
+				$p.getFrame().setSrc(move_url);
+			} else {
+				location.reload();
+			}
+		} else {
+			scwin.flag = true;
+		}
+	};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    	<xf:group class="sub_contents" id="" style="">
+		<w2:wframe id="" style="" src="../../cm/xml/contentHeader.xml" scope=""></w2:wframe>
+		<w2:wframe id="" src="../../cm/xml/contentDesc.xml" scope=""></w2:wframe>
+    		<xf:group class="dfbox" id="" style="">
+    			<xf:group class="fr" id="" style="">
+    				<w2:textbox class="ett" id="" label="언어선택 : " style=""></w2:textbox>
+    				<xf:select1 allOption="" appearance="minimal" chooseOption="" class="" direction="auto" disabled="false"
+    					disabledClass="w2selectbox_disabled" id="sel_multiLang" ref="" renderType="native" style="width:100px;" submenuSize="auto" ev:onchange="scwin.sel_multiLang_onchange">
+    					<xf:choices>
+    						<xf:item>
+    							<xf:label><![CDATA[한국어]]></xf:label>
+    							<xf:value><![CDATA[ko]]></xf:value>
+    						</xf:item>
+    						<xf:item>
+    							<xf:label><![CDATA[영어]]></xf:label>
+    							<xf:value><![CDATA[en]]></xf:value>
+    						</xf:item>
+    					</xf:choices>
+    				</xf:select1>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group class="tbbox" id="" style="">
+    			<xf:group class="w2tb tb" id="group1" style="width:100%;" tagname="table">
+    				<w2:attributes>
+    					<w2:summary></w2:summary>
+    				</w2:attributes>
+    				<xf:group tagname="colgroup">
+    					<xf:group style="width:120px;" tagname="col"></xf:group>
+    					<xf:group style="" tagname="col"></xf:group>
+    					<xf:group style="width:120px;" tagname="col"></xf:group>
+    					<xf:group style="" tagname="col"></xf:group>
+    					<xf:group style="width:120px;" tagname="col"></xf:group>
+    					<xf:group style="" tagname="col"></xf:group>
+    				</xf:group>
+    				<xf:group style="" tagname="tr">
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT001~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<xf:input enterBlur="" id="ibx_empCd" mandatory="true" ref="" style=""></xf:input>
+    					</xf:group>
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT002~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<xf:input allowChar="가-힣" id="ibx_empNm" isHangul="true" mandatory="true" placeholder="!~TEXT010~!" ref=""
+    							style="">
+    						</xf:input>
+    					</xf:group>
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT003~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<w2:inputCalendar calendarValueType="yearMonthDate" class="mr5" dateValidCheck="true" focusOnDateSelect="false"
+    							footerDiv="false" id="cal_joinDate" mandatory="true" ref="" renderDiv="true" renderType="component" rightAlign="false" style=""
+    							weekStartsOn="0">
+    						</w2:inputCalendar>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group style="" tagname="tr">
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT004~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<xf:input allowChar="0-9" applyFormat="" displayFormat="######-#######" displayFormatter="" id="ibx_residentNo"
+    							mandatory="true" maxlength="13" minlength="13" ref="" style="">
+    						</xf:input>
+    					</xf:group>
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT005~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<xf:input id="ibx_empCnNm" mandatory="true" ref="" style=""></xf:input>
+    					</xf:group>
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT006~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<xf:input class="fl" id="ibx_assignedTask" mandatory="true" ref="" style=""></xf:input>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group style="" tagname="tr">
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT007~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<xf:input allowChar="a-z A-Z" id="ibx_empEnNm" ignoreChar="" isHangul="false" mandatory="true" ref="" style="">
+    						</xf:input>
+    					</xf:group>
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT008~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<w2:inputCalendar calendarValueType="yearMonthDate" class="mr5" dateValidCheck="true" focusOnDateSelect="false"
+    							footerDiv="false" id="cal_postionUpdatedDate" mandatory="true" ref="" renderDiv="true" renderType="component" rightAlign="false" style=""
+    							weekStartsOn="0">
+    						</w2:inputCalendar>
+    					</xf:group>
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="!~TEXT009~!" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<w2:inputCalendar calendarValueType="yearMonthDate" class="mr5" dateValidCheck="true" displaymessage=""
+    							focusOnDateSelect="false" footerDiv="false" id="cal_lastAppointDate" mandatory="true" ref="" renderDiv="true" renderType="component"
+    							rightAlign="false" style="" weekStartsOn="0">
+    						</w2:inputCalendar>
+    					</xf:group>
+    				</xf:group>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+    			<w2:gridView autoFit="allColumn" class="wq_gvw" dataList="data:dlt_sample" ev:onafteredit="" fixedColumnWithHidden="true"
+    				id="grd_chkGrid" ignoreCellClick="false" scrollByColumn="false" sortEvent="ondblclick" sortable="true" style="height:200px;"
+    				useShiftKey="true" userData3="" visibleRowNum="all">
+    				<w2:header id="header1" style="">
+    					<w2:row id="row2" style="">
+    						<w2:column blockSelect="false" displayMode="label" id="column11" inputType="text" style="height:44px;"
+    							value="!~GREV001~!" width="170">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column7" inputType="text" style="height:25px;"
+    							value="!~GREV002~!" width="170">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column3" inputType="text" style="height:25px;"
+    							value="!~GREV003~!" width="100">
+    						</w2:column>
+    						<w2:column blockSelect="false" id="column12" inputType="text" style="height:25px;" value="!~GREV004~!"
+    							width="100">
+    						</w2:column>
+    					</w2:row>
+    				</w2:header>
+    				<w2:gBody id="gBody4" style="">
+    					<w2:row id="row5" style="">
+    						<w2:column blockSelect="false" displayMode="label" id="col1" inputType="text" style="height:38px;"
+    							width="170">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="col2" inputType="text" style="height:25px;"
+    							textAlign="left" width="170">
+    						</w2:column>
+    						<w2:column blockSelect="false" defaultValue="" displayMode="" falseValue="N" id="col3" inputType="text"
+    							style="height:25px;" textAlign="left" trueValue="Y" value="" valueType="other" width="100">
+    						</w2:column>
+    						<w2:column blockSelect="false" id="col4" inputType="text" style="" width="100"></w2:column>
+    					</w2:row>
+    				</w2:gBody>
+    			</w2:gridView>
+
+    		</xf:group>
+
+    	</xf:group>
+
+	</body>
+</html>

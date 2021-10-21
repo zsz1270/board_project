@@ -1,0 +1,517 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:xf="http://www.w3.org/2002/xforms" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare">
+<head>
+<meta http-equiv=Content-Type content="text/html;charset=UTF-8" />
+<meta http-equiv=Cache-Control content=No-Cache />
+<meta http-equiv=Pragma	content=No-Cache />
+<title>FILE UPLOAD</title>
+<script type="text/javascript" src="../../../message/htmlCommon.js"></script>
+<script language="JavaScript">
+	var vActionUrl		= "";
+	var vCallbackMethod	= "";
+    var domain = "";
+    var pivotID = "";
+    var dataList = "";
+    var processMsg = "";
+    var status = "";
+
+   	// 다국어
+   	var Upload_advanced = "";
+   	var Upload_sheet_no = "";
+   	var Upload_starting_row = "";
+   	var Upload_starting_col = "";
+   	var Upload_ignore_spaces = "";
+   	var Upload_file = "";
+
+   	var Upload_msg2 = "";
+   	var Upload_msg3 = "";
+   	var Upload_msg4 = "";
+   	var Upload_msg5 = "";
+   	var Upload_msg8 = "";
+    
+	window.onload = doInit;
+	function doInit() {
+
+		var uploadInfo;
+        try {
+        	domain = getParameter("domain");
+    		if( domain ) {
+    			document.domain = domain;	
+            }
+
+        	pivotID = getParameter("pivotID");
+        	uploadInfo = opener.JSON.parse( opener[pivotID]._pivotUploadInfo );
+
+            Upload_ignore_spaces = opener.WebSquare.language.getMessage( "Upload_ignore_spaces" ) || "공백무시";
+            Upload_include_spaces = opener.WebSquare.language.getMessage( "Upload_include_spaces" ) || "공백포함";
+			Upload_advanced = opener.WebSquare.language.getMessage( "Upload_advanced" ) || "고급설정";
+			Upload_hidden_values = opener.WebSquare.language.getMessage( "Upload_hidden_values" ) || "히든값유무";
+			Upload_sheet_no = opener.WebSquare.language.getMessage( "Upload_sheet_no" ) || "시트 No";
+			Upload_starting_row = opener.WebSquare.language.getMessage( "Upload_starting_row" ) || "시작 row";
+			Upload_starting_col = opener.WebSquare.language.getMessage( "Upload_starting_col" ) || "시작 col";
+			Upload_file = opener.WebSquare.language.getMessage( "Upload_file" ) || "파일 업로드";
+			Upload_pwd = opener.WebSquare.language.getMessage( "Upload_pwd" ) || "비밀번호";
+
+			Upload_msg2 = opener.WebSquare.language.getMessage( "Upload_msg2" ) || "파일 사이즈가 제한 용량을 초과 하였습니다.";
+			Upload_msg3 = opener.WebSquare.language.getMessage( "Upload_msg3" ) || "정상적으로 처리 되지 않았습니다.";
+			Upload_msg4 = opener.WebSquare.language.getMessage( "Upload_msg4" ) || "FileType에 맞지 않는 File의 확장자입니다.";
+			Upload_msg5 = opener.WebSquare.language.getMessage( "Upload_msg5" ) || "Pivot 반영에 실패하였습니다";
+			Upload_msg8 = opener.WebSquare.language.getMessage( "Upload_msg8" ) || "비밀번호가 일치하지 않습니다.";
+
+			document.getElementById( "setting" ).innerHTML = Upload_advanced;
+			document.getElementById( "sub" ).setAttribute( "summary", Upload_ignore_spaces + "," + Upload_hidden_values + "," + Upload_fill_hidden + "," + Upload_footer );
+			document.getElementById( "advaned" ).innerHTML = Upload_advanced;
+			document.getElementById( "space_option" ).innerHTML = Upload_ignore_spaces;
+			var sel1 = document.getElementById( "spaceSelect" );
+			sel1.options[0].text = Upload_ignore_spaces;
+			sel1.options[1].text = Upload_include_spaces;
+			document.getElementById( "start_option" ).innerHTML = Upload_starting_row;
+			document.getElementById( "start_col").innerHTML = Upload_starting_col;
+			document.getElementById( "sheet_no").innerHTML = Upload_sheet_no;
+			document.getElementById( "sendFILE").value =  Upload_file;
+
+        } catch (e) {
+        	//$l("exception:" + e.message);
+        }
+
+		vappend = uploadInfo.append;
+		columnNum = uploadInfo.columnNum;
+		actionUrl = uploadInfo.action;
+		delim = uploadInfo.delim;
+		
+		startRow = uploadInfo.startRowIndex;
+		startCol = uploadInfo.startColumnIndex;
+		endCol = uploadInfo.endColumnIndex;
+		sheetNo = uploadInfo.sheetNo
+		skipSpace = uploadInfo.skipSpace;
+
+		processMsg = uploadInfo.processMsg;
+		processMsg = opener.WebSquare.text.BASE64URLDecoder(processMsg );
+		dataList = uploadInfo.dataList;
+
+        document.getElementById("domain").value = domain;
+		document.getElementById("delim").value = delim;
+		document.getElementById("columnNum").value = columnNum;
+		
+		var skip_space =document.getElementsByName("skip_space");
+		if( typeof skipSpace == "string" ) {
+			skipSpace  = opener.WebSquare.util.getBoolean(skipSpace);
+		}
+		
+		if( skipSpace ) {
+			skip_space[0].options[0].selected = true;
+		} else {
+			skip_space[0].options[1].selected = true;
+		}
+
+		document.getElementById("startRow").value = startRow;
+		document.getElementById("startCol").value = startCol;
+		document.getElementById("endCol").value = endCol;
+		document.getElementById("sheetNo").value = sheetNo;
+
+		with( document.__uploadForm__ ) {
+			action = actionUrl;
+		}
+
+        if(isSafari) {
+            setTimeout(function() {
+                var bottomMargin = parseInt(document.height - document.documentElement.offsetHeight, 10) * -1||0;     
+                if( bottomMargin != 0 ) {
+                    self.resizeBy(0, bottomMargin);
+                }
+            }, 1);
+        }
+	}
+	
+	function upload( thisForm ) {
+		try {
+			var filename = document.getElementById("filename").value;
+			if( !filename || filename =="" ) {
+				return false;
+			}
+			
+			var isXlsFile = filename.toLowerCase().indexOf(".xls") >= 0;
+			var isXlsType = document.__uploadForm__.action.indexOf("excelToPivot") >= 0;
+			var isCSVFile = endsWith(filename.toLowerCase(), ".csv") >= 0 ||
+							endsWith(filename.toLowerCase(), ".txt") >= 0;
+			var isCSVType = document.__uploadForm__.action.indexOf("csvToPivot") >= 0;
+			if( !(isXlsFile && isXlsType) && !(isCSVFile && isCSVType) ) {
+				alert( Upload_msg4 );
+				return false;
+			}
+
+			var frm = window.frames;
+			var find = false;
+			for( var i = 0; i < frm.length; i++ ) {
+			    if( frm[i].name == thisForm.target ) {
+			    	find = true;
+			    }
+			}
+			
+			if( !find ) {
+				var layerUP= document.createElement("div");
+				var src = "";
+				//alert(layerUP);
+				layerUP.style.border="1px solid blue";
+				layerUP.style.width="100px";
+				layerUP.style.height="100px";
+				layerUP.style.visibility = "hidden";
+				document.body.appendChild(layerUP);
+				src = opener.WebSquare.net.getSSLBlankPage();
+				layerUP.innerHTML = "<iframe frameborder='0px' name='" + thisForm.target + "' scrolling='no' style='width:100px; height:100px' " + src + "></iframe>";
+			}
+			
+			showProcessMessage( processMsg );
+			
+			thisForm.submit();
+		} catch(e) {
+			alert(e.description);
+		}
+	}
+
+	function returnData( vData ) {
+
+		if( processMsg != "" ) {
+			hideProcessMessage();
+		}
+
+		var doc = opener.WebSquare.xml.parse( vData );
+		var exception = doc.getElementsByTagName("Exception");
+
+		if( exception.length > 0) {
+			var code = doc.getElementsByTagName("deniedCodeList")[0].firstChild;
+			if( typeof code == "undefined" || code == null || code == "" ) {
+				code = "";	
+			} else {
+				code = code.nodeValue;
+			}
+
+			if( code == "102" ) {
+				msg = Upload_msg2;
+			} else if( code == "202" ) {
+				msg = Upload_msg8;
+			} else {
+				var msg = doc.getElementsByTagName("message")[0].firstChild;
+				if( typeof msg == "undefined" || msg == null || msg == "" ) {
+					msg = Upload_msg3;
+				} else {
+					msg = msg.nodeValue;
+				}
+			}
+			
+			alert(msg);
+		} else { 
+			var child;
+			if( delim != "," ) {
+				var childData = (doc.getElementsByTagName("array"))[0].firstChild.nodeValue;
+				child = toArray( childData, delim );
+			} else {
+				child = (doc.getElementsByTagName("array"))[0].firstChild.nodeValue;
+			}
+
+	//		var child = child.substring(2,child.length-3); //.split("\",\"");
+			
+			if( typeof vappend =="string" ) {
+				vappend = opener.WebSquare.util.getBoolean(vappend);
+			}
+			
+			try {
+
+				var jsonArray = child.split("\",\"");
+				jsonArray[0] = jsonArray[0].substr(2);
+				jsonArray[jsonArray.length-1] = jsonArray[jsonArray.length-1].substr(0,((jsonArray[jsonArray.length-1]).length-2));	
+
+				if( dataList != "" ) {	
+					var dcComp = opener.WebSquare.util.getComponentById(dataList);
+					dcComp.setData(jsonArray, vappend);
+				}
+
+				opener[pivotID]._pivotUploadInfo = "";
+
+				var fileNameDom = document.getElementById("filename");
+				var fileName = fileNameDom.value;
+				var fileNameArr = fileName.split("\\"); //fileName에 대해서 IE에서는 파일 경로가 나오는데 FF chrome은 나오지 않는다. 따라서 '\\'기준으로 나눠준다.
+				opener.window[pivotID].fireFileReadEnd( fileNameArr[fileNameArr.length-1] );
+				window.self.close();
+			} catch (e) {
+				opener.WebSquare.exception.printStackTrace(e);
+				alert( Upload_msg5 );
+			}
+		}
+	}
+	
+	 function crossBrowserHeight() {
+		if(opener.WebSquare.util.isIE(6)) {
+			return 62;
+		}
+		if(opener.WebSquare.util.isIE(7)) {
+			return 62;
+		} 
+		if(opener.WebSquare.util.isIE(8)) {
+			return 62;
+		} 
+		if(opener.WebSquare.util.isIE(9)) {
+			return 62;
+		} 
+        if(opener.WebSquare.util.isIEAllVersion(11)) {
+            return 62;
+        } 
+		if(opener.WebSquare.util.isFF()) {
+			return 63;
+		} 
+		if(opener.WebSquare.util.isChrome()) {
+			return 62;
+		} 
+		if(opener.WebSquare.util.isSafari()) {
+			return 62;
+		} 
+		if(opener.WebSquare.util.isOpera()) {
+			return 62;
+		} 
+		return 62;
+	}
+	
+    var preChecked = false;
+    function check_fun() {
+        var checkfun = document.getElementById('subcheck').checked;
+        if( checkfun == preChecked ) {
+            return;
+        }
+
+        if( checkfun == true ) {
+            document.getElementById('sub').style.display='block';
+            var height = crossBrowserHeight();
+            window.resizeBy(0 , height);//resizeBy가 ff7.0에서 안됨 
+        } else {
+            document.getElementById('sub').style.display='none';
+            var height = crossBrowserHeight();
+            window.resizeBy(0 ,-1 * parseInt(height));//resizeBy가 ff7.0에서 안됨 
+        }
+        preChecked = checkfun;
+    }
+	
+	function showProcessMessage( processMsg ) {
+		
+		try {
+			if(!processMsg || processMsg == "" ) { 
+				return;
+			}
+
+			var processbar2_main = document.getElementById( "___processbar2" );
+			var processbar2 = document.getElementById( "___processbar2_i" );
+			var processMsgURL = opener.WebSquare.core.getConfiguration( "processMsgURL" );
+			var processMsgHeight = opener.WebSquare.core.getConfiguration( "processMsgHeight" );
+			var processMsgWidth = opener.WebSquare.core.getConfiguration( "processMsgWidth" );
+			var processMsgBackground = opener.WebSquare.core.getConfiguration( "processMsgBackground" );
+			var processMsgBackgroundColor = opener.WebSquare.core.getConfiguration( "/WebSquare/processMsgBackground/@backgroundColor" );
+			if (processMsgBackgroundColor == ""){
+				processMsgBackgroundColor = "#112233";	
+			}
+			if( processMsgURL == "" ) {
+				processMsgURL = opener.WebSquare.baseURI + "message/processMsg.html";
+			}
+			
+			processMsgURL = processMsgURL + "?param=" + opener.WebSquare.text.URLEncoder(processMsg);
+			
+			if( processMsgHeight == "" || processMsgWidth == "" ) {
+				processMsgHeight = "74";
+				processMsgWidth = "272";
+			}
+
+			WebSquare = opener.WebSquare;
+			WebSquare.layer.processMsg = processMsg;
+			
+			if(!processbar2_main){
+				var node2Main = document.createElement( "div" );
+				node2Main.id = "___processbar2";
+				node2Main.className = "w2modal";
+				node2Main.style.backgroundColor = processMsgBackgroundColor;
+				node2Main.tabIndex = 1;
+				if(processMsgBackground == "true"){
+					node2Main.style.visibility = "visible";
+				} else{
+					node2Main.style.visibility = "hidden";
+				}
+				
+				node2Main.style.height = document.documentElement.clientHeight + "px";
+				document.body.appendChild( node2Main );
+				
+				var e = e || event;
+				if( e.preventDefault ) {
+					if( e.type == "keydown" ) {
+						e.preventDefault();
+					}
+				} else {
+					if( e.type == "keydown" ) {
+						e.returnValue = false;
+					}
+				}
+				
+			} else {
+				processbar2_main.tabIndex = 1;
+				processbar2_main.style.zIndex = 10000;
+				processbar2_main.style.display = "block";
+				processbar2_main.style.top = "0px";
+				processbar2_main.style.left = "0px";
+			}
+
+			if( !processbar2 ) {
+				var nTop = document.documentElement.scrollTop + document.documentElement.clientHeight/2 - parseInt(processMsgHeight)/2;
+				var nLeft = document.documentElement.scrollLeft + document.documentElement.clientWidth/2 - parseInt(processMsgWidth)/2;
+
+				var node2 = document.createElement("div");
+				node2.id = "___processbar2_i";
+				node2.style.position = "absolute";
+				node2.style.top = parseInt(nTop) + "px";
+				node2.style.left = parseInt(nLeft) + "px";
+				node2.style.overflow = "hidden";
+				node2.style.zIndex = 10001;
+				node2.style.visibility = "visible";
+				node2.style.height = processMsgHeight + "px";
+				node2.style.width = processMsgWidth + "px";
+
+				document.body.appendChild( node2 );
+				node2.innerHTML = "<iframe frameborder='0' scrolling='no'ß name='__processbarIFrame' style='position:absolute; width:"+processMsgWidth+"px; height:"+ processMsgHeight +"px; top:0px; left:0px' src='" + processMsgURL + "'></iframe>";
+				
+			} else {
+				var nTop = document.documentElement.scrollTop + document.documentElement.clientHeight/2 - parseInt(processMsgHeight)/2;
+				var nLeft = document.documentElement.scrollLeft + document.documentElement.clientWidth/2 - parseInt(processMsgWidth)/2;
+				processbar2.style.top = parseInt(nTop) + "px";
+				processbar2.style.left = parseInt(nLeft) + "px";
+				processbar2.style.zIndex = 10001;
+				window.frames["__processbarIFrame"].location.replace( processMsgURL );
+				processbar2.style.display = "block";
+			} 
+		} catch( e ) {
+		}
+	}
+	
+	function hideProcessMessage() {
+		try {
+			var processbar2 = document.getElementById( "___processbar2" );
+			var processbar2i = document.getElementById( "___processbar2_i" );
+			if( typeof processbar2 != "undefined" && processbar2 != null ) {
+				processbar2.style.zIndex = -1;
+				processbar2.style.display = "none";
+				processbar2.tabIndex = "-1";
+				processbar2.innerHTML = '';
+			}
+			if( typeof processbar2i != "undefined" && processbar2i != null ) {
+				processbar2i.style.zIndex = -1;
+				processbar2i.style.display = "none";
+			}
+		} catch( e ) {
+		}
+	}
+
+	function toArray( str, delim ) {
+		if( delim == undefined ) {
+			delim = "\",\"";
+		} else {
+			delim = "\"" + delim + "\"";
+		}
+
+		if( typeof str != "string") {
+			if( str === null ) {
+			} else {
+			}
+			return [];
+		}
+
+		var re = /^\[\s*\]$/g;
+			
+		if( str.match( re) != null ){
+			return (new Array());
+		}
+		
+		var splitDataIn = str.split( delim );
+		splitDataIn[0] = splitDataIn[0].substr(2);
+		splitDataIn[splitDataIn.length-1] = splitDataIn[splitDataIn.length-1].substr(0,((splitDataIn[splitDataIn.length-1]).length-2));	
+		return splitDataIn;
+	}
+</script>
+
+<style type="text/css">
+    html, body {margin:0px; padding:0px; font-family:"맑은 고딕"; font-size:11px;}
+    p {margin:0px; padding:0px;}
+	img, fieldset {border:0;}
+	table {width:100%; background:#fff; border-collapse:collapse; border-spacing:0; empty-cells:show;}
+	table caption, table summary {width:0; height:0; font-size:0; line-height:0; overflow:hidden; visibility:hidden;}
+	
+	.none {display:none;}
+	.block {display:block;}
+
+	.wrap {width:444px; min-height:106px; border:1px solid #b3b3b3;}
+	.header {height:27px; background:url(images/bg_header.gif) repeat-x left top;}
+	.header .title {padding-left:28px; font-weight:bold; line-height:23px; background:url(images/bul_title.gif) no-repeat 11px 6px; float:left;}
+	.header .title2 {padding-left:28px; font-weight:bold; line-height:23px; float:left;}
+	.header span {padding-right:20px; float:right; display:block;}
+	.header span input[type=checkbox] {position:relative; top:1px;}
+
+	.content {padding:15px 10px 12px;}
+	.content .filebox {padding:8px 0 0 11px; width:408px; height:33px; border:1px solid #d3d3d3; background:#f6f6f6;}
+	.content .filebox input[type=file] {width:397px; height:21px; font-family:Verdana; font-size:12px; background:#fff;}
+
+	.tbl {margin:15px auto 0; width:400px;}
+	.tbl th, .tbl td {min-width:100px; height:24px; text-align:left;}
+	.tbl th .dot {padding-left:14px; background:url(images/dot.gif) no-repeat left center;}
+	.tbl td .ipt {width:74px; height:16px; /*bordeR:1px solid #abadb3;*/}
+	.tbl td .sel {width:80px; height:20px;}
+	.btn_file {margin-bottom:14px; width:90px; position:relative; left:333px;}
+</style>
+</head>
+<body>
+<form name="__uploadForm__" method="post" action="" enctype="multipart/form-data" target="__targetFrame__">
+	
+	<div class="wrap">
+		<div class="header">
+			<p class="title">File Upload</p>
+			<span><input type="checkbox" onclick="check_fun();" id="subcheck" /><label for="subcheck"><p id="setting" class="title2">고급설정</p></label></span>
+		</div>
+		<div class="content">
+			<div class="filebox">
+				<input type="file" id="filename" name="filename" />
+			</div>
+			<table id="sub" class="tbl none" summary="시트no,시작Row,시작col,공백무시">
+			<caption id="advaned">파일 업로드 고급설정</caption>
+				<tr>
+					<th><label id="sheet_no" for="sheetNo" class="dot">시트 No :</label></th>
+					<td><input type="text" class="ipt" name="sheetNo" id="sheetNo" /></td>
+
+					<th><label id="start_option" for="startRow" class="dot">시작 Row :</label></th>
+					<td>
+						<input type="text" id="startRow" name="startRow" class="ipt" />
+					</td>
+				</tr>
+				<tr>
+					<th><label id="start_col" for="startCol" class="dot">시작 Col :</label></th>
+					<td>
+						<input type="text" class="ipt" name="startCol" id="startCol" />
+					</td>
+					<th><label id="space_option" for="spaceSelect" class="dot">공백 무시 :</label></th>
+					<td>
+						<select name="skip_space" class="sel" id="spaceSelect">
+						<option value="true">공백무시</option>
+						<option value="false">공백포함</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<div class="foot">
+			<p><input type="button" id="sendFILE" name="sendFILE" class="btn_file" value="파일 업로드" onclick="return upload(this.form)" /></p>
+			<!-- ie8에서는 form안에 input type="image"가 있으면 form전송이 제대로 되지 않습니다. -->	
+		</div>
+
+	</div>
+  <!-- working start -->
+  <input type="hidden" id="domain" name="domain" value="" />
+  <input type="hidden" id="columnNum" name="columnNum" value="" />
+  <input type="hidden" id="delim" name="delim" value="" />
+  <input type="hidden" id="endCol" name="endCol" value="" />
+  <input type="hidden" id="pwd" name="pwd" value="" />
+</form>
+
+</body>
+</html>

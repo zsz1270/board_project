@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<div id="CHART_SELECT" style="border:1px solid gray; position:absolute; width: 500px; height:310px; background-color:#EDF3F5">
+	<div style="position:absolute; border:1px solid #C7D1D4; width:488px; height:270; left:5px; top:5px; background-color:#FFFFFF">
+		<div style="position:absolute; border:0px solid #808080; width:476px; height:258; left:5px; top:5px; background-color:#DAE3E8">
+			<div style="position:absolute; left:5px; top:5px;width:466px;">	
+				<table style="width:100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+                      <td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">차트 종류</td>
+                      <td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+                    </tr>
+                  </table>
+            </div>
+			<div id="CHART_BIG" style="background-color:#F1F3F4; border:1px solid #C7D1D4; position:absolute; left:10px; top:35px; width:185px; height:210px; overflow-y:auto; overflow-x:hidden; padding:5 5 5 5 ">
+			</div>
+			<div id="CHART_SMALL" style="background-color:#F1F3F4; border:1px solid #C7D1D4; position:absolute; left:200px; top:35px; width:255px; height:160px; overflow-y:auto; overflow-x:hidden; padding:5 5 5 5 ">
+			</div>
+			<div id="CHART_DISPLAY" style="font:12px; color:black; background-color:#F1F3F4; border:1px solid #C7D1D4; position:absolute; left:200px; top:200px; width:255px; height:45px; overflow-y:auto; overflow-x:hidden; padding:5 5 5 5 ">
+			</div>
+		</div>
+	</div>
+	<div id="BUTTON_LAYER" style="border:1px insect white; position:absolute; left:205px; top:285px; width:280px; height:25px">
+		<img src="uiplugin/chart/images/chart/default/b_ok.gif" style="cursor:pointer" width="50" height="18" border="0" id="SUBMIT_BUTTON" />
+		<img src="uiplugin/chart/images/chart/default/eng_b_cancel.gif" style="cursor:pointer"  width="50" height="18" border="0" id="CANCEL_BUTTON" />
+	</div>
+</div>

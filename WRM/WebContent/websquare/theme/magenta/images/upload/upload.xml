@@ -1,0 +1,605 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <xf:model>
+            <xf:instance>
+                <data xmlns="">
+                	<popupParams>
+                		<key/>
+                		<fileList/>
+                		<fileName/>
+                	</popupParams>
+                </data>
+            </xf:instance>
+            <xf:submission
+                action="/websquare/delete.wq"
+                id="deleteFile" mediatype="text/xml"
+                method="post" ref="popupParams" replace="none" >
+                <script ev:event="xforms-submit-done" type="javascript"><![CDATA[
+                	var res = WebSquare.xml.getValue( e.responseBody , "ret/result");
+                	WebSquare.layer.hideProcessMessage();
+                	if( res == "OK" ) {
+                		alert("삭제되었습니다");
+                	} else {
+                		alert("실패하였습니다");
+                	}
+				]]></script>
+				<script ev:event="xforms-submit-error" type="javascript"><![CDATA[
+                	WebSquare.layer.hideProcessMessage();
+				]]></script>
+				<script ev:event="xforms-submit" type="javascript"><![CDATA[
+                	WebSquare.layer.showProcessMessage( "삭제 중 입니다." );
+				]]></script>
+            </xf:submission>
+        </xf:model>
+        <script type="javascript"><![CDATA[
+     		
+     		requires("uiplugin.popup");
+     		requires("uiplugin.table");
+     		var fileNumber = 1;
+     		var mode = 1;
+     		var xpath = "";
+     		var fileKey = "";
+     		var popupInfo = WebSquare.uiplugin.popup.getPopupParam();
+     		if( popupInfo != null ) {
+     			var popupInfoDoc = WebSquare.xml.parse( popupInfo );
+     			/*mode*/
+     			var tmpMode = WebSquare.xml.getValue( popupInfoDoc, "//mode" , "value");
+     			if( tmpMode != null && tmpMode != "" ) {
+     				mode = tmpMode;
+     			}
+     			/* fileNumber */
+     			fileNumber = WebSquare.xml.getValue( popupInfoDoc, "//fileNumber", "value");
+     			if( fileNumber != null && fileNumber != "" ) {
+     				try {
+     					
+     					fileNumber = parseInt( fileNumber );
+     					
+     				} catch( e) {
+     					fileNumber = 1;
+     				}
+     			} else {
+     				fileNumber = 1;
+     			}
+     			
+     			/* xpath */
+     			var tmpxpath = WebSquare.xml.getValue( popupInfoDoc, "//xpath" , "value");
+     			if( tmpxpath != null && tmpxpath != "" ) {
+     				xpath = tmpxpath;
+     			}
+     		} else { //1개짜리 동적 추가 안되는놈.
+     			fileNumber = 1;
+     			xpath = "";
+     			mode = 1;
+     		}
+     		
+     		//var orgFileNumber = fileNumber;
+     		
+     		
+     		//////////// upload 및 그림 그리기
+     		var files = "";
+ 			if( xpath != "" ) {
+ 				files = WebSquare.xml.getValue( popupInfoDoc, "//files" , "value");
+ 				fileKey = WebSquare.xml.getValue( popupInfoDoc, "//fileKey" , "value");
+// 				alert( files + ":" + fileKey );
+// 				files = WebSquare.ModelUtil.getInstanceValue(xpath + "/fileList");
+// 				fileKey = WebSquare.ModelUtil.getInstanceValue(xpath + "/key");
+ 			}
+ 			files = files.split(";");
+ 			var f = null;
+ 			if( WebSquare.core.browserCheck.ie ) {
+ 				f = WebSquare.document.createElement("<form target='__targetFrame__' enctype='multipart/form-data' method='post' name='form1'/>");
+ 			} else {
+ 				f = WebSquare.document.createElement("<form/>");
+ 				f.method = "post";
+ 				f.name = "form1";
+ 				f.enctype = 'multipart/form-data';
+ 				f.targetFrame = '__targetFrame__';
+ 				
+ 			}
+ 			
+ 			var opener1 = null;
+        	var openerWindow = window;
+	        while( typeof openerWindow != 'undefined' && openerWindow != null ) {
+	        	opener1 = openerWindow;
+	        	openerWindow = openerWindow.opener;
+	        }
+	        if( typeof useWebSquareLicense != "undefined" && useWebSquareLicense ){
+	        	f.action = WebSquare.baseURI + "upload.wq";
+	        } else {
+	        	f.action = WebSquare.baseURI + "upload.wq";
+	        }
+	        
+        	
+        	
+			if( mode == 2 ) { // 동적 추가 일 때 기존에 업로드된 파일의 갯수가  최소 fileNUmber 보다 많을 경우
+				var uploaded = 0;
+				
+				for( var ll = 0 ; ll < files.length ; ll++ ) {
+					if( files[ll] != "" ) {
+						uploaded++;
+					}
+				}
+				if( uploaded > fileNumber ) {
+					fileNumber = uploaded;
+				}
+			}
+			
+			// Title Table
+			var titleTable = new WebSquare.uiplugin.table();
+
+
+		
+			
+			titleTable.callClass("titleTable",1,1 ,"width:400px;border-collapse:collapse","");
+			
+			titleTable.render.cellpadding = 0;
+			titleTable.render.cellspacing = 0;
+			
+			// title 이미지
+			var titleImage = WebSquare.document.createElement("img");
+			titleImage.style.width = "16px";
+			titleImage.style.height = "13px";
+			//titleImage.style.align = "absmiddle";
+			//titleImage.style.border = "1px solid red";
+			titleImage.src = "uiplugin/upload/images/bullet_title.gif"
+			
+			
+			var titleDiv = WebSquare.document.createElement("span");
+			titleDiv.style.width = "300px";
+			//titleDiv.style.border = "1px solid black";
+			var titleStr = WebSquare.xml.getValue( popupInfoDoc, "title" , "value");
+			
+			if( titleStr != null && titleStr != "" ) {
+				titleDiv.innerHTML = titleStr;
+			} else {
+				titleDiv.innerHTML = "업로드";
+			}
+			
+			titleTable.setCellContents(0,0,titleImage, "");
+			titleTable.setCellContents(0,0,titleDiv, "height:25px;width:350px;font-weight:bold; font-size:12px; color:#375088; vertical-align:top");
+//			titleTable.setCellContents(0,0,titleSpan, "width:350px;font-weight:bold; font-size:12px; color:#375088; vertical-align:top");
+			
+			var tableObj = new WebSquare.uiplugin.table();
+			
+			
+			tableObj.callClass("uploadTable",1,fileNumber ,"height:" + fileNumber*30 + "px;width:400px;border-collapse:collapse; border-top:2px solid #6095d7; background-color:#e4edf5","border:1px solid white");
+			tableObj.render.border = "0px";
+			tableObj.render.cellPadding = "0px";
+			tableObj.render.cellSpacing = "0px";
+			var filesArray = new Array();
+     		for( var i = 0 ; i < fileNumber ; i++ ) {
+     			
+				if( typeof files[i] != 'undefined' && files[i] != null && files[i] != "") { // 기존 업로드된 파일 정보 표시
+					var t = WebSquare.document.createElement("input");
+					t.type = 'text';
+					t.name = "fileName" + i;
+					t.value = files[i].wq_trim();
+					t.style.backgroundColor = "ffffff";
+					t.style.border = "1px solid #a5acb2";
+					t.style.color = "#36342B";
+					t.style.width = "295px";
+					t.style.fontSize = "9pt";
+					
+					var s = WebSquare.document.createElement("span");
+					s.style.overflow = "hidden";
+					s.style.width = "41px";
+					s.style.height = "18px";
+					s.style.backgroundImage = "url(uiplugin/upload/images/b_delete.gif)";
+					s.style.verticalAlign ="middle";
+					s.style.repeat ="no-repeat";
+					
+					s.matchInput = t;
+					
+					WebSquare.event.addListener(s,"onclick", function(e) { 
+							var but = WebSquare.event.getTarget(e);
+							deleteFile( but );
+							
+						});
+					
+					
+					var image = WebSquare.document.createElement("img");
+					image.style.width = "15px";
+					image.style.height = "15px;
+					image.src = "uiplugin/upload/images/i_attach.gif"
+				
+					tableObj.setCellContents(0,i,image, "width:100px");
+					tableObj.setCellContents(0,i,t, "width:100px");
+					tableObj.setCellContents(0,i,s, "width:100px");
+					
+					
+				} else { // 기존 파일이 없는 경우
+					var divElem = WebSquare.document.createElement("DIV");
+					divElem.style.width = "398px";
+					
+					var s = WebSquare.document.createElement("span");
+					s.style.overflow = "hidden";
+					s.style.width = "62px";
+					s.style.height = "18px";
+					s.style.backgroundImage = "url(uiplugin/upload/images/b_attach.gif)";
+					s.style.verticalAlign ="middle";
+					s.style.repeat ="no-repeat";
+					
+					
+					var image = WebSquare.document.createElement("img");
+					image.style.width = 15;
+					image.style.height = 15;
+					image.src = "uiplugin/upload/images/i_attach.gif"
+					
+					var o = WebSquare.document.createElement("input");
+					o.type = 'text';
+					o.name = "tempFlie";
+					o.style.backgroundColor = "ffffff";
+					o.style.border = "1px solid #a5acb2";
+					o.style.color = "#36342B";
+					o.style.width = "295px";
+					o.style.fontSize = "9pt";
+					
+					
+					var t = WebSquare.document.createElement("input");
+					t.type = "file";
+					t.name = "upload" + i;
+					t.style.width = 0;
+					t.style.filter = "alpha(opacity=0)";
+					
+					divElem.appendChild(image);
+					divElem.appendChild(o);
+					s.appendChild(t);
+					divElem.appendChild(s);
+					WebSquare.event.addListener(t, "onchange", function(e){ 
+							if( e.srcElement ) {
+								e.srcElement.parentNode.parentNode.childNodes.item(1).value= e.srcElement.value;
+							} else if ( e.target ) {
+								e.target.parentNode.parentNode.childNodes.item(1).value= e.target.value;
+							}
+						}
+					);
+					
+					tableObj.setCellContents(0,i,divElem, "width:100px");
+				}
+				filesArray[i] = t;
+				
+     		}
+     		
+     		var tableObj2 = new WebSquare.uiplugin.table();
+			tableObj2.callClass("uploadTable2",2,2,"z-index:0; overflow:hidden; width:400px; height:100%;margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; border-collapse:collapse; border:0px none black; height:30px "," margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; border-collapse:collapse; border:0px solid black; height:30px;text-align:center");
+			
+			
+			var submitButton = WebSquare.document.createElement("span");
+			submitButton.style.backgroundImage = "url(uiplugin/upload/images/b_submit.gif)";
+			submitButton.style.repeat = "no-repeat";
+			submitButton.style.width = "50px";
+			submitButton.style.height = "18px";
+			
+			WebSquare.event.addListener(submitButton, "onclick", function(e){ 
+					
+					WebSquare.layer.showProcessMessage( "업로드 중입니다." );
+					f.submit();
+					
+				}
+			);
+			
+			tableObj2.setCellContents(1,0,submitButton, "text-align:right;width:200px");
+			
+			// message setting
+			var messageSpan = WebSquare.document.createElement("span");
+			messageSpan.style.fontSize = "9pt";
+			messageSpan.style.color = "red";
+			var messageStr = WebSquare.xml.getValue( popupInfoDoc, "message" , "value");
+			
+			if( messageStr != null && messageStr != "" ) {
+				messageSpan.innerHTML = messageStr;
+			} else {
+				messageSpan.innerHTML = "";
+			}
+			
+			tableObj2.setCellContents(1,1,messageSpan, "text-align:right;width:200px");
+			//동적 추가 로직 
+     		if( mode == 1 ) { //동적 추가 불가
+     			
+     			
+	     	} else { // 동적 추가 가능
+	     		
+	     		var addButton = WebSquare.document.createElement("span");
+				addButton.style.backgroundImage = "url(uiplugin/upload/images/b_attachadd.gif)";
+				addButton.style.repeat = "no-repeat";
+				addButton.style.width = "50px";
+				addButton.style.height = "18px";
+				WebSquare.event.addListener(addButton,"onclick", function(e) { 
+					
+					tableObj.render.style.height = (parseInt(tableObj.render.style.height) + 30)+"px";
+					tableObj.addRow();
+					var obj = createTR();
+					filesArray[fileNumber-1] = obj.fileElem;
+					tableObj.setCellContents(0,fileNumber-1,obj.divElem);
+					
+				});
+				
+				
+				var delButton = WebSquare.document.createElement("span");
+				delButton.style.backgroundImage = "url(uiplugin/upload/images/b_attachdel.gif)";
+				delButton.style.repeat = "no-repeat";
+				delButton.style.width = "72px";
+				delButton.style.height = "18px";
+				
+				
+				WebSquare.event.addListener(delButton,"onclick", function(e) { 
+					if( fileNumber == 1 || filesArray[fileNumber-1].value !="" ) {
+						return;
+					}
+					tableObj.render.style.height = (parseInt(tableObj.render.style.height) - 30)+"px";
+					fileNumber--;
+					tableObj.delRow();
+					
+				});
+				
+				tableObj2.setCellContents(0,0,addButton, "text-align:left;width:200px");
+				
+				tableObj2.setCellContents(0,0,delButton, "text-align:left;width:200px");
+				
+				
+				
+	     	}
+	     	
+	     	//key 추가
+	     	var hiddenInput = WebSquare.document.createElement("input");
+			hiddenInput.type = "hidden";
+			hiddenInput.name = "key";
+			if( fileKey != null ) {
+				hiddenInput.value = fileKey;
+			}
+			
+			WebSquare.document.body.appendChild(titleTable.render);
+	     	f.appendChild( tableObj.render);	
+	     	f.appendChild( tableObj2.render);	
+	     	f.appendChild( hiddenInput);	
+	     	
+	     	
+	     	WebSquare.document.body.appendChild(f);
+			
+			/* hidden iframe */
+			var layerUP= document.createElement("div");
+			layerUP.style.width="0px";
+			layerUP.style.height="0px";
+			layerUP.style.visibility = "hidden";
+			document.body.appendChild(layerUP);
+			layerUP.innerHTML = "<iframe frameborder='0px' name='__targetFrame__' scrolling='no' style='width:0px; height:0px'></iframe>";
+			
+			/* delete한다. */
+			function deleteFile(buttonObj) {
+            	WebSquare.ModelUtil.setInstanceValue("popupParams/fileName", buttonObj.matchInput.value);
+            	
+            	var deleteSubmissionObj = WebSquare.ModelUtil.getSubmission("deleteFile");
+            	var opener1 = null;
+            	var openerWindow = window;
+		        while( typeof openerWindow != 'undefined' && openerWindow != null ) {
+		        	opener1 = openerWindow;
+		        	openerWindow = openerWindow.opener;
+		        }
+		        
+				if( typeof useWebSquareLicense != "undefined" && useWebSquareLicense ){
+		        	deleteSubmissionObj.action = WebSquare.baseURI + "delete.wq";
+		        } else {
+		        	deleteSubmissionObj.action = WebSquare.baseURI + "delete.wq";
+		        }
+		        
+            	//deleteSubmissionObj.action = opener1.WebSquare.baseURI + "FileDelete";
+            	
+				WebSquare.ModelUtil.executeSubmission( "deleteFile" , WebSquare.ModelUtil.findInstanceNode("popupParams"));
+				
+				var parent = buttonObj.parentNode;
+				var idx = parseInt(buttonObj.matchInput.name.substring(8));
+				
+				var divElem = WebSquare.document.createElement("DIV");
+				divElem.style.width = "398px";
+				
+				var s = WebSquare.document.createElement("span");
+				s.style.overflow = "hidden";
+				s.style.width = "62px";
+				s.style.height = "18px";
+				s.style.backgroundImage = "url(uiplugin/upload/images/b_attach.gif)";
+				s.style.verticalAlign ="middle";
+				s.style.repeat ="no-repeat";
+				
+				var image = WebSquare.document.createElement("img");
+				image.style.width = "15px";
+				image.style.height = "15px";
+				image.src = "uiplugin/upload/images/i_attach.gif"
+				
+				var o = WebSquare.document.createElement("input");
+				o.type = 'text';
+				o.name = "tempFlie";
+				o.style.backgroundColor = "ffffff";
+				o.style.border = "1px solid #a5acb2";
+				o.style.color = "#36342B";
+				o.style.width = "295px";
+				o.style.fontSize = "9pt";
+				
+				var t = WebSquare.document.createElement("input");
+				t.type = "file";
+				t.name = "upload" + idx;
+				t.style.width = "0px";
+				t.style.filter = "alpha(opacity=0)";
+				
+				divElem.appendChild(image);
+				divElem.appendChild(o);
+				s.appendChild(t);
+				divElem.appendChild(s);
+				WebSquare.event.addListener(t, "onchange", function(e){ 
+						if( e.srcElement ) {
+							e.srcElement.parentNode.parentNode.childNodes.item(1).value= e.srcElement.value;
+						} else if ( e.target ) {
+							e.target.parentNode.parentNode.childNodes.item(1).value= e.target.value;
+						}
+					}
+				);
+				parent.innerHTML = "";
+				parent.appendChild( divElem );
+				
+				filesArray[idx] = t;
+				var uploadedList = refreshFileList();
+				WebSquare.ModelUtil.setInstanceValue("popupParams/fileList" ,uploadedList );
+				WebSquare.core.callParentFunction("WebSquare.ModelUtil.setInstanceValue" , xpath + "/fileList" , uploadedList );
+			}
+			
+			/* Upload 상태인 것을 refresh 한다. */
+			function refreshFileList() {
+				var uploadedFileList = "";
+				for( var i = 0 ; i < fileNumber ;i ++ ) {
+					if ( !(filesArray[i].type == "file")) {
+						uploadedFileList += filesArray[i].value + ";";
+					} 
+				}
+				return uploadedFileList;
+			}
+			/* 업로드의 결과 중 key를 넣는다 */
+			function callbackFunction(data) {
+				WebSquare.layer.hideProcessMessage();
+				var doc = WebSquare.xml.parse( WebSquare.text.URLDecoder(data) );
+				var key = WebSquare.xml.getValue( doc, "ret/key");
+				
+				if( key != null && key != "" ) {
+					alert("전송을 완료하였습니다");
+				} else {
+					alert("전송을 실패하였습니다");
+				}
+				var fileList = WebSquare.xml.getValue( doc, "ret/fileList"); // input Component의 name
+				var fileNameList = WebSquare.xml.getValue( doc, "ret/localfileList");//file의 이름
+				var splittedfileNameList = fileNameList.split(";");
+				hiddenInput.value = key;
+				var uploadedList = refresh( fileList , splittedfileNameList );
+				WebSquare.ModelUtil.setInstanceValue("popupParams/key" ,key );
+				WebSquare.ModelUtil.setInstanceValue("popupParams/fileList" ,uploadedList );
+				WebSquare.core.callParentFunction("WebSquare.ModelUtil.setInstanceValue" , xpath + "/key" , key );
+				WebSquare.core.callParentFunction("WebSquare.ModelUtil.setInstanceValue" , xpath + "/fileList" , uploadedList );
+			}
+			
+			/* 전송 한 뒤 상태를 갱신한다. */
+			function refresh(fileList , splittedfileNameList) {
+			
+				var uploadedFileList = "";
+				var files = fileList.wq_trim().split(";");
+				var count = 0;
+				for( var i = 0 ; i < fileNumber ;i ++ ) {
+					if ( filesArray[i].type == "file") {
+						
+						for( var j = 0 ; j < files.length ; j++ ) {
+						
+							if( files[j] != "" && filesArray[i].name ==  files[j]  ) {
+								var td = filesArray[i].parentNode.parentNode.parentNode;
+								
+								
+								var image = WebSquare.document.createElement("img");
+								image.style.width = "15px";
+								image.style.height = "15px";
+								image.src = "uiplugin/upload/images/i_attach.gif"
+				
+								
+								var t = WebSquare.document.createElement("input");
+								t.type = 'text';
+								t.name = "fileName" + i;
+								t.style.backgroundColor = "ffffff";
+								t.style.border = "1px solid #a5acb2";
+								t.style.color = "#36342B";
+								t.style.width = "295px";
+								t.style.fontSize = "9pt";
+								t.value = splittedfileNameList[j];
+								t.readOnly = true;
+								
+								uploadedFileList += t.value + ";";
+								
+								var s = WebSquare.document.createElement("span");
+								s.style.overflow = "hidden";
+								s.style.width = "41px";
+								s.style.height = "18px";
+								s.style.backgroundImage = "url(uiplugin/upload/images/b_delete.gif)";
+								s.style.verticalAlign ="middle";
+								s.style.repeat ="no-repeat";
+								
+								s.matchInput = t;
+								
+								WebSquare.event.addListener(s,"onclick", function(e) { 
+										var but = WebSquare.event.getTarget(e);
+										deleteFile( but );
+										
+									});
+							
+								td.innerHTML = "";
+								td.appendChild( image );
+								td.appendChild( t );
+								td.appendChild( s );
+								
+								filesArray[i] = t;
+								count ++;
+								break;
+							}
+						}
+					} else { // text 일때 이미 올라가 있을 때
+						uploadedFileList += filesArray[i].value + ";";
+					}
+				}
+				return uploadedFileList;
+			}
+			
+			function createTR () {
+				
+				var obj = {};
+				var divElem = WebSquare.document.createElement("DIV");
+				divElem.style.width = "398px";
+				
+				var s = WebSquare.document.createElement("span");
+				s.style.overflow = "hidden";
+				s.style.width = "62px";
+				s.style.height = "18px";
+				s.style.backgroundImage = "url(uiplugin/upload/images/b_attach.gif)";
+				s.style.verticalAlign ="middle";
+				s.style.repeat ="no-repeat";
+				
+				var image = WebSquare.document.createElement("img");
+				image.style.width = "15px";
+				image.style.height = "15px";
+				image.src = "uiplugin/upload/images/i_attach.gif"
+				
+				var o = WebSquare.document.createElement("input");
+				o.type = 'text';
+				o.name = "tempFlie";
+				o.style.backgroundColor = "ffffff";
+				o.style.border = "1px solid #a5acb2";
+				o.style.color = "#36342B";
+				o.style.width = "295px";
+				o.style.fontSize = "9pt";
+				
+				
+				var t = WebSquare.document.createElement("input");
+				t.type = "file";
+				t.name = "upload" + fileNumber;
+				t.style.width = "0px";
+				t.style.filter = "alpha(opacity=0)";
+				
+				divElem.appendChild(image);
+				divElem.appendChild(o);
+				s.appendChild(t);
+				divElem.appendChild(s);
+				WebSquare.event.addListener(t, "onchange", function(e){ 
+						if( e.srcElement ) {
+							e.srcElement.parentNode.parentNode.childNodes.item(1).value= e.srcElement.value;
+						} else if ( e.target ) {
+							e.target.parentNode.parentNode.childNodes.item(1).value= e.target.value;
+						}
+					}
+				);
+				obj.divElem = divElem;
+				obj.fileElem = t;
+				fileNumber++;
+				return obj;
+				
+			}
+			
+			
+    ]]></script>
+    </head>
+     
+    <body>
+    </body>
+</html>

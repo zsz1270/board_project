@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+    	<w2:type>DEFAULT</w2:type>
+        <w2:buildDate/>
+        <xf:model>
+        	<xf:instance>
+        		<data xmlns="" />
+        	</xf:instance>
+        	<w2:dataCollection baseNode="map">
+        		<w2:dataMap baseNode="map" id="detailno">
+        			<w2:keyInfo>
+        				<w2:key id="CON_NO" name="CON_NO" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        		<w2:dataMap baseNode="map" id="detailcon1">
+        			<w2:keyInfo>
+        				<w2:key id="CON_TITLE" name="CON_TITLE" dataType="text"></w2:key>
+        				<w2:key id="CON_TXT" name="CON_TXT" dataType="text"></w2:key>
+        				<w2:key id="CON_NO" name="CON_NO" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        	</w2:dataCollection>
+        	<w2:workflowCollection></w2:workflowCollection>
+        	<xf:submission id="sbm_detailcon" ref="data:json,detailno" target='data:json,{"id":"detailcon1","key":"detailcon"}'
+        		action="/websViews/wsdetailContent.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace=""
+        		errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="" ev:submiterror=""
+        		abortTrigger="">
+        	</xf:submission>
+        </xf:model>
+        <script type="text/javascript" lazy="false"><![CDATA[
+	scwin.onpageload = function() {
+		requires("uiplugin.popup");
+		
+		var params = $p.getParameter("CON_NO");
+		detailno.set("CON_NO", $p.getParameter("CON_NO"));
+		$p.executeSubmission("sbm_detailcon");
+	};
+	
+	scwin.onpageunload = function() {
+		
+	};
+	
+	scwin.btn_trigger1_onclick = function(e) {
+		location.href='/websquare/websquare.html?w2xPath=/ui/board/boardList.xml';
+	};
+	
+	//수정
+	scwin.btn_trigger11_ondblclick = function(e) {
+		var x2xPath ="/ui/board/identification.xml";
+		var dataObject = {
+			"type" : "json",
+			"name" : "popupParam",
+			"data" : {"keyValue" :1 , "CON_NO" : detailno.get("CON_NO")}
+		};
+		var options = {
+			id : "popup1",
+		    type : "window",
+		    width : "300px",
+		    height : "300px",
+		    top : "100px",
+		    left : "600px",
+		    popupName : "본인인증",
+		    modal : true,
+		    useIFrame : true,
+		    scrollbars : "true",
+		    resizable : "true",
+		    frameMode : "wframe",
+		    menubar : true,
+		    parentPopupDisabled : "true",
+		    dataObject : dataObject
+		};
+		
+		$w.openPopup(x2xPath, options);
+	};
+	
+	//삭제
+	scwin.btn_trigger12_ondblclick = function(e) {
+		var x2xPath ="/ui/board/identification.xml";
+		var dataObject = {
+			"type" : "json",
+			"name" : "popupParam",
+			"data" : {"keyValue" :2 , "CON_NO" : detailno.get("CON_NO")}
+		};
+		var options = {
+			id : "popup1",
+		    type : "window",
+		    width : "300px",
+		    height : "300px",
+		    top : "100px",
+		    left : "600px",
+		    popupName : "본인인증",
+		    modal : true,
+		    useIFrame : true,
+		    scrollbars : "true",
+		    resizable : "true",
+		    frameMode : "wframe",
+		    menubar : true,
+		    parentPopupDisabled : "true",
+		    dataObject : dataObject
+		};
+		
+		$w.openPopup(x2xPath, options);
+	};
+	
+	//이전
+	scwin.btn_trigger13_ondblclick = function(e) {
+		detailno.set("CON_NO", parseInt(detailno.get("CON_NO"))-1);
+		$p.executeSubmission("sbm_detailcon");
+	};
+	//다음
+	scwin.btn_trigger14_onclick = function(e) {
+		detailno.set("CON_NO", parseInt(detailno.get("CON_NO"))+1);
+		$p.executeSubmission("sbm_detailcon");
+	};
+	]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onpageunload="scwin.onpageunload">
+    	<xf:trigger id="btn_trigger1" style="width:64px;height:23px;" type="button" ev:onclick="scwin.btn_trigger1_onclick">
+    		<xf:label><![CDATA[메인]]></xf:label>
+    	</xf:trigger>
+    	<w2:textbox id="" label="상세내용" style="width: 150px;height: 23px;font-size:20px;"></w2:textbox>
+    	<xf:group tagname="table" style="width:70%;" id="" class="w2tb">
+    		<w2:attributes>
+    			<w2:summary></w2:summary>
+    		</w2:attributes>
+    		<xf:group tagname="caption"></xf:group>
+    		<xf:group tagname="colgroup">
+    			<xf:group tagname="col" style="width:6.07%;"></xf:group>
+    			<xf:group tagname="col" style="width:50.00%"></xf:group>
+    		</xf:group>
+    		<xf:group tagname="tr" style="">
+    			<xf:group tagname="th" style="" class="w2tb_th">제목<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes></xf:group>
+    			<xf:group tagname="td" style="" class="w2tb_td">
+    				<xf:input adjustMaxLength="false"
+    					style="position:static;top:77px;left:112px;width:297px;height:36px;outline-style:hidden;" id="ibx_input1"
+    					ref="data:detailcon1.CON_TITLE" readOnly="true">
+    				</xf:input>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group tagname="tr" style="">
+    			<xf:group tagname="th" style="" class="w2tb_th">내용<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes></xf:group>
+    			<xf:group tagname="td" style="" class="w2tb_td">
+    				<xf:textarea id="" style="position:static;top:242px;left:164px;width:335px;height:118px;outline-style:hidden;"
+    					ref="data:detailcon1.CON_TXT" readOnly="true">
+    				</xf:textarea>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    	<xf:group id="">
+    		<xf:group id=""></xf:group>
+    	</xf:group>
+    	<xf:group id="" style=";float:;text-align:center;">
+
+    		<xf:trigger style="width: 80px;height: 23px;" id="btn_trigger13" type="button" ev:ondblclick="scwin.btn_trigger13_ondblclick">
+    			<xf:label><![CDATA[이전]]></xf:label>
+    		</xf:trigger>
+    		<xf:trigger style="width: 80px;height: 23px;" id="btn_trigger11" type="button" ev:ondblclick="scwin.btn_trigger11_ondblclick">
+    			<xf:label><![CDATA[수정]]></xf:label>
+    		</xf:trigger>
+    		<xf:trigger style="width: 80px;height: 23px;" id="btn_trigger12" type="button" ev:ondblclick="scwin.btn_trigger12_ondblclick">
+    			<xf:label><![CDATA[삭제]]></xf:label>
+    		</xf:trigger>
+    		<xf:trigger style="width: 80px;height: 23px;" id="btn_trigger14" type="button" ev:onclick="scwin.btn_trigger14_onclick">
+    			<xf:label><![CDATA[다음]]></xf:label>
+    		</xf:trigger>
+    	</xf:group>
+    	
+    	
+    </body>
+</html>

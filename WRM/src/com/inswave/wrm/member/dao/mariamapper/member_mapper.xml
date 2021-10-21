@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.member.dao.MemberDao">
+
+	<select id="selectLoginAuthCheck" resultType="Map" parameterType="Map">
+		SELECT AUTHORITY_CD 
+		  FROM HM_MEMBER_AUTHORITY 
+		 WHERE EMP_CD = #{EMP_CD}
+	</select>
+
+	<select id="selectMemberBasicOrganization" resultType="Map">
+		SELECT ORG_NM, ORG_CD 
+		  FROM HM_ORGAN_BASIC 
+		 ORDER BY ORG_CD
+	</select>
+
+	<select id="selectMemberBasic" resultType="Map" parameterType="Map">
+		SELECT EMP_CD, EMP_NM, EMP_CN_NM, EMP_EN_NM, RESIDENT_NO, JOIN_DATE, JOIN_CLASS_CD,
+			   POSITION_CD, DUTY_CD, LAST_APPOINT_DATE, POSITION_UPDATED_DATE, ORG_CD,
+			   JOB_FAMILY_CD, JOB_CD, ASSIGNED_TASK, OFFICE_PHONE1, OFFICE_PHONE2, OFFICE_PHONE3,
+			   HOME_PHONE1, HOME_PHONE2, HOME_PHONE3, CELL_PHONE1, CELL_PHONE2, CELL_PHONE3,
+			   EMAIL, RELIGION_CD, LAST_SCHOOL_NM, MAJOR_NM, SCHOOL_CAREER_CD, HOUSE_KIND_CD,
+			   ZIP_CD, ADDRESS1, ADDRESS2, IS_VETERAN_WELFARE, IS_MILITARY_SERVICE, BIRTH_DATE,
+			   IS_LUNAR, HOPPY, TALENT, RETIRE_REASON, IS_MARRIAGE, FILE_STORED_PATH, STORED_FILE_NM, ORIGIN_FILE_NM
+		FROM HM_MEMBER_BASIC
+		<where>
+			<if test="EMP_CD != null and EMP_CD != ''">
+				AND EMP_CD = #{EMP_CD}
+			</if>
+			<if test="TYPE == 'EMP_NM'">
+				AND EMP_NM LIKE concat('%',#{CONTENT},'%')
+			</if>
+			<if test="TYPE == 'EMP_CD'">
+				AND EMP_CD LIKE concat('%',#{CONTENT},'%')
+			</if>
+			<if test="TYPE == 'POSITION_CD'">
+				<if test="CONTENT == ''">
+					AND EMP_CD IS NOT NULL
+				</if>
+				<if test="CONTENT != ''">
+					AND POSITION_CD = #{CONTENT}
+				</if>
+			</if>
+			<if test="TYPE == 'ORG_CD'">
+				<if test="CONTENT == ''">
+					AND EMP_CD IS NOT NULL
+				</if>
+				<if test="CONTENT != ''">
+					AND ORG_CD = #{CONTENT}
+				</if>
+			</if>
+		</where>
+		ORDER BY EMP_CD
+	</select>
+
+	<select id="selectMemberSearchItem" resultType="Map">
+		select EMP_NM, EMP_CD from HM_MEMBER_BASIC
+	</select>
+
+	<select id="selectMemberOragn" resultType="Map" parameterType="Map">
+		SELECT HPB.EMP_CD, HPB.EMP_NM, HPB.EMP_CN_NM, HPB.EMP_EN_NM, HPB.PASSWORD, HPB.RESIDENT_NO, HPB.JOIN_DATE, HOB.ORG_NM
+			 , HPB.JOIN_CLASS_CD, HPB.POSITION_CD, HPB.DUTY_CD, HPB.LAST_APPOINT_DATE, HPB.POSITION_UPDATED_DATE, HPB.ORG_CD
+			 , HPB.OFFICE_PHONE1, HPB.OFFICE_PHONE2, HPB.OFFICE_PHONE3, HPB.HOME_PHONE1, HPB.HOME_PHONE2, HPB.HOME_PHONE3, HPB.CELL_PHONE1
+			 , HPB.JOB_FAMILY_CD, HPB.JOB_CD, HPB.ASSIGNED_TASK, HPB.CELL_PHONE2, HPB.CELL_PHONE3, HPB.EMAIL, HPB.RELIGION_CD
+			 , HPB.LAST_SCHOOL_NM, HPB.MAJOR_NM, HPB.SCHOOL_CAREER_CD, HPB.HOUSE_KIND_CD, HPB.IS_VETERAN_WELFARE, HPB.ZIP_CD
+			 , HPB.ADDRESS1, HPB.ADDRESS2, HPB.IS_MILITARY_SERVICE, HPB.BIRTH_DATE, HPB.IS_LUNAR, HPB.IS_MARRIAGE, HPB.HOPPY
+			 , HPB.TALENT, HPB.RETIRE_REASON, HPB.STORED_FILE_NM, HPB.ORIGIN_FILE_NM, HPB.FILE_STORED_PATH
+		 FROM HM_MEMBER_BASIC HPB
+			  INNER JOIN HM_ORGAN_BASIC HOB ON HPB.ORG_CD = HOB.ORG_CD
+		<where>
+			<if test="EMP_CD != null and EMP_CD != ''">
+				AND HPB.EMP_CD = #{EMP_CD}
+			</if>
+			<if test="EMP_NM != null and EMP_NM != ''">
+				AND HPB.EMP_NM LIKE CONCAT( '%', #{EMP_NM}, '%' )
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertMemberBasic" parameterType="Map">
+		INSERT INTO HM_MEMBER_BASIC(EMP_CD, EMP_NM, EMP_CN_NM, EMP_EN_NM, PASSWORD, RESIDENT_NO, JOIN_DATE, JOIN_CLASS_CD
+								  , POSITION_CD, DUTY_CD, LAST_APPOINT_DATE, POSITION_UPDATED_DATE, ORG_CD, JOB_FAMILY_CD, JOB_CD, ASSIGNED_TASK
+								  , OFFICE_PHONE1, OFFICE_PHONE2, OFFICE_PHONE3, HOME_PHONE1, HOME_PHONE2, HOME_PHONE3, CELL_PHONE1, CELL_PHONE2
+								  , CELL_PHONE3, EMAIL, RELIGION_CD, LAST_SCHOOL_NM, MAJOR_NM, SCHOOL_CAREER_CD, HOUSE_KIND_CD
+								  , ZIP_CD, ADDRESS1, ADDRESS2, IS_VETERAN_WELFARE, IS_MILITARY_SERVICE, BIRTH_DATE, IS_LUNAR, IS_MARRIAGE
+								  , HOPPY, TALENT, RETIRE_REASON, FILE_STORED_PATH, STORED_FILE_NM, ORIGIN_FILE_NM)
+		VALUES (#{EMP_CD}, #{EMP_NM}, #{EMP_CN_NM}, #{EMP_EN_NM}, #{PASSWORD}, #{RESIDENT_NO}, #{JOIN_DATE}
+			  , #{JOIN_CLASS_CD}, #{POSITION_CD}, #{DUTY_CD}
+			  , #{LAST_APPOINT_DATE}, #{POSITION_UPDATED_DATE}
+			  , #{ORG_CD}, #{JOB_FAMILY_CD}, #{JOB_CD}, #{ASSIGNED_TASK}
+			  , #{OFFICE_PHONE1}, #{OFFICE_PHONE2}, #{OFFICE_PHONE3}, #{HOME_PHONE1}, #{HOME_PHONE2}, #{HOME_PHONE3}, #{CELL_PHONE1}, #{CELL_PHONE2}
+			  , #{CELL_PHONE3}, #{EMAIL}, #{RELIGION_CD}, #{LAST_SCHOOL_NM}, #{MAJOR_NM}, #{SCHOOL_CAREER_CD}, #{HOUSE_KIND_CD}
+			  , #{ZIP_CD}, #{ADDRESS1}, #{ADDRESS2}, #{IS_VETERAN_WELFARE}, #{IS_MILITARY_SERVICE}, #{BIRTH_DATE}
+			  , #{IS_LUNAR}, #{IS_MARRIAGE}, #{HOPPY}, #{TALENT}, #{RETIRE_REASON}, #{FILE_STORED_PATH}, #{STORED_FILE_NM}, #{ORIGIN_FILE_NM})
+	</insert>
+
+
+	<update id="updateMemberBasic" parameterType="Map">
+		UPDATE HM_MEMBER_BASIC
+		   SET EMP_NM = #{EMP_NM}, EMP_CN_NM = #{EMP_CN_NM}, EMP_EN_NM = #{EMP_EN_NM}, RESIDENT_NO = #{RESIDENT_NO}
+			 , JOIN_DATE = #{JOIN_DATE}, JOIN_CLASS_CD = #{JOIN_CLASS_CD}
+			 , POSITION_CD = #{POSITION_CD}, DUTY_CD = #{DUTY_CD}
+			 , LAST_APPOINT_DATE = #{LAST_APPOINT_DATE}, POSITION_UPDATED_DATE = #{POSITION_UPDATED_DATE}
+			 , ORG_CD = #{ORG_CD}, JOB_FAMILY_CD = #{JOB_FAMILY_CD}
+			 , JOB_CD = #{JOB_CD}, ASSIGNED_TASK = #{ASSIGNED_TASK}, OFFICE_PHONE1 = #{OFFICE_PHONE1}, OFFICE_PHONE2 = #{OFFICE_PHONE2}
+			 , OFFICE_PHONE3 = #{OFFICE_PHONE3}, HOME_PHONE1 = #{HOME_PHONE1}, HOME_PHONE2 = #{HOME_PHONE2}
+			 , HOME_PHONE3 = #{HOME_PHONE3}, CELL_PHONE1 = #{CELL_PHONE1}, CELL_PHONE2 = #{CELL_PHONE2}, CELL_PHONE3 = #{CELL_PHONE3}
+			 , EMAIL = #{EMAIL}, RELIGION_CD = #{RELIGION_CD}, LAST_SCHOOL_NM = #{LAST_SCHOOL_NM}
+			 , MAJOR_NM = #{MAJOR_NM}, SCHOOL_CAREER_CD = #{SCHOOL_CAREER_CD}, HOUSE_KIND_CD = #{HOUSE_KIND_CD}, ZIP_CD = #{ZIP_CD}
+			 , ADDRESS1 = #{ADDRESS1}, ADDRESS2 = #{ADDRESS2}, IS_VETERAN_WELFARE = #{IS_VETERAN_WELFARE}
+			 , IS_MILITARY_SERVICE = #{IS_MILITARY_SERVICE}, BIRTH_DATE = #{BIRTH_DATE}, IS_LUNAR = #{IS_LUNAR}
+			 , IS_MARRIAGE = #{IS_MARRIAGE}, HOPPY = #{HOPPY}, TALENT = #{TALENT}, RETIRE_REASON = #{RETIRE_REASON}
+			 , FILE_STORED_PATH = #{FILE_STORED_PATH}, STORED_FILE_NM = #{STORED_FILE_NM}, ORIGIN_FILE_NM = #{ORIGIN_FILE_NM}
+		 WHERE EMP_CD = #{EMP_CD}
+	</update>
+
+	<delete id="deleteMemberBasic" parameterType="Map">
+		DELETE FROM HM_MEMBER_BASIC WHERE EMP_CD = #{EMP_CD}
+	</delete>
+
+	<select id="selectMemberFamilyList" resultType="Map" parameterType="Map">
+		SELECT EMP_CD, SEQ, RELATIONSHIP, FAMILY_NM, RESIDENT_NO, JOB, IS_CORESIDENCE, IS_SUPPORT
+		  FROM HM_MEMBER_FAMILY
+		<where>
+			<if test="EMP_CD != null and EMP_CD != ''">
+				AND EMP_CD = #{EMP_CD}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMemberFamilyMaxSeq" resultType="int" parameterType="Map">
+		SELECT CASE WHEN (COUNT(*) > 0) THEN MAX(SEQ) ELSE 0 END AS MAX_SEQ
+		  FROM HM_MEMBER_FAMILY
+		<where>
+			<if test="EMP_CD != null and EMP_CD != ''">
+				AND EMP_CD = #{EMP_CD}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertMemberFamily" parameterType="Map">
+		INSERT INTO HM_MEMBER_FAMILY(EMP_CD, SEQ, RELATIONSHIP, FAMILY_NM, RESIDENT_NO, JOB, IS_CORESIDENCE, IS_SUPPORT)
+		VALUES (#{EMP_CD}, #{SEQ}, #{RELATIONSHIP}, #{FAMILY_NM}, #{RESIDENT_NO}, #{JOB}, #{IS_CORESIDENCE}, #{IS_SUPPORT})
+	</insert>
+
+	<update id="updateMemberFamily" parameterType="Map">
+		UPDATE HM_MEMBER_FAMILY
+		   SET RELATIONSHIP = #{RELATIONSHIP}, FAMILY_NM = #{FAMILY_NM}, RESIDENT_NO = #{RESIDENT_NO}, JOB = #{JOB}, IS_CORESIDENCE = #{IS_CORESIDENCE},
+			   IS_SUPPORT = #{IS_SUPPORT}
+		 WHERE EMP_CD = #{EMP_CD} AND SEQ = #{SEQ}
+	</update>
+
+	<delete id="deleteMemberFamily" parameterType="Map">
+		DELETE FROM HM_MEMBER_FAMILY WHERE EMP_CD = #{EMP_CD} AND SEQ = #{SEQ}
+	</delete>
+
+	<select id="selectMemberProjectList" resultType="Map" parameterType="Map">
+		SELECT EMP_CD, SEQ, PROJECT_NM, PROJECT_DESC, START_DATE, END_DATE, ASSIGNED_TASK, ORDERING_ORG, COMPANY, NOTE
+		  FROM HM_MEMBER_PROJECT
+		<where>
+			<if test="EMP_CD != null and EMP_CD != ''">
+				AND EMP_CD = #{EMP_CD}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectMemberProjectMaxSeq" resultType="int">
+		SELECT CASE WHEN (COUNT(*) > 0) THEN MAX(SEQ) ELSE 0 END AS MAX_SEQ
+		  FROM HM_MEMBER_PROJECT
+		<where>
+			<if test="EMP_CD != null and EMP_CD != ''">
+				AND EMP_CD = #{EMP_CD}
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertMemberProject" parameterType="Map">
+		INSERT INTO HM_MEMBER_PROJECT(EMP_CD, SEQ, PROJECT_NM, PROJECT_DESC, START_DATE,
+									  END_DATE, ASSIGNED_TASK, ORDERING_ORG, COMPANY, NOTE)
+			 VALUES (#{EMP_CD}, #{SEQ}, #{PROJECT_NM}, #{PROJECT_DESC}, #{START_DATE}, #{END_DATE}
+				   , #{ASSIGNED_TASK}, #{ORDERING_ORG}, #{COMPANY}, #{NOTE})
+	</insert>
+
+	<update id="updateMemberProject" parameterType="Map">
+		UPDATE HM_MEMBER_PROJECT
+		   SET PROJECT_NM = #{PROJECT_NM}, PROJECT_DESC = #{PROJECT_DESC}
+			 , START_DATE = #{START_DATE}, END_DATE = #{END_DATE}
+			 , ASSIGNED_TASK = #{ASSIGNED_TASK}, ORDERING_ORG = #{ORDERING_ORG}, COMPANY = #{COMPANY}, NOTE = #{NOTE}
+		 WHERE EMP_CD = #{EMP_CD} AND SEQ = #{SEQ}
+	</update>
+
+	<delete id="deleteMemberProject" parameterType="Map">
+		DELETE FROM HM_MEMBER_PROJECT WHERE EMP_CD = #{EMP_CD} AND SEQ = #{SEQ}
+	</delete>
+
+	<select id="selectZipCodeList" resultType="Map">
+		SELECT ZIP_CD, CONCAT(CITY, ' ', COUNTRY, ' ', TOWN, ' ', BUILDING, ' ', FROM_NO) as ADDRESS FROM BM_ZIP_CODE
+		<where>
+			<if test="SEARCH_KEYWORD != null and SEARCH_KEYWORD != ''">
+				AND (TOWN LIKE CONCAT('%', #{SEARCH_KEYWORD}, '%')) OR (BUILDING LIKE CONCAT('%', #{SEARCH_KEYWORD}, '%'))
+			</if>
+		</where>
+	</select>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ev="http://www.w3.org/2001/xml-events"
+	xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate/>
+		<xf:model>
+			<xf:instance>
+				<data xmlns=""/>
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+			</w2:dataCollection>
+			<w2:workflowCollection>
+			</w2:workflowCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+		
+		scwin.onpageload = function() {
+			
+		};
+		
+		scwin.img_Home_onclick = function(e) {
+			com.win.goHome();
+		};
+		
+		scwin.img_Logout_onclick = function(e) {
+			com.win.logout();
+		};
+		
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group id="" style="" class="contentWrap">
+			<xf:group id="" style="width:100%;" class="mt10 mb10" tagname="table">
+				<w2:attributes>
+					<w2:summary></w2:summary>
+				</w2:attributes>
+				<xf:group tagname="colgroup">
+					<xf:group style="width:50.00%" tagname="col"></xf:group>
+					<xf:group style="width:50.00%" tagname="col"></xf:group>
+				</xf:group>
+				<xf:group tagname="tr">
+					<xf:group style="text-align: center;" class="" tagname="td">
+						<w2:attributes>
+							<w2:colspan>2</w2:colspan>
+						</w2:attributes>
+						<xf:image id="img_Noauth" style="height:250px;" src="../../cm/images/authCheck/noAuth.png"></xf:image>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group tagname="table" id="" style="width:100%;" class=" mt15">
+				<w2:attributes>
+					<w2:summary></w2:summary>
+				</w2:attributes>
+				<xf:group tagname="colgroup">
+					<xf:group style="width:50.00%" tagname="col"></xf:group>
+					<xf:group style="width:50.00%" tagname="col"></xf:group>
+				</xf:group>
+				<xf:group tagname="tr">
+					<xf:group style="text-align: center;" class="" tagname="td">
+						<w2:span label="Main 화면으로 이동" id="" style="font-weight: bold;" class="mb10"></w2:span>
+						<br/>
+						<xf:image id="img_Home" style="height:120px;" src="../../cm/images/authCheck/home.png" ev:onclick="scwin.img_Home_onclick"></xf:image>
+					</xf:group>
+					<xf:group style="text-align: center;" class="" tagname="td">
+						<w2:span label="로그인 화면으로 이동" id="" style="font-weight: bold;" class="mb10"></w2:span>
+						<br/>
+						<xf:image id="img_Logout" style="height:120px;" src="../../cm/images/authCheck/logout.png" ev:onclick="scwin.img_Logout_onclick"></xf:image>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+		</xf:group>		
+	</body>
+</html>

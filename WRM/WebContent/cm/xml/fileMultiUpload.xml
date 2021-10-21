@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList baseNode="list" ev:onremoverow="scwin.dlt_file_onremoverow" id="dlt_file" repeatNode="map"
+					saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="chk" name="선택" dataType="text" ignoreStatus="true"></w2:column>
+						<w2:column id="FILE_SEQ" name="파일순번" dataType="number"></w2:column>
+						<w2:column id="DATA_SEQ" name="데이터순번" dataType="number"></w2:column>
+						<w2:column id="FILE_GRP_SEQ" name="파일그룹순번" dataType="number"></w2:column>
+						<w2:column id="FILE_STORED_PATH" name="파일저장경로" dataType="text"></w2:column>
+						<w2:column id="STORED_FILE_NM" name="저장파일명" dataType="text"></w2:column>
+						<w2:column id="ORIGIN_FILE_NM" name="원본파일명" dataType="text"></w2:column>
+						<w2:column id="FILE_SIZE" name="파일크기" dataType="text"></w2:column>
+						<w2:column id="status" name="파일전송상태" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_fileInfo">
+					<w2:keyInfo>
+						<w2:key dataType="text" id="FILE_GRP_SEQ" name="파일그룹순번" />
+					</w2:keyInfo>
+					<w2:data />
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection />
+			<xf:submission abortTrigger="" action="/file/saveFile" customHandler="" encoding="UTF-8" errorHandler="" ev:submit=""
+				ev:submitdone="scwin.sbm_saveFile_submitdone" ev:submiterror="" id="sbm_saveFile" instance="" mediatype="application/json" method="post"
+				mode="asynchronous" processMsg="" ref='data:json,{"action":"modified","id":"dlt_file"}' replace="" target="">
+			</xf:submission>
+			<xf:submission abortTrigger="" action="/file/selectFile" customHandler="" encoding="UTF-8" errorHandler=""
+				ev:submit="" ev:submitdone="scwin.sbm_selectFile_submitdone" ev:submiterror="" id="sbm_selectFile" instance=""
+				mediatype="application/json" method="post" mode="asynchronous" processMsg="" ref="data:json,dma_fileInfo" replace="" target="">
+			</xf:submission>
+		</xf:model>
+		<script lazy="false" type="text/javascript"><![CDATA[
+
+	// 파일 업로드 완료 후 호출할 콜백 함수
+	scwin.callBackUploadDoneFunc = null;
+
+	// 업로드 가능한 전체 첨부 파일 개수
+	scwin.maxFileCount = 0;
+
+	// 업로드 가능한 개별 첨부 파일 크기 (단위 : Byte)
+	scwin.maxFileSize = 0;
+
+	// 업로드 가능한 전체 첨부 파일 크기 (단위 : Byte)
+	scwin.totalFileSize = 0;
+	
+	// 업로드할 파일 확장자 필터
+	scwin.filter = "*.*";
+	
+	// 파일 저장 데이터 순번 (게시판의 경우 게시글 순번)
+	scwin.dataSeq = 0;
+
+	// 파일 그룹 아이디
+	scwin.fileGrpSeq = 0;
+	
+	// 파일 저장 Sub Directory
+	scwin.subDir = "";
+
+	/**
+	 * 페이지 시작 시 Loading 이벤트
+	 */
+	scwin.onpageload = function() {
+		scwin.setFileStatus();
+		scwin.setDropEventHandler();
+		com.util.setGridViewDelCheckBox(grd_file);
+	};
+
+	/**
+	 * 파일 업로드 정책 및 기본 세팅이 완료되면 호출되는 콜백 함수
+	 */
+	scwin.callbackFileUploadSetting = function() {
+		var filter = "";
+		if (com.util.isEmpty(scwin.filter) === false) {
+			var extArr = scwin.filter.split(",");
+
+			for (idx in extArr) {
+				filter += "*." + extArr[idx].trim() + ";";
+			}
+		} else {
+			filter = "*.*";
+		}
+
+		mpd_multiFileUpload.setFilter("Filter", filter);
+
+		if (com.num.parseInt(scwin.fileGrpSeq) > 0) {
+			dma_fileInfo.set("FILE_GRP_SEQ", scwin.fileGrpSeq);
+			mpd_multiFileUpload.removeAllFiles();
+		} else {
+			mpd_multiFileUpload.removeAllFiles();
+			dlt_file.removeAll();
+			scwin.setFileStatus();
+		}
+	};
+
+	/**
+	 * File Drop Event Handler를 세팅한다.
+	 */
+	scwin.setDropEventHandler = function() {
+		var fileDragDom = grd_file.render;
+		fileDragDom.addEventListener("dragover", scwin.doHandleDrop, false);
+		fileDragDom.addEventListener("dragenter", scwin.doHandleDrop, false);
+		fileDragDom.addEventListener("dragleave", scwin.doHandleDrop, false);
+		fileDragDom.addEventListener("drop", scwin.doHandleDrop, false);
+	};
+
+	/**
+	 * 업로드할 파일 Drop를 업로드할 파일로 등록한다.
+	 */
+	scwin.doHandleDrop = function(e) {
+		try {
+			WebSquare.event.stopEvent(e);
+			var fileData = e.dataTransfer.files;
+			var uploadFileData = [];
+ 			for(var idx = 0; idx < fileData.length; idx++) {
+	 			var isExisted = false;
+	 			for (var fileIdx in mpd_multiFileUpload.fileArray) {
+		 			if (fileData[idx].name === mpd_multiFileUpload.fileArray[fileIdx].name) {
+			 			isExisted = true;
+			 		}
+		 		}
+
+				if (isExisted === false) {
+					uploadFileData.push(fileData[idx]);
+					mpd_multiFileUpload.fileArray.push(fileData[idx]);
+					mpd_multiFileUpload.fileNameArr.push(fileData[idx].name);
+					mpd_multiFileUpload._inx++;
+				}
+			}
+
+			scwin.selectCallback(uploadFileData);
+			console.table(mpd_multiFileUpload.fileArray);
+  		} catch (ex) {
+			console.error(ex);
+		}
+	};
+
+	/**
+	 * 파일 업로드 상태 정보를 업데이트 한다.
+	 */
+	scwin.setFileStatus = function() {
+		var fileInfo = scwin.getCurrentFileInfo();
+		tbx_fileCount.setValue(fileInfo.fileCount + " / " + scwin.maxFileCount);
+		tbx_fileSize.setValue(com.num.formatByte(fileInfo.fileSize) + " / " + com.num.formatByte(scwin.totalFileSize));
+	};
+
+	/**
+	 * 업로드할 파일 선택이 완료되면 호출되는 콜백 함수
+	 */
+	scwin.selectCallback = function(data) {
+		var isValid = true;
+		var fileInfo = scwin.getCurrentFileInfo();
+
+		var newFileInfo = {
+			fileCount : 0,
+			fileSize : 0
+		};
+
+		for (var idx in data) {
+			if (scwin.maxFileSize < data[idx].size) {
+				var alertMsg = com.data.getMessage("MSG_CM_00007", data[idx].name, com.num.formatByte(scwin.maxFileSize));
+				com.win.alert(alertMsg);
+				mpd_multiFileUpload.removeFile(data[idx].name);
+				delete data[idx];
+			} else {
+				newFileInfo.fileCount++;
+				newFileInfo.fileSize += data[idx].size;
+			}
+		}
+
+		if (scwin.maxFileCount < (fileInfo.fileCount + newFileInfo.fileCount)) {
+			var alertMsg = com.data.getMessage("MSG_CM_00008",scwin.maxFileCount);
+			com.win.alert(alertMsg);
+			isValid = false;
+		}
+
+		if ((scwin.totalFileSize < (fileInfo.fileSize + newFileInfo.fileSize)) && (isValid === true)) {
+			var alertMsg = com.data.getMessage("MSG_CM_00009", com.num.formatByte(scwin.totalFileSize));
+			com.win.alert(alertMsg);
+			isValid = false;
+		}
+
+		if (isValid === false) {
+			for (var idx in data) {
+				mpd_multiFileUpload.removeFile(data[idx].name);
+			}
+			return;
+		}
+
+		if (data.length > 0) {
+			var newFileCount = data.length;
+			var fileInfoList = [];
+
+			for (var idx in data) {
+				var fileInfo = {
+					"FILE_SEQ" : scwin.fileId,
+					"ORIGIN_FILE_NM" : data[idx].name,
+					"FILE_SIZE" : data[idx].size
+				};
+
+				fileInfoList.push(fileInfo);
+			}
+
+			var lastIdx = dlt_file.getRowCount();
+			var totalFileCount = lastIdx + fileInfoList.length;
+			
+			dlt_file.insertJSON(lastIdx, fileInfoList);
+
+			for (var idx = lastIdx; idx < totalFileCount; idx++) {
+				grd_file.setCellClass(idx, "status", "progress");
+			}
+			
+			grd_file.setFocusedCell(totalFileCount - 1, "FILE_SEQ", false);
+		}
+
+		scwin.setFileStatus();
+	};
+
+	/**
+	 * 현재 업로드된 파일 정보를 반환한다.
+	 */
+	scwin.getCurrentFileInfo = function() {
+		var fileInfo = {
+			fileCount : 0,
+			fileSize : 0
+		};
+		var fileList = dlt_file.getAllJSON();
+
+		for (var idx in fileList) {
+			var rowStatus = fileList[idx].rowStatus;
+			if ((rowStatus === "C") || (rowStatus === "U") || (rowStatus === "R")) {
+				fileInfo.fileCount++;
+				fileInfo.fileSize += com.num.parseInt(fileList[idx].FILE_SIZE);
+			}
+		};
+
+		return fileInfo;
+	};
+
+	/**
+	 * 전체 파일 정보를 지운다.
+	 */
+	scwin.clearFiles = function() {
+		dlt_file.removeAll();
+		mpd_multiFileUpload.setMaxFileCount(scwin.maxFileCount);
+	};
+
+	/**
+	 * 파일 업로드 진행 상황을 업데이트한다.
+	 */
+	scwin.mpd_multiFileUpload_onprogress = function(data) {
+		var rowIdx = dlt_file.getMatchedIndex("ORIGIN_FILE_NM", data.fileName);
+
+		for (var idx = 0; idx < rowIdx.length; idx++) {
+			var fileInfo = dlt_file.getRowJSON(rowIdx[idx]);
+			if ((fileInfo.rowStatus === "C") && (com.util.isEmpty(fileInfo.fileId) === true)) {
+				if (data.percentData < 100) {
+					dlt_file.setCellData(rowIdx[idx], "status", data.percentData);
+				} else {
+					dlt_file.setCellData(rowIdx[idx], "status", "S");
+				}
+			}
+		}
+	};
+
+	/**
+	 * 파일 업로드가 완료되면 호출되는 콜백 함수
+	 */
+	scwin.mpd_multiFileUpload_ondone = function(data) {
+		var newFileCount = data.length;
+
+		for (var fileIdx = 0; fileIdx < newFileCount; fileIdx++) {
+			var rowIdx = dlt_file.getMatchedIndex("ORIGIN_FILE_NM", data[fileIdx].localFile);
+
+			dlt_file.setBroadcast(false);
+			for (var idx = 0; idx < rowIdx.length; idx++) {
+				var fileInfo = dlt_file.getRowJSON(rowIdx[idx]);
+				if ((fileInfo.rowStatus === "C") && (fileInfo.status === gcm.MESSAGE_CODE.STATUS_SUCCESS)) {
+					dlt_file.setCellData(rowIdx[idx], "DATA_SEQ", scwin.dataSeq);
+					dlt_file.setCellData(rowIdx[idx], "FILE_GRP_SEQ", scwin.fileGrpSeq);
+					dlt_file.setCellData(rowIdx[idx], "FILE_STORED_PATH", scwin.subDir);
+					dlt_file.setCellData(rowIdx[idx], "STORED_FILE_NM", data[fileIdx].file);
+					dlt_file.setCellData(rowIdx[idx], "FILE_SIZE", data[fileIdx].size);
+					grd_file.refreshCell(rowIdx[idx], "ORIGIN_FILE_NM");
+				}
+			}
+			dlt_file.setBroadcast(true, true);
+		}
+
+		scwin.saveFileInfo();
+	};
+
+	/**
+	 * 업로드 상태 표시 Display Formatter
+	 */
+	scwin.setDisplayStatus = function(value) {
+		if (value === "S") {
+			return "Completed";
+		} else if (value === "E") {
+			return "Error";
+		} else if ((com.num.parseInt(value) > 0) && (com.num.parseInt(value) < 100)) { 
+			return "<div style='width:"+value+"%; height:100%;' class='div_progress'>"+ value +"%</div>";
+		} else {
+			return "<div style='width:0%; height:100%;' class='div_progress'></div>";
+		}
+	};
+
+	/**
+	 * 업로드하려는 파일을 다시 삭제할 때 발생하는 이벤트
+	 */
+	scwin.dlt_file_onremoverow = function(info) {
+		for (var idx in info.removedDataObj) {
+			var fileName = info.removedDataObj[idx][6];
+			mpd_multiFileUpload.removeFile(fileName);
+		}
+
+		scwin.setFileStatus();
+	};
+
+	/**
+	 * 기존에 등록된 파일을 Double Click 클릭하면 파일다운로드가 동작함
+	 */
+	scwin.customFormatterFileNm = function(data, formattedData, rowIndex, colIndex) {
+		var fileSeq = dlt_file.getCellData(rowIndex, "FILE_SEQ");
+		var fileGrpSeq = dlt_file.getCellData(rowIndex, "FILE_GRP_SEQ");
+		
+		if (com.util.isEmpty(fileSeq) === false) {
+			return "<a href='" + gcm.CONTEXT_PATH + gcm.FILE_DOWNLOAD_URL +  fileSeq + "' target='_blank'>" + formattedData + "</a>";
+		} else {
+			return formattedData;
+		}
+	};
+
+	/**
+	 * 파일 사이즈를 적절한 포맷으로 변환해서 반환한다.
+	 */
+	scwin.displayFileSize = function(value) {
+		return com.num.formatByte(value);
+	};
+
+	/**
+	 * 파일 데이터 저장 후 콜백 함수
+	 */
+	scwin.sbm_saveFile_submitdone = function(e) {
+
+		if (e.responseJSON.rsMsg.statusCode === gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			var fileList = e.responseJSON.dlt_file;
+			var rowCount = dlt_file.getRowCount();
+			
+			for (var rowIdx = 0; rowIdx < rowCount; rowIdx++) {
+				if (dlt_file.getRowStatus(rowIdx) === "C") {
+					for (var fileIdx in fileList) {
+						if (dlt_file.getCellData(rowIdx, "STORED_FILE_NM") === fileList[fileIdx].STORED_FILE_NM) {
+							dlt_file.setCellData(rowIdx, "FILE_SEQ", fileList[fileIdx].FILE_SEQ);
+							dlt_file.modifyRowStatus(rowIdx, "R");
+							grd_file.refreshCell(rowIdx, "ORIGIN_FILE_NM");
+						}
+					}
+				}
+			}
+
+			scwin.setFileStatus();
+			
+			dlt_file.removeRows(dlt_file.getDeletedIndex());
+			dlt_file.reform();
+			
+			if (typeof scwin.callBackUploadDoneFunc === "function") {
+				scwin.callBackUploadDoneFunc(true);
+			}
+		} else {
+			scwin.setFileStatus();
+			
+			if (typeof scwin.callBackUploadDoneFunc === "function") {
+				scwin.callBackUploadDoneFunc(false);
+			}
+		}
+	};
+
+	/**
+	 * 파일 아이디 가져오기 또는 파일 정보 반환 Submit Done 함수
+	 */
+	scwin.sbm_selectFile_submitdone = function(e) {
+		if (e.responseJSON.dlt_file.length >= 0) {
+			dlt_file.setJSON(e.responseJSON.dlt_file);
+			scwin.setFileStatus();
+		}
+		mpd_multiFileUpload.removeAllFiles();
+	};
+
+	/**
+	 * 파일 업로드 전에 파라미터 정보를 세팅한다.
+	 */
+	scwin.setUploadParam = function() {
+		mpd_multiFileUpload.setParam(0 , "subDir" , scwin.subDir);
+		
+		var fileCount = mpd_multiFileUpload.getFileCount();
+		
+		for (var idx = 1; idx <= fileCount; idx++) {
+			mpd_multiFileUpload.setParam(idx, "FILE_GRP_SEQ", scwin.fileGrpSeq);
+		}
+	};
+
+	/**
+	 * 파일 업로드 과정에서 에러 발생 시 발생하는 이벤트 함수
+	 */
+	scwin.mpd_multiFileUpload_onerror = function(data) {
+		com.win.alert("파일 업로드에 실패했습니다.");
+	};
+	
+	/**
+	 * 데이터 순번을 세팅하고, 기존에 업로드된 파일 목록 정보를 표시한다.
+	 */
+	scwin.setDataSeq = function(dataSeq) {
+		if (com.util.isEmpty(dataSeq) === false) {
+			scwin.dataSeq = dataSeq;
+			var searchParam = {
+				dma_search : {
+					DATA_SEQ : dataSeq,
+					IS_DELETE : "N"
+				}
+			};
+			com.sbm.execute(sbm_selectFile, searchParam);
+		} else {
+			scwin.dataSeq = 0;
+		}
+	}
+	
+	/**
+	 * 파일 추가 & 삭제 상태를 원복한다.
+	 */
+	scwin.undoFileUpload = function() {
+		dlt_file.undoAll();
+		dlt_file.removeRows(dlt_file.getInsertedIndex());
+		mpd_multiFileUpload.removeAllFiles();
+	};
+	
+	/**
+	 * File Upload WFrame을 초기화한다.
+	 *
+	 * @date 2020.06.22
+	 * @param {Object} fileUploadFrame File Upload WFrame 객체
+	 * @param {Object} option File Upload 옵션 정보
+	 * @param {Function} callbackUploadDoneFunc 파일 업로드 완료 후 콜백 함수
+	 * @author 박상규
+	 * @example
+	// 첨부 파일 업로드 모듈 초기 설정 옵션
+	// - option.maxFileCount : 업로드 가능한 첨부 파일 개수
+	// - option.totalFileSize : 업로드 가능한 전체 첨부 파일 크기 (개별 첨부 파일 크기는 서버 프레임워크에서 세팅함)
+	// - option.fileGrpSeq : 파일 그룹 아이디 (신규 등록 화면이면 ""로 세팅하고, 수정 화면이면 기존에 등록된 파일 그룹 아이디를 세팅함)
+	var option = {
+		maxFileCount : 3,
+		totalFileSize : 209715200,
+		policy : "templates",
+		fileGrpSeq : "23",
+		filter : "*.jpg,*.png,*.gif"
+	};
+	
+	// 첨부 파일 업로드 모듈 초기 설정
+	// - fileUploadFrame File Upload WFrame 객체
+	// - option File Upload 옵션 정보
+	// - callbackUploadDoneFunc 파일 업로드 완료 후 콜백 함수
+	// 실제 DB에 내용과 첨부 파일 정보 저장 처리를 callbackUploadDoneFunc에 정의된 콜백함수에서 처리해야 한다.
+	com.setFileUpload(option, scwin.callbackUploadDone);
+	 */
+	scwin.setFileUpload = function(option, callbackUploadDoneFunc) {
+		try {
+			if (com.util.isEmpty(option.fileGrpSeq) === false) {
+				scwin.fileGrpSeq = option.fileGrpSeq;
+			} else {
+				scwin.fileGrpSeq = 0;
+			}
+	
+			scwin.maxFileCount = option.maxFileCount;
+			scwin.maxFileSize = option.maxFileSize;
+			scwin.totalFileSize = option.totalFileSize;
+			
+			if (com.util.isEmpty(option.filter) == false) {
+				scwin.filter = option.filter;
+			}
+			mpd_multiFileUpload.setMaxFileCount(scwin.maxFileCount)
+			mpd_multiFileUpload.setMaxFileSize(scwin.maxFileSize);
+			
+			if (typeof option.subDir !== "undefined") {
+				scwin.subDir = option.subDir;
+			}
+			
+			scwin.callBackUploadDoneFunc = callbackUploadDoneFunc;
+			scwin.callbackFileUploadSetting();
+		} catch (ex) {
+			console.error(ex);
+		}
+	};
+	
+	/**
+	 * File Upload를 시작한다.
+	 */
+	scwin.startFileUpload = function() {
+		try {
+			if (mpd_multiFileUpload.getFileInfos().length > 0) {
+				scwin.setUploadParam();
+				mpd_multiFileUpload.startUpload();
+			} else {
+				scwin.saveFileInfo();
+			}
+		} catch (ex) {
+			console.error(ex);
+		}
+	}
+	
+	/**
+	 * 업데이트된 파일 정보를 반환한다.
+	 */
+	scwin.getUpdatedFile = function() {
+		return dlt_file.getModifiedJSON({ saveRemovedData:false });
+	};
+	
+	/**
+	 * 파일 정보를 DB에 저장한다.
+	 */
+	scwin.saveFileInfo = function() {
+		if (com.data.isModified(dlt_file)) {
+			com.sbm.execute(sbm_saveFile);
+		} else {
+			if (typeof scwin.callBackUploadDoneFunc === "function") {
+				scwin.callBackUploadDoneFunc(true);
+			}
+		}
+	};
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    	<xf:group class="pop_contents" id="" style="">
+    		<xf:group class="dfbox" id="" style="">
+    			<xf:group id="" class="fl"><xf:trigger style="" id="" type="button" class="btn_cm  row_add">
+    				<xf:label><![CDATA[추가]]></xf:label>
+    			</xf:trigger>
+    			<w2:multiupload ev:onComplete="" maxcount="" ev:onprogress="scwin.mpd_multiFileUpload_onprogress" fireEventOnError="" filter="" mode="html5_transparent" ev:ondone="scwin.mpd_multiFileUpload_ondone" ev:onerror="scwin.mpd_multiFileUpload_onerror" displaySizeUnit="MB" action="" style="" wmode="false" id="mpd_multiFileUpload" maxsize="1000000000" uploadButton="" selectCallback="scwin.selectCallback">
+    			</w2:multiupload>
+    		</xf:group>
+    		<xf:group class="fr mt10" id="" style="">
+    				<w2:textbox class="ett" id="" label="파일 수 :" style=""></w2:textbox>
+    				<w2:textbox class="" id="tbx_fileCount" label="0개/ 10개" style=""></w2:textbox>
+    				<w2:textbox class="ett" id="" label="총 용량 :" style=""></w2:textbox>
+    				<w2:textbox class="" id="tbx_fileSize" label="0MB / 200MB" style=""></w2:textbox>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+    			<w2:gridView autoFit="allColumn" class="wq_gvw multi_file" dataList="data:dlt_file" defaultCellHeight="25"
+    				disabledScrollHidden="" ev:oncellclick="" ev:onheaderclick="" focusMode="row" id="grd_file" rowNumVisible="" rowNumWidth=""
+    				rowStatusHeaderValue="상태" rowStatusVisible="true" rowStatusWidth="50" scrollByColumn="false" scrollByColumnAdaptive="false"
+    				sortable="true" style="height:130px;width:100%;" visibleRowNum="5" wheelRows="0" readOnlyTabIgnore="" summary="" readOnlyBackgroundImgCSS="">
+    				<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
+    				<w2:header id="header1" style="">
+    					<w2:row id="row1" style="">
+    						<w2:column blockSelect="false" displayMode="label" fixColumnWidth="true" id="chk" inputType="checkbox"
+    							removeBorderStyle="false" style="" value="선택" width="40" checkboxLabel="선택">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column11" inputType="text" removeBorderStyle="false"
+    							style="" value="파일명" width="350">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column14" inputType="text" removeBorderStyle="false"
+    							style="height:44px;" value="전송결과" width="100">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column7" inputType="text" removeBorderStyle="false"
+    							style="" value="파일크기" width="100">
+    						</w2:column>
+    					</w2:row>
+    				</w2:header>
+    				<w2:gBody id="gBody1" style="">
+    					<w2:row id="row2" style="">
+    						<w2:column blockSelect="false" displayMode="label" id="chk" inputType="checkbox" removeBorderStyle="false"
+    							width="30" checkboxLabel="선택">
+    						</w2:column>
+    						<w2:column blockSelect="false" customFormatter="scwin.customFormatterFileNm" displayMode="label"
+    							id="ORIGIN_FILE_NM" inputType="text" readOnly="true" removeBorderStyle="false" textAlign="left" width="350">
+    						</w2:column>
+    						<w2:column blockSelect="false" class="progress" dataType="" displayFormatter="scwin.setDisplayStatus"
+    							displayMode="label" expression="" id="status" inputType="text" readOnly="true" removeBorderStyle="false" width="100" style="height:38px;">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayFormatter="scwin.displayFileSize" displayMode="label" id="FILE_SIZE"
+    							inputType="text" readOnly="true" removeBorderStyle="false" textAlign="right" width="100">
+    						</w2:column>
+    					</w2:row>
+    				</w2:gBody>
+    			</w2:gridView>
+    		</xf:group>
+    	</xf:group>		
+	</body>
+</html>

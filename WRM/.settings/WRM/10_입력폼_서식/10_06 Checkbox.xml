@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="10.06 Checkbox"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:select appearance="full" cols="" disabled="" id="" ref="" renderType="checkboxgroup" rows="" selectedindex="1" style="">
+	<xf:choices>
+		<xf:item>
+			<xf:label>
+<![CDATA[Atype]]></xf:label>
+			<xf:value>
+</xf:value>
+</xf:item>
+		<xf:item>
+			<xf:label>
+<![CDATA[Btype]]></xf:label>
+			<xf:value>
+</xf:value>
+</xf:item>
+</xf:choices>
+</xf:select>
+</body>
+</html>

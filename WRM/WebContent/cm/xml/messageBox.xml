@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection>
+			</w2:dataCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+		
+	/**
+	 * 메시지 박스 화면 초기화 작업을 수행한다.
+	 */	
+	scwin.onpageload = function() {
+		try {
+			var messageType = scwin.getMessageType();
+			var message = com.data.getParameter("message") || "메시지 없음";
+			tbx_message.setValue(message);
+	
+			if (messageType === "alert") {
+				btn_cancel.hide();
+				btn_yes.hide();
+			} else if (messageType === "confirm") {
+				btn_confirm.hide("");
+				btn_yes.show("");
+				btn_cancel.show("");
+			}
+		} catch(ex) {
+			console.error(ex);
+		}
+	};	
+	
+	scwin.btn_confirm_onclick = function(e) {
+		try {
+			var callbackFn = com.data.getParameter("callbackFn");
+			var callBackParam = com.data.getParameter("callBackParam");
+			if (scwin.getMessageType() == "confirm") {
+				callBackParam.clickValue = true;
+			}
+			com.win.closePopup(callbackFn, callBackParam);
+		} catch(ex) {
+			console.error(ex);
+		}
+	};
+	
+	scwin.btn_yes_onclick = function(e) {
+		scwin.close(true);
+	};
+	
+	
+	scwin.btn_cancel_onclick = function(e) {
+		try {
+			var callbackFn = com.data.getParameter("callbackFn");
+			var callBackParam = com.data.getParameter("callBackParam");
+			if (scwin.getMessageType() == "confirm") {
+				callBackParam.clickValue = false;
+			}
+			com.win.closePopup(callbackFn, callBackParam);
+		} catch(ex) {
+			console.error(ex);
+		}
+	};
+
+	scwin.getMessageType = function() {
+		var messageType = com.data.getParameter("messageType") || "alert";
+		return messageType;
+	}
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group id="" class="pop_contents">
+	     	<xf:textarea class="" id="tbx_message" style="width:100%; height: 84px; margin-top: 10px; padding-top: 10px; padding-bottom: 10px; border: 0px" displaymessage="" readOnly="true"></xf:textarea> 
+    
+	    	<xf:group class="btnbox" id="" style="">
+	    		<xf:group class="fr" id="">
+	    			<xf:trigger class="btn_cm" id="btn_yes" style="" type="button" ev:onclick="scwin.btn_confirm_onclick">
+	    				<xf:label><![CDATA[예]]></xf:label>
+	    			</xf:trigger>
+	    			<xf:trigger class="btn_cm" id="btn_cancel" style="" type="button" ev:onclick="scwin.btn_cancel_onclick">
+	    				<xf:label><![CDATA[아니요]]></xf:label>
+	    			</xf:trigger>
+	    			<xf:trigger class="btn_cm" id="btn_confirm" style="" type="button" ev:onclick="scwin.btn_confirm_onclick">
+	    				<xf:label><![CDATA[확인]]></xf:label>
+	    			</xf:trigger>
+	    		</xf:group>
+	    	</xf:group>
+	    </xf:group>	 
+	</body>
+</html>

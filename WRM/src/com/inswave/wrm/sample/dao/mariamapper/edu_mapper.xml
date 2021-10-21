@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.sample.dao.EduDao">
+	<insert id="insertSpMember" parameterType="Map">
+		INSERT INTO SP_MEMBER (
+			EMP_NM, 
+			JOIN_DATE,  
+			POSITION_CD, 
+			DUTY_CD,  
+			ROLE_CD, 
+			ASSIGNED_TASK, 
+			EMAIL, 
+			ZIP_CD, 
+			ADDRESS1, 
+			ADDRESS2, 
+			IMAGE_PATH, 
+			CREATED_DATE, 
+			UPDATED_DATE
+		) VALUES (
+			#{EMP_NM}, 
+			#{JOIN_DATE},  
+			#{POSITION_CD}, 
+			#{DUTY_CD},  
+			#{ROLE_CD}, 
+			#{ASSIGNED_TASK},  
+			#{EMAIL}, 
+			#{ZIP_CD}, 
+			#{ADDRESS1}, 
+			#{ADDRESS2}, 
+			#{IMAGE_PATH}, 
+			curdate(), 
+			curdate()
+		)
+	</insert>
+	<update id="updateSpMember" parameterType="Map">
+		UPDATE SP_MEMBER SET
+			EMP_NM=#{EMP_NM},
+			JOIN_DATE=#{JOIN_DATE},
+			POSITION_CD=#{POSITION_CD},
+			DUTY_CD=#{DUTY_CD},
+			ROLE_CD=#{ROLE_CD},
+			ASSIGNED_TASK=#{ASSIGNED_TASK},
+			EMAIL=#{EMAIL},
+			RELIGION_CD=#{RELIGION_CD},
+			ZIP_CD=#{ZIP_CD},
+			ADDRESS1=#{ADDRESS1},
+			ADDRESS2=#{ADDRESS2},
+			IMAGE_PATH=#{IMAGE_PATH},
+			UPDATED_DATE=curdate()
+		where EMP_CD=#{EMP_CD}
+	</update>
+	<select id="selectListSpMember" parameterType="Map" resultType="Map">
+		SELECT EMP_CD,EMP_NM,GENDER_CD,JOIN_DATE,POSITION_CD,DUTY_CD,ROLE_CD,ASSIGNED_TASK,EMAIL,ZIP_CD,ADDRESS1,ADDRESS2,IMAGE_PATH,CREATED_DATE,UPDATED_DATE FROM sp_member
+	</select>
+	<select id="selectOneSpMember" parameterType="Map" resultType="Map">
+		SELECT EMP_CD,EMP_NM,GENDER_CD,JOIN_DATE,POSITION_CD,DUTY_CD,ROLE_CD,ASSIGNED_TASK,EMAIL,ZIP_CD,ADDRESS1,ADDRESS2,IMAGE_PATH,CREATED_DATE,UPDATED_DATE FROM sp_member 
+		WHERE EMP_CD = #{EMP_CD}
+	</select>
+	<select id="selectListZipCodeByTown" parameterType="Map" resultType="Map">
+		SELECT ZIP_CD, ZIP_NM, BUILDING, FROM_NO FROM BM_ZIP_CODE WHERE town = #{town}
+	</select>
+</mapper>

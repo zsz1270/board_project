@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.common.dao.AuthorityDao">
+
+	<select id="selectAuthorityList" resultType="Map" parameterType="Map">
+		SELECT AUTHORITY_CD, AUTHORITY_NM, IS_USE, NOTE 
+		  FROM BM_AUTHORITY
+		<where>
+			<if test="TYPE  == 'AUTHORITY_CD'" >
+				AND AUTHORITY_CD LIKE CONCAT('%',#{CONTENT}, '%')
+			</if>
+			<if test="TYPE  == 'AUTHORITY_NM'" >
+				AND AUTHORITY_NM LIKE CONCAT('%',#{CONTENT},'%')
+			</if>		
+			<if test="IS_USE != null and IS_USE != ''" >
+				AND IS_USE = #{IS_USE}
+			</if>
+		</where>	
+		ORDER BY AUTHORITY_CD
+	</select>
+	
+	<select id="selectAuthorityMemberList" resultType="java.util.HashMap" parameterType="Map">
+		SELECT C.AUTHORITY_CD, A.EMP_CD, A.EMP_NM, A.ORG_CD, B.ORG_NM, A.ASSIGNED_TASK
+		  FROM HM_MEMBER_BASIC A, HM_ORGAN_BASIC B, HM_MEMBER_AUTHORITY C 
+		 WHERE A.ORG_CD = B.ORG_CD 
+		   AND A.EMP_CD = C.EMP_CD 
+		   AND C.AUTHORITY_CD = #{AUTHORITY_CD}
+		ORDER BY EMP_CD
+	</select>
+	
+	<select id="excludeSelectAuthorityMemberList" resultType="Map" parameterType="String">	
+		SELECT A.EMP_CD, A.EMP_NM, A.ORG_CD, B.ORG_NM, A.ASSIGNED_TASK
+		  FROM HM_MEMBER_BASIC A, HM_ORGAN_BASIC B 
+		 WHERE A.ORG_CD = B.ORG_CD 
+		   AND A.EMP_CD NOT IN (SELECT A.EMP_CD
+								  FROM HM_MEMBER_BASIC A, HM_ORGAN_BASIC B, HM_MEMBER_AUTHORITY C 
+								 WHERE A.ORG_CD = B.ORG_CD 
+								   AND A.EMP_CD = C.EMP_CD
+								   AND C.AUTHORITY_CD = #{AUTHORITY_CD})
+		<if test="TYPE == 'EMP_CD'">
+			AND A.EMP_CD LIKE CONCAT('%',#{CONTENT},'%')
+		</if>
+		<if test="TYPE == 'EMP_NM'">
+			AND A.EMP_NM LIKE CONCAT('%',#{CONTENT},'%')
+		</if>
+		ORDER BY A.EMP_CD
+	</select>
+	
+	<select id="selectAuthoritySearchItem" resultType="Map">
+		SELECT AUTHORITY_NM, AUTHORITY_CD
+		  FROM BM_AUTHORITY 
+		 ORDER BY AUTHORITY_CD
+	</select>
+	
+	<delete id="deleteAuthority" parameterType="java.util.HashMap">
+		DELETE FROM BM_AUTHORITY 
+		 WHERE AUTHORITY_CD = #{AUTHORITY_CD}
+	</delete>
+	
+	<insert id="insertAuthority" parameterType="java.util.HashMap">
+		INSERT INTO BM_AUTHORITY(AUTHORITY_CD, AUTHORITY_NM, IS_USE, NOTE ) 
+		VALUES (#{AUTHORITY_CD}, #{AUTHORITY_NM}, #{IS_USE}, #{NOTE} )
+	</insert>
+	
+	<update id="updateAuthority" parameterType="java.util.HashMap">
+		UPDATE BM_AUTHORITY
+		     SET AUTHORITY_NM = #{AUTHORITY_NM}, 
+		           IS_USE             = #{IS_USE},
+		           NOTE               = #{NOTE}
+		WHERE AUTHORITY_CD = #{AUTHORITY_CD}
+	</update>
+	
+	<insert id="insertAuthorityMember" parameterType="java.util.HashMap" >
+		INSERT INTO HM_MEMBER_AUTHORITY(EMP_CD, AUTHORITY_CD)
+		VALUES (#{EMP_CD}, #{AUTHORITY_CD})
+	</insert>
+
+	<delete id="deleteAuthorityMember" parameterType="java.util.HashMap">
+		DELETE FROM HM_MEMBER_AUTHORITY 
+		<where>
+			<if test="EMP_CD != null and EMP_CD != ''">
+				 AND EMP_CD = #{EMP_CD}
+			</if>
+			<if test="AUTHORITY_CD != null and AUTHORITY_CD != ''">
+				 AND AUTHORITY_CD = #{AUTHORITY_CD}
+			</if>
+		</where>
+	</delete>
+	
+	<delete id="deleteAuthorityMemberAll" parameterType="java.util.HashMap">
+		DELETE FROM HM_MEMBER_AUTHORITY 
+		 WHERE AUTHORITY_CD = #{AUTHORITY_CD}
+	</delete>
+	
+</mapper>
+	
+	

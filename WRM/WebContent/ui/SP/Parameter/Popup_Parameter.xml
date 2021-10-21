@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="Popup_Parameter" meta_programName="샘플화면-화면간 정보전달-popup방식" meta_programDesc="본 화면은 팝업호출시 Parameter를 처리하는 방법을 제공한다." meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileDesc">
+					<w2:keyInfo>
+						<w2:key id="desc" name="" dataType="text"></w2:key>
+						<w2:key id="test" name="" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<desc><![CDATA[
+<pre class="textNor" style="">
+<div class="etcbox">본 화면은 팝업호출시 Parameter를 처리하는 방법을 제공한다. 
+ALERT 형태의 팝업과 CONFIRM형태의 팝업에 대하여 처리하는 방법을 제공한다.
+</div>
+<div class="etc_tit">1. ALERT</div>
+  - 본 화면에서 입력한 값을 alert형태의 팝업창에 전달하는 방법을 제공한다.
+<div class="etc_tit">2. CONFIRM</div>
+  - 본 화면에서 입력한 값을 confirm형태의 팝업창에 전달하는 방법을 제공한다.
+</pre>
+						]]></desc>
+						<test><![CDATA[
+<pre class="textNor" style="">						
+<div class="etc_tit">1. 과정</div>
+1. 메인화면
+1) ALERT 방식 테스트: [전송 Data]를 입력 후 [alert]버튼을 클릭한다.
+2) CONFIRM 방식 테스트: [전송 Data]를 입력 후 [confirm]버튼을 클릭한다.
+
+2. 팝업
+1) ALERT 방식 테스트: [전송 Prameter]를 입력 후 [확인]버튼을 클릭한다.
+2) CONFIRM 방식 테스트: [전송 Prameter]를 입력 후 [확인]버튼을 클릭한다.
+						  단, [취소]버튼을 클릭하면 팝업만 종료된다.
+<div class="etc_tit">2. 결과</div>
+1. 메인화면
+1) ALERT 방식 결과: 팝업이 열려지면서 [전송 Data] 값이 해당 팝업에 셋팅된다.
+2) CONFIRM 방식 결과: 팝업이 열려지면서 [전송 Data] 값이 해당 팝업에 셋팅된다.
+
+2. 팝업
+1) ALERT 방식 결과: [전송 Prameter]값이 메인화면의 [수신 Data]에 셋팅된다.
+2) CONFIRM 방식 결과: [전송 Prameter]값이 메인화면의 [수신 Data]에 셋팅된다.
+</pre>
+						]]></test>
+					</w2:data>
+				</w2:dataMap>
+				<w2:dataList id="dlt_advancedExcel" baseNode="list" saveRemovedData="true" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="MENU_CD" name="메뉴코드" dataType="text"></w2:column>
+						<w2:column id="MENU_NM" name="메뉴명" dataType="text"></w2:column>
+						<w2:column id="PARENT_MENU_NM" name="부모메뉴명" dataType="text"></w2:column>
+						<w2:column id="MENU_LEVEL" name="메뉴레벨" dataType="text"></w2:column>
+						<w2:column id="SRC_PATH" name="경로" dataType="text"></w2:column>
+						<w2:column id="IS_USE" name="사용여부" dataType="text"></w2:column>
+						<w2:column id="SORT_ORDER" name="순서" dataType="text"></w2:column>
+						<w2:column id="PARENT_MENU_CD" name="부모메뉴코드" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_advancedExcel" ref="" target="data:json,dlt_advancedExcel" action="/ui/SP/JsonData/advancedExcel.json" method="post" mediatype="application/json" encoding="UTF-8"
+				instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_advancedExcel_submitdone" ev:submiterror="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+		/**
+		 * 초기 스크립트 수행 함수 정의
+		 */
+		scwin.onpageload = function() { 
+			
+		};
+		
+		/**
+		 * alert(WFrame Popup) 파라미터 전달 팝업 
+		 */
+		scwin.btn_alert1_onclick = function() {
+			var data = { type : "alert", msg : ibx_alertSend.getValue(), callbackFn : "scwin.fn_alertCallback" };
+			var options = {
+				id : "AlertPop",
+				title : "Alert_Pop",
+				type : "wframePopup",
+				height : "270px"
+			};
+			com.win.openPopup("/ui/SP/Parameter/confirm.xml", options, data);
+		};
+		
+		/**
+		
+		 * alert(IFrame Popup) 파라미터 전달 팝업 
+		 */
+		scwin.btn_alert2_onclick = function() {
+			var data = { type : "alert", msg : ibx_alertSend.getValue(), callbackFn : "scwin.fn_alertCallback" };
+			var options = {
+				id : "AlertPop",
+				title : "Alert_Pop",
+				type : "iframePopup",
+				height : "270px"
+			};
+			com.win.openPopup("/ui/SP/Parameter/confirm.xml", options, data);
+		};
+		
+		/**
+		 * confirm(WFrame Popup) 파라미터 전달 팝업 
+		 */
+		scwin.btn_confirm1_onclick = function() {
+			var data = { type : "confirm", msg : ibx_confirmSend.getValue(), callbackFn : "scwin.fn_confirmCallback" };
+			var options = {
+				id : "ConfirmPop",
+				title : "Confirm_Pop",
+				height : "270px"
+			};
+			com.win.openPopup("/ui/SP/Parameter/confirm.xml", options, data);
+		};
+		
+		/**
+		 * confirm(Browser Popup) 파라미터 전달 팝업 
+		 */
+		scwin.btn_confirm2_onclick = function() {
+			var data = { type : "confirm", msg : ibx_confirmSend.getValue(), callbackFn : "scwin.fn_confirmCallback" };
+			var options = {
+				id : "ConfirmPop",
+				title : "Confirm_Pop",
+				type : "browserPopup",
+				height : "270px"
+			};
+			com.win.openPopup("/ui/SP/Parameter/confirm.xml", options, data);
+		};
+		
+		scwin.fn_alertCallback = function(arg) {
+			ibx_alertReceive.setValue(arg);
+		};
+		
+		scwin.fn_confirmCallback = function(arg) {
+			ibx_confirmReceive.setValue(arg);
+		};
+		]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents" id="" style="">
+			<w2:wframe id="" style="" src="../../cm/xml/contentHeader.xml" scope=""></w2:wframe>
+			<w2:wframe id="" src="../../cm/xml/contentDesc.xml" scope=""></w2:wframe>
+			<xf:group class="dfbox" id="" style="">
+				<w2:textbox class="df_tit fl" id="" label="ALERT" style=""></w2:textbox>
+			</xf:group>
+			<xf:group class="tbbox" id="" style="">
+				<xf:group adaptive="layout" adaptiveThreshold="600" class="w2tb tb" id="" style="" tagname="table">
+					<w2:attributes>
+						<w2:summary></w2:summary>
+					</w2:attributes>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:140px;" tagname="col"></xf:group>
+						<xf:group tagname="col"></xf:group>
+					</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th " style="" tagname="th">
+							<w2:textbox class="" id="" label="전송 Data" ref="" style="" userData2=""></w2:textbox>
+						</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:group class="flex" id="" style="">
+								<xf:input disabled="" id="ibx_alertSend" placeholder="" style=""></xf:input>
+								<xf:trigger class="btn_cm " id="btn_alert1" style="" type="button" ev:onclick="scwin.btn_alert1_onclick">
+									<xf:label><![CDATA[alert (Wframe Popup)]]></xf:label>
+								</xf:trigger>
+								<xf:trigger class="btn_cm " ev:onclick="scwin.btn_alert2_onclick" id="btn_alert2" style="" type="button" nextTabID="">
+									<xf:label><![CDATA[alert (IFrame Popup)]]></xf:label>
+								</xf:trigger>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group tagname="tr">
+						<xf:group class="w2tb_th" tagname="th">
+							<w2:attributes>
+								<w2:scope>row</w2:scope>
+							</w2:attributes>
+							<w2:textbox class="" id="" label="수신 Data" ref="" style="" userData2=""></w2:textbox>
+						</xf:group>
+						<xf:group class="w2tb_td" tagname="td">
+							<w2:attributes>
+								<w2:colspan>1</w2:colspan>
+								<w2:rowspan>1</w2:rowspan>
+							</w2:attributes>
+							<xf:input class="" id="ibx_alertReceive" placeholder="" style="width:100%;"></xf:input>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="dfbox" id="" style="">
+				<w2:textbox class="df_tit fl" id="" label="CONFIRM" style=""></w2:textbox>
+			</xf:group>
+			<xf:group class="tbbox" id="" style="">
+				<xf:group adaptive="layout" adaptiveThreshold="600" class="w2tb tb" id="" style="" tagname="table">
+					<w2:attributes>
+						<w2:summary></w2:summary>
+					</w2:attributes>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:140px;" tagname="col"></xf:group>
+						<xf:group tagname="col"></xf:group>
+					</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th " style="" tagname="th">
+							<w2:textbox class="" id="" label="전송 Data" ref="" style="" userData2=""></w2:textbox>
+						</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:group class="flex" id="" style="">
+								<xf:input disabled="" id="ibx_confirmSend" placeholder="" style=""></xf:input>
+								<xf:trigger class="btn_cm " id="btn_confirm" style="" type="button"
+									ev:onclick="scwin.btn_confirm1_onclick">
+									<xf:label><![CDATA[confirm (Wframe Popup)]]></xf:label>
+								</xf:trigger>
+								<xf:trigger class="btn_cm " ev:onclick="scwin.btn_confirm2_onclick" id="btn_trigger2" nextTabID="" style=""
+									type="button">
+									<xf:label><![CDATA[confirm (Browser Popup)]]></xf:label>
+								</xf:trigger>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group tagname="tr">
+						<xf:group class="w2tb_th" tagname="th">
+							<w2:attributes>
+								<w2:scope>row</w2:scope>
+							</w2:attributes>
+							<w2:textbox class="" id="" label="수신 Data" ref="" style="" userData2=""></w2:textbox>
+						</xf:group>
+						<xf:group class="w2tb_td" tagname="td">
+							<w2:attributes>
+								<w2:colspan>1</w2:colspan>
+								<w2:rowspan>1</w2:rowspan>
+							</w2:attributes>
+							<xf:input class="" id="ibx_confirmReceive" placeholder="" style="width:100%;"></xf:input>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+
+		</xf:group>
+
+	</body>
+</html>

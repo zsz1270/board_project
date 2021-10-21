@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>loading</title>
+	<script type="text/javascript">
+
+		function init(){
+			try {
+				var prsMsg = parent.WebSquare.layer.processMsg;
+				document.getElementById("processMsgLayer").innerHTML = prsMsg;
+
+				if( window.processKey ) {
+					clearInterval( window.processKey );
+				}
+
+				window.processKey = setInterval( function(){
+					setColor();
+					parent.WebSquare.layer.pasteMessageLoaded = true;
+				} , 500 );
+				
+			} catch(e) {
+				parent.WebSquare.exception.printStackTrace(e);
+			}
+		}
+		
+		window.onload = init;
+		
+		var colorArr = [ "#3f3f67","#EEEEEE" ];
+		function setColor(){
+			var color = colorArr.shift();
+			colorArr.push(color);
+			document.getElementById("processMsgLayer").style.color = color;
+		}
+
+    </script>
+	<style type="text/css">
+	body {margin:0px; background:#fff;}
+	.ly_loading {padding:20px 0 0 13px; width:280px; height:81px; border:1px solid #b3b3b3; background:url("images/bg_ly.gif") left top repeat-x;}
+	.pro_loading {width:100%;height:20px;font-size:13px;font-color:#3f3f67;font-weight:bold;}
+	</style>
+</head>
+<body>
+	<div class="ly_loading">
+		<div id="processMsgLayer" class="pro_loading" style=""></div>
+		<img src="images/progressingbar.gif" width="267px" height="23px" class="loading_bar" alt="로딩중">
+	</div>
+</body>
+</html>

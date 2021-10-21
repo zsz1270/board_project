@@ -1,0 +1,9 @@
+{
+   "charset": "UTF-8",
+   "reqMethod": "POST",
+   "serviceURL": "http://localhost:8080/websViews/wsBoardList.do",
+   "contentType": "application/json",
+   "requestContent": "{\"searchParam\": {\n   \"search\": \"SampleValue_1\",\n   \"searchType\": \"SampleValue_0\"\n}}",
+   "responseContent": "{}",
+   "sendTime": "2021-10-19 14:32:41"
+}

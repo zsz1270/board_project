@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="HM003P02" meta_programName="조직도 조회 팝업" meta_programDesc="조직도를 조회하고 선택하는 팝업 화면" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection>
+				<w2:dataList id="dlt_organBasic" baseNode="list" style="" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="ORG_CD" name="소속코드" dataType="text"></w2:column>
+						<w2:column id="ORG_CLASS_CD" name="조직구분" dataType="text"></w2:column>
+						<w2:column id="ORG_NM" name="소속명칭" dataType="text"></w2:column>
+						<w2:column id="ORG_ALIAS_NM" name="소속약칭" dataType="text"></w2:column>
+						<w2:column id="ORG_EN_NM" name="소속영문명" dataType="text"></w2:column>
+						<w2:column id="ORG_EN_ALIAS_NM" name="소속영문약명" dataType="text"></w2:column>
+						<w2:column id="SORT_ORDER" name="정렬순서" dataType="number"></w2:column>
+						<w2:column id="ORG_LEVEL" name="조직레벨" dataType="number"></w2:column>
+						<w2:column id="PARENT_ORG_CD" name="상위소속코드" dataType="text"></w2:column>
+						<w2:column id="ORG_BOSS_EMP_CD" name="책임자" dataType="text"></w2:column>
+						<w2:column id="START_DATE" name="개설일" dataType="date"></w2:column>
+						<w2:column id="END_DATE" name="폐쇄일" dataType="date"></w2:column>
+						<w2:column id="NOTE" name="비고" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<xf:submission id="sbm_getOrganBasicList" ref="data:json,dlt_organBasic" target='data:json,{"id":"dlt_organBasic","key":"data"}' action="/organization/selectOrganBasicList" method="post" mediatype="application/json" encoding="UTF-8"
+				instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone=""
+				ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[ 
+	/**
+	 * 소속 선택 화면 초기화 작업을 수행한다.
+	 */
+	scwin.onpageload = function() {
+		var param = com.data.getParameter();
+		scwin.closeCallbackFncName = param.callbackFn;
+	};
+	
+	/**
+	 * 화면 초기화 데이터가 모두 로딩되면 발생하는 이벤트
+	 */
+	scwin.ondataload = function() {
+		scwin.search();
+	};
+	
+	/**
+	 * 소속 선택를 조회한다.
+	 */
+	scwin.search = function() {
+		com.sbm.execute(sbm_getOrganBasicList);
+	};
+	
+	/**
+	 * 선택된 소속 정보를 반환한다.
+	 */
+	scwin.btn_confirm_onclick = function() {
+		var returnValue = { "ORG_CD" : trv_organ.getSelectedValue(), 
+							"ORG_NM" : trv_organ.getSelectedLabel() };
+		com.win.closePopup(scwin.closeCallbackFncName, returnValue);	
+	};
+	
+	/**
+	 * 소속 정보 선택을 취소한다.
+	 */
+	scwin.btn_cancel_onclick = function() {
+		com.win.closePopup(); 
+	};
+	
+	scwin.trv_organ_ondblclick = function() {
+		scwin.btn_confirm_onclick();
+	};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    <xf:group id="" class="pop_contents">
+    	<xf:group class="dfbox" id="" style="">
+    		<w2:textbox class="df_tit fl" id="" label="소속선택" style=""></w2:textbox>
+    	</xf:group>
+    	<xf:group class="tvwbox mt10" id="" style="">
+			<w2:treeview useDrag="" id="trv_organ" style="width: 100%;height: 340px;margin-top:5px;" lineShow="" tooltipGroupClass="false"
+				dataType="listed" ev:ondblclick="scwin.trv_organ_ondblclick">
+				<w2:itemset nodeset="data:dlt_organBasic">
+					<w2:label ref="ORG_NM"></w2:label>
+					<w2:value ref="ORG_CD"></w2:value>
+					<w2:depth ref="ORG_LEVEL"></w2:depth>
+					<w2:folder ref=""></w2:folder>
+					<w2:checkbox ref=""></w2:checkbox>
+					<w2:checkboxDisabled ref=""></w2:checkboxDisabled>
+					<w2:image ref=""></w2:image>
+					<w2:iconImage ref=""></w2:iconImage>
+					<w2:selectedImage ref=""></w2:selectedImage>
+					<w2:expandedImage ref=""></w2:expandedImage>
+					<w2:leafImage ref=""></w2:leafImage>
+				</w2:itemset>
+			</w2:treeview>
+    	</xf:group>
+    	<xf:group class="btnbox" id="" style="">
+    		<xf:group class="fr" id="">
+    			<xf:trigger class="btn_cm" id="" style="" type="button" ev:onclick="btn_confirm_onclick">
+    				<xf:label><![CDATA[확인]]></xf:label>
+    			</xf:trigger>
+    			<xf:trigger class="btn_cm" id="" style="" type="button" ev:ondblclick="btn_cancel_onclick">
+    				<xf:label><![CDATA[취소]]></xf:label>
+    			</xf:trigger>
+    		</xf:group>
+    	</xf:group>
+    </xf:group>
+	</body>
+</html>

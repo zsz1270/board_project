@@ -1,0 +1,7 @@
+.w2TriggerBtnL { width:5px; background-image:url(uiplugin/trigger/images/b_blue1.png);}
+.w2TriggerBtnM { font-family:Dotum;text-align:center; font-size:12px; background-image:url(uiplugin/trigger/images/b_blue2.png); color:#000000; padding-top:2px}
+.w2TriggerBtnR { width:5px; background-image:url(uiplugin/trigger/images/b_blue3.png);}
+
+.w2TriggerBtnL_on { width:5px; background-image:url(uiplugin/trigger/images/b_blue1_on.png);}
+.w2TriggerBtnM_on { font-family:Dotum;text-align:center; font-size:12px; background-image:url(uiplugin/trigger/images/b_blue2_on.png); color:#000000; padding-top:2px}
+.w2TriggerBtnR_on { width:5px; background-image:url(uiplugin/trigger/images/b_blue3_on.png);}

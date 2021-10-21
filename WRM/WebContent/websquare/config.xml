@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebSquare>
+	<allValue value="all" /> <!-- 11111 itemTable의 전체 선택에 대한 value 값으로 기본값은 "all"이다. -->
+	<docType value="standard" /> <!-- quirk, standard -->
+
+	<!-- 운영 환경에서는 아래와 같이 설정한다. -->
+	<!-- <debug value="false" remoteConsole="false"/> -->
+	<!-- <debugMenu value="block"/> -->
+
+	<!-- 개발 환경에서는 아래와 같이 설정한다. -->
+	<debug value="true" remoteConsole="false" console="false" errorConsole="true" />
+	<debugMenu value="use" />
+
+	<debugKey value="" />
+	<language value="ko" />
+
+	<!-- system : websquare(*) -->
+	<exceptionHandler value="websquare" />
+	
+	<!-- 클라이언트 다국어 설정 -->
+	<!-- <useLocale value="true"></useLocale> -->
+	<!-- <useItemLocale value="true"></useItemLocale> -->
+
+	<welcome-file></welcome-file>
+
+	<!-- 화면 내의 스크립트를 비동기로 실행할지(하위호환), 동기로 실행할지(권장)에 대한 설정 -->
+	<postDrawMode value="synchronous"></postDrawMode>
+
+	<!-- xml model instance에 값을 넣으려할때, 대상 instance가 없을경우 해당 instance를 만들건지를 결정 -->
+	<forcedValueSetting value="true" />
+
+	<!-- processMsg 하위호환 사이즈 80 / 180 -->
+	<processMsgHeight value="81" />
+	<processMsgWidth value="295" />
+	<processMsgBackground value="true" backgroundColor="#112233" />
+	
+	<!-- 컴포넌트를 표시되는 문자열에 대해서 HTML escape 문자로 변환하여 화면에 표시하도록 설정 -->
+	<!-- XSS 보안 이슈가 발생하지 않도록 하기 위해서 true로 설정해야 함 -->
+	<escape value="true" />
+
+	<!-- string을 읽어서 byte를 셀 때의 default encoding을 설정해준다. ex: WebSquare.util.getStringByteSize -->
+	<byteCheckEncoding value="euc-kr" />
+
+	<initScript value="true"><![CDATA[
+		gcm.hkey.init($p);
+		com.hkey._setShortKey($p.top());
+		com.win.setLangCode(com.win.getLanguage());
+	]]></initScript>
+	<postScript value="true"><![CDATA[
+	]]></postScript>
+
+	<!-- wframe의 기본 동작 설정 -->
+	<wframe>
+		<scope value="true" />
+		<mode value="sync" />
+		<initScript value="true"><![CDATA[
+			com.hkey._setShortKey();
+			com.win._setProgramAuthority();
+		]]></initScript>
+		<postScript value="true"><![CDATA[
+			com.win._processCommonData();
+		]]></postScript>
+	</wframe>
+
+	<clearMemory value="false" />
+
+	<!--
+		stylesheet를 websquare.html의 link로 넣을 경우는 enable속성을 false로 설정. 기본값은 true.
+		earlyImportList : css를 link방식으로 미리 로딩할 목록들. 구분자는 ,이다. 상대경로로 입력할 경우 로딩되는 xml페이지의 경로를 기준으로 삼는다.
+		(ex) : <stylesheet value="stylesheet_ext.css" import="link" enable="true" earlyImportList="/common/com.css,/theme/skin.css,xmlcom.css"/>
+	-->
+	<stylesheet value="stylesheet_ext.css" import="link" enable="true" earlyImportList="../../cm/css/all.css, ../../cm/css/content.css, ../../cm/css/responsive.css" />
+	
+	<style>
+		<removeDefaultClass value="true" />
+	</style>
+	<!--
+		Theme를 정의한다.
+		@default : 기본 테마를 설정한다. 기본 테마는 비워두면 된다. default=""
+		/name/@value : 테마 이름
+		/name/@path : 테마 경로
+		<theme default="">
+		<name value="blue" path="/websquare/theme/blue/"/>
+		<name value="emerald" path="/websquare/theme/emerald/"/>
+		<name value="brown" path="/websquare/theme/brown/"/>
+		<name value="green" path="/websquare/theme/green/"/>
+		<name value="stealblue" path="/websquare/theme/stealblue/"/>
+		<name value="orange" path="/websquare/theme/orange/"/>
+		<name value="pink" path="/websquare/theme/pink/"/>
+		<name value="magenta" path="/websquare/theme/magenta/"/>
+		<name value="red" path="/websquare/theme/red/"/>
+		<name value="skyblue" path="/websquare/theme/skyblue/"/>
+		<name value="purple" path="/websquare/theme/purple/"/>
+		</theme>
+	-->
+
+	<!--
+		Initializer에서 Engine 모듈을 호출 한다.
+		업무 공통 JavaScript를 추가해 준다.
+	-->
+
+	<!--
+		원하는 버전의 jQuery xPath를 src값으로 넣어준다. 원하는 버전이 없을 때는 jquery-1.10.2.min.js를 사용한다.
+		<jquerySupport src="" />
+	-->
+
+	<!--
+		공통 외부 js 모듈을 읽어 들인다.
+	-->
+	<engine>
+		<module src="cm/js/commonGlobal.js" />
+		<module src="cm/js/commonScope.js" />
+	</engine>
+
+	<!--
+		공통 UDC 제작 파일을 읽어 들인다. requires하위 노드에 require src를 설정 한다.
+		<udc>
+		<requires>
+		<require src="/udc.xml" />
+		</requires>
+		</udc>
+	-->
+
+	<ModelUtil>
+		<copyChildrenNodes refresh="false" />
+	</ModelUtil>
+
+	<preProcessor>
+		<systemPreProcessor value="" />
+		<businessPreProcessor value="" />
+	</preProcessor>
+
+	<workflow>
+		<processMsg value="" />
+		<makeGlobalObject value="true" />
+	</workflow>
+
+	<submission>
+		<processMsg value="" />
+		<showSubmissionTime value="true" />
+		<preSubmitFunction value="gcm.sbm._preSubmitFunction" />
+		<callbackSubmitFunction value="gcm.sbm._callbackSubmitFunction" />
+		<submitErrorHandler value="gcm.sbm._errorHandler" mode="only" />
+		<makeGlobalObject value="true" />
+		<!-- parameter이름=value 형태로 보내고자 할때 보낼 parameter이름 -->
+		<requestID value="" />
+	</submission>
+
+	<!--
+		웹스케어 렌더링을 body가 아닌 특정 영역에 할경우 처리할 함수지정.함수인자로 html string을 인자로 전달한다
+	-->
+	<visibleHelper>
+		<targetHandler value="" />
+	</visibleHelper>
+
+	<!--
+		spa 관련 옵션
+	-->
+	<spa>
+		<onpageunload value="" /> <!-- spa로 페이지 이동 시 호출할 함수의 변수명을 string으로 등록한다. 주로 페이지를 이동한 뒤에 남은 리소스들을 처리하는 함수가 등록된다. -->
+		<variable value="scwin" clone="com" />  <!-- spa로 페이지 이동 시 자동으로 삭제할 객체를 string형태로 등록한다. -->
+		<scriptCache value="true" />  <!-- spa로 페이지 이동 시 외부 모듈을 다시 load하고 실행할지에 대한 여부. true일 경우 한번 로딩된 외부 모듈은 다시 로딩하지 않으며 실행 또한 하지 않는다."/> -->
+		<autoReload value="true" count="50" /> <!-- spa로 페이지 이동 시 화면에 메모리 릭이 발생하는 웹스퀘어 컴포넌트(fusionchart, editor)가 있을 경우 해당 컴포넌트 개수가 count 설정값보다 많아질 경우 자동으로 브라우저를 갱신하도록 하는 기능에 대한 설정. count를 
+			0으로 설정하면 화면에 fusionchart나 editor가 있으면 페이지를 이동할 때 무조건 브라우저를 갱신하게 된다."/> -->
+	</spa>
+
+	<!-- wframe, pageInherit의 내부 스크립트를 각각 개별로 실행할지(false), 또는 구버전 방식인 wframe,pageInhert의 스크립트를 전부 통합하여 한번에 실행할지(true)에 대한 여부 -->
+	<scriptLoading merge="true" />
+
+	<!-- initScript,onpageload,postScript의 실행순서를 initScript->onpageload->postScript 순서로 실행할지에 대한 여부 -->
+	<scriptPrecedence value="true" />
+
+	<!-- WFrame Scope Strict Mode 설정 (자동으로 부모 객체 참조를 하지 못하도록 제한) -->
+	<strictMode value="true" id="mf" />
+
+	<!--
+		engine cache여부 설정
+		enable="true|false(*)" true로 설정되면 Engine 캐싱 기능 활성화
+		version : 버전은 일련의 문자열로 버전 값이 변경되면 새로운 엔진을 서버에서 다운받는다.
+		파일이 갱신된 경우 반드시 버전 값을 변경해야 한다.
+		compression="true|false(*)" true로 설정되고 license를 사용가능하도록(<license value="true"/>)설정되면 gzip압축을 지원한다.
+		false로 설정되면 plain text를 사용한다.
+	-->
+
+	<!-- 운영 환경에서는 아래와 같이 cache 설정을 한다. -->
+<!-- 	<engineCache compression="true" enable="true" postfix="month"/> -->
+
+	<!-- 개발 환경에서는 아래와 같이 cache 설정을 한다. -->
+	<engineCache compression="true" enable="false" postfix="month" />
+
+	<!--
+		userAgent관련 regular expression 패턴을 등록한다.
+		serializer : 브라우저에서 제공하는 XML Serializer를 사용하지 않을 userAgent 패턴을 등록한다. (Galaxy S2 중 일부 오류가 있는 스마트폰을 위한 userAgent를 등록 하기 위한 값을 등록하였다.)
+		XMLParser : 브라우저에서 제공하는 XML 및 XPath 구현을 사용하지 않을 userAgent 패턴을 등록한다. (Opera 11.60, 11.61 등)
+		URIEncoder : 브라우저에서 URIEncoding을 자동처리하는 userAgent 패턴을 등록한다.
+		<userAgentPattern serializer="Android 2.3.5[\w\W]+M110|Android 2.3.5[\w\W]+M250" XMLParser="Opera[\w\W]+11.6" URIEncoder="Chrome[\\w\\W]16[\.0-9*]*|Version[\\w\\W]+Safari+"/>
+		<userAgentPattern XPathParser="Android 4.3[\w\W]+N900|Android 4.3[\w\W]+E300"/>
+	-->
+	<userAgentPattern XPathParser="Edge" />
+
+	<!--
+		IE에서 xml를 파싱할 때 preserveWhiteSpace 옵션을 켤지 여부를 설정한다.
+	-->
+	<preserveWhiteSpace value="false" />
+
+	<!--
+		개발환경에 관련된 설정을 추가한다.
+		mode="development|production(*)" production로 설정되면 _alert를 실행시키지 않는다.
+		cache="cache|nocache" 개발환경에서 Cacheing을 비활성화 시키기 위해서 random url을 생성하는 로직을 추가할지 여부를 설정한다.
+		engineCache가 enable="true"로 설정되면 postfix값으로 엔진 파일을 캐싱하게 된다.
+	-->
+
+	<!-- 운영 환경에서는 아래와 같이 cache 설정을 한다. -->
+<!-- 	<environment mode="production" cache="cache" postfix="day"/> -->
+
+	<!-- 개발 환경에서는 아래와 같이 cache 설정을 한다. -->
+	<environment mode="development" cache="nocache" />
+
+	<script postfix="environment" />
+
+	<!-- closing Tag가 불필요한 태그를 등록하여 처리한다. -->
+	<emptyTag value="area,base,basefont,br,col,frame,hr,img,input,link,meta,param" />
+
+	<!--
+		브라우저 별로 설정 가능
+		0 : 기존 방식 (All Download)
+		1 : 60K분할 다운로드 + 통합 Eval
+		2 : 파일별 다운로드 + 통합 Eavl
+		3 : 파일별 다운로드 + 개별 Eval
+	-->
+	<engineLoadingMode ie="0" moz="0" opera="0" android="0" iphone="0" chrome="0" safari="0" />
+	
+	<engineChunkNum value="1"></engineChunkNum>
+	
+	<dataList>
+		<removeDummyRowStatus value="true" />
+		<removedDataMatch value="true" />
+		<keepDataType value="true" />
+	</dataList>
+	
+	<dataMap>
+		<keepDataType value="true" />
+	</dataMap>
+
+	<grid>
+		<noSelect value="true" />
+		<rowNumStatusUniqueId value="true" />
+		<drilldownRealRowIndexAll value="true" />
+		<collectGarbage value="none" /> <!-- IE에서 grid에 가로 스크롤 이벤트가 발생하거나 데이터를 새로 그리는 경우 collectGarbage함수를 호출할지에 대한 여부. "both", "scroll", "draw", "none" 4가지 값이 존재 -->
+		<fastScroll value="true" />
+		<dataType>
+			<date displayFormat="yyyy-MM-dd" />
+		</dataType>
+		<editType value="focus" />
+		<rowNumBackgroundColor value="#e5eff7" />
+		<selectedRowColor value="#fcf8e3" />
+		<oddEvenColorDisplay value="true" />
+		<evenRowBackgroundColor value="#f5f5f5" />
+		<oddRowBackgroundColor value="#ffffff" />
+		<rowMouseOver value="true" />
+		<rowMouseOverColor value="#edf3fb" />
+		<tooltipStyle value="padding:1px 3px 0;line-height:14px;font-size:12px;border:0;background-color:#5c85d4;color:#fff" />
+		<noResultMessageVisible value="true" />
+		<noResultMessage value="데이터가 없음" />
+		<noResultMessageStyle
+			value="position:absolute; left:40%; width:20%; top:40%; border:1px solid #b3b3b3; color:#383d41; font-size:12px; padding:5px; text-align:center; background:#fafafa" />
+		<pasteMessage value="데이터 붙이는 중" />
+		<getColumnVisible useRealColIndex="true" />
+		<colIdToColIndex value="true" />
+		<column inputType="text">
+			<editType value="select" />
+		</column>
+		<column inputType="select">
+			<chooseOptionLabel value="-선택-" />
+		</column>
+		<column inputType="calendar">
+			<dataType value="date" />
+			<displayFormat valueType="yearMonth" value="yyyy-MM" />
+			<displayFormat valueType="yearMonthDate" value="yyyy-MM-dd" />
+			<displayFormat valueType="yearMonthDateTime" value="yyyy-MM-dd HH:mm" />
+			<displayFormat valueType="yearMonthDateTimeSec" value="yyyy-MM-dd HH:mm:SS" />
+		</column>
+	</grid>
+
+	<gridView>
+		<noSelect value="true" />
+		<sortable value="true" />
+		<drilldownFooterExpressionAllData value="true" />
+		<tooltipDisplay value="true" />
+		<rowNumStatusUniqueId value="true" />
+		<preventMultipleClick value="true" />
+		<drilldownRealRowIndexAll value="true" />
+		<collectGarbage value="none" />
+		<fastScroll value="true" />
+		<hammerEnabled value="true" />
+		<dataType>
+			<date displayFormat="yyyy-MM-dd" />
+		</dataType>
+		<editType value="focus" />
+		<rowNumBackgroundColor value="#e5eff7" />
+		<selectedRowColor value="#fcf8e3" />
+		<selectedCellColor value="#dfecf1" />
+		<oddEvenColorDisplay value="true" />
+		<evenRowBackgroundColor value="#f5f5f5" />
+		<oddRowBackgroundColor value="#ffffff" />
+		<rowMouseOver value="true" />
+		<rowMouseOverColor value="#edf3fb" />
+		<tooltipStyle value="padding:1px 3px 0;line-height:14px;font-size:12px;border:0;background-color:#5c85d4;color:#fff" />
+		<noResultMessageVisible value="true" />
+		<noResultMessage value="데이터가 없음" />
+		<noResultMessageStyle
+			value="position:absolute; left:40%; width:20%; top:40%; border:1px solid #b3b3b3; color:#383d41; font-size:12px; padding:5px; text-align:center; background:#fafafa" />
+		<pasteMessage value="데이터 붙이는 중" />
+		<getColumnVisible useRealColIndex="true" />
+		<keepDefaultColumnWidth value="true" />
+		<colIdToColIndex value="true" />
+		<column inputType="text">
+			<editType value="select" />
+		</column>
+		<column inputType="select">
+			<chooseOptionLabel value="-선택-" />
+			<eventPriority value="oneditend" />
+		</column>
+		<column inputType="calendar">
+			<dataType value="date" />
+			<displayFormat valueType="yearMonth" value="yyyy-MM" />
+			<displayFormat valueType="yearMonthDate" value="yyyy-MM-dd" />
+			<displayFormat valueType="yearMonthDateTime" value="yyyy-MM-dd HH:mm" />
+			<displayFormat valueType="yearMonthDateTimeSec" value="yyyy-MM-dd HH:mm:SS" />
+		</column>
+		<enterKeyMove value="none" />
+	</gridView>
+
+	<inputCalendar>
+		<validCheck value="false" />
+		<dataType value="date" />
+		<delimiter value="-" />
+		<mask value="MM-dd-yyyy" />
+		<delimiterLocaleKey value="IC_Delimiter" />
+		<maskLocaleKey value="IC_Mask" />
+		<calendarImage value="" />
+		<calendarImageOver value="" />
+		<validCheck value="true" />
+		<validator value="gcm.data._validateInputCalendar" />
+	</inputCalendar>
+
+	<input>
+		<focusStyle value="" />
+		<dateMask value="yyyy-MM-dd" />
+		<timeMask value="HH:mm" />
+		<focusCalcSize value="false" />
+	</input>
+
+	<calendar>
+		<minYear value="1978" />
+		<maxYear value="2030" />
+	</calendar>
+
+	<selectbox>
+		<visibleRowNum value="5" />
+		<dataListAutoRefresh value="true" />
+		<!-- <wmode value="true"/> -->
+	</selectbox>
+	
+	<autoComplete>
+		<ignoreBlankOnNoResult value="true" /> <!-- 빈 값 입력 시 autoCompleted의 리스트에 존재하지 않을 때 값을 생성하지 않고 무시함. 비공개 API으로 공통에서만 제한적으로 사용함(업무 화면 소스 사용 금지) -->
+	</autoComplete>
+
+	<treeview>
+		<tooltipGroupClass value="false" /> <!-- tooltipGroupClass : 툴팁에 w2group 클래스를 추가할지 제거할지에 대한 옵션입니다. false일 경우 tooltip에 w2group 클래스가 추가되지 않습니다. -->
+	</treeview>
+
+	<textarea>
+		<useConfig value="true" />
+	</textarea>
+
+	<trigger>
+		<preventMultipleClick value="true" />
+	</trigger>
+
+	<anchor>
+		<preventMultipleClick value="true" />
+	</anchor>
+
+	<pageInherit>
+		<mode value="sync" />
+	</pageInherit>
+
+	<windowContainer>
+		<tooltipGroupClass value="false" /><!-- tooltipGroupClass : 툴팁에 w2group 클래스를 추가할지 제거할지에 대한 옵션입니다. false일 경우 tooltip에 w2group 클래스가 추가되지 않습니다. -->
+		<getWindow searchTarget="windowId" />
+		<displayOnlyTopWindow value="true" />
+	</windowContainer>
+
+	<tabControl>
+		<focusOnStart value="false" /><!-- 탭이 처음 생성되고 활성화되는 시점에 bridge로 포커스를 주는 동작 설정 -->
+	</tabControl>
+
+	<pageList></pageList>
+
+	<!-- remove class를 동작시킨다 -->
+	<style>
+		<removeDefaultClass value="true" />
+	</style>
+
+	<radio>
+		<nameScope value="true" /><!-- radio가 wframe scope=true 안에 있을 때 name값에 wframe prefix를 자동으로 붙일지에 대한 설정. true설정 권장 -->
+	</radio>
+
+	<!-- 툴팁 관련 설정입니다. -->
+	<body>
+		<toolTipSec value="1" />
+	</body>
+
+	<editor>
+		<version value="4.14.0" />
+	</editor>
+
+	<fusionchart>
+		<version value="3.15" />
+	</fusionchart>
+	
+	<scheduleCalendar>
+		<version value="3.6" />
+	</scheduleCalendar>
+
+	<languagePack useLanguagePack="true">
+		<url lang="ko" value="../cm/langpack/ko.js" />
+		<url lang="en" value="../cm/langpack/en.js" />
+	</languagePack>
+	
+	<date>
+		<!-- (SP4 신규기능) refreshRate
+			- $p.getCurrentServerDate()를 refreshRate 설정 시간(ms) 내에 반복적으로 호출하는 경우 해당 요청들은 서버에서 새로 계산하는 대신
+			- 처음 호출 시 저장한 서버 시간 + 반복 호출하는 동안 클라이언트에서 흘러간 시간을 더하여 값을 반환한다.
+			- 반복 호출 시 서버 요청을 최소화하기 위해 추가된 성능 개선용 설정이다.
+			기본 권장 설정값은 10000 (10초) 이다.
+		-->
+		<requestInterval value="10000" />
+	</date>
+
+	<!-- (SP4 신규기능) deprecated : SP4 이후부터 사용을 비권장하는 설정들에 대한 모음 -->
+	<notRecommended>
+		<!-- warningSync : $p.executeSubmission 또는 $p.ajax에서 sycn mode 사용 시 alert을 띄우는 기능이다. SP4에서는 sync 사용을 비권장한다. -->
+		<warningSync value="true" />
+	</notRecommended>
+
+	<!-- 서버 다국어 설정시 아래의 주석 부분을 풀어준다. -->
+<!-- 	<pageURLPrefix type="function" value="gcm.win._getI18NUrl" ignoreW2xPath="true"/> -->
+
+</WebSquare>

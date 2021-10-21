@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="BM006M01" meta_programName="파일그룹 관리" meta_programDesc="파일그룹 관리하는 화면" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_fileGroup" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="FILE_GRP_SEQ" name="파일그룹순번" dataType="text"></w2:column>
+						<w2:column id="FILE_GRP_SEQ_PARENT" name="파일그룹부모순번" dataType="text"></w2:column>
+						<w2:column id="FILE_GRP_NM" name="파일그룹명" dataType="text"></w2:column>
+						<w2:column id="MENU_DEPTH" name="메뉴레벨" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_file" saveRemovedData="true">
+					<w2:columnInfo>
+						<w2:column id="FILE_SEQ" name="파일순번" dataType="number"></w2:column>
+						<w2:column id="DATA_SEQ" name="데이터순번" dataType="number"></w2:column>
+						<w2:column id="FILE_GRP_SEQ" name="파일그룹순번" dataType="number"></w2:column>
+						<w2:column id="ORIGIN_FILE_NM" name="원본파일명" dataType="text"></w2:column>
+						<w2:column id="FILE_SIZE" name="파일크기" dataType="text"></w2:column>
+						<w2:column id="FILE_UPLOAD_DATE" name="파일업로드일시" dataType="text"></w2:column>
+						<w2:column id="IS_DELETE" name="삭제여부" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<w2:key id="FILE_GRP_SEQ" name="파일그룹순번" dataType="number"></w2:key>
+						<w2:key id="ORIGIN_FILE_NM" name="원본파일명" dataType="text"></w2:key>
+						<w2:key id="IS_DELETE" name="삭제여부" dataType="text"></w2:key>
+						<w2:key id="START_NUM" name="시작번호" dataType="text"></w2:key>
+						<w2:key id="END_NUM" name="마지막번호" dataType="text"></w2:key>
+						<w2:key id="TOTAL_YN" name="총건수 조회여부" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_fileGrp">
+					<w2:keyInfo>
+						<w2:key id="FILE_GRP_SEQ" name="파일그룹순번" dataType="text"></w2:key>
+						<w2:key id="FILE_GRP_SEQ_PARENT" name="파일그룹부모순번" dataType="text"></w2:key>
+						<w2:key id="FILE_GRP_NM" name="파일그룹명" dataType="text"></w2:key>
+						<w2:key id="mapStatus" name="상태" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_selectFileGrp" ref="data:json,dma_search" target="data:json,dlt_fileGroup"
+				action="/file/selectFileGrp" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_selectFileGrp_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_selectFile" ref="data:json,dma_search" target="data:json,dlt_file"
+				action="/file/selectFileByFileGrp" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_selectFile_submitdone" ev:submiterror=""
+				abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_saveFileGrp" ref="data:json,dma_fileGrp" target="" action="/file/saveFileGrp" method="post"
+				mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg=""
+				ev:submit="" ev:submitdone="scwin.sbm_saveFileGrp_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[ 
+	scwin.pageItemCnt = 18;
+
+	/**
+	 * 초기 스크립트 수행 함수 정의
+	 */
+	scwin.onpageload = function() {
+		com.win.setEnterKeyEvent(tbl_search, scwin.btn_search_onclick);
+		dma_search.set("IS_DELETE", "N");
+	};
+	
+	/**
+	 * 화면 초기화 데이터가 모두 로딩되면 발생하는 이벤트
+	 */
+	scwin.ondataload = function() {
+		scwin.btn_search_onclick();
+	};
+	
+	/**
+	 * 파일 그룹을 조회한다.
+	 */
+	scwin.btn_search_onclick = function() {
+		com.sbm.execute(sbm_selectFileGrp);
+	};
+	
+	/**
+	 * 파일 그룹 조회 후 콜백 함수
+	 */
+	scwin.sbm_selectFileGrp_submitdone = function(e) {
+		if (dlt_fileGroup.getRowCount() > 0) { 
+			trv_fileGroup.findNodeByIndex(1, true);
+			scwin.searchFile(1, "Y");
+		}
+	};
+	
+	/**
+	 * 파일 정보를 조회한다.
+	 */
+	scwin.searchFile = function(idx, totalYn) {
+		dma_search.set("TOTAL_YN", totalYn);
+		dma_search.set("START_NUM", (com.num.parseInt(idx) - 1) * scwin.pageItemCnt);
+		dma_search.set("END_NUM", scwin.pageItemCnt);
+		dma_search.set("FILE_GRP_SEQ", trv_fileGroup.getSelectedValue());
+		com.sbm.execute(sbm_selectFile);
+	};
+	
+	/**
+	 * 파일 그룹을 생성한다.
+	 */
+	scwin.btn_add_onclick = function() {
+		var fileGrpSeq = 0;
+		var fileGrpSeqParent = 0;
+		
+		if (dlt_fileGroup.getRowCount() > 0) {
+			var selectRowIdx = dlt_fileGroup.getRowPosition();
+			if (selectRowIdx === null) {
+				com.win.alert(com.data.getMessage("MSG_CM_00033")	);
+			} else {
+				var fileGrpSeq = dlt_fileGroup.getCellData(selectRowIdx, "FILE_GRP_SEQ");
+				var fileGrpSeqParent = dlt_fileGroup.getCellData(selectRowIdx, "FILE_GRP_SEQ_PARENT");
+			}
+		}
+		
+		var data = { fileGrpSeq : fileGrpSeq, fileGrpSeqParent : fileGrpSeqParent, 
+					 mode:"create", callbackFn : "scwin.addCallback" };
+		var options = {
+			id : "FilegroupPop",
+			popupName : "파일 그룹 생성",
+			modal : true,
+			width : 600, height: 344 };
+		com.win.openPopup("/ui/BM/BM006P01.xml", options, data);
+	};
+	
+	/**
+	 * 파일 그룹 등록 완료 후 콜백 함수
+	 */
+	scwin.addCallback = function(){
+		scwin.btn_search_onclick();
+	};
+		
+	/**
+	 * 파일 그룹을 수정한다.
+	 */
+	scwin.btn_modify_onclick = function() {
+		var selectedData = dlt_fileGroup.getRowJSON(dlt_fileGroup.getRowPosition());
+		var data = {data : selectedData, mode : "update", callbackFn : "scwin.modCallback" };
+		var options = {
+			id : "FilegroupPop",
+			popupName : "파일 그룹 설정",
+			modal : true,
+			width : 600, height: 344 };
+		com.win.openPopup("/ui/BM/BM006P01.xml", options, data);
+	};
+	
+	/**
+	 * 파일 그룹 수정 후 콜백 함수.
+	 */
+	scwin.modCallback = function(data) {		
+		trv_fileGroup.setLabelByValue(data.FILE_GRP_SEQ, data.FILE_GRP_NM);
+		scwin.searchFile(1, "Y");
+	};
+	
+	/**
+	 * 파일 그룹을 삭제한다.
+	 */
+	scwin.btn_delete_onclick = function() {
+		if (trv_fileGroup.isLeaf() == false) {
+			com.win.alert(com.data.getMessage("MSG_CM_00034"));
+		} else if (dlt_file.getRowCount() > 0) {
+			com.win.alert(com.data.getMessage("MSG_CM_00035"));
+		} else {
+			com.win.confirm(com.data.getMessage("MSG_CM_00036"), 
+				function(res) {
+					if (res.clickValue === true) {
+						dma_fileGrp.setJSON(dlt_fileGroup.getRowJSON(dlt_fileGroup.getRowPosition()));
+						dma_fileGrp.set("mapStatus" , "D");
+						com.sbm.execute(sbm_saveFileGrp);
+					};
+				}
+			);
+		}
+	};
+	
+	scwin.trv_fileGroup_onlabelclick = function(value, nodeElement, index) {
+		scwin.searchFile(1, "Y");
+	};
+	
+	scwin.sbm_selectFile_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			var firstYn = dma_search.get("TOTAL_YN");
+			if (firstYn == "Y") {
+				var fileTotalCnt = e.responseJSON.TOTAL_CNT.CNT;
+				var totalCnt = com.num.ceil(fileTotalCnt / scwin.pageItemCnt);
+				tbx_fileCount.setValue(fileTotalCnt);
+				pgl_file.setCount(totalCnt);
+			}
+		}
+	};
+	
+	scwin.pgl_file_onclick = function(idx) {
+		scwin.searchFile(idx, "N");
+	};
+	
+	scwin.sbm_saveFileGrp_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			scwin.btn_search_onclick();
+		}
+	};
+	
+	/**
+	 * 파일 사이즈를 적절한 포맷으로 변환해서 반환한다.
+	 */
+	scwin.displayFileSize = function(value) {
+		return com.num.formatByte(value);
+	};
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents" id="" style="">
+			<w2:wframe id="wfm_header" style="" src="../../cm/xml/contentHeader.xml"></w2:wframe>
+			<xf:group class="shbox" id="" style="">
+				<xf:group class="shbox_inner" id="tbl_search" style="">
+					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
+						<w2:attributes>
+							<w2:summary></w2:summary>
+						</w2:attributes>
+						<xf:group tagname="colgroup">
+							<xf:group tagname="col" style="width:80px;"></xf:group><xf:group style="" tagname="col"></xf:group>
+							<xf:group tagname="col" style="width:80px;"></xf:group><xf:group style="" tagname="col"></xf:group>
+						</xf:group>
+						<xf:group style="" tagname="tr">
+							<xf:group class="w2tb_th " style="" tagname="th">
+								<w2:textbox class="" id="" label="파일명" style=""></w2:textbox>
+							</xf:group>
+							<xf:group class="w2tb_td" style="" tagname="td">
+								<xf:input class="" id="" placeholder="" style="width:100%;" ref="data:dma_search.ORIGIN_FILE_NM"></xf:input>
+							</xf:group>
+							<xf:group tagname="th" class="w2tb_th " style="">
+								<w2:attributes>
+									<w2:scope>row</w2:scope>
+								</w2:attributes>
+								<w2:textbox class="" id="" label="삭제여부" style=""></w2:textbox>
+							</xf:group>
+							<xf:group tagname="td" class="w2tb_td">
+								<w2:attributes></w2:attributes>
+								<xf:select1 id="" selectedIndex="1" appearance="full" style="" cols="" rows="" ref="data:dma_search.IS_DELETE"
+									renderType="radiogroup">
+									<xf:choices>
+										<xf:item>
+											<xf:label><![CDATA[전체]]></xf:label>
+											<xf:value><![CDATA[]]></xf:value>
+										</xf:item>
+										<xf:item>
+											<xf:label><![CDATA[예]]></xf:label>
+											<xf:value><![CDATA[Y]]></xf:value>
+										</xf:item>
+										<xf:item>
+											<xf:label><![CDATA[아니요]]></xf:label>
+											<xf:value><![CDATA[N]]></xf:value>
+										</xf:item>
+									</xf:choices>
+								</xf:select1></xf:group></xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group class="btn_shbox" id="" style="">
+					<xf:trigger class="btn_cm sch" disabled="" id="btn_search" style="" type="button" clickEventElement="outerDiv" ev:onclick="scwin.btn_search_onclick">
+						<xf:label><![CDATA[조회]]></xf:label>
+					</xf:trigger>
+					
+
+				</xf:group>
+			</xf:group>
+			<xf:group id="" adaptive="" class="lybox">
+				<xf:group id="" class="ly_column col_3">
+					<xf:group style="" id="" class="dfbox">
+						<w2:textbox style="" label="파일그룹" id="" class="df_tit fl"></w2:textbox>
+						<xf:group style="" id="" class="fr">
+
+							<xf:trigger style="" id="btn_add" type="button" ev:onclick="scwin.btn_add_onclick" class="btn_cm ">
+								<xf:label><![CDATA[등록]]></xf:label>
+							</xf:trigger>
+							<xf:trigger style="" id="btn_modify" type="button" ev:onclick="scwin.btn_modify_onclick"  class="btn_cm">
+								<xf:label><![CDATA[수정]]></xf:label>
+							</xf:trigger>
+							<xf:trigger class="btn_cm" id="btn_delete" style="" ev:onclick="scwin.btn_delete_onclick"  type="button">
+								<xf:label><![CDATA[삭제]]></xf:label>
+							</xf:trigger>
+						</xf:group>
+					</xf:group>
+					<xf:group id="" class="tvwbox mt10">
+						<w2:treeview tooltipGroupClass="false" dataType="listed" style="" id="trv_fileGroup" class="tw_sub" ev:onlabelclick="scwin.trv_fileGroup_onlabelclick" >
+							<w2:itemset nodeset="data:dlt_fileGroup">
+									<w2:label ref="FILE_GRP_NM"></w2:label>
+									<w2:value ref="FILE_GRP_SEQ"></w2:value>
+									<w2:depth ref="MENU_DEPTH"></w2:depth>
+									<w2:folder ref=""></w2:folder>
+									<w2:checkbox ref=""></w2:checkbox>
+									<w2:checkboxDisabled ref=""></w2:checkboxDisabled>
+									<w2:image ref=""></w2:image>
+									<w2:iconImage ref=""></w2:iconImage>
+									<w2:selectedImage ref=""></w2:selectedImage>
+									<w2:expandedImage ref=""></w2:expandedImage>
+									<w2:leafImage ref=""></w2:leafImage>
+							</w2:itemset>
+						</w2:treeview>
+					</xf:group>
+				</xf:group>
+				<xf:group style="" id="" class="ly_column col_7">
+					<xf:group style="" id="" class="dfbox ">
+						<xf:group tagname="table" style="width:100%;" id="" class="w2tb" adaptive="layout" adaptiveThreshold="1024px" text="">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group tagname="col" style="width:130px;"></xf:group>
+								<xf:group tagname="col" style=""></xf:group>
+								<xf:group tagname="col" style="width:110px;"></xf:group>
+								<xf:group tagname="col" style=""></xf:group>
+								<xf:group tagname="col" style="width:90px;"></xf:group>
+								<xf:group tagname="col" style=""></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group tagname="th" style="" class="w2tb_th">
+									<w2:attributes>
+										<w2:scope>row</w2:scope>
+									</w2:attributes>
+									<w2:span class="title" id="" label="파일 그룹 순번 " style=""></w2:span>
+								</xf:group>
+								<xf:group tagname="td" style="" class="w2tb_td">
+									<w2:span class="txt" id="" label="01" style=""></w2:span>
+								</xf:group>
+								<xf:group tagname="th" style="" class="w2tb_th">
+									<w2:attributes>
+										<w2:scope>row</w2:scope>
+									</w2:attributes>
+									<w2:span class="title" id="" label="파일 그룹명 " style=""></w2:span>
+								</xf:group>
+								<xf:group tagname="td" style="" class="w2tb_td">
+									<w2:span class="txt" id="" label="NAME" style=""></w2:span>
+								</xf:group>
+								<xf:group tagname="th" style="" class="w2tb_th">
+									<w2:attributes>
+										<w2:scope>row</w2:scope>
+									</w2:attributes>
+									<w2:span class="title" id="" label="파일 수 " style=""></w2:span>
+								</xf:group>
+								<xf:group tagname="td" style="" class="w2tb_td">
+									<w2:span class="txt" id="tbx_fileCount" label="01" style=""></w2:span>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group adaptiveThreshold="" style="" id="" class="gvwbox">
+						<w2:gridView ev:ontextimageclick="scwin.grd_menu_ontextimageclick" 
+							rowStatusWidth="40" scrollByColumn="false" adaptive="" focusMode="row" autoFit="allColumn"
+							id="grd_menu" class="wq_gvw" ev:onrowindexchange="" useShiftKey="true" ev:oneditkeyup="scwin.grd_menu_oneditkeyup"
+							fixedColumnWithHidden="true" dataList="data:dlt_file" ignoreCellClick="false" style="height:200px;" visibleRowNum="all" autoFitMinWidth="600">
+							<w2:caption style="" id="caption1" value="this is a grid caption."></w2:caption>
+							<w2:header style="" id="header1">
+								<w2:row style="" id="row1">
+									<w2:column removeBorderStyle="false" width="50" inputType="text" style="height:44px;" id="column5"
+										value="파일순번" blockSelect="false" displayMode="label">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="50" inputType="text" style="height:44px;" id="column4"
+										value="데이터순번" blockSelect="false" displayMode="label">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="100" inputType="text" style="height:44px;" id="column3"
+										value="원본파일명" blockSelect="false" displayMode="label">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="50" inputType="text" style="height:44px;" id="column2"
+										value="파일크기" blockSelect="false" displayMode="label">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="100" inputType="text" style="height:44px;" id="column1"
+										value="파일업로드일시" blockSelect="false" displayMode="label">
+									</w2:column>
+								</w2:row>
+							</w2:header>
+							<w2:gBody style="" id="gBody1">
+								<w2:row style="" id="row2">
+									<w2:column removeBorderStyle="false" width="50" inputType="text" style="height:38px;" id="FILE_SEQ" value=""
+										blockSelect="false" displayMode="label">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="50" inputType="text" style="height:38px;" id="DATA_SEQ" value=""
+										blockSelect="false" displayMode="label">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="100" inputType="text" style="height:38px;" id="ORIGIN_FILE_NM"
+										value="" blockSelect="false" displayMode="label" textAlign="left">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="50" inputType="text" style="height:38px;" id="FILE_SIZE" value=""
+										blockSelect="false" displayMode="label" textAlign="right" displayFormatter="scwin.displayFileSize">
+									</w2:column>
+									<w2:column removeBorderStyle="false" width="100" inputType="text" style="height:38px;" id="FILE_UPLOAD_DATE"
+										value="" blockSelect="false" displayMode="label">
+									</w2:column>
+								</w2:row>
+							</w2:gBody>
+						</w2:gridView>
+
+					</xf:group>
+					<w2:pageList class="wq_pglist" displayButtonType="display" displayFormat="#" ev:onclick="scwin.pgl_file_onclick" id="pgl_file" pageSize="5" pagingType="0"
+						style="" delimiter="">
+					</w2:pageList>
+				</xf:group>
+			</xf:group>
+
+		</xf:group>
+
+
+
+
+	</body>
+</html>

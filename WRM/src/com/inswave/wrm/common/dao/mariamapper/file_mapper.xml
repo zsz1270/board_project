@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.common.dao.FileDao">
+
+	<select id="selectFileGrp" resultType="Map" parameterType="Map">
+		WITH RECURSIVE CTE AS
+			(SELECT *, 1 AS MENU_DEPTH, CAST(LPAD(FILE_GRP_SEQ, 10, '0') AS CHAR(100)) AS SEQ_PATH
+			   FROM BM_FILE_GRP
+			  WHERE FILE_GRP_SEQ_PARENT = '0'
+			  UNION ALL
+			 SELECT BFG.*, CTE.MENU_DEPTH + 1 AS MENU_DEPTH, CONCAT(CTE.SEQ_PATH, LPAD(BFG.FILE_GRP_SEQ, 10, '0')) AS SEQ_PATH
+			   FROM	BM_FILE_GRP BFG
+			  INNER JOIN CTE ON BFG.FILE_GRP_SEQ_PARENT = CTE.FILE_GRP_SEQ)
+		SELECT * FROM CTE ORDER BY SEQ_PATH
+	</select>
+	<insert id="insertFileGrp" parameterType="Map">
+		INSERT INTO BM_FILE_GRP (
+			  FILE_GRP_SEQ_PARENT
+			, FILE_GRP_NM
+		) VALUES (
+			  #{FILE_GRP_SEQ_PARENT}
+			, #{FILE_GRP_NM}
+		)
+	</insert>
+	<update id="updateFileGrp" parameterType="java.util.Map">
+		UPDATE BM_FILE_GRP 
+		   SET FILE_GRP_SEQ_PARENT = #{FILE_GRP_SEQ_PARENT}, FILE_GRP_NM = #{FILE_GRP_NM}
+		 WHERE FILE_GRP_SEQ = #{FILE_GRP_SEQ}	
+	</update>
+	<delete id="deleteFileGrp" parameterType="java.util.Map">
+		DELETE FROM BM_FILE_GRP 
+		 WHERE FILE_GRP_SEQ = #{FILE_GRP_SEQ}
+	</delete>
+	<select id="selectFile" resultType="Map" parameterType="Map">
+		SELECT FILE_SEQ, DATA_SEQ, FILE_GRP_SEQ, FILE_STORED_PATH, STORED_FILE_NM, ORIGIN_FILE_NM, FILE_SIZE, 
+			   FILE_UPLOAD_DATE, IS_DELETE
+		  FROM BM_FILE
+		<where>
+			<if test="FILE_SEQ != null and FILE_SEQ != ''">
+				 AND FILE_SEQ = #{FILE_SEQ}
+			</if>
+			<if test="DATA_SEQ != null and DATA_SEQ != ''">
+				 AND DATA_SEQ = #{DATA_SEQ}
+			</if>	
+			<if test="FILE_GRP_SEQ != null and FILE_GRP_SEQ != ''">
+				 AND FILE_GRP_SEQ = #{FILE_GRP_SEQ}
+			</if>
+			<if test="ORIGIN_FILE_NM != null and ORIGIN_FILE_NM != ''">
+				 AND ORIGIN_FILE_NM LIKE CONCAT('%', #{ORIGIN_FILE_NM}, '%')
+			</if>
+			<if test="IS_DELETE != null and IS_DELETE != ''">
+				 AND IS_DELETE = #{IS_DELETE}
+			</if>
+		</where>
+	</select>
+	<select id="selectFileByFileGrp" resultType="Map" parameterType="Map">
+		SELECT FLE.FILE_SEQ, FLE.DATA_SEQ, FLE.FILE_GRP_SEQ, FLE.ORIGIN_FILE_NM, FLE.FILE_SIZE, 
+			   DATE_FORMAT(FLE.FILE_UPLOAD_DATE, '%Y-%m-%d %H:%i:%s') AS FILE_UPLOAD_DATE, IS_DELETE
+		<include refid="selectFileByFileGrpSql" />
+		  LIMIT #{START_NUM}, #{END_NUM}
+	</select>
+	<select id="selectFileByFileGrpTotalCnt" resultType="Map" parameterType="Map">
+		SELECT COUNT(FLE.FILE_SEQ) AS CNT
+		<include refid="selectFileByFileGrpSql" />
+	</select>
+	<sql id="selectFileByFileGrpSql">
+		  FROM (WITH RECURSIVE CTE AS
+					(SELECT *, 1 AS MENU_DEPTH
+					   FROM BM_FILE_GRP
+					  WHERE FILE_GRP_SEQ = #{FILE_GRP_SEQ}
+					  UNION ALL
+					 SELECT BFG.*, CTE.MENU_DEPTH + 1 AS MENU_DEPTH
+					   FROM	BM_FILE_GRP BFG
+					  INNER JOIN CTE ON BFG.FILE_GRP_SEQ_PARENT = CTE.FILE_GRP_SEQ)
+				SELECT * FROM CTE) AS CTP
+		  INNER JOIN BM_FILE FLE ON FLE.FILE_GRP_SEQ = CTP.FILE_GRP_SEQ
+		<where>	
+			<if test="ORIGIN_FILE_NM != null and ORIGIN_FILE_NM != ''">
+				 AND FLE.ORIGIN_FILE_NM LIKE CONCAT('%', #{ORIGIN_FILE_NM}, '%')
+			</if>
+			<if test="IS_DELETE != null and IS_DELETE != ''">
+				 AND FLE.IS_DELETE = #{IS_DELETE}
+			</if>
+		</where>
+	</sql>
+	<insert id="insertFile" parameterType="Map">
+		INSERT INTO BM_FILE (
+			 DATA_SEQ,
+			 FILE_GRP_SEQ,
+			 FILE_STORED_PATH,
+			 STORED_FILE_NM,
+			 ORIGIN_FILE_NM,
+			 FILE_SIZE,
+			 FILE_UPLOAD_DATE,
+			 IS_DELETE
+		) VALUES (
+			 #{DATA_SEQ},
+			 #{FILE_GRP_SEQ},
+			 #{FILE_STORED_PATH},
+			 #{STORED_FILE_NM},
+			 #{ORIGIN_FILE_NM},
+			 #{FILE_SIZE},
+			 NOW(),
+			 'N'
+		);
+	</insert>
+	<update id="updateFileIsDelete" parameterType="java.util.Map">
+		UPDATE BM_FILE 
+		   SET IS_DELETE = #{IS_DELETE}
+		 WHERE FILE_SEQ = #{FILE_SEQ}
+	</update>
+	<delete id="deleteFile" parameterType="java.util.Map">
+		DELETE FROM BM_FILE 
+		 WHERE FILE_SEQ = #{FILE_SEQ}
+	</delete>
+</mapper>

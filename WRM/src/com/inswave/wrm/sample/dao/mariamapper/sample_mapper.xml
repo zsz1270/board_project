@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.sample.dao.SampleDao">
+	
+	<select id="selectSample" resultType="Map" parameterType="Map">
+		SELECT SAMPLE_CD, SAMPLE_NM, PARENT_SAMPLE_CD, SAMPLE_LEVEL, SORT_ORDER, IS_USE, FILE_PATH, CONTENT, KEYWORD, NOTE
+		  FROM SP_SAMPLE
+		<where>
+			<if test="KEYWORD != null and KEYWORD != ''">
+				OR SAMPLE_CD LIKE concat('%',#{KEYWORD},'%')
+				OR SAMPLE_NM LIKE concat('%',#{KEYWORD},'%')
+				OR FILE_PATH LIKE concat('%',#{KEYWORD},'%')
+				OR CONTENT LIKE concat('%',#{KEYWORD},'%')
+				OR KEYWORD LIKE concat('%',#{KEYWORD},'%')
+				OR NOTE LIKE concat('%',#{KEYWORD},'%')
+			</if>
+			<if test="IS_USE != null and IS_USE != ''" >
+				AND IS_USE = #{IS_USE}
+			</if>
+		</where>
+		 ORDER BY SAMPLE_CD, SORT_ORDER
+	</select>
+
+	<insert id="insertSample" parameterType="Map">
+		INSERT INTO SP_SAMPLE(SAMPLE_CD, SAMPLE_NM, PARENT_SAMPLE_CD, SAMPLE_LEVEL, SORT_ORDER, IS_USE, FILE_PATH, CONTENT, KEYWORD, NOTE)
+		VALUES (#{SAMPLE_CD}, #{SAMPLE_NM}, #{PARENT_SAMPLE_CD}, #{SAMPLE_LEVEL}, #{SORT_ORDER}, #{IS_USE}, #{FILE_PATH}, #{CONTENT}, #{KEYWORD}, #{NOTE})
+	</insert>
+
+	<update id="updateSample" parameterType="Map">
+		UPDATE SP_SAMPLE
+		SET SAMPLE_NM = #{SAMPLE_NM}, PARENT_SAMPLE_CD = #{PARENT_SAMPLE_CD}, SAMPLE_LEVEL = #{SAMPLE_LEVEL}
+		, SORT_ORDER = #{SORT_ORDER}, IS_USE = #{IS_USE}, FILE_PATH = #{FILE_PATH}, CONTENT = #{CONTENT}
+		, KEYWORD = #{KEYWORD}, NOTE = #{NOTE}
+		WHERE SAMPLE_CD = #{SAMPLE_CD}
+	</update>
+
+	<delete id="deleteSample" parameterType="Map">
+		DELETE FROM SP_SAMPLE WHERE SAMPLE_CD = #{SAMPLE_CD}
+	</delete>
+	
+	<select id="select" resultType="Map" parameterType="Map">
+		SELECT id
+			 , SEQ
+			 , ORDER_YEAR
+			 , ORDER_NO
+			 , CUST_ID
+			 , CUST_NM
+			 , CUST_TEL_NO
+			 , CUST_EMAIL
+			 , CUST_GENDER
+			 , SHIP_TO_ADDR
+			 , SHIP_TO_SIDO
+			 , SHIP_TO_SIDOCD
+			 , SHIP_TO_SIGUNGU
+			 , SHIP_TO_SIGUNGUCD
+			 , SHIP_TO_STREETCD
+			 , SHIP_TO_STREET
+			 , PRDT_CNTRY
+			 , PRDT_CNTRYCD
+			 , PRDT_CMPNY_NM
+			 , PRDT_NM
+			 , CONVERT(PRDT_BLOB USING utf8) AS PRDT_BLOB
+			 , TRACK_NM
+			 , TRACK_IMG_SRC
+			 , TRACK_SITE
+			 , COST
+			 , DISC_COST
+			 , DISC
+			 , CNT
+			 , POINT_RATE
+			 , POINT
+			 , TRACK_DATE
+			 , TRACK_TIME
+			 , CUST_REGT_NO
+			 , PAY_CREDIT_TYPE
+			 , PAY_CREDIT_IMG
+		  FROM SP_CUSTOMER_ORDER
+		 WHERE 1=1 
+		 <if test="id != null and id != ''">
+		   AND id = #{id}
+		 </if>
+		 <if test="SEQ != null and SEQ != ''">
+		   AND SEQ = #{SEQ}
+		 </if>
+		 <if test="ORDER_YEAR != null and ORDER_YEAR != ''">
+		   AND ORDER_YEAR = #{ORDER_YEAR}
+		 </if>
+		 <if test="ORDER_NO != null and ORDER_NO != ''">
+		   AND ORDER_NO = #{ORDER_NO}
+		 </if>
+		 <if test="CUST_ID != null and CUST_ID != ''">
+		   AND CUST_ID = #{CUST_ID}
+		 </if>
+		 <if test="CUST_NM != null and CUST_NM != ''">
+		   AND CUST_NM LIKE concat('%',#{CUST_NM},'%')
+		 </if>
+		 <if test="CUST_TEL_NO != null and CUST_TEL_NO != ''">
+		   AND CUST_TEL_NO = #{CUST_TEL_NO}
+		 </if>
+		 <if test="CUST_EMAIL != null and CUST_EMAIL != ''">
+		   AND CUST_EMAIL = #{CUST_EMAIL}
+		 </if>
+		 <if test="CUST_GENDER != null and CUST_GENDER != ''">
+		   AND CUST_GENDER = #{CUST_GENDER}
+		 </if>
+		 <if test="SHIP_TO_ADDR != null and SHIP_TO_ADDR != ''">
+		   AND SHIP_TO_ADDR LIKE concat('%',#{SHIP_TO_ADDR},'%')
+		 </if>
+		 <if test="SHIP_TO_SIDO != null and SHIP_TO_SIDO != ''">
+		   AND SHIP_TO_SIDO LIKE concat('%',#{SHIP_TO_SIDO},'%')
+		 </if>
+		 <if test="SHIP_TO_SIGUNGU != null and SHIP_TO_SIGUNGU != ''">
+		   AND SHIP_TO_SIGUNGU LIKE concat('%',#{SHIP_TO_SIGUNGU},'%')
+		 </if>
+		 <if test="SHIP_TO_SIGUNGUCD != null and SHIP_TO_SIGUNGUCD != ''">
+		   AND SHIP_TO_SIGUNGUCD = #{SHIP_TO_SIGUNGUCD}
+		 </if>
+		 <if test="SHIP_TO_STREETCD != null and SHIP_TO_STREETCD != ''">
+		   AND SHIP_TO_STREETCD = #{SHIP_TO_STREETCD}
+		 </if>
+		 <if test="SHIP_TO_STREET != null and SHIP_TO_STREET != ''">
+		   AND SHIP_TO_STREET LIKE concat('%',#{SHIP_TO_STREET},'%')
+		 </if>
+		 <if test="PRDT_CNTRY != null and PRDT_CNTRY != ''">
+		   AND PRDT_CNTRY = #{PRDT_CNTRY}
+		 </if>
+		 <if test="PRDT_CNTRYCD != null and PRDT_CNTRYCD != ''">
+		   AND PRDT_CNTRYCD = #{PRDT_CNTRYCD}
+		 </if>
+		 <if test="PRDT_CMPNY_NM != null and PRDT_CMPNY_NM != ''">
+		   AND PRDT_CMPNY_NM = #{PRDT_CMPNY_NM}
+		 </if>
+		 <if test="PRDT_NM != null and PRDT_NM != ''">
+		   AND PRDT_NM = #{PRDT_NM}
+		 </if>
+		 <if test="PRDT_BLOB != null and PRDT_BLOB != ''">
+		   AND PRDT_BLOB = #{PRDT_BLOB}
+		 </if>
+		 <if test="TRACK_NM != null and TRACK_NM != ''">
+		   AND TRACK_NM = #{TRACK_NM}
+		 </if>
+		 <if test="TRACK_IMG_SRC != null and TRACK_IMG_SRC != ''">
+		   AND TRACK_IMG_SRC = #{TRACK_IMG_SRC}
+		 </if>
+		 <if test="TRACK_SITE != null and TRACK_SITE != ''">
+		   AND TRACK_SITE = #{TRACK_SITE}
+		 </if>
+		 <if test="COST != null and COST != ''">
+		   AND COST = #{COST}
+		 </if>
+		 <if test="DISC_COST != null and DISC_COST != ''">
+		   AND DISC_COST = #{DISC_COST}
+		 </if>
+		 <if test="DISC != null and DISC != ''">
+		   AND DISC = #{DISC}
+		 </if>
+		 <if test="CNT != null and CNT != ''">
+		   AND CNT = #{CNT}
+		 </if>
+		 <if test="POINT_RATE != null and POINT_RATE != ''">
+		   AND POINT_RATE = #{POINT_RATE}
+		 </if>
+		 <if test="POINT != null and POINT != ''">
+		   AND POINT = #{POINT}
+		 </if>
+		 <if test="TRACK_DATE != null and TRACK_DATE != ''">
+		   AND TRACK_DATE = #{TRACK_DATE}
+		 </if>
+		 <if test="TRACK_TIME != null and TRACK_TIME != ''">
+		   AND TRACK_TIME = #{TRACK_TIME}
+		 </if>
+		 <if test="CUST_REGT_NO != null and CUST_REGT_NO != ''">
+		   AND CUST_REGT_NO = #{CUST_REGT_NO}
+		 </if>
+		 <if test="PAY_CREDIT_TYPE != null and PAY_CREDIT_TYPE != ''">
+		   AND PAY_CREDIT_TYPE = #{PAY_CREDIT_TYPE}
+		 </if>
+		 <if test="PAY_CREDIT_IMG != null and PAY_CREDIT_IMG != ''">
+		   AND PAY_CREDIT_IMG = #{PAY_CREDIT_IMG}
+		 </if>
+	</select>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM SP_CUSTOMER_ORDER WHERE id = #{id}
+	</delete>
+	
+	<insert id="insert" parameterType="Map" >
+		INSERT INTO SP_CUSTOMER_ORDER
+			  (id
+			, SEQ
+			, ORDER_YEAR
+			, ORDER_NO
+			, CUST_ID
+			, CUST_NM
+			, CUST_TEL_NO
+			, CUST_EMAIL
+			, CUST_GENDER
+			, SHIP_TO_ADDR
+			, SHIP_TO_SIDO
+			, SHIP_TO_SIDOCD
+			, SHIP_TO_SIGUNGU
+			, SHIP_TO_SIGUNGUCD
+			, SHIP_TO_STREETCD
+			, SHIP_TO_STREET
+			, PRDT_CNTRY
+			, PRDT_CNTRYCD
+			, PRDT_CMPNY_NM
+			, PRDT_NM
+			, PRDT_BLOB
+			, TRACK_NM
+			, TRACK_IMG_SRC
+			, TRACK_SITE
+			, COST
+			, DISC_COST
+			, DISC
+			, CNT
+			, POINT_RATE
+			, POINT
+			, TRACK_DATE
+			, TRACK_TIME
+			, CUST_REGT_NO
+			, PAY_CREDIT_TYPE
+			, PAY_CREDIT_IMG)
+		VALUES(
+			  (SELECT (MAX(id)+1) FROM SP_CUSTOMER_ORDER AS SP_ORDER)
+			, (SELECT (MAX(id)+1) FROM SP_CUSTOMER_ORDER AS SP_ORDER)
+			, #{ORDER_YEAR}
+			, #{ORDER_NO}
+			, #{CUST_ID}
+			, #{CUST_NM}
+			, #{CUST_TEL_NO}
+			, #{CUST_EMAIL}
+			, #{CUST_GENDER}
+			, #{SHIP_TO_ADDR}
+			, #{SHIP_TO_SIDO}
+			, #{SHIP_TO_SIDOCD}
+			, #{SHIP_TO_SIGUNGU}
+			, #{SHIP_TO_SIGUNGUCD}
+			, #{SHIP_TO_STREETCD}
+			, #{SHIP_TO_STREET}
+			, #{PRDT_CNTRY}
+			, #{PRDT_CNTRYCD}
+			, #{PRDT_CMPNY_NM}
+			, #{PRDT_NM}
+			, #{PRDT_BLOB}
+			, #{TRACK_NM}
+			, #{TRACK_IMG_SRC}
+			, #{TRACK_SITE}
+			, #{COST}
+			, #{DISC_COST}
+			, #{DISC}
+			, #{CNT}
+			, #{POINT_RATE}
+			, #{POINT}
+			, #{TRACK_DATE}
+			, #{TRACK_TIME}
+			, #{CUST_REGT_NO}
+			, #{PAY_CREDIT_TYPE}
+			, #{PAY_CREDIT_IMG})
+	</insert>
+
+	<update id="update" parameterType="Map">
+		UPDATE SP_CUSTOMER_ORDER
+		   SET SEQ = #{SEQ}
+				<if test="ORDER_YEAR != null and ORDER_YEAR != ''">
+				   , ORDER_YEAR = #{ORDER_YEAR}
+			  </if>
+			  <if test="ORDER_NO != null and ORDER_NO != ''">
+				   , ORDER_NO = #{ORDER_NO}
+			  </if>
+			  <if test="CUST_ID != null and CUST_ID != ''">
+				   , CUST_ID = #{CUST_ID}
+			  </if>
+			  <if test="CUST_NM != null and CUST_NM != ''">
+				   , CUST_NM = #{CUST_NM}
+			  </if>
+			  <if test="CUST_TEL_NO != null and CUST_TEL_NO != ''">
+				   , CUST_TEL_NO = #{CUST_TEL_NO}
+			  </if>
+			  <if test="CUST_EMAIL != null and CUST_EMAIL != ''">
+				   , CUST_EMAIL = #{CUST_EMAIL}
+			  </if>
+			  <if test="CUST_GENDER != null and CUST_GENDER != ''">
+				   , CUST_GENDER = #{CUST_GENDER}
+			  </if>
+			  <if test="SHIP_TO_ADDR != null and SHIP_TO_ADDR != ''">
+				   , SHIP_TO_ADDR = #{SHIP_TO_ADDR}
+			  </if>
+			  <if test="SHIP_TO_SIDO != null and SHIP_TO_SIDO != ''">
+				   , SHIP_TO_SIDO = #{SHIP_TO_SIDO}
+			  </if>
+			  <if test="SHIP_TO_SIDOCD != null and SHIP_TO_SIDOCD != ''">
+				   , SHIP_TO_SIDOCD = #{SHIP_TO_SIDOCD}
+			  </if>
+			  <if test="SHIP_TO_SIGUNGU != null and SHIP_TO_SIGUNGU != ''">
+				   , SHIP_TO_SIGUNGU = #{SHIP_TO_SIGUNGU}
+			  </if>
+			  <if test="SHIP_TO_SIGUNGUCD != null and SHIP_TO_SIGUNGUCD != ''">
+				   , SHIP_TO_SIGUNGUCD = #{SHIP_TO_SIGUNGUCD}
+			  </if>
+			  <if test="SHIP_TO_STREETCD != null and SHIP_TO_STREETCD != ''">
+				   , SHIP_TO_STREETCD = #{SHIP_TO_STREETCD}
+			  </if>
+			  <if test="SHIP_TO_STREET != null and SHIP_TO_STREET != ''">
+				   , SHIP_TO_STREET = #{SHIP_TO_STREET}
+			  </if>
+			  <if test="PRDT_CNTRY != null and PRDT_CNTRY != ''">
+				   , PRDT_CNTRY = #{PRDT_CNTRY}
+			  </if>
+			  <if test="PRDT_CNTRYCD != null and PRDT_CNTRYCD != ''">
+				   , PRDT_CNTRYCD = #{PRDT_CNTRYCD}
+			  </if>
+			  <if test="PRDT_CMPNY_NM != null and PRDT_CMPNY_NM != ''">
+				   , PRDT_CMPNY_NM = #{PRDT_CMPNY_NM}
+			  </if>
+			  <if test="PRDT_NM != null and PRDT_NM != ''">
+				   , PRDT_NM = #{PRDT_NM}
+			  </if>
+			  <if test="PRDT_BLOB != null and PRDT_BLOB != ''">
+				   , PRDT_BLOB = #{PRDT_BLOB}
+			  </if>
+			  <if test="TRACK_NM != null and TRACK_NM != ''">
+				   , TRACK_NM = #{TRACK_NM}
+			  </if>
+			  <if test="TRACK_IMG_SRC != null and TRACK_IMG_SRC != ''">
+				   , TRACK_IMG_SRC = #{TRACK_IMG_SRC}
+			  </if>
+			  <if test="TRACK_SITE != null and TRACK_SITE != ''">
+				   , TRACK_SITE = #{TRACK_SITE}
+			  </if>
+			  <if test="COST != null and COST != ''">
+				   , COST = #{COST}
+			  </if>
+			  <if test="DISC_COST != null and DISC_COST != ''">
+				   , DISC_COST = #{DISC_COST}
+			  </if>
+			  <if test="DISC != null and DISC != ''">
+				   , DISC = #{DISC}
+			  </if>
+			  <if test="CNT != null and CNT != ''">
+				   , CNT = #{CNT}
+			  </if>
+			  <if test="POINT_RATE != null and POINT_RATE != ''">
+				   , POINT_RATE = #{POINT_RATE}
+			  </if>
+			  <if test="POINT != null and POINT != ''">
+				   , POINT = #{POINT}
+			  </if>
+			  <if test="TRACK_DATE != null and TRACK_DATE != ''">
+				   , TRACK_DATE = #{TRACK_DATE}
+			  </if>
+			  <if test="TRACK_TIME != null and TRACK_TIME != ''">
+				   , TRACK_TIME = #{TRACK_TIME}
+			  </if>
+			  <if test="CUST_REGT_NO != null and CUST_REGT_NO != ''">
+				   , CUST_REGT_NO = #{CUST_REGT_NO}
+			  </if>
+			  <if test="PAY_CREDIT_TYPE != null and PAY_CREDIT_TYPE != ''">
+				   , PAY_CREDIT_TYPE = #{PAY_CREDIT_TYPE}
+			  </if>
+			  <if test="PAY_CREDIT_IMG != null and PAY_CREDIT_IMG != ''">
+				   , PAY_CREDIT_IMG = #{PAY_CREDIT_IMG}
+			  </if>
+		 WHERE id = #{id}
+	
+	</update>
+	
+	<resultMap id="CustomerBean" type="com.inswave.wrm.sample.beans.TempBean">
+		<result property="seq" column="SEQ" javaType="java.lang.Integer" />
+		<result property="custNm" column="CUST_NM" javaType="java.lang.String" />
+		<result property="custTelNo" column="CUST_TEL_NO" javaType="java.lang.String" />
+		<result property="custEmail" column="CUST_EMAIL" javaType="java.lang.String" />
+		<result property="prdtCmpnyNm" column="PRDT_CMPNY_NM" javaType="java.lang.String" />
+	</resultMap>
+	
+	<select id="selectBean" resultMap="CustomerBean" parameterType="com.inswave.wrm.sample.beans.UserBean">
+		SELECT id
+			 , SEQ
+			 , CUST_NM
+			 , CUST_TEL_NO
+			 , CUST_EMAIL
+			 , PRDT_CMPNY_NM
+		  FROM SP_CUSTOMER_ORDER
+		 WHERE 1=1 
+		 <if test="custNm != null and custNm != ''">
+		   AND CUST_NM LIKE concat('%',#{custNm},'%')
+		 </if>
+	</select>
+	
+	<delete id="deleteBean" parameterType="com.inswave.wrm.sample.beans.TempBean">
+		DELETE FROM SP_CUSTOMER_ORDER WHERE id = #{id}
+	</delete>
+	
+	<insert id="insertBean" parameterType="com.inswave.wrm.sample.beans.TempBean" >
+		INSERT INTO SP_CUSTOMER_ORDER
+			  (id
+			, SEQ
+			, CUST_NM
+			, CUST_TEL_NO
+			, CUST_EMAIL
+			, PRDT_CMPNY_NM)
+		VALUES(
+			  (SELECT (MAX(id)+1) FROM SP_CUSTOMER_ORDER AS SP_ORDER)
+			, (SELECT (MAX(id)+1) FROM SP_CUSTOMER_ORDER AS SP_ORDER)
+			, #{custNm}
+			, #{custTelNo}
+			, #{custEmail}
+			, #{prdtCmpnyNm})
+	</insert>
+
+	<update id="updateBean" parameterType="com.inswave.wrm.sample.beans.TempBean">
+		UPDATE SP_CUSTOMER_ORDER
+		   SET SEQ = #{seq}
+				<if test="custNm != null and custNm != ''">
+				   , CUST_NM = #{custNm}
+			  </if>
+			  <if test="custTelNo != null and custTelNo != ''">
+				   , CUST_TEL_NO = #{custTelNo}
+			  </if>
+			  <if test="custEmail != null and custEmail != ''">
+				   , CUST_EMAIL = #{custEmail}
+			  </if>
+			  <if test="prdtCmpnyNm != null and prdtCmpnyNm != ''">
+				   , PRDT_CMPNY_NM = #{prdtCmpnyNm}
+			  </if>
+		 WHERE id = #{id}
+	
+	</update>
+	
+	<select id="selectArray" resultType="Map" parameterType="Map" fetchSize="10000">
+		SELECT id
+			 , SEQ
+			 , CUST_NM
+			 , CUST_TEL_NO
+			 , CUST_EMAIL
+			 , PRDT_CMPNY_NM
+		  FROM SP_CUSTOMER_ORDER
+		 WHERE 1=1 
+		 <if test="CUST_NM != null and CUST_NM != ''">
+		   AND CUST_NM LIKE concat('%',#{CUST_NM},'%')
+		 </if>
+	</select>
+	
+</mapper>

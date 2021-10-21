@@ -1,0 +1,74 @@
+.w2pageList {
+}
+
+.w2pageList_table {
+	margin : 0px auto;
+	border-collapse : collapse;
+	table-layout : fixed;
+	height : 100%;
+	/*
+	width : 100%;
+	height : 100%;
+	*/
+}
+
+.w2pageList_col_prev {
+	width : 16px;
+	height : 11px;
+	background : url(uiplugin/pageList/images/b_prev.gif) no-repeat center center;
+	cursor : pointer;
+}
+
+.w2pageList_col_next {
+	width : 16px;
+	height : 11px;
+	background : url(uiplugin/pageList/images/b_next.gif) no-repeat center center;
+	cursor : pointer;
+}
+
+.w2pageList_col_prevPage {
+	width : 16px;
+	height : 11px;
+	background : url(uiplugin/pageList/images/b_first.gif) no-repeat center center;
+	cursor : pointer;
+}
+
+.w2pageList_col_nextPage {
+	width : 16px;
+	height : 11px;
+	background : url(uiplugin/pageList/images/b_end.gif) no-repeat center center;
+	cursor : pointer;
+}
+
+.w2pageList_col_label {
+	width : 25px;
+	text-align : center;
+	/*border : solid 1px green;*/
+	cursor : pointer;
+}
+
+.w2pageList_label {
+	color : blue;
+	cursor : pointer;
+	text-decoration: underline;
+	white-space : nowrap;
+}
+
+.w2pageList_label_over {
+/*	color : red;
+	white-space : nowrap;	*/
+}
+
+.w2pageList_label_selected {
+	color : red;
+	font-weight : bold;
+	text-decoration: none;
+	white-space : nowrap;
+}
+
+.w2pageList_delimiter {
+	width : 5px;
+	height : 15px;
+	text-align : center;
+/*	background : url(uiplugin/pageList/images/v_line.gif) no-repeat center center; */
+}

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_vertical_guides="" meta_horizontal_guides="">
+    	<w2:type>DEFAULT</w2:type>
+        <w2:buildDate/>
+        <xf:model>
+        	<xf:instance>
+        		<data xmlns="" />
+        	</xf:instance>
+        	<w2:dataCollection baseNode="map">
+        		<w2:dataMap baseNode="list" repeatNode="map" id="new_content" saveRemovedData="true">
+        			<w2:keyInfo>
+        				<w2:key id="con_title" name="제목" dataType="text"></w2:key>
+        				<w2:key id="con_txt" name="내용" dataType="text"></w2:key>
+        				<w2:key id="con_id" name="작성자" dataType="text"></w2:key>
+        				<w2:key id="con_password" name="비밀번호" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        	</w2:dataCollection>
+        	<w2:workflowCollection></w2:workflowCollection>
+        	<xf:submission id="new_con" ref="data:json,new_content" target="" action="/websViews/wswrite.do" method="post" mediatype="application/json"
+        		encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit=""
+        		ev:submitdone="scwin.new_con_submitdone" ev:submiterror="" abortTrigger="">
+        	</xf:submission>
+        </xf:model>
+        <script type="text/javascript" lazy="false"><![CDATA[
+        
+	scwin.onpageload = function() {
+		
+	};
+	
+	scwin.onpageunload = function() {
+		
+	};
+	
+	
+	scwin.trigger1_onclick = function(e) {
+		location.href='/websquare/websquare.html?w2xPath=/ui/board/boardList.xml';
+	};
+	
+	scwin.trigger2_onclick = function(e) {
+		var choice = confirm("작성내용을 버리고 리스트로 가시겠습니까?");
+			if(choice){
+				location.href='/websquare/websquare.html?w2xPath=/ui/board/boardList.xml';
+			}
+			else {
+				alert('취소되었습니다.');
+			}
+	};
+	
+	scwin.btn_trigger3_ondblclick = function(e) {
+		$p.executeSubmission("new_con");
+	};
+	
+	scwin.new_con_submitdone = function(e) {
+		location.href='/websquare/websquare.html?w2xPath=/ui/board/boardList.xml';
+	};
+	]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onpageunload="scwin.onpageunload">
+    	<w2:textbox id="" label="글 작성" style="width:70%;height: 23px;font-size:20px;"></w2:textbox>
+    	<xf:group tagname="table" style="position:static; top:87px; left:80px;width:70%; height:30; ;" id="" class="w2tb">
+    		<w2:attributes>
+    			<w2:summary></w2:summary>
+    		</w2:attributes>
+    		<xf:group tagname="caption"></xf:group>
+    		<xf:group tagname="colgroup">
+    			<xf:group tagname="col" style="width:5.35%;"></xf:group>
+    			<xf:group tagname="col" style="width:50.00%"></xf:group>
+    		</xf:group>
+    		<xf:group tagname="tr" style="">
+    			<xf:group tagname="th" style=";width:0%;" class="w2tb_th">
+    				제목
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group tagname="td" style=";width:70%;" class="w2tb_td">
+    				<xf:input adjustMaxLength="false" id="" style="position:static;top:64px;left:143px;width:98.86%;height:21px;outline-style:hidden;border:0;" ref="data:new_content.con_title" placeholder="제목 입력"></xf:input>
+
+    			</xf:group>
+    		</xf:group>
+    		<xf:group tagname="tr" style="">
+    			<xf:group tagname="th" style=";height:200px;width:0%;" class="w2tb_th">
+    				내용
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group tagname="td" style=";height:200px;width:70%;" class="w2tb_td">
+    				<xf:textarea id="" style="width:99.24%;height:191px;outline-style:;border:0;" ref="data:new_content.con_txt" placeholder="내용 입력"></xf:textarea>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+
+    	<table summary="" style="position:static; top:356px; left:93px;width:70%; height:30; ;" id=""></table>
+    <xf:group id=""><xf:group tagname="table" style="position:static; top:346px; left:287px;width:70%; height:30; ;" id="" class="w2tb">
+    		<w2:attributes>
+    			<w2:summary></w2:summary>
+    		</w2:attributes>
+    		<xf:group tagname="caption"></xf:group>
+    		<xf:group tagname="colgroup">
+    			<xf:group tagname="col" style="width:15.59%;"></xf:group>
+    			<xf:group tagname="col" style="width:25.00%"></xf:group>
+    			<xf:group tagname="col" style="width:14.18%;"></xf:group>
+    			<xf:group tagname="col" style="width:27.01%;"></xf:group>
+    		</xf:group>
+    		<xf:group tagname="tr" style="">
+    			<xf:group tagname="th" style="" class="w2tb_th">
+    				ID
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group tagname="td" style="" class="w2tb_td">
+    				<xf:input ref="data:new_content.con_id" adjustMaxLength="false" style="width:134px;height:21px;border:0;" id="" placeholder="ID 입력"></xf:input>
+    			</xf:group>
+    			<xf:group tagname="th" style="" class="w2tb_th">
+    				PW
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group tagname="td" style="" class="w2tb_td">
+    				<xf:secret ref="data:new_content.con_password" style="position:static;top:296px;left:311px;width:143px;height:21px;border:0;" id="" placeholder="PW입력"></xf:secret>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group></xf:group><xf:group id="" style="float:right;"><xf:trigger style="width: 80px;height: 23px;" id="trigger2" type="button" ev:onclick="scwin.trigger2_onclick">
+    		<xf:label><![CDATA[작성취소]]></xf:label>
+    	</xf:trigger><xf:trigger style="width: 80px;height: 23px;" id="btn_trigger3" type="button" ev:ondblclick="scwin.btn_trigger3_ondblclick">
+    		<xf:label><![CDATA[등록]]></xf:label>
+    	</xf:trigger></xf:group></body>
+</html>

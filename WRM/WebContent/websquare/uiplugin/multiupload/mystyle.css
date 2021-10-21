@@ -1,0 +1,32 @@
+
+
+mx.controls.DataGrid {
+   color:#383d41;
+   rollOverColor: #edf3fb;
+   selectionColor: #fcf8e3;
+   headerColors: #fcfbfc,#efefef;
+   borderColor: #b3b3b3;
+   alternatingItemColors: #FFFFFF,#f5f5f5;
+   borderThickness: 1;
+   headerStyleName: "mydatagridheaderstyle";
+}
+
+.mydatagridheaderstyle {
+   fontWeight: bold;
+   letterSpacing: 0;
+   color: #383d41;
+}
+
+mx.controls.Button {
+   borderColor: #c9c9c9;
+   fillAlphas: 1.0,1.0;
+   fillColors: #fafafa,#eeeeee;
+   fontSize: 12;
+   color: #383d41;
+   cornerRadius:1;
+}
+mx.controls.ProgressBar {
+   barColor: #1DA8FF;
+   color: "#ffffff"; 
+   borderColor:"#F26917";
+}

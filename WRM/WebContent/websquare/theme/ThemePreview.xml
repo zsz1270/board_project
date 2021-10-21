@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+            <w2:dataCollection>
+            </w2:dataCollection>
+        </xf:model>
+        <script type="javascript"><![CDATA[ 
+        	grid1.insertRow(0);
+        	grid1.insertRow(0);
+        	grid1.insertRow(0);
+        
+        ]]></script>
+    </head>
+    <body>
+    	<w2:floatingLayer id="floatingLayer1" title="Title" dragAlwaysView="false"
+    		style="position: absolute ;left:11px;top:12px;width:322px;height:269px;" bodyComplex="true">
+    		<w2:inputCalendar renderType="component" weekStartsOn="0" id="inputCalendar1"
+    			style="position: absolute ;left:4px;top:13px;width: 140px;height: 23px;" focusOnDateSelect="false" footerDiv="false"
+    			calendarValueType="yearMonthDate">
+    		</w2:inputCalendar>
+    		<w2:tabControl id="tabControl1" style="position: absolute ;left:5px;top:44px;width:289px;height:175px;"
+    			confirmTrueAction='"exist"' useConfirmMessage="false" confirmFalseAction='"new"' useTabKeyOnly="true" alwaysDraw="true">
+    			<w2:tabs id="tabs1" style="width:70px;height:30px;" label="tab1" disabled="false"></w2:tabs>
+    			<w2:tabs id="tabs2" style="width:70px;height:30px" label="tab2" disabled="false"></w2:tabs>
+    			<w2:content id="content1" style="height:145px;overflow:hidden;" alwaysDraw="true">
+    				<w2:slider id="slider1" style="position:relative;width: 100px;height: 28px;margin-top:20px;left:8px;top:-14px;"
+    					setBackground="true" class="">
+    				</w2:slider>
+    				<w2:grid id="grid1" baseNode="vector" style="position: absolute ;left:5px;top:38px;width:260px;height:105px;"
+    					repeatNode="data/INFO">
+    					<w2:header id="header1" style="">
+    						<w2:row id="row1" style="">
+    							<w2:column id="column3" style="height:20px;" width="60" inputType="text" value="ColA"></w2:column>
+    							<w2:column id="column5" style="height:20px;" width="60" inputType="text" value="ColB"></w2:column>
+    							<w2:column id="column7" style="height:20px;" width="60" inputType="text" value="ColC"></w2:column>
+    							<w2:column id="column1" style="height:20px;" width="60" inputType="text" value="ColD"></w2:column>
+    						</w2:row>
+    					</w2:header>
+    					<w2:gBody id="gBody1" style="">
+    						<w2:row id="row2" style="">
+    							<w2:column id="column4" style="height:20px" width="70" inputType="text" value="Data"></w2:column>
+    							<w2:column id="column6" style="height:20px" width="70" inputType="text" value="Data"></w2:column>
+    							<w2:column id="column8" style="height:20px" width="70" inputType="text" value="Data"></w2:column>
+    							<w2:column id="column2" style="height:20px" width="70" inputType="text" value="Data"></w2:column>
+    						</w2:row>
+    					</w2:gBody>
+    				</w2:grid>
+    			</w2:content>
+    			<w2:content id="content2" style="height:145px;" alwaysDraw="true"></w2:content>
+    		</w2:tabControl>
+    	</w2:floatingLayer>
+    	<xf:trigger disabled="true" id="trigger2" style="position:absolute;height: 23px;width: 148px;left:170px;top:55px;" type="image">
+    		<xf:label>trigger</xf:label>
+    	</xf:trigger>
+    </body>
+</html>

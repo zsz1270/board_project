@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Log</title>
+    <style type="text/css">
+        html        { height:100%;overflow: hidden; }
+		body		{ background-color:#F6F4F1; margin-top:0pt; margin-left:0pt; margin-right:0pt;height:100%; overflow: auto; }
+		#title 		{ margin-left:5pt;  padding-top:5pt; height:22pt; color:#B3550A; font-size:9pt; line-height:14pt; visibility:visible; overflow: auto; }
+		#main 		{ margin-left:0pt; text-align:center; visibility:visible; }
+		#sub 		{ text-align:center; padding-top:7px; visibility:visible }
+    </style>
+    <script type="text/javascript" src="htmlCommon.js"></script>
+	<script type="text/javascript">
+		try {
+		    var domain = getParameter("domain");  
+		    if(domain) {
+		        document.domain = domain;   
+		    }
+		} catch (e) {
+			opener.WebSquare.exception.printStackTrace(e);
+		}
+		
+		var bLock = false;
+		var bPause = true;
+		var logID;
+		var beforeStr = null;
+		window.onload = function () {
+			setTimeout(doInit, 300);
+		};
+		
+		window.onresize = function() {
+			var height = (document.documentElement.clientHeight - 85);   //-title, sub
+			if( height < 200 ) {
+				height = 200;
+			}
+			document.getElementById("main").style.height = height + "px";
+		};
+
+		var isIE = navigator.appName.match(/\Explorer/i)!= null;
+		
+		function doInit() {
+			makeTitle();
+			init();
+
+			var height = (document.documentElement.clientHeight - 85);   //-title, sub
+			if( height < 200 ) {
+				height = 200;
+			}
+			document.getElementById("main").style.height = height + "px";
+		}
+		
+		
+		function updateLog() {
+			init();
+			if( !bPause ) {
+				logID = window.setTimeout("updateLog();", 1000);
+			}
+		}
+		
+		function pause() {
+			if( bPause ) {
+				bPause = false;
+				updateLog();
+			} else {
+				bPause = true;
+			}
+			makeTitle();
+		}
+		
+		function makeTitle() {
+			var str = "";
+			if( bPause ) {
+				str = "<img src='images/bullet_info.gif' style='vertical-align:middle; margin-right:5px' /><b>Log Viewer </b> <font color='red'> Manual Refresh </font>"
+			} else {
+				str = "<img src='images/bullet_info.gif' style='vertical-align:middle; margin-right:5px' /><b>Log Viewer </b> <font color='red'> Auto Refresh </font>"
+			}
+			if( bLock ) {
+				str += " /  <font color='blue'>Scroll Lock</font>"
+			} else {
+				str +=  " / <font color='blue'>Scroll Release</font>"
+			}
+			document.getElementById("title").innerHTML = str;
+		}
+		
+		function init() {
+			var str = opener.WebSquare.logger.getLog();
+			
+			if( str != beforeStr ) {
+				var layerY = 245;
+				document.getElementById("main").value =  str;
+				beforeStr = str;
+				if( !bLock ) {
+					document.getElementById("main").scrollTop = document.getElementById("main").scrollHeight;
+				}
+			}
+		}
+		
+		function logClear() {
+			opener.WebSquare.logger.clearLog();
+			init();
+		}
+		
+		function scrollLock( tag ) {
+			if ( bLock ) {
+				bLock = false;
+			} else {
+				bLock = true;
+			}
+			makeTitle();
+		}
+</script>
+</head>
+<body>
+	<div id="title"></div>
+	<div style="text-align:center"><textArea id="main" style='line-height:20px; height:400px; width:96%; border:4px #d7d7d7; border-style:solid; text-align:left;font-size:9pt;font-family:monospace' readOnly="true"></textArea></div>
+	<div id="sub">
+		<input type="button" id="closeBtn" class="Button1" value=" close " onClick="self.close()" />
+		<input type="button" id="readBtn"  class="Button1" value=" read " onClick="updateLog()" />
+		<input type="button" id="clearBtn"  class="Button1" value=" clear " onClick="logClear()" />
+		<input type="button" id="prBtn"  class="Button1" value=" pause/resume " onClick="pause()" />
+		<input type="button" id="scrollBtn"  class="Button1" value=" scroll " onclick="scrollLock( this )" />
+    </div>
+</body>
+</html>

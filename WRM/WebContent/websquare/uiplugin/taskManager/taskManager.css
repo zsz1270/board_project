@@ -1,0 +1,37 @@
+.w2taskManager {
+	background-color : #eeeeee;
+}
+
+.w2taskManager_title {
+	position : relative;
+	width : 100px;
+	height : 100%;
+	display : inline;
+	border : solid 1px blue;
+}
+
+.w2taskManager_bar {
+	position : relative;
+	width : 300px;
+	display : inline;
+}
+
+.w2taskManager_bar_table {
+	position : relative;
+	table-layout : fixed;
+	display : inline;
+	border-collapse : collapse; 
+}
+
+.w2taskManager_bar_col {
+	width : 50px;
+}
+
+.w2taskManager_task {
+	border : solid 1px red;
+}
+
+.w2taskManager_task_over {
+	background-color : yellow;
+	cursor : pointer;
+}

@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="HM003S01" meta_programName="개인 정보 입력" meta_programDesc="개인 정보를 입력하는 화면" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:aliasDataMap id="adm_memberBasic" scope="../dma_memberBasic" studioSrc="/ui/HM/HM003M01.xml" />
+			</w2:dataCollection>
+			<w2:workflowCollection>
+			</w2:workflowCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+		
+	scwin.onpageload = function() {
+		var codeOptions = [ { code : "00004", compID : "sbx_Religion" },
+							{ code : "00013", compID : "sbx_SchoolCareer" },
+							{ code : "00022", compID : "sbx_HouseKind" } ];
+		com.data.setCommonCode(codeOptions);
+	};
+	
+	/**
+	 * 우편번호를 검색할 수 있는 팝업창을 오픈한다.
+	 */
+	scwin.btn_searchZipCode_onclick = function(e) {
+		var rowJSON = {};
+		var data = { data : rowJSON, callbackFn : "scwin.searchZipCodeCallback" };
+		var opt = { id : "H3P03", 
+					popupName : "우편번호 검색", 
+					width : "750", height : "582" };
+		com.win.openPopup("/ui/HM/HM003P03.xml", opt, data);
+	};
+	
+	scwin.searchZipCodeCallback = function(returnValue) {
+		var selectedZipCode = returnValue;
+		adm_memberBasic.set("ZIP_CD", selectedZipCode.ZIP_CD);
+		adm_memberBasic.set("ADDRESS1", selectedZipCode.ADDRESS);
+		ibx_address2.focus();
+	};
+	
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    	<xf:group class="tbbox" id="grp_memberBasic2" style="">
+    		<xf:group adaptive="layout" adaptiveThreshold="800" class="w2tb tb" id="table2" style="" tagname="table">
+    			<w2:attributes>
+    				<w2:summary></w2:summary>
+    			</w2:attributes>
+    			<xf:group tagname="caption"></xf:group>
+    			<xf:group tagname="colgroup">
+    				<xf:group style="width:100px;" tagname="col"></xf:group>
+    				<xf:group style="" tagname="col"></xf:group>
+    				<xf:group style="width:80px;" tagname="col"></xf:group>
+    				<xf:group style="" tagname="col"></xf:group>
+    				<xf:group style="width:90px;" tagname="col"></xf:group>
+    				<xf:group style="" tagname="col"></xf:group>
+    			</xf:group>
+    			<xf:group style="" tagname="tr">
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="자택전화" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:group class="flex" id="">
+    						<xf:input allowChar="0-9" id="ibx_homePhone1" maxlength="3" ref="data:adm_memberBasic.HOME_PHONE1" style=""></xf:input>
+    						<w2:span id="span6" label="-" style="margin-top:3px;"></w2:span>
+    						<xf:input allowChar="0-9" id="ibx_homePhone2" maxlength="4" ref="data:adm_memberBasic.HOME_PHONE2" style=""></xf:input>
+    						<w2:span id="span7" label="-" style=""></w2:span>
+    						<xf:input allowChar="0-9" id="ibx_homePhone3" maxlength="4" ref="data:adm_memberBasic.HOME_PHONE3" style=""></xf:input>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="종교" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:select1 allOption="false" appearance="minimal" chooseOption="false" direction="auto" disabled="false"
+    						disabledClass="w2selectbox_disabled" displayMode="label" id="sbx_Religion" ref="data:adm_memberBasic.RELIGION_CD"
+    						renderType="native" style="" submenuSize="auto" textAlign="left">
+    					</xf:select1>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="주거형태" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:select1 allOption="false" appearance="minimal" chooseOption="false" direction="auto" disabled="false"
+    						disabledClass="w2selectbox_disabled" displayMode="label" id="sbx_HouseKind" ref="data:adm_memberBasic.HOUSE_KIND_CD"
+    						renderType="native" style="" submenuSize="auto" textAlign="left">
+    					</xf:select1>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group tagname="tr">
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="최종학교" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:input id="ibx_lastSchoolNm" ref="data:adm_memberBasic.LAST_SCHOOL_NM" style=""></xf:input>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="전공" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:input id="ibx_majorNm" ref="data:adm_memberBasic.MAJOR_NM" style=""></xf:input>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="입사학력" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:select1 allOption="false" appearance="minimal" chooseOption="false" direction="auto" disabled="false"
+    						disabledClass="w2selectbox_disabled" displayMode="label" id="sbx_SchoolCareer" ref="data:adm_memberBasic.SCHOOL_CAREER_CD"
+    						renderType="native" style="" submenuSize="auto" textAlign="left">
+    					</xf:select1>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group style="" tagname="tr">
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="보훈대상여부" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:select1 allOption="" appearance="minimal" chooseOption="" direction="auto" disabled="false"
+    						disabledClass="w2selectbox_disabled" displayMode="label" id="sbx_IsVeteranWelfare" ref="data:adm_memberBasic.IS_VETERAN_WELFARE"
+    						renderType="native" style="" submenuSize="auto" textAlign="left" tabIndex="0">
+    						<xf:choices>
+    							<xf:item>
+    								<xf:label><![CDATA[예]]></xf:label>
+    								<xf:value><![CDATA[Y]]></xf:value>
+    							</xf:item>
+    							<xf:item>
+    								<xf:label><![CDATA[아니오]]></xf:label>
+    								<xf:value><![CDATA[N]]></xf:value>
+    							</xf:item>
+    						</xf:choices>
+    					</xf:select1>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="군필여부" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:select1 allOption="" appearance="minimal" chooseOption="" direction="auto" disabled="false"
+    						disabledClass="w2selectbox_disabled" displayMode="label" id="sbx_IsMilitaryService" ref="data:adm_memberBasic.IS_MILITARY_SERVICE"
+    						renderType="native" style="" submenuSize="auto" textAlign="left" tabIndex="0">
+    						<xf:choices>
+    							<xf:item>
+    								<xf:label><![CDATA[예]]></xf:label>
+    								<xf:value><![CDATA[Y]]></xf:value>
+    							</xf:item>
+    							<xf:item>
+    								<xf:label><![CDATA[아니오]]></xf:label>
+    								<xf:value><![CDATA[N]]></xf:value>
+    							</xf:item>
+    						</xf:choices>
+    					</xf:select1>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="휴퇴직사휴" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:input id="ibx_retireReason" ref="data:adm_memberBasic.RETIRE_REASON" style=""></xf:input>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group tagname="tr">
+    				<xf:group class="w2tb_th req" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="생년월일" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:group class="flex" id="">
+    						<w2:inputCalendar calendarValueType="yearMonthDate" class="req" focusOnDateSelect="false" footerDiv="false"
+    							id="cal_birthDate" mandatory="true" minYear="" ref="data:adm_memberBasic.BIRTH_DATE" renderDiv="true" renderType="component"
+    							style="width:120px;" summary="" weekStartsOn="0">
+    						</w2:inputCalendar>
+    						<xf:select1 allOption="" appearance="minimal" chooseOption="" class="req" direction="auto" disabled="false"
+    							disabledClass="w2selectbox_disabled" displayMode="label" id="sbx_IsLunar" mandatory="true" ref="data:adm_memberBasic.IS_LUNAR"
+    							renderType="native" style="" submenuSize="auto" textAlign="left">
+    							<xf:choices>
+    								<xf:item>
+    									<xf:label><![CDATA[양]]></xf:label>
+    									<xf:value><![CDATA[1]]></xf:value>
+    								</xf:item>
+    								<xf:item>
+    									<xf:label><![CDATA[음]]></xf:label>
+    									<xf:value><![CDATA[2]]></xf:value>
+    								</xf:item>
+    							</xf:choices>
+    						</xf:select1>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group class="w2tb_th req" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="결혼여부" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:select1 allOption="" appearance="minimal" chooseOption="" class="req" direction="auto" disabled="false"
+    						disabledClass="w2selectbox_disabled" displayMode="label" id="sbx_IsMarriage" mandatory="true"
+    						ref="data:adm_memberBasic.IS_MARRIAGE" renderType="native" style="" submenuSize="auto" textAlign="left">
+    						<xf:choices>
+    							<xf:item>
+    								<xf:label><![CDATA[예]]></xf:label>
+    								<xf:value><![CDATA[Y]]></xf:value>
+    							</xf:item>
+    							<xf:item>
+    								<xf:label><![CDATA[아니오]]></xf:label>
+    								<xf:value><![CDATA[N]]></xf:value>
+    							</xf:item>
+    						</xf:choices>
+    					</xf:select1>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="취미" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:input id="ibx_hoppy" ref="data:adm_memberBasic.HOPPY" style=""></xf:input>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group tagname="tr">
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="특기" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<xf:input id="ibx_talent" ref="data:adm_memberBasic.TALENT" style=""></xf:input>
+    				</xf:group>
+    				<xf:group class="w2tb_th" style="" tagname="th">
+    					<w2:attributes>
+    						<w2:scope>row</w2:scope>
+    					</w2:attributes>
+    					<w2:textbox class="req" id="" label="주소" ref="" style="" userData2=""></w2:textbox>
+    				</xf:group>
+    				<xf:group class="w2tb_td" style="" tagname="td">
+    					<w2:attributes>
+    						<w2:colspan>3</w2:colspan>
+    						<w2:rowspan>1</w2:rowspan>
+    					</w2:attributes>
+    					<xf:group class="flex" id="">
+    						<xf:group adaptiveThreshold="" class="ipt_search" id="" style="">
+    							<xf:input adjustMaxLength="false" id="ibx_zipCd" style="" ref="data:adm_memberBasic.ZIP_CD" readOnly="" displayFormat="###-###"></xf:input>
+    							<w2:anchor class="btn_cm sch" clickEventElement="" id="btn_searchZipCode" name="" outerDiv="false" ref="" style="" ev:onclick="scwin.btn_searchZipCode_onclick">
+    								<xf:label><![CDATA[검색]]></xf:label>
+    							</w2:anchor>
+    						</xf:group>
+    						<xf:input id="ibx_address1" ref="data:adm_memberBasic.ADDRESS1" style="" readOnlyClass="" readOnly="false"></xf:input>
+    						<xf:input id="ibx_address2" ref="data:adm_memberBasic.ADDRESS2" style=""></xf:input>
+    					</xf:group>
+    				</xf:group>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+	</body>
+</html>

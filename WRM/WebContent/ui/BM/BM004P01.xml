@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="BM004P01" meta_programName="메뉴별 프로그램 조회 팝업" meta_programDesc="메뉴별 프로그램 조회 팝업" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList id="dlt_program" baseNode="list" style="" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="chk" name="선택" dataType="text"></w2:column>
+						<w2:column id="PROGRAM_GROUP_CD" name="프로그램구분코드" dataType="text"></w2:column>
+						<w2:column id="PROGRAM_GROUP_NM" name="프로그램구분명" dataType="text"></w2:column>
+						<w2:column id="PROGRAM_CD" name="프로그램코드" dataType="text"></w2:column>
+						<w2:column id="PROGRAM_NM" name="프로그램명" dataType="text"></w2:column>
+						<w2:column id="SRC_PATH" name="소스경로" dataType="text"></w2:column>
+						<w2:column id="NOTE" name="비고" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<w2:key id="PROGRAM_GROUP_CD" name="프로그램구분" dataType="text"></w2:key>
+						<w2:key id="PROGRAM" name="프로그램" dataType="text"></w2:key>
+						<w2:key id="IS_USE" name="사용여부" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection>
+			</w2:workflowCollection>
+			<xf:submission id="sbm_program" ref='data:json,dma_search' target='data:json,dlt_program'
+				action="/program/searchProgram" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler=""
+				customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="" ev:submiterror="" abortTrigger="">
+			</xf:submission>			
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	/**
+	  * 초기 스크립트 수행 함수 정의
+	  */
+	scwin.onpageload = function() {
+		scwin.param = com.data.getParameter();
+	
+		dma_search.set("PROGRAM" , scwin.param.program);
+		dma_search.set("IS_USE" , "Y");
+		scwin.closeCallbackFncName = scwin.param.callbackFn;
+		com.win.setEnterKeyEvent(tbl_search, scwin.btn_search_onclick);
+		scwin.btn_search_onclick();
+	};
+		
+	/**
+	 * 프로그램 목록을 조회한다.
+	 */			
+	scwin.btn_search_onclick = function() {
+		com.sbm.execute(sbm_program);
+	};
+	
+	/**
+	 * 선택된 프로그램을 반환한다.
+	 */
+	scwin.btn_confirm_onclick = function() {
+		var data = grd_program.getCheckedJSON("chk");
+		if (data.length == 1) {
+			com.win.closePopup(scwin.closeCallbackFncName, data[0]);
+		}
+	};
+	
+	/**
+	 * Double Click한 Row의 프로그램을 반환한다.
+	 */
+	scwin.grd_program_oncelldblclick = function(row,col) {
+		var data = dlt_program.getRowJSON(grd_program.getFocusedRowIndex());
+		com.win.closePopup(scwin.closeCallbackFncName, data);
+	};
+		
+	/**
+	 * 프로그램 선택을 취소한다.
+	 */
+	scwin.btn_cancel_onclick = function() {
+		com.win.closePopup();
+	};
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group id="" class="pop_contents">
+			<xf:group class="shbox" id="tbl_search" style="">
+				<xf:group class="shbox_inner" id="" style="">
+					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
+						<w2:attributes>
+							<w2:summary></w2:summary>
+						</w2:attributes>
+						<xf:group tagname="colgroup">
+							<xf:group tagname="col" style="width:80px;"></xf:group>
+							<xf:group style="" tagname="col"></xf:group>
+						</xf:group>
+						<xf:group style="" tagname="tr">
+							<xf:group tagname="th" class="w2tb_th">
+								<w2:attributes></w2:attributes>
+								<w2:textbox class="" id="" label="프로그램" style=""></w2:textbox>
+							</xf:group>
+							<xf:group tagname="td" class="w2tb_td">
+								<w2:attributes></w2:attributes>
+								<xf:input class="" id="ibx_program" placeholder="" style="width:100%;" ref="data:dma_search.PROGRAM"></xf:input>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group class="btn_shbox" id="" style="">
+					<xf:trigger class="btn_cm sch" disabled="" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
+						<xf:label><![CDATA[조회]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="allColumn" autoFitMinWidth="787" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw"
+					dataList="data:dlt_program" defaultCellHeight="37" id="grd_program"
+					rowStatusHeaderValue="상태" rowStatusVisible="false" rowStatusWidth="30" scrollByColumn="false" scrollByColumnAdaptive="false" 
+					style="height:241px;" visibleRowNum="5" ev:onrowindexchange="scwin.grd_program_onrowindexchange" ev:oncelldblclick="scwin.grd_program_oncelldblclick">
+					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
+					<w2:header id="header1" style="">
+						<w2:row id="row1" style="">
+							<w2:column blockSelect="false" checkboxLabel="선택" displayMode="label" fixColumnWidth="true" id="column48" inputType="text"
+								removeBorderStyle="false" style="height:44px" value="선택" width="50">
+							</w2:column>
+							<w2:column blockSelect="false" class="" displayMode="label" id="column18" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="프로그램구분명" width="88">
+							</w2:column>
+							<w2:column blockSelect="false" class="" displayMode="label" id="column17" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="프로그램코드" width="95">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column16" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="프로그램명" width="118">
+							</w2:column>
+							<w2:column removeBorderStyle="false" width="169" inputType="text" style="height:44px" id="column49" value="소스경로"
+								blockSelect="false" displayMode="label">
+							</w2:column>
+							<w2:column removeBorderStyle="false" width="107" inputType="text" style="height:44px" id="column51" value="비고"
+								blockSelect="false" displayMode="label">
+							</w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody1" style="">
+						<w2:row id="row2" style="">
+							<w2:column blockSelect="false" checkboxLabel="선택" displayMode="label" id="chk" inputType="radio" removeBorderStyle="false"
+								style="height:38px" value="" width="50" radioLabel="선택">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="PROGRAM_GROUP_NM" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="88" readOnly="true">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="PROGRAM_CD" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="95" readOnly="true">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="PROGRAM_NM" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="118" readOnly="true">
+							</w2:column>
+							<w2:column removeBorderStyle="false" width="169" inputType="text" style="height:38px" id="SRC_PATH" value=""
+								blockSelect="false" displayMode="label" readOnly="true">
+							</w2:column>
+							<w2:column removeBorderStyle="false" width="107" inputType="text" style="height:38px" id="NOTE" value=""
+								blockSelect="false" displayMode="label" readOnly="true">
+							</w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+			</xf:group>
+			<xf:group class="btnbox" id="" style="">
+				<xf:group class="fr" id="">
+					<xf:trigger class="btn_cm" id="btn_confirm" style="" type="button" nextTabID="" ev:onclick="scwin.btn_confirm_onclick">
+						<xf:label><![CDATA[확인]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm" id="btn_cancel" style="" type="button" ev:onclick="scwin.btn_cancel_onclick">
+						<xf:label><![CDATA[취소]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+
+	</body>
+</html>

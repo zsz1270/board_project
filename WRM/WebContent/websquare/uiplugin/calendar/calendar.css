@@ -1,0 +1,550 @@
+.w2calendar {
+	background-color : #ffffff;
+	border : solid 2px #e0e0e0;
+}
+
+.w2calendar_wrap {
+	border : solid 1px #9db0c1;
+}
+
+.w2calendar_header {
+	height : 28px;
+}
+
+.w2calendar_content {
+}
+
+.w2calendar_content_table {
+	margin-top : 2px;
+	width : 100%;
+	table-layout : fixed;
+	border-collapse : collapse;
+	font-size : 12px; 
+	cursor : pointer;
+}
+
+.w2calendar_footer {
+	font-size : 12px;
+	margin-top : 2px;
+	height : 22px;
+}
+
+ .w2calendar_go_today {
+	position : relative;
+	width : 36px;
+	height : 16px;
+	background-image : url(uiplugin/calendar/images/b_date.gif);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+ .w2calendar_go_today_over {
+	background-image : url(uiplugin/calendar/images/b_date_on.gif);
+}
+ .w2calendar_footer_date {
+	/* border : solid 1px #cccccc; */
+	color : #666666;
+}
+ .w2calendar_selectbox_year {
+	position : absolute;
+	left : 38px;
+	top : 4px;
+	width : 65px;
+	height : 22px;
+}
+ .w2calendar_selectbox_month {
+	position : absolute;
+	left : 104px;
+	top : 4px;
+	width : 50px;
+	height : 22px;
+}
+ .w2calendar_header_last_year {
+	position : absolute;
+	left : 8px;
+	top : 4px;
+	width : 15px;
+	height : 22px;
+	cursor : pointer;
+	background-image : url(uiplugin/calendar/images/year_last.gif);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+ .w2calendar_header_next_year {
+	position : absolute;
+	left : 170px;
+	top : 4px;
+	width : 15px;
+	height : 22px;
+	cursor : pointer;
+	background-image : url(uiplugin/calendar/images/year_next.gif);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+ .w2calendar_header_last_month {
+	position : absolute;
+	left : 23px;
+	top : 4px;
+	width : 15px;
+	height : 22px;
+	cursor : pointer;
+	background-image : url(uiplugin/calendar/images/month_last.gif);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+ .w2calendar_header_next_month {
+	position : absolute;
+	left : 155px;
+	top : 4px;
+	width : 15px;
+	height : 22px;
+	cursor : pointer;
+	background-image : url(uiplugin/calendar/images/month_next.gif);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+ .w2calendar_header_btn_ok {
+	position : absolute;
+	left : 190px;
+	top : 4px;
+	width : 17px;
+	height : 22px;
+	cursor : pointer;
+	background-image : url(uiplugin/calendar/images/btn_ok.gif);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+ .w2calendar_header_btn_close {
+	position : absolute;
+	left : 210px;
+	top : 4px;
+	width : 17px;
+	height : 22px;
+	cursor : pointer;
+	background-image : url(uiplugin/calendar/images/btn_close.gif);
+	background-position : center center;
+	background-repeat : no-repeat;
+}
+
+.w2calendar_col_day .w2calendar_day {
+	width : 100%;
+	height : 100%;
+}
+
+.w2calendar_col_date {
+	text-align : center;
+	vertical-align : middle;
+}
+
+/* -------------------classYearMonth---------------------*/
+
+.w2calendar_classYearMonth .w2calendar_content {
+	display : none;
+}
+
+/* -------------------class1---------------------*/
+
+.w2calendar_class1 .w2calendar_col_day {
+	height : 18px;
+	text-align : center;
+	font-size : 12px;
+	font-weight : bold;	color : #004080;
+	background-color : #cce5f5;
+
+}
+
+.w2calendar_class1 .w2calendar_col_day .w2calendar_day0 {
+	background : url(uiplugin/calendar/images/day_sun.gif) center center no-repeat;
+}
+
+.w2calendar_class1 .w2calendar_col_day .w2calendar_day1 {
+	background : url(uiplugin/calendar/images/day_mon.gif) center center no-repeat;
+}
+
+.w2calendar_class1 .w2calendar_col_day .w2calendar_day2 {
+	background : url(uiplugin/calendar/images/day_tue.gif) center center no-repeat;
+}
+
+.w2calendar_class1 .w2calendar_col_day .w2calendar_day3 {
+	background : url(uiplugin/calendar/images/day_wed.gif) center center no-repeat;
+}
+
+.w2calendar_class1 .w2calendar_col_day .w2calendar_day4 {
+	background : url(uiplugin/calendar/images/day_thu.gif) center center no-repeat;
+}
+
+.w2calendar_class1 .w2calendar_col_day .w2calendar_day5 {
+	background : url(uiplugin/calendar/images/day_fri.gif) center center no-repeat;
+}
+
+.w2calendar_class1 .w2calendar_col_day .w2calendar_day6 {
+	background : url(uiplugin/calendar/images/day_sat.gif) center center no-repeat;
+}
+
+.w2calendar_class1 .w2calendar_col_date {
+	background-color : #cce5f5;
+	height : 18px;
+}
+
+.w2calendar_class1 .w2calendar_date_on {
+	text-align : center;
+}
+
+.w2calendar_class1 .w2calendar_date_off {
+	text-align : center;
+	color : #ffffff;
+}
+
+.w2calendar_class1 .w2calendar_date_over {
+	background-color : #5f8ade;
+	color : #ffffff;
+}
+
+.w2calendar_class1 .w2calendar_selected {
+	background-color : #5f8ade;
+	color : #ffffff;
+}
+
+/* sunday */
+.w2calendar_class1 .w2calendar_day_0 {
+	font-weight : bold;
+	color : blue;
+}
+
+/* saturday */
+.w2calendar_class1 .w2calendar_day_1 {
+	font-weight : bold;
+	color : red;
+}
+
+
+
+/* -------------------class2---------------------*/
+
+.w2calendar_class2 .w2calendar_col_day {
+	height : 18px;
+	text-align : center;
+	font-size : 12px;
+	font-weight : bold;
+	color : #004080;
+}
+
+.w2calendar_class2 .w2calendar_col_day .w2calendar_day0 {
+	background : url(uiplugin/calendar/images/day_sun2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_col_day .w2calendar_day1 {
+	background : url(uiplugin/calendar/images/day_mon2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_col_day .w2calendar_day2 {
+	background : url(uiplugin/calendar/images/day_tue2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_col_day .w2calendar_day3 {
+	background : url(uiplugin/calendar/images/day_wed2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_col_day .w2calendar_day4 {
+	background : url(uiplugin/calendar/images/day_thu2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_col_day .w2calendar_day5 {
+	background : url(uiplugin/calendar/images/day_fri2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_col_day .w2calendar_day6 {
+	background : url(uiplugin/calendar/images/day_sat2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_col_date {
+	height : 22px;
+	font-size : 12px;
+}
+
+.w2calendar_class2 .w2calendar_date_on {
+	font-size : 11px;
+	color : #333333;
+	background : url(uiplugin/calendar/images/date2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_date_off {
+	color : #aeaeae;
+	background : url(uiplugin/calendar/images/dateInOtherMonth2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_date_over {
+	font-weight : bold;
+	color : #ffffff;	
+	height : 22px;	
+	backgroun-color: #5f8ad2;
+	background : url(uiplugin/calendar/images/selectedDate2.gif) center center no-repeat;
+}
+
+.w2calendar_class2 .w2calendar_selected {
+	font-weight : bold;
+	color : #ffffff;	
+	height : 22px;
+	backgroun-color: #5f8ad2;
+	background : url(uiplugin/calendar/images/selectedDate2.gif) center center no-repeat;
+}
+
+/* sunday */
+.w2calendar_class2 .w2calendar_day_0 {
+	font-weight : bold;
+	color : #969696;
+}
+
+/* saturday */
+.w2calendar_class2 .w2calendar_day_1 {
+	font-weight : bold;
+	color : #e25353;
+}
+
+
+
+/* -------------------class3---------------------*/
+
+.w2calendar_class3 .w2calendar_col_day {
+	height : 18px;
+	text-align : center;
+	font-size : 12px;
+	font-weight : bold;
+	color : #004080;
+}
+
+.w2calendar_class3 .w2calendar_col_day .w2calendar_day0 {
+	background : url(uiplugin/calendar/images/day_sun3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_col_day .w2calendar_day1 {
+	background : url(uiplugin/calendar/images/day_mon3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_col_day .w2calendar_day2 {
+	background : url(uiplugin/calendar/images/day_tue3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_col_day .w2calendar_day3 {
+	background : url(uiplugin/calendar/images/day_wed3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_col_day .w2calendar_day4 {
+	background : url(uiplugin/calendar/images/day_thu3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_col_day .w2calendar_day5 {
+	background : url(uiplugin/calendar/images/day_fri3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_col_day .w2calendar_day6 {
+	background : url(uiplugin/calendar/images/day_sat3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_col_date {
+	height : 22px;
+	font-size : 12px;
+}
+
+.w2calendar_class3 .w2calendar_date_on {
+	font-size : 11px;
+	color : #34b9cf;
+	background : url(uiplugin/calendar/images/date3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_date_off {
+	color : #a0a0a0;
+	background : url(uiplugin/calendar/images/dateInOtherMonth3.gif) center center;
+}
+
+.w2calendar_class3 .w2calendar_date_over {
+	font-weight : bold;
+	color : #34b9cf;	
+	height : 22px;	
+	backgroun-color: #5f8ad2;
+	background : url(uiplugin/calendar/images/selectedDate3.gif) center center no-repeat;
+}
+
+.w2calendar_class3 .w2calendar_selected {
+	font-weight : bold;
+	color : #34b9cf;	
+	height : 22px;
+	backgroun-color: #34b9cf;
+	background : url(uiplugin/calendar/images/selectedDate3.gif) center center no-repeat;
+}
+
+/* sunday */
+.w2calendar_class3 .w2calendar_day_0 {
+	font-weight : bold;
+	color : #34b9cf;
+}
+
+/* saturday */
+.w2calendar_class3 .w2calendar_day_1 {
+	font-weight : bold;
+	color : #34b9cf;
+}
+
+
+/* -------------------class4---------------------*/
+
+.w2calendar_class4 .w2calendar_col_day {
+	height : 18px;
+	text-align : center;
+	font-size : 12px;
+	font-weight : bold;
+	color : #004080;
+}
+
+.w2calendar_class4 .w2calendar_col_day .w2calendar_day0 {
+	background : url(uiplugin/calendar/images/day_sun4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_col_day .w2calendar_day1 {
+	background : url(uiplugin/calendar/images/day_mon4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_col_day .w2calendar_day2 {
+	background : url(uiplugin/calendar/images/day_tue4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_col_day .w2calendar_day3 {
+	background : url(uiplugin/calendar/images/day_wed4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_col_day .w2calendar_day4 {
+	background : url(uiplugin/calendar/images/day_thu4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_col_day .w2calendar_day5 {
+	background : url(uiplugin/calendar/images/day_fri4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_col_day .w2calendar_day6 {
+	background : url(uiplugin/calendar/images/day_sat4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_col_date {
+	height : 22px;
+	font-size : 12px;
+}
+
+.w2calendar_class4 .w2calendar_date_on {
+	font-size : 11px;
+	color : #444444;
+	background : url(uiplugin/calendar/images/date4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_date_off {
+	color : #a0a0a0;
+	background : url(uiplugin/calendar/images/dateInOtherMonth4.gif) center center;
+}
+
+.w2calendar_class4 .w2calendar_date_over {
+	font-weight : bold;
+	color : #444444;	
+	height : 22px;	
+	backgroun-color: #5f8ad2;
+	background : url(uiplugin/calendar/images/selectedDate4.gif) center center no-repeat;
+}
+
+.w2calendar_class4 .w2calendar_selected {
+	font-weight : bold;
+	color : #444444;	
+	height : 22px;
+	text-decoration : underline;
+	background : url(uiplugin/calendar/images/selectedDate4.gif) center center no-repeat;
+}
+
+/* sunday */
+.w2calendar_class4 .w2calendar_day_0 {
+	font-weight : bold;
+	color : #3474df;	
+}
+
+/* saturday */
+.w2calendar_class4 .w2calendar_day_1 {
+	font-weight : bold;
+	color : #f56127;
+}
+
+
+/* -------------------class5---------------------*/
+
+.w2calendar_class5 .w2calendar_col_day {
+	height : 18px;
+	text-align : center;
+	font-size : 12px;
+	font-weight : bold;
+	color : #004080;
+}
+
+.w2calendar_class5 .w2calendar_col_day .w2calendar_day0 {
+	background : url(uiplugin/calendar/images/day_sun5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_col_day .w2calendar_day1 {
+	background : url(uiplugin/calendar/images/day_mon5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_col_day .w2calendar_day2 {
+	background : url(uiplugin/calendar/images/day_tue5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_col_day .w2calendar_day3 {
+	background : url(uiplugin/calendar/images/day_wed5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_col_day .w2calendar_day4 {
+	background : url(uiplugin/calendar/images/day_thu5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_col_day .w2calendar_day5 {
+	background : url(uiplugin/calendar/images/day_fri5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_col_day .w2calendar_day6 {
+	background : url(uiplugin/calendar/images/day_sat5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_col_date {
+	height : 22px;
+	font-size : 12px;
+}
+
+.w2calendar_class5 .w2calendar_date_on {
+	font-size : 11px;
+	color : #444444;
+	background : url(uiplugin/calendar/images/date5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_date_off {
+	color : #a0a0a0;
+	background : url(uiplugin/calendar/images/dateInOtherMonth5.gif) center center;
+}
+
+.w2calendar_class5 .w2calendar_date_over {
+	font-weight : bold;
+	color : #ffffff;	
+	height : 22px;	
+	backgroun-color: #5f8ad2;
+	background : url(uiplugin/calendar/images/selectedDate5.gif) center center no-repeat;
+}
+
+.w2calendar_class5 .w2calendar_selected {
+	font-weight : bold;
+	color : #ffffff;	
+	height : 22px;
+	background : url(uiplugin/calendar/images/selectedDate5.gif) center center no-repeat;
+}
+
+/* sunday */
+.w2calendar_class5 .w2calendar_day_0 {
+	font-weight : bold;
+	color : #98b300;		
+}
+
+/* saturday */
+.w2calendar_class5 .w2calendar_day_1 {
+	font-weight : bold;
+	color : #e36500;
+}

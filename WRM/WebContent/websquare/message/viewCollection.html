@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<title>Source</title>
+	<style type="text/css">
+		body		{ background-color:#F6F4F1; margin-top:0pt; margin-left:0pt; margin-right:0pt }
+		#title 		{ margin-left:5pt;  padding-top:5pt; height:22pt; color:#B3550A; font-size:9pt; font-family:굴림; line-height:14pt; visibility:visible }
+		#query 		{ margin: 5px 3px; text-align:left; visibility:visible; font-size: 12px;border: 1px solid #d7d7d7;background: #eee;padding: 5px;}
+		#query select {margin-right: 20px}
+		
+		#main 		{ overflow:auto;margin: 5px 3px; text-align:left;font-size:9pt;visibility:visible;border:4px solid #d7d7d7; font-family:monospace }
+		#sub 		{ text-align:center; padding-top:7px; visibility:visible }
+		
+	</style>
+	<script type="text/javascript" src="htmlCommon.js"></script>
+	<script type="text/javascript">
+		try {
+		    var domain = getParameter("domain");  
+		    if(domain) {
+		        document.domain = domain;   
+		    }
+		} catch (e) {
+			opener.WebSquare.exception.printStackTrace(e);
+		}
+		
+		window.onload = function () {
+			setTimeout(doInit,300);
+		};
+
+		window.onresize = function() {
+			var height = (document.documentElement.clientHeight - 135);   //-title, sub
+			if( height < 200 ) {
+				height = 200;
+			}
+			document.getElementById("main").style.height = height + "px";
+		};
+
+		function doInit() {
+			var titleStr = "<img src='images/bullet_info.gif' style='vertical-align:middle; margin-right:5px' />";
+			titleStr += "<b>"+opener.WebSquare.language.getMessage("E_viewCollection_title")+"</b>";
+			var height = (document.documentElement.clientHeight - 135);   //-title, sub
+			if( height < 200 ) {
+				height = 200;
+			}
+			document.getElementById("main").style.height = height + "px";
+			document.getElementById("title").innerHTML = titleStr;
+			
+			var scopeStr = getParameter("scope");
+			var scopeComp = null;
+			if(scopeStr) {
+				scopeComp = opener.WebSquare.idCache[scopeStr];
+			}
+			var comp = document.getElementById( "collection");
+
+			for( var i in opener.WebSquare.DataCollection.comp ) {
+				var collections = opener.WebSquare.DataCollection.comp[i];
+				if( collections.initializeType ) {
+					if( collections.initializeType == "dataList" || collections.initializeType == "dataMap" || collections.initializeType == "linkedDataList" ) {
+						var realId = collections.id;
+						if(scopeComp != null) {
+							if(collections.scope_obj !== scopeComp ) {
+								continue;
+							}
+							realId = collections.org_id || collections.id;
+						} else if(collections.scope_obj) {
+							continue;
+						}
+						var op = new Option();
+						op.value = collections.id;
+						op.text = realId;
+						comp.options.add(op);
+					}
+				}
+			}
+		}
+
+		function getCollectionData() {
+			var collectionComp = document.getElementById( "collection" );
+			var dataType = document.getElementById( "dataType" );
+			var data;
+			
+			var scopeStr = getParameter("scope");
+			var scopeComp = null;
+			if(scopeStr) {
+				scopeComp = opener.WebSquare.idCache[scopeStr];
+			}
+
+			//opener.WebSquare.DataCollection.api.get("JSON", undefined, {"scope_obj" : scopeComp.id})
+			
+
+			if( collectionComp.value != "all" && collectionComp.value != "" ) {
+				if( dataType.value == "xml" || dataType.value == "xml2" ) {
+					if( opener.WebSquare.api.data[ collectionComp.value ].initializeType == "dataMap" ) {
+						data = opener.WebSquare.api.data[ collectionComp.value ].getXML();
+					} else {
+						data = opener.WebSquare.api.data[ collectionComp.value ].getAllXML();	
+					}
+				} else if( dataType.value == "json" ) {
+					if( opener.WebSquare.api.data[ collectionComp.value ].initializeType == "dataMap" ) {
+						data = opener.WebSquare.api.data[ collectionComp.value ].getJSON();
+					} else {
+						data = opener.WebSquare.api.data[ collectionComp.value ].getAllJSON();
+					}
+				} else {
+					if( opener.WebSquare.api.data[ collectionComp.value ].initializeType == "dataMap" ) {
+						data = opener.WebSquare.api.data[ collectionComp.value ].getArray();
+					} else {
+						data = opener.WebSquare.api.data[ collectionComp.value ].getAllArray();
+					}
+				}
+			} else {
+				var scopeFunc;
+				var opts;
+				if(scopeComp == null) {
+					scopeFunc = opener.WebSquare.api;
+					opts = {"skipWFrame" : true};
+				} else {
+					var scopeList = scopeComp.options.scopeVariable.split(",");
+					var scopeVar = scopeComp.scopeVariable[scopeList[0].trim()];
+					scopeFunc = scopeVar[scopeComp.options.scopeFunction];
+				}
+				if( dataType.value == "xml" || dataType.value == "xml2" ) {
+					data = scopeFunc.data.get( "xml", undefined, opts);
+				} else {
+					data = scopeFunc.data.get( dataType.value, undefined, opts);
+				}
+			}
+
+			var retStr = "";
+			document.getElementById("main").contentEditable="true";
+			if( dataType.value == "xml" ) {
+				retStr = opener.WebSquare.xml.indent( data );
+				document.getElementById("main").style.whiteSpace="pre";
+				if( document.getElementById("main").innerText != undefined ) {
+					document.getElementById("main").innerText =  retStr;	
+				} else {
+					document.getElementById("main").textContent =  retStr;	
+				}
+
+			} else if( dataType.value == "xml2" ) {
+				retStr = opener.WebSquare.xml.indent( data, "html" );
+				document.getElementById("main").style.whiteSpace="normal";
+				document.getElementById("main").innerHTML =  retStr;
+			} else if( dataType.value == "json" || dataType.value == "array" ) {
+				retStr = opener.JSON.stringify( data , null, 4);
+				document.getElementById("main").style.whiteSpace="pre";
+				if( document.getElementById("main").innerText != undefined ) {
+					document.getElementById("main").innerText =  retStr;	
+				} else {
+					document.getElementById("main").textContent =  retStr;	
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="title"></div>
+	<div id="query">
+		<div>
+			<b>dataCollection :</b> 
+			<select id="collection">
+				<option value="all">-전체-</option>
+			</select>
+			<b>데이터 형태 : </b> 
+			<select id="dataType">
+				<option value="json">JSON</option>
+				<option value="xml">XML</option>
+				<option value="xml2">XML(Highlight)</option>				
+				<option value="array">ARRAY</option>
+			</select>
+			<button onclick="javascript:getCollectionData()">조회</button>
+		</div>
+	</div>
+	<div id="main" style="height:350px"></div>
+	<div id="sub">
+		<input type="button" value=" close " onClick="self.close()"/>
+	</div>
+</body>
+</html>

@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="InputBox_DisplayFormat" meta_programName="샘플화면-포맷" meta_programDesc="본 화면은 InputBox의 데이터 형태에 따른 Format 적용 방법을 제공한다." meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns=""/>
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileDesc">
+					<w2:keyInfo>
+						<w2:key id="desc" name="" dataType="text"></w2:key>
+						<w2:key id="test" name="" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<desc><![CDATA[
+<pre class="textNor" style="">
+<div class="etcbox">본 화면은 InputBox의 데이터 형태에 따른 Format 적용 방법을 제공한다.
+지정한 형태의 format을 그대로 적용하는 displayFormat 속성 및 사용자가 직접 정의하여 사용하는 
+displayFormatter 기능 및 이와 관련된 API에 대하여 기술하고 있다.   
+각 데이터 포맷 타입별 세부 내용은 다음과 같다.
+</div>
+<div class="etc_tit">1. displayFormat</div>
+  - 기본 속성으로 지정된 format의 형식을 따라 그대로 표현하게 된다.
+  - 예시
+	displayFormat = '######-#######'
+	'1111112222222' => '111111-2222222' 
+<div class="etc_tit">2. displayFormatter</div>
+  - 사용자 직접 정의한 함수를 지정하여 format을 표현하게 된다.
+  - 예시
+	displayFormatter = 'fn_userFormater1'
+	function fn_userFormater1(arg){
+		return return arg.substring(0, 4) + ":" + arg.substring(4, 6) + ":" + arg.substring(6)
+	}
+	'111111' => '11:11:11'
+<div class="etc_tit">3. 화폐 표시</div>
+   - 유로화를 표시한다.
+   - 예시
+	 dataType = 'euro'
+	 '234512130000,00' => '234.512.130.000,00'
+	 
+   - 인도화폐를 표시한다.
+   - 예시
+	 dataType = 'rupee'
+	 '234512130000,00' => '23,45,121,30,00,000'
+	 
+   - 카자흐스탄화폐를 표시한다.
+   - 예시
+	 dataType = 'tenge'
+	 '234512130000,00' => '234 512 130 000-00'  
+		
+<div class="etc_tit">4. 관련 API</div>
+  - setDisplayFormat(format) : format을 설정한다.
+  - getDisplayValue() : 포맷, 또는 마스킹이 설정된 input의 값을 반환한다.
+  - setDisplayFormatter(formatter): format용 함수를 설정한다.
+  - getDisplayFormatter() : 설정된 format용 함수를 반환한다.   
+</pre>
+						]]></desc>
+						<test><![CDATA[
+<pre class="textNor">						
+<div class="etc_tit">1. 과정</div>
+1. 각각의 InputBox 항목의 속성을 확인한다.
+2. 'getValue' 등의 버튼을 클릭하여 결과값을 실행한다.
+<div class="etc_tit">2. 결과</div>
+1. displayFormat이 적용된 항목의 값을 확인한다.
+2. displayFormatter 가 적용된 항목의 값을 확인한다.
+3. format 설정과 관련된 API의 기능을 확인한다.
+</pre>
+						]]></test>
+					</w2:data>
+				</w2:dataMap>
+				
+				<w2:dataMap baseNode="map" id="dma_formatData">
+					<w2:keyInfo>
+						<w2:key id="phoneFormat" name="phoneFormat" dataType="text"></w2:key>
+						<w2:key id="moneyFormat" name="moneyFormat" dataType="text"></w2:key>
+						<w2:key id="dateFormat" name="dateFormat" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<phoneFormat><![CDATA[01043211090]]></phoneFormat>
+						<moneyFormat><![CDATA[2345663407.56]]></moneyFormat>
+						<dateFormat><![CDATA[20161111]]></dateFormat>
+					</w2:data>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[ 
+	/**
+	 * 초기화 함수
+	 */
+	scwin.onpageload = function() {
+		ibx_idNum.setValue("1234561234567");
+		ibx_phoneNum.setValue("021110000");
+		ibx_time.setValue("123402");
+		ibx_round.setValue("23.4567");
+		ibx_floor.setValue("23.4567");
+		ibx_ceil.setValue("23.4533");
+		ibx_commaFormatter.setValue("3000000");
+		ibx_money.setValue("300");
+		ibx_percent.setValue("78.567");
+		ibx_text.setValue("1234567");
+		ibx_date.setValue("20120319");
+		ibx_date2.setValue("20120319");
+		ibx_toUpperFormatter.setValue("displayFormatter");
+		ibx_phoneFormat.setValue("01089511234");
+		ibx_moneyFormat.setValue("2345663407.56");
+		ibx_dateFormat.setValue("20160716");
+		scwin.disposableFormat_Phone = false;
+		scwin.disposableFormat_Money = false;
+		scwin.disposableFormat_Date = false;
+	
+		ibx_cmoneyFormatter.setValue("8947391200");
+	};
+	
+	/**
+	 * 영어 알파벳을 대문자로 교체한다.
+	 */
+	scwin.toUpperFormatter = function(value) {
+		return value.toUpperCase();
+	};
+	
+	/**
+	 * setDisplayFormat의 버튼 클릭시, 포멧 세팅
+	 */
+	scwin.btnClick_format = function() {
+		var frontId = this.getID().split("_")[1];
+		var splitId = this.getID().split("_");
+		var splitLen = splitId.length;
+		var frontId = splitId[splitLen-2];
+		var backId = splitId[splitLen-1];
+		var fullId = splitId[splitLen-2] + "_" + splitId[splitLen-1];
+		var btnId = "btn_" + fullId;
+		var ibxId = "ibx_" + frontId;
+		var componentBtnId = $p.getComponentById(btnId);
+		var componentIbxId = $p.getComponentById(ibxId);
+
+		//split[2]의 문자열이 Gv일 때
+		if (backId == "Gv") {
+			alert(componentIbxId.getValue()); //ibx의 Value를 알림창에 띄운다.
+		}
+		//split[2]의 문자열이 Sdf일 때
+		else if (backId == "Sdf") {
+			//split[1]의 문자열이 PhoneFormat일 때
+			if (frontId == "phoneFormat") {
+				componentIbxId.setDisplayFormat("###-####-####"); //ibx컴포넌트의 DisplayFormat 속성에 해당 포멧을 적용한다
+			}
+			//split[1]의 문자열이 MoneyFormat일 때
+			else if (frontId == "moneyFormat") {
+				componentIbxId.setDisplayFormat("#,###.##0"); //ibx컴포넌트의 DisplayFormat 속성에 해당 포멧을 적용한다
+			}
+			//split[1]의 문자열이 DateFormat일 때
+			else if (frontId == "dateFormat") {
+				componentIbxId.setDisplayFormat("yyyy/MM/dd"); //ibx컴포넌트의 DisplayFormat 속성에 해당 포멧을 적용한다
+			}
+			//split[1]의 문자열이 그 외일 때 (오류)
+			else {
+				alert("Sdf Error!");
+			}
+		}
+		//split[2]의 문자열이 Gdf일 때
+		else if (backId == "Gdf") {
+			alert(componentIbxId.getDisplayFormat()); //ibx컴포넌트의 DisplayFormat 속성 값을 알림창에 띄운다
+		}
+		//split[2]의 문자열이 Gdv일 때
+		else if (backId == "Gdv") {
+			alert(componentIbxId.getFormattedValue()); //ibx컴포넌트의 DisplayFormat 속성의 Vlaue 값을 알림창에 띄운다
+		}
+		//split[2]의 문자열이 그 외일 때 (오류)
+		else {
+			com.win.alert("Format Error!");
+		}
+	};
+	
+	/**
+	 * setDisplayFormatter의 버튼 클릭시, 포메터 세팅
+	 */
+	scwin.btnClick_formatter = function() {
+		var splitId = this.getID().split("_");
+		var splitLen = splitId.length;
+		var frontId = splitId[splitLen-2];
+		var backId = splitId[splitLen-1];
+		var fullId = splitId[splitLen-2] + "_" + splitId[splitLen-1];
+		var btnId = "btn_" + fullId;
+		var ibxId = "ibx_" + frontId;
+		var componentBtnId = $p.getComponentById(btnId);
+		var componentIbxId = $p.getComponentById(ibxId);
+
+		//split[2]의 문자열이 Gv일 때
+		if (backId == "Gv") {
+			//split[1]의 문자열이 ToUpperFormatter일 때
+			if (frontId.indexOf("Formatter") > 0) {
+				alert(componentIbxId.getValue()); //버튼그룹에 속한 ibx의 ID Value를 알림창에 띄운다.
+			} else {
+				//ibx의 ID를 얻고 길이를 가공한 후, 컴포넌트로 만들고 Value를 알림창에 띄운다.
+				alert($p.getComponentById(getComponentById.slice(0, componentIbxId.getID().length - 3)).getValue());
+			}
+
+		}
+		//split[2]의 문자열이 Sdf일 때
+		else if (backId == "Sdf") {
+			//split[1]의 문자열이 PhoneFormatter일 때
+			if (frontId == "phoneFormatter" && scwin.disposableFormat_Phone == false) {
+				componentIbxId.setValue(com.transPhone(componentIbxId.getValue(), "/")); //ibx의 value에 공통함수(com.transPhone)로 포메터 적용
+				scwin.disposableFormat_Phone = true;
+			}
+			//split[1]의 문자열이 MoneyFormatter일 때
+			else if (frontId == "moneyFormatter" && scwin.disposableFormat_Money == false) {
+				componentIbxId.setValue(com.transComma(componentIbxId.getValue(), "won")); //ibx의 value에 공통함수(com.transComma)로 포메터 적용
+				scwin.disposableFormat_Money = true;
+			}
+			//split[1]의 문자열이 DateFormatter일 때
+			else if (frontId == "dateFormatter" && scwin.disposableFormat_Date == false) {
+				componentIbxId.setValue(com.transDate(componentIbxId.getValue(), "slash")); //ibx의 value에 공통함수(com.transDate)로 포메터 적용
+				scwin.disposableFormat_Date = true;
+			}
+			//이미 포멧터가 적용 됐을 경우
+			else {
+				com.win.alert("이미 포멧터가 적용 되었습니다.");
+			}
+		}
+		//split[2]의 문자열이 Gdf일 때
+		else if (backId == "Gdf") {
+			//split[1]의 문자열이 PhoneFormatter일 때
+			if (frontId == "phoneFormatter") {
+				com.win.alert("com.transPhone(value, type)"); //사용한 공통함수명을 알림창에 띄운다.
+			}
+			//split[1]의 문자열이 MoneyFormatter일 때
+			else if (frontId == "moneyFormatter") {
+				com.win.alert("com.transComma(value, type)"); //사용한 공통함수명을 알림창에 띄운다.
+			}
+			//split[1]의 문자열이 DateFormatter일 때
+			else if (frontId == "dateFormatter") {
+				com.win.alert("com.transDate(value, type)"); //사용한 공통함수명을 알림창에 띄운다.
+			}
+			//split[1]의 문자열이 그 외일 때 (오류)
+			else {
+				com.win.alert("Gdf Error!");
+			}
+		}
+		//split[2]의 문자열이 Gdv일 때
+		else if (backId == "Gdv") {
+			com.win.alert(componentIbxId.getFormattedValue()); //포메터가 적용된 Value를 알림창에 띄운다.	
+		}
+		//split[2]의 문자열이 그 외일 때 (오류)
+		else {
+			com.win.alert("Formatter Error!");
+		}
+	};
+	
+	/**
+	 * 유럽연합 화폐
+	 * Euro Formatter
+	 */
+	scwin.btn_euro_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("euro");
+	};
+	
+	scwin.btn_euroFormatter_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("euro", "#`###~00", "`", "~");
+	};
+	
+	/**
+	 * 인도 화폐
+	 * Rupee Formatter
+	 */
+	scwin.btn_rupee_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("rupee");
+	};
+	
+	scwin.btn_rupeeFormatter_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("rupee", "##|##|###=00", "|", "=");
+	};
+	
+	/**
+	 * 카자흐스탄 화폐
+	 * Tenge Formatter
+	 */
+	scwin.btn_tenge_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("tenge");
+	};
+	
+	scwin.btn_tengeFormatter_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("tenge", "#@###:00", "@", ":");
+	};
+	
+	/**
+	 * 숫자
+	 * Number Formatter
+	 */
+	scwin.btn_number_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("number");
+	};
+	
+	scwin.btn_numberFormatter_onclick = function() {
+		ibx_cmoneyFormatter.changeCurrency("number", "#_###/00", "_", "/");
+	};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents" id="" style="">
+			<w2:wframe id="" style="" src="../../cm/xml/contentHeader.xml" scope=""></w2:wframe>
+			<w2:wframe id="" src="../../cm/xml/contentDesc.xml" scope=""></w2:wframe>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt1" id=""
+					label="텍스트 입력 컴포넌트 중에서 가장 기본이 되는 컴포넌트이다. 문자열을 입력할 수 있는 기본 상태에서 읽기 전용 여부를 설정하여 제어할 수 있으며, 데이터 유형별 입력 설정 및 포맷을 지정할 수 있다." style="">
+				</w2:textbox>
+				<w2:textbox class="txt2" id="" label="displayFormat" style=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- dataType에 따라 사용가능한 포맷이 다르며, 단순 포맷을 정의할 수 있다." style=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- 아래 샘플들의 inputbox에 정의된 dataType과 displayFormat 속성을 참고한다." style=""></w2:textbox>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="주민번호" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="1234561234567" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_idNum" style="" displayFormat="######-#######" ev:onchange="" initValue="" ev:onkeyup="" displayFormatter="" ev:onviewchange=""
+									maxlength="13" userData1="" minlength="">
+								</xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_idNum_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_idNum_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="전화번호" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="021110000" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_phoneNum" style="" displayFormat="##)###-####" initValue="" displayFormatter="" maxlength="11"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_phoneNum_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="" style="" type="button" leftOffImageClass="btn_phoneNum_Gdv" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="시간" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="123402" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_time" style="" displayFormat="##:##:##" initValue="" displayFormatter="" maxlength="6"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_time_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_time_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="소수두째자리까지표현(반올림)" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="23.4567" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_round" style="" displayFormat="##.##" dataType="number" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_round_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_round_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="소수두째자리까지표현(내림)" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="23.4567" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_floor" style="" dataType="number" displayFormat="#.##[floor]" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_floor_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_floor_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="소수두째자리까지표현(올림)" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="23.4533" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_ceil" style="" dataType="number" displayFormat="#.##[ceil]" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_ceil_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_ceil_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="세번째자리마다 , 표시" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="3000000" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_commaFormatter" style="" dataType="number" displayFormat="#,###" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_commaFormatter_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_commaFormatter_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="금액 ($)" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="300" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_money" style="" displayFormat="$ #,###,00" dataType="number" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_money_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_money_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="비율" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="78.567" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_percent" dataType="number" allowChar="0-9, ." style="" displayFormat="##.#0%" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_percent_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_percent_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="텍스트" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="1234567" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_text" style="" dataType="text" maxlength="" allowChar="0-9" displayFormat="####.##" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_text_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_text_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="날짜" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="20120319" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_date" style="" dataType="date" displayFormat="" ioFormat="YYyyMMdd" dateMask="yy/MM/dd" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_date_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_date_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="날짜" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="20120319" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_date2" style="" dataType="date" displayFormat="yyyy년 MM월 dd일" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_date2_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_date2_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt2" id="" label="displayFormatter" style=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- displayFormatter 속성에 사용자정의 함수를 선언 해당 사용자정의 함수의 return 값을 표시한다." style=""></w2:textbox>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="toUpperCase" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group style="" tagname="tr">
+								<xf:group class="w2tb_th" style="" tagname="th">
+									<w2:attributes>
+										<w2:scope>col</w2:scope>
+									</w2:attributes>
+									<xf:group id="">
+										<w2:span class="th_pt" id="" label="입력값" style=""></w2:span>
+										<w2:span class="th_txt" id="" label="displayFormatter" style=""></w2:span>
+									</xf:group>
+								</xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_toUpperFormatter" style="" displayFormatter="scwin.toUpperFormatter" displayFormat=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_toUpperFormatter_Gv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_toUpperFormatter_Gdv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt2" id="" label="동적인 포맷과 관련된 API" style=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- setDisplayFormat(format) : format을 설정한다." style="" tagname=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- getDisplayValue() : 포맷, 또는 마스킹이 설정된 input의 값을 반환한다." style="" tagname=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- setDisplayFormatter(formatter): format용 함수를 설정한다." style="" tagname=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- getDisplayFormatter() : 설정된 format용 함수를 반환한다." style="" tagname=""></w2:textbox>
+			</xf:group>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt2" id="" label='dataType="text" 이며, fn_userFormatter1 은 "011/1234/5678" 형식으로 반환한다.' style=""></w2:textbox>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='.setDisplayFormat("###-####-####")' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_phoneFormat" style="" ref="" displayFormat="" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_phoneFormat_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_phoneFormat_Sdf" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.setDisplayFormat(format)]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_phoneFormat_Gdf" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayFormat()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_phoneFormat_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='.setDisplayFormatter("com.transPhone")' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_phoneFormatter" style="" ref="data:dma_formatData.phoneFormat" displayFormat="" displayFormatter=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_phoneFormatter_Gv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_phoneFormatter_Sdf" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.setDisplayFormat(format)]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_phoneFormatter_Gdf" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getDisplayFormat()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_phoneFormatter_Gdv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt2" id="" label='dataType="number" 이며, fn_userFormatter2 는 "2,345,663,407.56원" 형식으로 반환한다.' style=""></w2:textbox>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='.setDisplayFormat("#,###.##0")' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_moneyFormat" style="" dataType="number"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_moneyFormat_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_moneyFormat_Sdf" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.setDisplayFormat(format)]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_moneyFormat_Gdf" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayFormat()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_moneyFormat_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='.setDisplayFormatter("com.transComma")' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_moneyFormatter" style="" ref="data:dma_formatData.moneyFormat" displayFormat=""></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_moneyFormatter_Gv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_moneyFormatter_Sdf" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.setDisplayFormat(format)]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_moneyFormatter_Gdf" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getDisplayFormat()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_moneyFormatter_Gdv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt2" id=""
+					label='dataType="date" 일때 dateMask의 기본값은 yyyy-MM-dd 이며, fn_userFormatter3 은 "2013/11/23" 형식으로 반환한다' style="">
+				</w2:textbox>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='.setDisplayFormat("yy/MM/dd)' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_dateFormat" style="" displayFormat="yyyyMMdd" dataType="date"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_dateFormat_Gv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_dateFormat_Sdf" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.setDisplayFormat(format)]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_dateFormat_Gdf" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayFormat()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_dateFormat_Gdv" style="" type="button" ev:onclick="scwin.btnClick_format">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='.setDisplayFormatter("com.transDate")' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_dateFormatter" style="" ref="data:dma_formatData.dateFormat" dataType="date" displayFormat="yyyyMMdd"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_dateFormatter_Gv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getValue()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_dateFormatter_Sdf" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.setDisplayFormat(format)]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_dateFormatter_Gdf" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getDisplayFormat()]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_dateFormatter_Gdv" style="" type="button" ev:onclick="scwin.btnClick_formatter">
+							<xf:label><![CDATA[.getDisplayValue()]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt2" id=""
+					label='dataType 과 Mask를 사용(예: dataType="euro" euroMask="#.###,00")하여 나라별 통화를 표시하며, 통화를 변경하기 위해서는 .changeCurrency() API를 사용한다.' style="">
+				</w2:textbox>
+			</xf:group>
+			<xf:group class="lybox col3" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='euro' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_euro" applyFormat="all" ref="data:dma_currency.commonMoney" dataType="euro" style="" euroMask="#.###,00"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label='rupee (인도)' style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_rupee" applyFormat="all" ref="data:dma_currency.commonMoney" dataType="rupee" style="" rupeeMask="##,##,###.00"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="dfbox" id="" style="">
+						<w2:textbox class="df_tit fl" id="" label="tenge (카자흐스탄)" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="tbbox" id="" style="">
+						<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+							<w2:attributes>
+								<w2:summary></w2:summary>
+							</w2:attributes>
+							<xf:group tagname="caption"></xf:group>
+							<xf:group tagname="colgroup">
+								<xf:group style="width:100.00%;" tagname="col"></xf:group>
+							</xf:group>
+							<xf:group tagname="tr">
+								<xf:group class="w2tb_td" style="" tagname="td">
+									<xf:input id="ibx_tenge" applyFormat="all" ref="data:dma_currency.commonMoney" dataType="tenge" style="" tengeMask="# ###-00"></xf:input>
+								</xf:group>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="exe_box" id="" style="">
+				<w2:textbox class="txt2" id=""
+					label="API : input1.changeCurrency(type, format, delimeter, decimalDelimeter) type에 따른 format을 확인하여 통화를 표시한다." style="">
+				</w2:textbox>
+				<w2:textbox class="txt3" id="" label="- type : 새로 설정할 dataType(number, euro, rupee(인도), tenge(카자흐스탄))" style="" tagname="">
+				</w2:textbox>
+				<w2:textbox class="txt3" id=""
+					label="- format : 새로 설정할 displayFormat 미입력시 dataType에 따른 option의 mask가 format으로 적용된다.(numberMask, euroMask, rupeeMask, tengeMask)"
+					style="" tagname="">
+				</w2:textbox>
+				<w2:textbox class="txt3" id="" label="- delimeter : 통화 구분자" style="" tagname=""></w2:textbox>
+				<w2:textbox class="txt3" id="" label="- decimalDelimeter : 통화 소수 구분자" style="" tagname=""></w2:textbox>
+			</xf:group>
+			<xf:group class="tbbox" id="" style="">
+				<xf:group class="w2tb tb" id="" style="width:100%;" tagname="table">
+					<w2:attributes>
+						<w2:summary></w2:summary>
+					</w2:attributes>
+					<xf:group tagname="caption"></xf:group>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:100.00%;" tagname="col"></xf:group>
+					</xf:group>
+					<xf:group tagname="tr">
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:input dataType="number" euroMask="#.###,00" id="ibx_cmoneyFormatter" numberMask="#,###.00" rupeeMask="##,##,###.00"
+								style="" tengeMask="# ###-00">
+							</xf:input>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group class="lybox col2" id="" style="">
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_euro" style="width:100%" type="button" ev:onclick="scwin.btn_euro_onclick">
+							<xf:label><![CDATA["euro"]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_rupee" style="width:100%" type="button" ev:onclick="scwin.btn_rupee_onclick">
+							<xf:label><![CDATA["rupee"]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_tenge" style="width:100%" type="button" ev:onclick="scwin.btn_tenge_onclick">
+							<xf:label><![CDATA["tenge"]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_number" style="width:100%" type="button" ev:onclick="scwin.btn_number_onclick">
+							<xf:label><![CDATA["number"]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+				<xf:group class="ly_column" id="" style="">
+					<xf:group class="btncbox" id="" style="">
+						<xf:trigger class="btn_cm " id="btn_euroFormatter" style="width:100%" type="button" ev:onclick="scwin.btn_euroFormatter_onclick">
+							<xf:label><![CDATA["euro","#`###~00","`","~"]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_rupeeFormatter" style="width:100%" type="button" ev:onclick="scwin.btn_rupeeFormatter_onclick">
+							<xf:label><![CDATA["rupee","##|##|###=00","|","="]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_tengeFormatter" style="width:100%" type="button" ev:onclick="scwin.btn_tengeFormatter_onclick">
+							<xf:label><![CDATA["tenge","#@###:00","@",":"]]></xf:label>
+						</xf:trigger>
+						<xf:trigger class="btn_cm " id="btn_numberFormatter" style="width:100%" type="button" ev:onclick="scwin.btn_numberFormatter_onclick">
+							<xf:label><![CDATA["number", "#_###/00","_","/"]]></xf:label>
+						</xf:trigger>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+
+		</xf:group>
+
+	</body>
+</html>

@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_loginCheck">
+					<w2:keyInfo>
+						<w2:key id="EMP_CD" name="사번" dataType="text"></w2:key>
+						<w2:key id="PASSWORD" name="비밀번호" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_loginCheck" ref="data:json,dma_loginCheck" target='' action="/main/login" method="post"
+				mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" mode="asynchronous" processMsg=""
+				ev:submit="" ev:submitdone="scwin.sbm_Login_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	scwin.onpageload = function() {
+		//input clear버튼	
+		$('.login_form .form_group .form_item input').on('input active', function() {
+		  var $this = $(this);
+		  var visible = Boolean($this.val());
+		  $this.siblings('.btn_login_close').toggleClass('hidden', !visible)
+		}).trigger('active');
+		
+		$('.btn_login_close').click(function() {
+		  $(this).siblings('input').val('')
+			.trigger('active').focus();
+		});
+		
+		var initUrl = location.href;
+	
+			if (initUrl.indexOf("#") > -1) {
+				com.win.goHome();
+			}
+			ibx_empCd.focus();
+		
+	};
+	
+	scwin.btnUserSelect_onclick = function() {
+		$(".user_box .items").toggleClass("on");
+	};
+	
+	/**
+	 * 아이디 입력 후 Keyup 이벤트 발생 시 실행
+	 */	
+	scwin.ibx_empCd_onkeyup = function(e) {
+		if (e.keyCode == 13) {
+			sct_password.focus();
+		}
+	};
+	
+	/**
+	 * 패스워드 입력 후 Keyup 이벤트 발생 시 실행 - 로그인 트랜잭션 발생
+	 */	
+	scwin.sct_password_onkeyup = function(e) {
+		if (e.keyCode == 13) {
+			scwin.btn_login_onclick();
+		}
+	};
+
+	/**
+	 * 로그인 버튼 클릭시 실행 - 로그인 처리 트랜잭션 발생
+	 */
+	scwin.btn_login_onclick = function() {
+		com.sbm.execute(sbm_loginCheck);
+	};
+	
+	/**
+	 * 로그인 submitdone 스크립트 - 로그인 성공여부 판단, 성공시 메인페이지 이동, 실패시 메세지 처리
+	 */	
+	scwin.sbm_Login_submitdone = function(e) {
+		var resultData = e.responseJSON;
+		var result = resultData.rsMsg;
+		
+		try {
+			if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+				com.win.goHome();
+			} else {
+				if(com.util.isEmpty(resultData.errorItem) === false) {
+					com.win.alert(result.message, function() {
+						if (resultData.errorItem == "ID") {
+							ibx_empCd.focus();
+						} else if (resultData.errorItem == "PASSWORD") {
+							dma_loginCheck.set("PASSWORD", "");
+							sct_password.focus();
+						}
+					});
+				}
+			}
+		} catch (ex) {
+			com.win.alert("서버 통신 도중 오류가 발생하였습니다. 잠시후 다시 시도해주시기 바랍니다.");
+		}
+	};
+	]]></script>
+		<style type="text/css"><![CDATA[ 
+		.login_wrap .container {background: url(cm/images/bg2.jpg)}
+		]]></style>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="wrap" id="" style="">
+			<xf:group id="" class="login_wrap">
+				<xf:group style="" id="" class="container">
+					<xf:group style="" id="" class="login_header" adaptiveThreshold="">
+						<xf:group tagname="h1" style="" id="" class="">
+							<w2:anchor outerDiv="false" style="" id="" class="logo">
+								<xf:label><![CDATA[inswave systems]]></xf:label>
+							</w2:anchor>
+						</xf:group>
+					</xf:group>
+					<xf:group id="" class="login_container">
+						<xf:group style="" id="" class="login_tit">
+							<w2:textbox style="" label="Hello." id=""></w2:textbox>
+							<w2:textbox style="" label="WebSquare Reference Model" id="" class=""></w2:textbox>
+						</xf:group>
+						<xf:group style="" id="" class="login_form">
+							<w2:textbox style="" label="Login to your account" id="" class="form_tit"></w2:textbox>
+							<xf:group id="" class="form_group">
+								<xf:group adaptiveThreshold="" style="" id="" class="form_item user">
+									<w2:textbox tagname="span" tooltipDisplay="" style="" id="" label="ID"></w2:textbox>
+									<xf:input useVerticalAlign="" displayFormatter="" customModelUnformatter="" autocomplete="" dataType="number"
+										useMonthYearFormat="" applyFormat="" autoFocus="" type="" adjustMaxLength="false" disabled="" style="" id="ibx_empCd"
+										customModelFormatter="" class="cont_user" ref="data:dma_loginCheck.EMP_CD" refSync="true" ev:onkeyup="scwin.ibx_empCd_onkeyup"
+										displayFormat="" allowChar="0-9" nextTabID="sct_password" enterBlur="" ignoreChar="" validator="">
+									</xf:input>
+									<xf:trigger centerOffImageClass="" leftOnImageClass="" rightOffImageClass="" anchorWithGroupClass="" disabled=""
+										style="" id="" type="anchor" class="btn_login_close hidden">
+										<xf:label></xf:label>
+									</xf:trigger>
+									<!--
+									<w2:anchor outerDiv="false" style="" id="" class="btn_forget" tooltipFormatter="">
+										<xf:label><![CDATA[Forget ID?]]></xf:label>
+									</w2:anchor>
+									-->
+								</xf:group>
+								<xf:group style="" id="" class="form_item pwd">
+									<w2:textbox tagname="span" tooltipDisplay="" style="" id="" label="PASSWORD"></w2:textbox>
+									<xf:secret ref="data:dma_loginCheck.PASSWORD" nextTabID="btn_login" style="" id="sct_password" class="cont_pwd"
+										refSync="true" ev:onkeyup="scwin.sct_password_onkeyup"></xf:secret>
+									<xf:trigger centerOffImageClass="" leftOnImageClass="" rightOffImageClass="" anchorWithGroupClass="" disabled=""
+										style="" id="" type="anchor" class="btn_login_close hidden">
+										<xf:label></xf:label>
+									</xf:trigger>
+									<!--  
+									<w2:anchor outerDiv="false" style="" id="" class="btn_forget" useLocale="">
+										<xf:label><![CDATA[Forget Password?]]></xf:label>
+									</w2:anchor>
+									-->
+								</xf:group>
+								<w2:anchor outerDiv="false" style="" href="" id="btn_login" class="btn_login" ev:onclick="scwin.btn_login_onclick">
+									<xf:label><![CDATA[Login]]></xf:label>
+								</w2:anchor>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group style="" id="" class="login_wrap">
+
+				</xf:group>
+			</xf:group>
+		</xf:group>
+
+	</body>
+</html>

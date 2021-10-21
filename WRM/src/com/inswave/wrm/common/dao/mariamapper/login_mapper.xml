@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.common.dao.LoginDao">
+
+	<select id="selectMemberInfoForLogin" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT p.EMP_CD, p.EMP_NM, p.PASSWORD , b.MAIN_LAYOUT_PAGE_CODE
+		  FROM (SELECT * FROM HM_MEMBER_BASIC WHERE EMP_CD = #{EMP_CD} ) p
+			   LEFT JOIN BM_MAIN_SETTING b ON p.EMP_CD = b.EMP_CD
+	</select>
+	
+	<update id="updatePassword" parameterType="java.util.Map">
+		UPDATE HM_MEMBER_BASIC
+		   SET PASSWORD = #{NEW_PASSWORD}
+		 WHERE EMP_CD = #{EMP_CD}
+	</update>
+	
+</mapper>

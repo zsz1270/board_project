@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="HM003S03" meta_programName="프로젝트 정보 입력" meta_programDesc="프로젝트 정보를 입력하는 화면" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList id="dlt_memberProject" baseNode="list" style="" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="chk" name="선택" dataType="text" ignoreStatus="true"></w2:column>
+						<w2:column id="EMP_CD" name="사원코드" dataType="text"></w2:column>
+						<w2:column id="SEQ" name="순번" dataType="number"></w2:column>
+						<w2:column id="PROJECT_NM" name="프로젝트명" dataType="text"></w2:column>
+						<w2:column id="PROJECT_DESC" name="프로젝트 개요" dataType="text"></w2:column>
+						<w2:column id="START_DATE" name="참여시작기간" dataType="date"></w2:column>
+						<w2:column id="END_DATE" name="참여종료기간" dataType="date"></w2:column>
+						<w2:column id="ASSIGNED_TASK" name="담당업무" dataType="text"></w2:column>
+						<w2:column id="ORDERING_ORG" name="발주처" dataType="text"></w2:column>
+						<w2:column id="COMPANY" name="소속사" dataType="text"></w2:column>
+						<w2:column id="NOTE" name="비고" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:aliasDataMap id="adm_memberBasic" scope="../dma_memberBasic" studioSrc="/ui/HM/HM003M01.xml" />
+			</w2:dataCollection>
+			<w2:workflowCollection>
+			</w2:workflowCollection>
+			<xf:submission id="sbm_getMemberProjectList" ref=''
+				target='data:json,{"id":"dlt_memberProject","key":"data"}' action="/member/selectMemberProject" method="post"
+				mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg=""
+				ev:submit="" ev:submitdone="" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_saveMemberProject" ref='data:json,{"id":"dlt_memberProject","action":"modified","key":"project"}'
+				target="" action="/member/saveMemberProject" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace=""
+				errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_saveMemberProject_submitdone"
+				ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+		
+	scwin.onpageload = function() {
+		com.util.setGridViewDelCheckBox([grd_memberProject]);
+	};
+	
+	/**
+	 * 화면 초기화 데이터가 모두 로딩되면 발생하는 이벤트
+	 */
+	scwin.ondataload = function() {
+		var param = { 
+			"dma_memberBasic" : {
+				"EMP_CD" : adm_memberBasic.get("EMP_CD")
+			} 
+		};
+		com.sbm.execute(sbm_getMemberProjectList, param);
+	};
+	
+	/**
+	 * 프로젝트 정보를 추가한다.
+	 */
+	scwin.btn_insertProject_onclick = function() {
+		var rowIndex = dlt_memberProject.insertRow();
+		dlt_memberProject.setCellData(rowIndex, "EMP_CD", adm_memberBasic.get("EMP_CD"));
+		grd_memberProject.setFocusedCell(rowIndex, "PROJECT_NM");
+	};
+	
+	scwin.btn_saveProject_onclick = function() {
+		var projectInfo = [ { id : "PROJECT_NM", mandatory : true }, 
+							{ id : "START_DATE", mandatory : true }, 
+							{ id : "END_DATE", mandatory : true } ];
+		if (dlt_memberProject.getModifiedIndex().length > 0) {
+			if (com.data.validateGridView(grd_memberProject, projectInfo)) {
+				com.win.confirm(com.data.getMessage("MSG_CM_00042"), "scwin.saveMemberProjectConfirmCallback");
+			}
+		} else {
+			com.win.alert(com.data.getMessage("MSG_CM_00045"));
+		}
+	};
+	
+	scwin.saveMemberProjectConfirmCallback = function(res) {
+		if (res.clickValue === true) {
+			com.sbm.execute(sbm_saveMemberProject);
+		}
+	};
+	
+	scwin.btn_cancelProject_onclick = function() {
+		dlt_memberProject.undoAll();
+		dlt_memberProject.removeRows(dlt_memberProject.getInsertedIndex());
+	};
+	
+	scwin.sbm_saveMemberProject_submitdone = function(e) {
+		com.sbm.execute(sbm_getMemberProjectList);
+	};
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    	<xf:group class="dfbox" id="" style="">
+    		<xf:group class="fr" id="group8" style="">
+    			<xf:trigger class="btn_cm  line" id="btn_insertProject" style="" type="button" ev:onclick="scwin.btn_insertProject_onclick">
+    				<xf:label><![CDATA[등록]]></xf:label>
+    			</xf:trigger>
+    			<xf:trigger class="btn_cm " id="btn_cancelProject" style="" type="button" ev:onclick="scwin.btn_cancelProject_onclick">
+    				<xf:label><![CDATA[취소]]></xf:label>
+    			</xf:trigger>
+    			<xf:trigger class="btn_cm " id="btn_saveProject" style="" type="button" ev:onclick="scwin.btn_saveProject_onclick">
+    				<xf:label><![CDATA[저장]]></xf:label>
+    			</xf:trigger>
+    		</xf:group>
+    	</xf:group>
+    	<w2:gridView adaptive="crosstab" autoFit="allColumn" class="wq_gvw" dataList="dlt_memberProject" fixedColumnWithHidden="true"
+    		id="grd_memberProject" keepDefaultColumnWidth="true" keyMoveEditMode="true" rowStatusHeaderValue="상태" rowStatusVisible="true"
+    		rowStatusWidth="40" scrollByColumn="false" sortEvent="ondblclick" sortable="true" style="width: 100%;height: 230px;"
+    		useShiftKey="false" visibleRowNum="4">
+    		<w2:header id="header2" style="">
+    			<w2:row id="row3" style="">
+    				<w2:column blockSelect="false" id="chk" inputType="checkbox" style="height:44px;" width="40" checkboxLabelColumn="" checkboxLabel="선택"></w2:column>
+    				<w2:column blockSelect="false" id="column29" inputType="text" style="height:44px;" value="프로젝트명" width="172" class="req"></w2:column>
+    				<w2:column blockSelect="false" id="column27" inputType="text" style="height:44px;" value="프로젝트 개요" width="183"></w2:column>
+    				<w2:column blockSelect="false" id="column25" inputType="text" style="height:44px;" value="참여시작기간" width="120" class="req"></w2:column>
+    				<w2:column blockSelect="false" id="column23" inputType="text" style="height:44px;" value="참여종료기간" width="120" class="req"></w2:column>
+    				<w2:column blockSelect="false" id="column21" inputType="text" style="height:44px;" value="담당업무" width="107"></w2:column>
+    				<w2:column blockSelect="false" id="column19" inputType="text" style="height:44px;" value="발주처" width="102"></w2:column>
+    				<w2:column blockSelect="false" id="column17" inputType="text" style="height:44px;" value="소속사" width="102"></w2:column>
+    				<w2:column blockSelect="false" id="column15" inputType="text" style="height:44px;" value="비고" width="134"></w2:column>
+    			</w2:row>
+    		</w2:header>
+    		<w2:gBody id="gBody2" style="">
+    			<w2:row id="row4" style="">
+    				<w2:column blockSelect="false" fixColumnWidth="true" id="chk" inputType="checkbox" style="height:38px;" width="40" checkboxLabel="선택"></w2:column>
+    				<w2:column blockSelect="false" class="req" id="PROJECT_NM" inputType="text" style="height:38px;" value="" width="172"></w2:column>
+    				<w2:column blockSelect="false" id="PROJECT_DESC" inputType="text" style="height:38px;" width="183"></w2:column>
+    				<w2:column blockSelect="false" class="req" id="START_DATE" inputType="calendar" style="height:38px;" width="120"></w2:column>
+    				<w2:column blockSelect="false" class="req" id="END_DATE" inputType="calendar" style="height:38px;" width="105"></w2:column>
+    				<w2:column blockSelect="false" id="ASSIGNED_TASK" inputType="text" style="height:38px;" width="107"></w2:column>
+    				<w2:column blockSelect="false" id="ORDERING_ORG" inputType="text" style="height:38px;" width="102"></w2:column>
+    				<w2:column blockSelect="false" id="COMPANY" inputType="text" style="height:38px;" width="102"></w2:column>
+    				<w2:column blockSelect="false" id="NOTE" inputType="text" style="height:38px;" width="134"></w2:column>
+    			</w2:row>
+    		</w2:gBody>
+    	</w2:gridView>
+
+	</body>
+</html>

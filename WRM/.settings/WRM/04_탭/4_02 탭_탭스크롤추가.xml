@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="4.02 탭_탭스크롤추가"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:group class="wq_tbc" id="" style="">
+	<w2:tabControl alwaysDraw="false" class="sub_tbc" confirmFalseAction="new" confirmTrueAction="exist" id="" style="" tabScroll="true" useConfirmMessage="false" useMoveNextTabFocus="false" useTabKeyOnly="true">
+		<w2:tabs disabled="false" id="tabs1" label="탭1" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs2" label="탭2" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs3" label="탭3" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs4" label="탭4" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs5" label="탭5" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs6" label="탭6" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs7" label="탭7" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs8" label="탭8" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs9" label="탭9" style="">
+</w2:tabs>
+		<w2:tabs disabled="false" id="tabs10" label="탭10" style="">
+</w2:tabs>
+		<w2:content alwaysDraw="false" id="content1" style="">
+			<xf:group class="tbbox" id="" style="">
+				<xf:group adaptive="" adaptiveThreshold="" class="w2tb tb" id="" style="" tagname="table">
+					<w2:attributes>
+						<w2:summary>
+</w2:summary>
+</w2:attributes>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:150px;" tagname="col">
+</xf:group>
+						<xf:group style="" tagname="col">
+</xf:group>
+</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th req" style="" tagname="th">
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:input id="" style="width:50%;">
+</xf:input>
+							<xf:trigger class="btn_cm" id="" style="" type="button">
+								<xf:label>
+<![CDATA[버튼]]></xf:label>
+</xf:trigger>
+</xf:group>
+</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th" style="" tagname="th">
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id="" renderDiv="true" renderType="" rightAlign="false" style="width: 120px;">
+</w2:inputCalendar>
+							<w2:span id="" label="~" style="">
+</w2:span>
+							<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id="" renderDiv="true" renderType="" rightAlign="false" style="width: 120px;">
+</w2:inputCalendar>
+</xf:group>
+</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th" style="" tagname="th">
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:select1 appearance="full" cols="" disabled="" id="" ref="" renderType="radiogroup" rows="" selectedIndex="1" style="">
+								<xf:choices>
+									<xf:item>
+										<xf:label>
+<![CDATA[A Type]]></xf:label>
+										<xf:value>
+</xf:value>
+</xf:item>
+									<xf:item>
+										<xf:label>
+<![CDATA[B Type]]></xf:label>
+										<xf:value>
+</xf:value>
+</xf:item>
+</xf:choices>
+</xf:select1>
+</xf:group>
+</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th" style="" tagname="th">
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:textarea class="" id="" style="width:100%;height: 82px;">
+</xf:textarea>
+</xf:group>
+</xf:group>
+</xf:group>
+</xf:group>
+</w2:content>
+		<w2:content alwaysDraw="false" id="content2" style="">
+			<xf:group class="tbbox" id="" style="">
+				<xf:group adaptive="layout" adaptiveThreshold="600" class="w2tb tb" id="" style="" tagname="table">
+					<w2:attributes>
+						<w2:summary>
+</w2:summary>
+</w2:attributes>
+					<xf:group tagname="colgroup">
+						<xf:group style="width:150px;" tagname="col">
+</xf:group>
+						<xf:group style="" tagname="col">
+</xf:group>
+</xf:group>
+					<xf:group style="" tagname="tr">
+						<xf:group class="w2tb_th req" style="" tagname="th">
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" style="" tagname="td">
+							<xf:input class="" id="" placeholder="" style="width:100%;">
+</xf:input>
+</xf:group>
+</xf:group>
+					<xf:group tagname="tr">
+						<xf:group class="w2tb_th " tagname="th">
+							<w2:attributes>
+								<w2:scope>row</w2:scope>
+</w2:attributes>
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" tagname="td">
+							<w2:attributes>
+								<w2:colspan>1</w2:colspan>
+								<w2:rowspan>1</w2:rowspan>
+</w2:attributes>
+							<xf:input class="" id="" placeholder="" style="width:100%;">
+</xf:input>
+</xf:group>
+</xf:group>
+					<xf:group tagname="tr">
+						<xf:group class="w2tb_th " tagname="th">
+							<w2:attributes>
+								<w2:scope>row</w2:scope>
+</w2:attributes>
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" tagname="td">
+							<w2:attributes>
+</w2:attributes>
+							<xf:input class="" id="" placeholder="" style="width:100%;">
+</xf:input>
+</xf:group>
+</xf:group>
+					<xf:group tagname="tr">
+						<xf:group class="w2tb_th " tagname="th">
+							<w2:attributes>
+								<w2:scope>row</w2:scope>
+</w2:attributes>
+							<w2:textbox class="" id="" label="테이블헤더" ref="" style="" userData2="">
+</w2:textbox>
+</xf:group>
+						<xf:group class="w2tb_td" tagname="td">
+							<w2:attributes>
+</w2:attributes>
+							<xf:input class="" id="" placeholder="" style="width:100%;">
+</xf:input>
+</xf:group>
+</xf:group>
+</xf:group>
+</xf:group>
+</w2:content>
+		<w2:content alwaysDraw="false" id="content3" style="height:0px">
+</w2:content>
+		<w2:content alwaysDraw="false" id="content4" style="height:0px">
+</w2:content>
+		<w2:content alwaysDraw="false" id="content5" style="height:0px">
+</w2:content>
+		<w2:content alwaysDraw="false" id="content6" style="height:0px">
+</w2:content>
+		<w2:content alwaysDraw="false" id="content7" style="height:0px">
+</w2:content>
+		<w2:content alwaysDraw="false" id="content8" style="height:0px">
+</w2:content>
+		<w2:content alwaysDraw="false" id="content9" style="height:0px">
+</w2:content>
+		<w2:content alwaysDraw="false" id="content10" style="height:0px">
+</w2:content>
+</w2:tabControl>
+</xf:group>
+</body>
+</html>

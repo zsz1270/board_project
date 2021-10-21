@@ -1,0 +1,37 @@
+<?xml version='1.0'  encoding="UTF-8"?>
+<TYPES>
+	<CHARTS id="세로 막대형" imgURL="uiplugin/chart/images/chart/i_chart_height1.gif">
+		<CHART id="세로 막대형" typeName="COLUMN" imgURL="uiplugin/chart/images/chart/i_chart_height1.gif" display="묶은 세로 막대형. 항목 간의 값을 비교합니다."/>
+		<CHART id="누적 세로 막대형" typeName="ACCUMULATIVE_COLUMN" imgURL="uiplugin/chart/images/chart/i_chart_height2.gif" display="누적 세로 막대형. 항목 간의 누적된 값을 비교합니다."/>
+		<CHART id="백분율 세로 막대형" typeName="PERCENTAGE_ACCUMULATIVE_COLUMN" imgURL="uiplugin/chart/images/chart/i_chart_height3.gif" display="백분율 세로 막대형. 항목 간의 백분율 값을 비교합니다."/>
+		<CHART id="3차원 세로 막대형" typeName="COLUMN_3D" imgURL="uiplugin/chart/images/chart/i_chart_height4.gif" display="묶은 세로 막대형. 항목 간의 값을 비교합니다."/>
+		<CHART id="3차원 세로 막대형2" typeName="COLUMN_3D2" imgURL="uiplugin/chart/images/chart/i_chart_height4.gif" display="묶은 세로 막대형. 항목 간의 값을 비교합니다."/>
+		<CHART id="3차원 누적 세로 막대형" typeName="ACCUMULATIVE_COLUMN_3D" imgURL="uiplugin/chart/images/chart/i_chart_height5.gif" display="누적 세로 막대형. 항목 간의 누적된 값을 비교합니다."/>
+		<CHART id="3차원 백분율 세로 막대형" typeName="PERCENTAGE_ACCUMULATIVE_COLUMN_3D" imgURL="uiplugin/chart/images/chart/i_chart_height6.gif" display="백분율 세로 막대형. 항목 간의 백분율 값을 비교합니다."/>
+	</CHARTS>
+	<CHARTS id="가로 막대형" imgURL="uiplugin/chart/images/chart/i_chart_width1.gif">
+		<CHART id="가로 막대형" typeName="BAR" imgURL="uiplugin/chart/images/chart/i_chart_width1.gif" display="묶은 가로 막대형. 항목 간의 값을 비교합니다."/>
+		<CHART id="누적 가로 막대형" typeName="ACCUMULATIVE_BAR" imgURL="uiplugin/chart/images/chart/i_chart_width2.gif" display="누적 가로 막대형. 항목 간의 누적된 값을 비교합니다."/>
+		<CHART id="백분율 가로 막대형" typeName="PERCENTAGE_ACCUMULATIVE_BAR" imgURL="uiplugin/chart/images/chart/i_chart_width3.gif" display="백분율 가로 막대형. 항목 간의 백분율 값을 비교합니다."/>
+		<CHART id="3차원 가로 막대형" typeName="BAR_3D" imgURL="uiplugin/chart/images/chart/i_chart_width4.gif" display="묶은 가로 막대형. 항목 간의 값을 비교합니다."/>
+		<CHART id="3차원 누적 가로 막대형" typeName="ACCUMULATIVE_BAR_3D" imgURL="uiplugin/chart/images/chart/i_chart_width5.gif" display="누적 가로 막대형. 항목 간의 누적된 값을 비교합니다."/>
+		<CHART id="3차원 백분율 가로 막대형" typeName="PERCENTAGE_ACCUMULATIVE_BAR_3D" imgURL="uiplugin/chart/images/chart/i_chart_width6.gif" display="백분율 가로 막대형. 항목 간의 백분율 값을 비교합니다."/>
+	</CHARTS>
+	<CHARTS id="꺽은 선형" imgURL="uiplugin/chart/images/chart/i_chart_line1.gif">
+		<CHART id="선형" typeName="LINE" imgURL="uiplugin/chart/images/chart/i_chart_line1.gif" display="꺽은 선형. 시간이나 항목에 따른 추세를 보여줍니다."/>
+		<CHART id="포인트 선형" typeName="POINT_LINE" imgURL="uiplugin/chart/images/chart/i_chart_line2.gif" display="데이타 표식이 있는 꺽은 선형"/>
+		<CHART id="누적 선형" typeName="ACCUMULATIVE_LINE" imgURL="uiplugin/chart/images/chart/i_chart_line3.gif" display="누적선형. 각 값의 기여도를 보여줍니다."/>
+		<CHART id="백분율 선형" typeName="PERCENTAGE_LINE" imgURL="uiplugin/chart/images/chart/i_chart_line4.gif" display="백분율 선형. 항목 간의 백분율 값을 비교합니다."/>
+	</CHARTS>
+	<CHARTS id="원형" imgURL="uiplugin/chart/images/chart/i_chart_circle.gif">
+		<CHART id="원형" typeName="PIE" imgURL="uiplugin/chart/images/chart/i_chart_circle.gif" display="원형. 각 항목의 기여도를 보여줍니다."/>
+	</CHARTS>
+	<CHARTS id="도넛형" imgURL="uiplugin/chart/images/chart/i_chart_donut.gif">
+		<CHART id="도넛형" typeName="DONUT" imgURL="uiplugin/chart/images/chart/i_chart_donut.gif" display="원형과 비슷하지만 여러 계열을 넣을 수 있습니다."/>
+	</CHARTS>
+	<CHARTS id="방사형" imgURL="uiplugin/chart/images/chart/i_chart_radial1.gif">
+		<CHART id="방사형" typeName="RADIAL" imgURL="uiplugin/chart/images/chart/i_chart_radial1.gif" display="방사형. 중간 지점에 대한 값의 변화를 보여줍니다."/>
+		<CHART id="포인트 방사형" typeName="POINT_RADIAL" imgURL="uiplugin/chart/images/chart/i_chart_radial2.gif" display="표식이 있는 방사형"/>
+		<CHART id="원형 포인트 방사형" typeName="POINT_CIRCLE_RADIAL" imgURL="uiplugin/chart/images/chart/i_chart_radial2.gif" display="바탕이 원형인 방사형"/>
+	</CHARTS>
+</TYPES>

@@ -1,0 +1,19 @@
+.w2checkbox_main {
+	height:100%; width:100%;
+	border-collapse:collapse;
+	overflow:auto;
+}
+.w2checkbox_row {
+}
+.w2checkbox_td_input {
+	width:13px; 
+}
+.w2checkbox_input{
+}
+.w2checkbox_td_label {
+}
+.w2checkbox_label{
+	font-family:dotum;
+	font-size:12px;
+	cursor:pointer;
+}

@@ -1,0 +1,57 @@
+﻿WebSquare.WebSquareLang = {  
+	 "MSG_CM_00001" : "Do you want to save the changed data?"
+	,"MSG_CM_00002" : "$[0] is required."
+	,"MSG_CM_00003" : "$[0] Go to the login screen"
+	,"MSG_CM_00004" : "The server is stopped. Please contact the administrator for details."
+	,"MSG_CM_00005" : "There is no changed data."
+	,"MSG_CM_00006" : "Would you like to close the window? The changed data may not be saved."
+	,"MSG_CM_00007" : "$[0] file size exceeded $[1]."
+	,"MSG_CM_00008" : "The total count of uplodable files exceeded $[0]."
+	,"MSG_CM_00009" : "The total size of uplodable files exceeded $[0]."
+		
+	,"MSG_CM_00010" : "Do you want to proceed?"
+	,"MSG_CM_00011" : "The code group and code data are saved."
+	,"MSG_CM_00012" : "The code group data is saved."
+	,"MSG_CM_00013" : "The code data is saved."
+	,"MSG_CM_00014" : "You can register a code after selecting a code group."
+	,"MSG_CM_00015" : "It can be used after code group registration"
+	
+	,"MSG_CM_00016" : "You must delete the registered employee by authority first."
+	,"MSG_CM_00017" : "After selecting the authority, you can register the registered employee by authority."
+	,"MSG_CM_00018" : "It can be used after registration of authority."
+	,"MSG_CM_00019" : "Registered employee information by authority for the authority is also stored."
+	,"MSG_CM_00020" : "That authorization data is saved."
+	,"MSG_CM_00021" : "Registered employee information by authority for the authority is also stored."
+
+	,"MSG_CM_00022" : "Please use after inquiry."
+	,"MSG_CM_00023" : "Program-specific access authority information for the program is also stored."
+	,"MSG_CM_00024" : "The information is stored in the program."
+	,"MSG_CM_00025" : "Program-specific access rights for the program are saved."
+	,"MSG_CM_00026" : "After selecting a program, you can register access rights for each program."
+	,"MSG_CM_00027" : "You can use it after registering the program."
+	,"MSG_CM_00028" : "Would you like to reflect the suggestion data?"
+
+	,"MSG_CM_00029" : "You need to click on the menu code."
+	,"MSG_CM_00030" : "Would you like to add a new menu below the menu? If you click Cancel, the menu will be created at the same level."
+	,"MSG_CM_00031" : "Do you want to save the data?"
+	,"MSG_CM_00032" : "There is no data to save."
+
+	,"MSG_CM_00033" : "Select the parent file group of the new file group to be created."
+	,"MSG_CM_00034" : "The subfilegroup exists and cannot be deleted."
+	,"MSG_CM_00035" : "An attachment exists in the file group to be deleted and cannot be deleted."
+	,"MSG_CM_00036" : "Are you sure you want to delete the selected filegroup?"
+
+	,"MSG_CM_00037" : "Changed shortcuts exist in the existing program. Do you want to save the changed hotkey?"
+	,"MSG_CM_00038" : "The shortcut key for that program is saved. Do you want to proceed?"
+	,"MSG_CM_00039" : "The same shortcut already exists."
+
+	,"MSG_CM_00040" : "You must click on the affiliate code."
+	,"MSG_CM_00041" : "Family relations information and project information must be deleted."
+	,"MSG_CM_00042" : "Do you want to save the changed employee information?"
+	,"MSG_CM_00043" : "There is information that has changed. Would you like to close without saving?"
+	,"MSG_CM_00044" : "Please select a postal code."
+	,"MSG_CM_00045" : "There is no changed employee information."	
+		
+	,"MSG_CM_00046" : "alert"
+	,"MSG_CM_00047" : "confirm"	
+};

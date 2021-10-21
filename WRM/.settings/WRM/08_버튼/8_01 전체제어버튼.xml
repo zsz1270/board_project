@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="8.01 전체제어버튼"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:group class="btnbox" id="" style="">
+	<xf:group class="fr" id="" style="">
+		<xf:trigger class="btn_cm" id="" style="" type="button">
+			<xf:label>
+<![CDATA[등록]]></xf:label>
+</xf:trigger>
+		<xf:trigger class="btn_cm" id="" style="" type="button">
+			<xf:label>
+<![CDATA[변경]]></xf:label>
+</xf:trigger>
+		<xf:trigger class="btn_cm" id="" style="" type="button">
+			<xf:label>
+<![CDATA[삭제]]></xf:label>
+</xf:trigger>
+		<xf:trigger class="btn_cm " id="" style="" type="button">
+			<xf:label>
+<![CDATA[이전]]></xf:label>
+</xf:trigger>
+		<xf:trigger class="btn_cm " id="" style="" type="button">
+			<xf:label>
+<![CDATA[다음]]></xf:label>
+</xf:trigger>
+		<xf:trigger class="btn_cm" id="" style="" type="button">
+			<xf:label>
+<![CDATA[목록]]></xf:label>
+</xf:trigger>
+		<xf:trigger class="btn_cm " id="" style="" type="button">
+			<xf:label>
+<![CDATA[확인]]></xf:label>
+</xf:trigger>
+		<xf:trigger class="btn_cm " id="" style="" type="button">
+			<xf:label>
+<![CDATA[취소]]></xf:label>
+</xf:trigger>
+</xf:group>
+</xf:group>
+</body>
+</html>

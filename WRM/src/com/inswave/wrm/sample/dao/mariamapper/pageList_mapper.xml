@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.sample.dao.PageListDao">
+	
+	<select id="select" resultType="Map" parameterType="Map">
+		SELECT UPT_SEQ, UPT_TITLE, UPT_DATE, UPT_CONTENT 
+		  FROM SP_UPDATE 
+		 LIMIT #{START_NUM}, #{END_NUM}
+	</select>
+	
+	<select id="selectList" resultType="Map">
+		SELECT UPT_SEQ, UPT_TITLE, UPT_DATE, UPT_CONTENT 
+		  FROM SP_UPDATE
+	</select>
+	
+	<select id="selectTotalCNT" resultType="Map">
+		SELECT count(*) AS CNT 
+		  FROM SP_UPDATE
+	</select>
+	
+	<delete id="delete" parameterType="Map">
+		DELETE FROM DM_UPDATE WHERE UPT_SEQ = #{UPT_SEQ}
+	</delete>
+	
+	<insert id="insert" parameterType="Map" >
+		INSERT INTO DM_UPDATE(UPT_SEQ, UPT_TITLE, UPT_DATE, UPT_CONTENT)
+			  VALUES (#{UPT_SEQ}, #{UPT_TITLE}, #{UPT_DATE}, #{UPT_CONTENT})
+	</insert>
+
+	<update id="update" parameterType="Map">
+		UPDATE DM_UPDATE 
+		   SET UPT_TITLE = #{UPT_TITLE}, UPT_DATE = #{UPT_DATE}, UPT_CONTENT = #{UPT_CONTENT}
+		 WHERE UPT_SEQ = #{UPT_SEQ}	
+	</update>
+</mapper>

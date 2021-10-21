@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>console - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="com.html">com</a></li><li><a href="com.sbm.html">sbm</a><ul class='methods'></ul></li><li><a href="com.data.html">data</a><ul class='methods'></ul></li><li><a href="com.util.html">util</a><ul class='methods'></ul></li><li><a href="com.win.html">win</a><ul class='methods'></ul></li><li><a href="com.num.html">num</a><ul class='methods'></ul></li><li><a href="com.str.html">str</a><ul class='methods'></ul></li><li><a href="com.date.html">date</a><ul class='methods'></ul></li><li><a href="com.hkey.html">hkey</a><ul class='methods'></ul></li><li><a href="com.ext.html">ext</a></li><li><a href="console.html">console</a></li><li></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">console</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        console
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>디버그 관련 함수를 작성한다.</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".log"><span class="type-signature">(static) </span>log<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>일반 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.log(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.log(userList);
+
+console.log("사용자 등록이 완료되었습니다.");
+console.log("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".info"><span class="type-signature">(static) </span>info<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>정보 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.info(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.info(userList);
+
+console.info("사용자 등록이 완료되었습니다.");
+console.info("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".trace"><span class="type-signature">(static) </span>trace<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>스택 출력을 웹 브라우저 콘솔에 출력한다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>console.trace();</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".error"><span class="type-signature">(static) </span>error<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>정보 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.error(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.error(userList);
+
+console.error("사용자 등록에 실패 했습니다.");
+console.error("%s님의 %d번째 등록에 실패 했습니다.", "홍길동", 5);
+
+try {
+	var idx = idx2;
+} catch(ex) {
+	console.error(ex);
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".warn"><span class="type-signature">(static) </span>warn<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>경고 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.warn(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.warn(userList);
+
+console.warn("사용자 등록이 완료되었습니다.");
+console.warn("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".debug"><span class="type-signature">(static) </span>debug<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>디버그용 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.debug(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.debug(userList);
+
+console.debug("사용자 등록이 완료되었습니다.");
+console.debug("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".dir"><span class="type-signature">(static) </span>dir<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>인자로 전달된 객체를 덤프해서 보기 쉽게 표시한다.</p>
+<p>JSON이나 Array를 Console창에 출력 시에 적합함</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.dir(userList);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".count"><span class="type-signature">(static) </span>count<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>특정 행이 몇 번 실행되었는지 확인하기 위해서 사용한다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>for (var idx = 0; idx &lt; 100; idx++) {
+	console.count("Level1");
+	if (idx % 5 === 0) {
+		console.count("Level2");
+	}
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".time"><span class="type-signature">(static) </span>time<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>콘솔 창에 시간 측정을 시작한다. (밀리초 단위로 표시됨)</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>console.time("Check-1");
+for (var i = 0; i &lt; 1000000; i++) { }
+console.timeEnd("Check-1");</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".timeEnd"><span class="type-signature">(static) </span>timeEnd<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>콘솔 창에 시간 측정을 종료한다. (밀리초 단위로 표시됨)</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>console.time("Check-1");
+for (var i = 0; i &lt; 1000000; i++) { }
+console.timeEnd("Check-1");</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        console
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>디버그용 개발자도구 Console 로그 출력 관련 함수를 작성한다.</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id=".log"><span class="type-signature">(static) </span>log<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>일반 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.log(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.log(userList);
+
+console.log("사용자 등록이 완료되었습니다.");
+console.log("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".info"><span class="type-signature">(static) </span>info<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>정보 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.info(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.info(userList);
+
+console.info("사용자 등록이 완료되었습니다.");
+console.info("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".trace"><span class="type-signature">(static) </span>trace<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>스택 출력을 웹 브라우저 콘솔에 출력한다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>console.trace();</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".error"><span class="type-signature">(static) </span>error<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>정보 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.error(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.error(userList);
+
+console.error("사용자 등록에 실패 했습니다.");
+console.error("%s님의 %d번째 등록에 실패 했습니다.", "홍길동", 5);
+
+try {
+	var idx = idx2;
+} catch(ex) {
+	console.error(ex);
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".warn"><span class="type-signature">(static) </span>warn<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>경고 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.warn(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.warn(userList);
+
+console.warn("사용자 등록이 완료되었습니다.");
+console.warn("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".debug"><span class="type-signature">(static) </span>debug<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>디버그용 메시지를 웹 브라우저 콘솔에 출력한다.</p>
+<p>추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var user = { name : "홍길동", tel : "010-2344-2323" };
+console.debug(user);
+
+var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.debug(userList);
+
+console.debug("사용자 등록이 완료되었습니다.");
+console.debug("%s님의 %d번째 등록이 완료되었습니다", "홍길동", 5);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".dir"><span class="type-signature">(static) </span>dir<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>인자로 전달된 객체를 덤프해서 보기 쉽게 표시한다.</p>
+<p>JSON이나 Array를 Console창에 출력 시에 적합함</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var userList = [
+	{ name : "홍길동", tel : "010-2344-2323" },
+	{ name : "김용수", tel : "010-2112-7562" },
+	{ name : "박찬용", tel : "010-4241-2322" }
+];
+console.dir(userList);</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".count"><span class="type-signature">(static) </span>count<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>특정 행이 몇 번 실행되었는지 확인하기 위해서 사용한다.</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>for (var idx = 0; idx &lt; 100; idx++) {
+	console.count("Level1");
+	if (idx % 5 === 0) {
+		console.count("Level2");
+	}
+}</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".time"><span class="type-signature">(static) </span>time<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>콘솔 창에 시간 측정을 시작한다. (밀리초 단위로 표시됨)</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>console.time("Check-1");
+for (var i = 0; i &lt; 1000000; i++) { }
+console.timeEnd("Check-1");</code></pre>
+
+
+
+        
+            
+<h4 class="name" id=".timeEnd"><span class="type-signature">(static) </span>timeEnd<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>콘솔 창에 시간 측정을 종료한다. (밀리초 단위로 표시됨)</p>
+</div>
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>console.time("Check-1");
+for (var i = 0; i &lt; 1000000; i++) { }
+console.timeEnd("Check-1");</code></pre>
+
+
+
+        
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Jun 16 2021 13:44:45 GMT+0900 (GMT+09:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

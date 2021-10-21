@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="10.03 AutoComplete"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><w2:autoComplete allOption="" chooseOption="" editType="select" id="" ref="" search="start" style="width: 148px;" submenuSize="auto" useKeywordHighlight="false">
+	<w2:choices>
+		<w2:item>
+			<w2:label>
+<![CDATA[대]]></w2:label>
+			<w2:value>
+</w2:value>
+</w2:item>
+		<w2:item>
+			<w2:label>
+<![CDATA[대한]]></w2:label>
+			<w2:value>
+</w2:value>
+</w2:item>
+		<w2:item>
+			<w2:label>
+<![CDATA[대한민]]></w2:label>
+			<w2:value>
+</w2:value>
+</w2:item>
+		<w2:item>
+			<w2:label>
+<![CDATA[대한민국]]></w2:label>
+			<w2:value>
+</w2:value>
+</w2:item>
+</w2:choices>
+</w2:autoComplete>
+</body>
+</html>

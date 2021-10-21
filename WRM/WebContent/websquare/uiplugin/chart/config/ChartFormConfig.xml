@@ -1,0 +1,360 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<div style="padding: 5 5 5 5; position:absolute; width:500px; height:300px">
+	<div  style=" position:absolute; width:600px;" z-index = '1000' bOptionID='CHART_FORM_CONFIG' >
+		<div id="CHART_FORM_CONFIG_TAB" style="cursor:pointer; position:absolute; display:inline; border:0px solid blue; top:0px; left:0px; width:100px; " subID="CHART_FORM_CONFIG" onclick="
+			this.parentNode.parentNode.all[ this.parentNode.bOptionID ].style.display='none' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.bOptionID=this.subID; 
+			this.parentNode.parentNode.all[this.subID].style.display='block';
+			this.all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			this.all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			this.all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:100px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_on_01.gif); width:7px; height:23px;"></td>
+                <td id="TABL2" style="text-align:center; padding-top:2px; background:repeat-x url(/images/olap_images/tab/tab_on_02.gif); height:23px; ">차트 영역</td>
+                <td id="TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_on_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+		</div> 
+		<div id="CHART_TITLE_FORM_CONFIG_TAB" style="cursor:pointer; position:absolute; display:inline; border:0px solid blue; top:0px; left:100px; width:100px; " subID="CHART_TITLE_FORM_CONFIG" onclick="
+			this.parentNode.parentNode.all[ this.parentNode.bOptionID ].style.display='none' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.bOptionID=this.subID; 
+			this.parentNode.parentNode.all[this.subID].style.display='block';
+			this.all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			this.all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			this.all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:100px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif); height:23px; ">차트 제목</td>
+                <td id="TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+		</div>
+		<div id="CHART_SERIES_FORM_CONFIG_TAB" style="cursor:pointer; position:absolute; display:inline; border:0px solid blue; top:0px; left:200px; width:100px; " subID="CHART_SERIES_FORM_CONFIG" onclick="
+			this.parentNode.parentNode.all[ this.parentNode.bOptionID ].style.display='none' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.bOptionID=this.subID; 
+			this.parentNode.parentNode.all[this.subID].style.display='block';
+			this.all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			this.all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			this.all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:100px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif);height:23px; ">범례 영역</td>
+                <td id="TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+			 
+		</div>
+		<div id="SERIES_FORM_CONFIG_TAB" style="cursor:pointer; position:absolute; display:inline; border:0px solid blue; top:0px; left:300px; width:100px; " subID="SERIES_FORM_CONFIG" onclick="
+			this.parentNode.parentNode.all[ this.parentNode.bOptionID ].style.display='none' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			this.parentNode.all[ this.parentNode.bOptionID+'_TAB'].all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.bOptionID=this.subID; 
+			this.parentNode.parentNode.all[this.subID].style.display='block';
+			this.all['TABL1'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			this.all['TABL2'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			this.all['TABL3'].style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:100px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif); height:23px; ">계열 영역</td>
+                <td id="TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+			 
+		</div>
+	</div>
+	
+	<div id="CHART_FORM_CONFIG" style="border:0px solid black; position:absolute; display:block; width:480px; height:240px; top: 28px; background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">CHART LAYER FORM</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td style="font-size:12px; width:100px"> 테두리 스타일 </td>
+				<td>
+					<select id="DASH_STYLE">
+						<option value="solid">Solid</option>
+						<option value="shortDash">ShortDash</option>
+						<option value="shortDot">ShortDot</option>
+						<option value="shortDashDot">ShortDashDot</option>
+						<option value="shortDashDotDot">ShortDashDotDot</option>
+						<option value="dot">Dot</option>
+						<option value="dash">Dash</option>
+						<option value="longdash">LongDash</option>
+						<option value="dashdot">DashDot</option>
+						<option value="longdashdot">LongDashDot</option>
+						<option value="longdashdotdot">LongDashDotDot</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:center; font-size:12px; "> 테두리 색 </td>
+				<td > 테두리 색 </td>
+				<td style="vertical-align:center; font-size:12px; "> 
+					<table><tr><td>
+					<div style=" width:10px; height:12px; font-size:10px; background-color:#FFFFFF ; border:1px solid gray" id="STROKE_COLOR_VIEW"></div>
+						</td>
+						<td>
+							<input type="text" id="STROKE_COLOR" value="" readonly="false"
+							onclick="
+								var color= '000000'+config_dlgHelper.ChooseColorDlg(this.value.substring(1)).toString(16); 
+								color = '#'+color.substring(color.length-6);
+						  		this.value=color;
+						  		this.parentNode.parentNode.all['STROKE_COLOR_VIEW'].style.backgroundColor=color;
+						  " /> 
+						</td>
+					</tr></table>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:center; font-size:12px; "> 테두리 두께</td>
+				<td> 
+					<input type="text" id="STROKE_WEIGHT" /> 
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:center; font-size:12px; "> 배경 색 </td>
+				<td> 
+					<table><tr><td>
+					<div style=" width:10px; height:12px; font-size:10px; background-color:#FFFFFF ; border:1px solid gray" id="FILL_COLOR_VIEW"></div>
+						</td>
+						<td>
+							<input type="text" id="FILL_COLOR" value="" readonly="false"
+							onclick="
+								var color= '000000'+config_dlgHelper.ChooseColorDlg(this.value.substring(1)).toString(16); 
+								color = '#'+color.substring(color.length-6);
+						  		this.value=color;
+						  		this.parentNode.parentNode.all['FILL_COLOR_VIEW'].style.backgroundColor=color;
+						  " /> 
+						</td>
+					</tr></table>
+				</td>
+			</tr>
+			<tr>
+				<td style="vertical-align:center; font-size:12px; "> 배경 색2 </td>
+				<td>
+					<table><tr><td>
+					<div style=" width:10px; height:12px; font-size:10px; background-color:#FFFFFF ; border:1px solid gray" id="FILL_COLOR2_VIEW"></div>
+						</td>
+						<td>
+							<input type="text" id="FILL_COLOR2" value="" readonly="false"
+							onclick="
+								var color= '000000'+config_dlgHelper.ChooseColorDlg(this.value.substring(1)).toString(16); 
+								color = '#'+color.substring(color.length-6);
+						  		this.value=color;
+						  		this.parentNode.parentNode.all['FILL_COLOR2_VIEW'].style.backgroundColor=color;
+						  " /> 
+						</td>
+					</tr></table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="vertical-align:center; font-size:12px; "> <input type="checkbox" class="Checkbox" id="CHART_ROUND" /> 모서리 둥글게</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="vertical-align:center; font-size:12px; "> <input type="checkbox" class="Checkbox" id="SHADOW" /> 그림자 </td>
+			</tr>
+			<tr>
+				<td style="vertical-align:center; font-size:12px; "> <input type="checkbox" class="Checkbox" id="GRADIENT" /> GRADATION 
+				</td>
+			</tr>
+			
+		</table>
+	</div>
+	<div id="CHART_TITLE_FORM_CONFIG" style="border:0px solid black; position:absolute; display:none; width:480px; height:240px; top: 28px; background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">CHART TITLE LAYER FORM</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td style="font-size:12px; width:100px "> 글꼴 </td>
+				<td>
+					<select id="FONT_FAMILY">
+						<option value="돋움체">돋움체</option>
+						<option value="돋움">돋움</option>
+						<option value="굴림체">굴림체</option>
+						<option value="굴림">굴림</option>
+						<option value="Arial">Arial</option>
+						<option value="Times New Roman">Times New Roman</option>
+						<option value="Courier New">Courier New</option>
+						<option value="Verdana">Verdana</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="font-size:12px; width:100px"> 글꼴 스타일</td>
+				<td>
+					<select id="FONT_STYLE">
+						<option value="normal">보통</option>
+						<option value="italic">기울임</option>
+					</select>
+					 <input type="checkbox" class="Checkbox" id="FONT_WEIGHT" /> 굵게 
+				</td>
+			</tr>
+			<tr>
+				<td style="font-size:12px;"> 글씨색 </td>
+				<td>
+					<table><tr><td>
+					<div style=" width:10px; height:12px; font-size:10px; background-color:#FFFFFF ; border:1px solid gray" id="FONT_COLOR_VIEW"></div>
+						</td>
+						<td>
+							<input type="text" id="FONT_COLOR" value="" readonly="false"
+							onclick="
+								var color= '000000'+config_dlgHelper.ChooseColorDlg(this.value.substring(1)).toString(16); 
+								color = '#'+color.substring(color.length-6);
+						  		this.value=color;
+						  		this.parentNode.parentNode.all['FONT_COLOR_VIEW'].style.backgroundColor=color;
+						  " /> 
+						</td>
+					</tr></table>
+				</td>
+			</tr>
+			<tr>
+				<td style="font-size:12px;"> 크기 </td>
+				<td> <input type="text" id="FONT_SIZE" /> 
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="CHART_SERIES_FORM_CONFIG" style="border:0px solid black; position:absolute; display:none; width:480px; height:240px; top: 28px; background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">LABEL LAYER FORM</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<table>
+			<tr>
+				<td style="font-size:12px; width:100px"> 테두리 스타일 </td>
+				<td>
+					<select id="BORDER_STYLE">
+						<option value="none">없음</option>
+						<option value="solid">solid</option>
+						<option value="dotted">dotted</option>
+						<option value="dashed">dashed</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="font-size:12px;"> 테두리 색 </td>
+				<td> 
+					<table><tr><td>
+					<div style=" width:10px; height:12px; font-size:10px; background-color:#FFFFFF ; border:1px solid gray" id="BORDER_COLOR_VIEW"></div>
+						</td>
+						<td>
+							<input type="text" id="BORDER_COLOR" value="" readonly="false"
+							onclick="
+								var color= '000000'+config_dlgHelper.ChooseColorDlg(this.value.substring(1)).toString(16); 
+								color = '#'+color.substring(color.length-6);
+						  		this.value=color;
+						  		this.parentNode.parentNode.all['BORDER_COLOR_VIEW'].style.backgroundColor=color;
+						  " /> 
+						</td>
+					</tr></table>
+				</td>
+			</tr>
+			<tr>
+				<td style="font-size:12px;"> 테두리 두께 </td>
+				<td> 
+					<input type="text" id="BORDER_WEIGHT" /> 
+				</td>
+			</tr>
+			<tr>
+				<td style="font-size:12px;">배경색 </td>
+				<td> 
+					<table><tr><td>
+					<div style=" width:10px; height:12px; font-size:10px; background-color:#FFFFFF ; border:1px solid gray" id="BACKGROUND_COLOR_VIEW"></div>
+						</td>
+						<td>
+							<input type="text" id="BACKGROUND_COLOR" value="" readonly="false"
+							onclick="
+								var color= '000000'+config_dlgHelper.ChooseColorDlg(this.value.substring(1)).toString(16); 
+								color = '#'+color.substring(color.length-6);
+						  		this.value=color;
+						  		this.parentNode.parentNode.all['BACKGROUND_COLOR_VIEW'].style.backgroundColor=color;
+						  " /> 
+						</td>
+					</tr></table>
+				</td>
+			</tr>
+		<!--	<tr>
+				<td style="width:100px"> 글꼴 </td>
+				<td>
+					<select id="FONT_FAMILY">
+						<option value="돋움체">돋움체</option>
+						<option value="돋움">돋움</option>
+						<option value="굴림체">굴림체</option>
+						<option value="굴림">굴림</option>
+						<option value="Times New Roman">Times New Roman</option>
+						<option value="Courier New">Courier New</option>
+						<option value="Verdana">Verdana</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td style="width:100px"> 글꼴 스타일 </td>
+				<td>
+					<select id="FONT_STYLE">
+						<option value="normal">보통</option>
+						<option value="italic">기울임</option>
+					</select>
+					 <input type="checkbox" id="FONT_WEIGHT" /> 굵게 
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td > 크기 </td>
+				<td> <input type="text" id="FONT_SIZE" /> 
+				</td>
+			</tr> -->
+		</table>
+	</div>
+	<div id="SERIES_FORM_CONFIG" style="border:0px solid black; position:absolute; display:none; width:480px; height:240px; top: 28px; background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">SERIES LAYER FORM</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<div id="SERIES_LIST" style="border:0px solid gray; width:470; height:210px; padding:5px 5px 5px 5px; overflow:auto">
+		</div>
+	</div>
+	<div id="BUTTON_LAYER" style="border:1px insect white; position:absolute; left:205px; top:278px; width:480px; height:25px">
+		<img src="uiplugin/chart/images/chart/default/b_ok.gif" style="cursor:pointer" width="50px" height="18px" border="0px" id="SUBMIT_BUTTON" />
+		<img src="uiplugin/chart/images/chart/default/eng_b_cancel.gif" style="cursor:pointer"  width="50px" height="18px" border="0px" id="CANCEL_BUTTON" />
+	</div>
+	<OBJECT id="config_dlgHelper" CLASSID="clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" width="0px" height="0px"></OBJECT>
+</div>

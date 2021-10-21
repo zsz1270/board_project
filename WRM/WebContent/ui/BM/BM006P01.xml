@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="BM006P01" meta_programName="파일그룹관리팝업" meta_programDesc="파일그룹관리팝업" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileGrp">
+					<w2:keyInfo>
+						<w2:key id="FILE_GRP_SEQ" name="파일그룹순번" dataType="text"></w2:key>
+						<w2:key id="FILE_GRP_SEQ_PARENT" name="파일그룹부모순번" dataType="text"></w2:key>
+						<w2:key id="FILE_GRP_NM" name="파일그룹명" dataType="text"></w2:key>
+						<w2:key id="mapStatus" name="상태" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_saveFileGrp" ref="data:json,dma_fileGrp" target="" action="/file/saveFileGrp" method="post" mediatype="application/json" encoding="UTF-8"
+				instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_saveFileGrp_submitdone"
+				ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	/**
+	 * 초기 스크립트 수행 함수 정의
+	 */
+	scwin.onpageload = function() {
+		scwin.param = com.data.getParameter();
+		if (scwin.param.mode == "create") {
+			grp_controlRow.show("");
+			grp_fileGrpSeq.hide();
+			dma_fileGrp.set("mapStatus" , "C");
+		} else if (scwin.param.mode == "update") {
+			grp_controlRow.hide();
+			grp_fileGrpSeq.show("");
+			dma_fileGrp.setJSON(com.data.getParameter("data"));
+			dma_fileGrp.set("mapStatus" , "U");
+		}
+		
+		scwin.closeCallbackFncName = scwin.param.callbackFn;
+	};
+	
+	scwin.btn_confirm_onclick = function() {
+		if (scwin.param.mode == "create") {
+			var level = rad_level.getValue();
+			if (level == "0") {
+				dma_fileGrp.set("FILE_GRP_SEQ_PARENT" , scwin.param.fileGrpSeqParent);
+			} else {
+				dma_fileGrp.set("FILE_GRP_SEQ_PARENT" , scwin.param.fileGrpSeq);
+			}
+		}
+		
+		if(com.data.validateGroup(grp_content)){
+			com.sbm.execute(sbm_saveFileGrp);
+		}
+	};
+	
+	scwin.btn_cancel_onclick = function() {
+		com.win.closePopup();
+	};
+	
+	scwin.sbm_saveFileGrp_submitdone = function(e) {
+		com.win.closePopup(scwin.closeCallbackFncName, dma_fileGrp.getJSON());
+	};
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    <xf:group id="" class="pop_contents">
+    	<xf:group style="" id="" class="tbbox">
+    		<xf:group adaptive="layout" adaptiveThreshold="1024" tagname="table" style="" tabIndex="" id="" class="w2tb tb">
+    			<w2:attributes>
+    				<w2:summary></w2:summary>
+    			</w2:attributes>
+    			<xf:group tagname="colgroup">
+    				<xf:group tagname="col" style="width:150px;"></xf:group>
+    				<xf:group style="" tagname="col"></xf:group>
+    			</xf:group>
+    			<xf:group tagname="tr" style="" id="grp_fileGrpSeq">
+    				<xf:group tagname="th" style="" class="w2tb_th">
+    					<w2:attributes>
+    						<w2:colspan>1</w2:colspan>
+    						<w2:rowspan>1</w2:rowspan>
+    					</w2:attributes>
+    					<w2:textbox ref="" style="" userData2="" id="" label="파일그룹순번"></w2:textbox>
+    				</xf:group>
+    				<xf:group tagname="td" style="" class="w2tb_td">
+    					<w2:attributes>
+    						<w2:colspan>1</w2:colspan>
+    						<w2:rowspan>1</w2:rowspan>
+    					</w2:attributes>
+    					<xf:input class="" id="" placeholder="" style="" disabled="true" ref="data:dma_fileGrp.FILE_GRP_SEQ"></xf:input>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group tagname="tr" style="">
+    				<xf:group tagname="th" style="" class="w2tb_th">
+    					<w2:attributes>
+    						<w2:colspan>1</w2:colspan>
+    						<w2:rowspan>1</w2:rowspan>
+    					</w2:attributes>
+    					<w2:textbox ref="" style="" userData2="" id="" label="파일그룹명"></w2:textbox>
+    				</xf:group>
+    				<xf:group tagname="td" style="" class="w2tb_td" id="grp_content">
+    					<xf:input style="" id="" placeholder="" class="" mandatory="true" ref="data:dma_fileGrp.FILE_GRP_NM"></xf:input>
+    				</xf:group>
+    			</xf:group>
+    		<xf:group tagname="tr" id="grp_controlRow">
+    			<xf:group tagname="th" class="w2tb_th">
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    				<w2:textbox id="" label="노드 생성 위치" ref="" style="" userData2=""></w2:textbox>
+    			</xf:group>
+    			<xf:group tagname="td" class="w2tb_td">
+    				<w2:attributes></w2:attributes>
+    				<xf:select1 appearance="full" cols="" disabled="" id="rad_level" ref="" renderType="radiogroup" rows=""
+    					selectedIndex="1" style="">
+    					<xf:choices>
+    						<xf:item>
+    							<xf:label><![CDATA[동일 레벨]]></xf:label>
+    							<xf:value><![CDATA[]]></xf:value>
+    						</xf:item>
+    						<xf:item>
+    							<xf:label><![CDATA[하위 레벨]]></xf:label>
+    							<xf:value><![CDATA[]]></xf:value>
+    						</xf:item>
+    					</xf:choices>
+    				</xf:select1>
+    			</xf:group></xf:group></xf:group>
+    	</xf:group>
+    	<xf:group class="btnbox" id="" style="">
+    		<xf:group class="fr" id="">
+    			<xf:trigger class="btn_cm" id="btn_confirm" style="" type="button" ev:onclick="scwin.btn_confirm_onclick">
+    				<xf:label><![CDATA[확인]]></xf:label>
+    			</xf:trigger>
+    			<xf:trigger class="btn_cm" id="btn_cancel" style="" type="button" ev:onclick="scwin.btn_cancel_onclick">
+    				<xf:label><![CDATA[취소]]></xf:label>
+    			</xf:trigger>
+    		</xf:group>
+    	</xf:group>
+    </xf:group>
+	</body>
+</html>

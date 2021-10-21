@@ -1,0 +1,153 @@
+.w2windowContainer {
+}
+
+.w2windowContainer_window {
+	position : absolute;
+	width : 100%;
+	top : 0px;
+	left : 0px;
+	bottom : 24px;
+	overflow : hidden;
+	background-color : transparent;
+}
+
+.w2windowContainer_windowToolbar {
+	position : absolute;
+	background-image : url(uiplugin/windowContainer/images/bg_bottom.gif);
+	height : 24px;
+	width : 100%;
+	bottom : 0px;
+	background-repeat : repeat-x;
+}
+
+.w2windowContainer_nameContainer {
+	position : absolute;
+	left : 140px;
+	right : 0;
+	height : 24px;
+	*width: expression(this.parentNode.clientWidth - 140);
+}
+
+.w2windowContainer_nameContainer_right {
+	left : 0;
+	right : 140px;
+}
+
+.w2windowContainer_nameContainer_right_maximizeBtn {
+	left : 0;
+	right : 167px;
+}
+
+.w2windowContainer_name {
+	position : absolute;
+	left : 140px;
+}
+
+.w2windowContainer_nameContainer .w2windowContainer_name {
+	left : 0;
+}
+
+.w2windowContainer_nameLayer {
+	position : relative;
+	float : left;
+	line-height : 21px;
+	overflow : hidden;
+	top : 2px;
+	width : 104px;
+	height : 21px;
+	background-image : url(uiplugin/windowContainer/images/bg_mdiMinimize.gif);
+	background-repeat : no-repeat;
+	font-size : 11px;
+	font-weight:bold;
+	font-family : Dotum;
+	color : #6d8096;
+	padding-top : 1px;
+	padding-left : 3px;
+	cursor : pointer;
+	margin-left : 3px;
+}
+
+.w2windowContainer_selectedNameLayer {
+	background-image : url(uiplugin/windowContainer/images/bg_mdiMinimize_on.gif);
+	background-repeat : no-repeat;
+	color : #30749e;
+}
+
+.w2windowContainer_controlIconLayer {
+	position : absolute;
+	left : 0px;
+	top : 1px;
+	height : 24px;
+	width : 140px;
+}
+
+.w2windowContainer_controlIconLayer_right {
+	left : auto;
+	right : 0;
+}
+
+.w2windowContainer_controlIcon_vertical {
+	position : absolute;
+	width : 23px;
+	height : 21px;
+	left : 4px;
+	top : 1px;
+	background-image : url(uiplugin/windowContainer/images/align1.gif);
+	background-repeat : no-repeat;
+	cursor:pointer;
+}
+
+.w2windowContainer_controlIcon_horizontal {
+	position : absolute;
+	width : 23px;
+	height : 21px;
+	left : 31px;
+	top : 1px;
+	background-image : url(uiplugin/windowContainer/images/align2.gif);
+	background-repeat : no-repeat;
+	cursor:pointer;
+}
+
+.w2windowContainer_controlIcon_cascade {
+	position : absolute;
+	width : 23px;
+	height : 21px;
+	left : 58px;
+	top : 1px;
+	background-image : url(uiplugin/windowContainer/images/align3.gif);
+	background-repeat : no-repeat;
+	cursor:pointer;
+}
+
+.w2windowContainer_controlIcon_sequential {
+	position : absolute;
+	width : 23px;
+	height : 21px;
+	left : 85px;
+	top : 1px;
+	background-image : url(uiplugin/windowContainer/images/align4.gif);
+	background-repeat : no-repeat;
+	cursor:pointer;
+}
+
+.w2windowContainer_controlIcon_closeAll {
+	position : absolute;
+	width : 23px;
+	height : 21px;
+	left : 112px;
+	top : 1px;
+	background-image : url(uiplugin/windowContainer/images/align5.gif);
+	background-repeat : no-repeat;
+	cursor:pointer;
+}
+
+.w2windowContainer_controlIcon_windowList {
+	position : absolute;
+	width : 23px;
+	height : 21px;
+	left : 112px;
+	top : 1px;
+	background-image : url(uiplugin/windowContainer/images/align8.gif);
+	background-repeat : no-repeat;
+	cursor:pointer;
+}

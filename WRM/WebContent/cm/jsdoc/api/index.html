@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="com.html">com</a></li><li><a href="com.sbm.html">sbm</a><ul class='methods'></ul></li><li><a href="com.data.html">data</a><ul class='methods'></ul></li><li><a href="com.util.html">util</a><ul class='methods'></ul></li><li><a href="com.win.html">win</a><ul class='methods'></ul></li><li><a href="com.num.html">num</a><ul class='methods'></ul></li><li><a href="com.str.html">str</a><ul class='methods'></ul></li><li><a href="com.date.html">date</a><ul class='methods'></ul></li><li><a href="com.hkey.html">hkey</a><ul class='methods'></ul></li><li><a href="com.ext.html">ext</a></li><li><a href="console.html">console</a></li><li></li></ul>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+    <section class="package">
+        <h3> </h3>		
+    </section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="readme usertext">
+        <article><h1>UI 공통 함수 소개</h1>
+<blockquote>
+<ul>
+<li>UI 공통 기능에서 제공하는 서버 통신(com.sbm), 데이터 처리(com.data), 유틸리티(util), 화면 제어(com.win), 숫자 처리(com.num), 외부 솔루션 연동(com.ext), 개발자 도구 콘솔 로그 출력(console)을 위한 함수를 설명합니다.</li>
+<li><span style='color:red'>각 함수명을 클릭하면 해당 함수에 대한 상세 스펙과 예제 코드를 보여주는 Javascript Document가 새창으로 오픈됩니다. </span></li>
+</ul>
+</blockquote>
+<h1>com.sbm</h1>
+<p>통신 함수(submission 또는 ajax 통신)를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='com.sbm.html#.execute' target='_blank'>com.sbm.execute</a></td>
+<td>서버 통신 확장 모듈, Submission를 실행합니다.</td>
+</tr>
+<tr>
+<td><a href='com.sbm.html#.executeDynamic' target='_blank'>com.sbm.executeDynamic</a></td>
+<td>Submission를 동적으로 생성해서 실행합니다.</td>
+</tr>
+<tr>
+<td><a href='com.sbm.html#.executeWorkflow' target='_blank'>com.sbm.executeWorkflow</a></td>
+<td>workflow를 실행합니다.</td>
+</tr>
+<tr>
+<td><a href='com.sbm.html#.create' target='_blank'>com.sbm.create</a></td>
+<td>Submission 객체를 동적으로 생성한다.</td>
+</tr>
+</tbody>
+</table>
+<h1>com.data</h1>
+<p>공통 코드 &amp; 메세지, DataCollection 제어, 글로벌 데이터 제어(gcm의 함수를 호출), 화면 간 데이터 전달, 데이터 유효성 검사 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='com.data.html#.setCommonCode' target='_blank'>com.data.setCommonCode</a></td>
+<td>코드성 데이터와 컴포넌트의 nodeSet(아이템 리스트)연동 기능을 제공한다.cdGrp별로 JSON객체를 생성하여 array에 담아 첫번째 파라메터로 넘겨준다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.getCommonCodeDataList' target='_blank'>com.data.getCommonCodeDataList</a></td>
+<td>서버에서 전달된 데이터가 아닌 화면 상에서 데이터 가공이 필요한 경우 DataList 객체를 전달 받아서 필터링하거나 데이터를 조작할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.executeCommonCode' target='_blank'>com.data.executeCommonCode</a></td>
+<td>scwin.onpageload 이벤트에 정의된 com.data.setCommonCode 함수를 통해서 생성된 공통 코드 조회 Submission은 scwin.ondataload 함수가 실행되기 전에<br>UI 공통 프레임워크 내에서 자동으로 실행시켜 준다.<br>하지만, TabControl의 alwaysDraw=false 등의 옵션 적용 등으로 인해서 화면이 로딩된 이후에 어떤 이벤트 시점 이후에 공통 코드를 로딩하려면<br>com.data.executeCommonCode() 함수를 실행하면 된다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.getParameter' target='_blank'>com.data.getParameter</a></td>
+<td>파라미터를 읽어 온다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.getColumnName' target='_blank'>com.data.getColumnName</a></td>
+<td>특정 컴포넌트에 바인된 DataList나 DataMap의 컬럼 이름을 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.getDataCollection' target='_blank'>com.data.getDataCollection</a></td>
+<td>특정 컴포넌트에 바인된 DataList나 DataMap의 정보를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.getMessage' target='_blank'>com.data.getMessage</a></td>
+<td>공통 메시지에 코드에 해당하는 공통 메시지 코드를 반환합니다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.isModified' target='_blank'>com.data.isModified</a></td>
+<td>DataCollection 객체의 변경된 데이터가 있는지 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.downloadMultipleDataList' target='_blank'>com.data.downloadMultipleDataList</a></td>
+<td>DataList의 데이터를 엑셀 파일로 저장한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.downloadMultipleGridView' target='_blank'>com.data.downloadMultipleGridView</a></td>
+<td>DataList의 데이터를 엑셀 파일로 저장한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.downloadGridViewExcel' target='_blank'>com.data.downloadGridViewExcel</a></td>
+<td>설정된 옵션으로 엑셀을 다운로드 한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.downloadGridViewCSV' target='_blank'>com.data.downloadGridViewCSV</a></td>
+<td>설정된 옵션으로 CSV파일을 다운로드 한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.uploadGridViewExcel' target='_blank'>com.data.uploadGridViewExcel</a></td>
+<td>엑셀 xls, xlsx 업로드</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.uploadGridViewCSV' target='_blank'>com.data.uploadGridViewCSV</a></td>
+<td>엑셀 CSV 업로드</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.validateGroup' target='_blank'>com.data.validateGroup</a></td>
+<td>필수 입력, 입력 허용 문자, 입력 허용 불가 문자, 최대, 최소 입력 문자수 설정은 컴포넌트의 속성에서 설정한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.validateGridView' target='_blank'>com.data.validateGridView</a></td>
+<td>입력 허용 문자, 입력 허용 불가 문자, 최대 입력 문자수 설정은 GridView의 Column의 속성에서 설정한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.createDataList' target='_blank'>com.data.createDataList</a></td>
+<td>DataList를 동적으로 생성한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.createDataMap' target='_blank'>com.data.createDataMap</a></td>
+<td>DataMap을 동적으로 생성한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.undoAll' target='_blank'>com.data.undoAll</a></td>
+<td>전체 데이터를 초기 설정 된 데이터(originalData)로 바꾸고 행의 상태를 초기화(R) 시킨다.<br>초기 설정 된 데이터 란 setJSON, setXML 등과 같은 API들을 통해 설정 된 데이터가 이에 속한다.<br>추가(C)된 행은 제거한다</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.undoRow' target='_blank'>com.data.undoRow</a></td>
+<td>지정한 GridView에 선택컬럼(chk)이 체크된 Row들을 취소(Undo) 처리한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.deleteRow' target='_blank'>com.data.deleteRow</a></td>
+<td>지정한 GridView에 선택컬럼(chk)이 체크된 Row들을 삭제(Delete) 처리한다.</td>
+</tr>
+<tr>
+<td><a href='com.data.html#.getMatchedJSON' target='_blank'>com.data.getMatchedJSON</a></td>
+<td>검색 조건에 맞는 데이터를 반환한다.</td>
+</tr>
+</tbody>
+</table>
+<h1>com.util</h1>
+<p>웹스퀘어 컴포넌트 제어, 엑셀 파일 업로드/다운로드, 파일 업로드/다운로드, 기타 유틸리티 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='com.util.html#.getJSON' target='_blank'>com.util.getJSON</a></td>
+<td>JSON Object로 변환해서 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.isJSON' target='_blank'>com.util.isJSON</a></td>
+<td>JSON Object인지 여부를 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.isArray' target='_blank'>com.util.isArray</a></td>
+<td>배열 객체인지 여부를 확인한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.isEmpty' target='_blank'>com.util.isEmpty</a></td>
+<td>값이 Empty 상태(undefined, null, &quot;&quot;)인지 판별한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.getObjectType' target='_blank'>com.util.getObjectType</a></td>
+<td>객체의 typeof 값을 반환하며 typeof의 값이 object인 경우 array, json, xml, null로 체크하여 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.isPlainObject' target='_blank'>com.util.isPlainObject</a></td>
+<td>값이 Plain Object인지 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.isMobile' target='_blank'>com.util.isMobile</a></td>
+<td>현재 클라이언트 브라우저 환경의 모바일 여부를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.isXmlDoc' target='_blank'>com.util.isXmlDoc</a></td>
+<td>XML Document 객체인지 여부를 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.setGridViewDelCheckBox' target='_blank'>com.util.setGridViewDelCheckBox</a></td>
+<td>GridView Row 삭제를 위한 CheckBox 동작을 세팅한다.<br>GridView에 삭제용 CheckBox가 있을 경우 onPageLoad 이벤트에서 com.util.setGridViewDelCheckBox 함수를 호출한다.<br>이 함수가 정상 동작하려면 GridView의 Delete 처리용 CheckBox의 ColumnId와 Header Id를 &quot;chk&quot;로 설정해야 한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.getChildren' target='_blank'>com.util.getChildren</a></td>
+<td>특정 컴포넌트의 자식 컴포넌트를 배열로 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.getGridViewDataList' target='_blank'>com.util.getGridViewDataList</a></td>
+<td>GridView와 바인딩된 DataList 객체를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.getComponent' target='_blank'>com.util.getComponent</a></td>
+<td>주어진 아이디에 해당하는 웹스퀘어 컴포넌트를 찾아 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.createComponent' target='_blank'>com.util.createComponent</a></td>
+<td>주어진 인자를 통해 동적으로 Component를 생성합니다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.setInterval' target='_blank'>com.util.setInterval</a></td>
+<td>실행할 함수를 함수를 setInterval로 등록하여 함수가 주기적으로 계속 실행되도록 한다.SPA모드에서 페이지 이동 시 이 함수로 등록한 타이머를 자동으로 제거한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.clearInterval' target='_blank'>com.util.clearInterval</a></td>
+<td>실행할 함수를 함수를 setInterval로 등록하여 함수가 주기적으로 계속 실행되도록 한다.SPA모드에서 페이지 이동 시 이 함수로 등록한 타이머를 자동으로 제거한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.setTimeout' target='_blank'>com.util.setTimeout</a></td>
+<td>실행할 함수를 함수를 setInterval로 등록하여 함수가 주기적으로 계속 실행되도록 한다.SPA모드에서 페이지 이동 시 이 함수로 등록한 타이머를 자동으로 제거한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.clearTimeout' target='_blank'>com.util.clearTimeout</a></td>
+<td>실행할 함수를 함수를 setInterval로 등록하여 함수가 주기적으로 계속 실행되도록 한다.SPA모드에서 페이지 이동 시 이 함수로 등록한 타이머를 자동으로 제거한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.copyClipboard' target='_blank'>com.util.copyClipboard</a></td>
+<td>입력 가능한 컴포넌트(input, textarea 등) 객체의 내용을 클립보드에 저장한다.</td>
+</tr>
+<tr>
+<td><a href='com.util.html#.getFunctionByName' target='_blank'>com.util.getFunctionByName</a></td>
+<td>문자열을 함수로 반환한다.</td>
+</tr>
+</tbody>
+</table>
+<h1>com.win</h1>
+<p>업무 화면 영역 제어(권한, 업무 화면 공통 UI 요소 및 버튼 제어, 개인화 등) 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='com.win.html#.goHome' target='_blank'>com.win.goHome</a></td>
+<td>최상위 page를 index화면으로 이동 (/)</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.logout' target='_blank'>com.win.logout</a></td>
+<td>로그아웃으로 WAS의 사용자 session을 삭제한다.<br>정상 처리 : /로 이동.<br>오류 발생 : 기존 화면으로 오류 메세지 전송</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.isAdmin' target='_blank'>com.win.isAdmin</a></td>
+<td>로그인한 사용자가 시스템 관리자 인지의 여부를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.getFullPath' target='_blank'>com.win.getFullPath</a></td>
+<td>contextRoot가 포함된 path를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.setEnterKeyEvent' target='_blank'>com.win.setEnterKeyEvent</a></td>
+<td>해당 그룹 안의 컴포넌트에서 엔터키가 발생하면 해당 컴포넌트의 값을 DataColletion에 저장하고 objFunc 함수를 실행한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.alert' target='_blank'>com.win.alert</a></td>
+<td>Alert 메시지 창을 호출한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.confirm' target='_blank'>com.win.confirm</a></td>
+<td>Confirm 메시지 창을 호출한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.showToastMessage' target='_blank'>com.win.showToastMessage</a></td>
+<td>토스트 메시지를 보여준다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.getLanguage' target='_blank'>com.win.getLanguage</a></td>
+<td>언어 코드를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.getPopupId' target='_blank'>com.win.getPopupId</a></td>
+<td>팝업아이디구하기<br>초기 설정 된 데이터 란 setJSON, setXML 등과 같은 API들을 통해 설정 된 데이터가 이에 속한다.<br>추가(C)된 행은 제거한다</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.openPopup' target='_blank'>com.win.openPopup</a></td>
+<td>팝업창을 연다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.closePopup' target='_blank'>com.win.closePopup</a></td>
+<td>팝업창을 닫는다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.closeAllPopup' target='_blank'>com.win.closeAllPopup</a></td>
+<td>현재 오픈된 전체 팝업창을 닫는다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.isPopup' target='_blank'>com.win.isPopup</a></td>
+<td>현재 화면이 팝업 인지의 여부를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.openMenu' target='_blank'>com.win.openMenu</a></td>
+<td>특정 메뉴를 오픈한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.moveUrl' target='_blank'>com.win.moveUrl</a></td>
+<td>현재 화면을 특정 URL로 이동한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.getFrame' target='_blank'>com.win.getFrame</a></td>
+<td>wframe안의 스크립트 영역에서 이 함수를 호출할 경우 자신을 감싼 wframe object를 반환한다. 전역스크립트에서 호출 시에는 null을 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.getParentFrame' target='_blank'>com.win.getParentFrame</a></td>
+<td>자신의 부모 WFrame 객체를 찾아 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.setLangCode' target='_blank'>com.win.setLangCode</a></td>
+<td>언어 코드를 설정한다.</td>
+</tr>
+<tr>
+<td><a href='com.win.html#.getLangCode' target='_blank'>com.win.getLangCode</a></td>
+<td>언어 코드를 반환한다.</td>
+</tr>
+</tbody>
+</table>
+<h1>com.num</h1>
+<p>숫자 관련 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='com.num.html#.round' target='_blank'>com.num.round</a></td>
+<td>반올림 처리를 한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.floor' target='_blank'>com.num.floor</a></td>
+<td>내림 처리를 한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.ceil' target='_blank'>com.num.ceil</a></td>
+<td>올림 처리를 한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.formatMoney' target='_blank'>com.num.formatMoney</a></td>
+<td>ex)세번째자리마다 콤마 표시, 금액, setDisplayFormat(&quot;#,###&amp;#46##0&quot;, &quot;fn_userFormatter2&quot;) - 입력된 str에 포메터를 적용하여 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.formatNumber' target='_blank'>com.num.formatNumber</a></td>
+<td>세째자리마다 콤마를 추가해서 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.isNumber' target='_blank'>com.num.isNumber</a></td>
+<td>숫자가 맞는지 여부를 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.isOdd' target='_blank'>com.num.isOdd</a></td>
+<td>홀수가 맞는지 여부를 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.parseInt' target='_blank'>com.num.parseInt</a></td>
+<td>문자열을 정수형으로 변환한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.parseFloat' target='_blank'>com.num.parseFloat</a></td>
+<td>문자열을 실수형으로 변환한다.</td>
+</tr>
+<tr>
+<td><a href='com.num.html#.formatByte' target='_blank'>com.num.formatByte</a></td>
+<td>바이트 값을 적절한 단위(KB, MB, GB)를 변환해서 반환한다.</td>
+</tr>
+</tbody>
+</table>
+<h1>com.str</h1>
+<p>문자열 관련 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='com.str.html#.serialize' target='_blank'>com.str.serialize</a></td>
+<td>XML, JSON 객체를 String 타입으로 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.lpad' target='_blank'>com.str.lpad</a></td>
+<td>좌측에 문자열 채우기</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.rpad' target='_blank'>com.str.rpad</a></td>
+<td>우측에 문자열 채우기</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.formatSSN' target='_blank'>com.str.formatSSN</a></td>
+<td>주민번호 문자열에 Formatter(######-#######)를 적용하여 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.formatPhone' target='_blank'>com.str.formatPhone</a></td>
+<td>문자열에 전화번호 형식 Formatter를 적용하여 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.formatTime' target='_blank'>com.str.formatTime</a></td>
+<td>문자열에 시간 형식 Formatter를 적용하여 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.getLocale' target='_blank'>com.str.getLocale</a></td>
+<td>문자(char)의 유형을 리턴한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.existKorean' target='_blank'>com.str.existKorean</a></td>
+<td>입력받은 문자열에 한글이 포함되어 있는지 여부를 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.isKorean' target='_blank'>com.str.isKorean</a></td>
+<td>입력받은 문자열 전체가 한글인지를 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.isFinalConsonant' target='_blank'>com.str.isFinalConsonant</a></td>
+<td>종성이 존재하는지 여부를 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.attachPostposition' target='_blank'>com.str.attachPostposition</a></td>
+<td>단어 뒤에 '은'이나 '는'을 붙여서 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.isBizID' target='_blank'>com.str.isBizID</a></td>
+<td>사업자번호 유효성을 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.isSSN' target='_blank'>com.str.isSSN</a></td>
+<td>내외국인 주민등록번호 유효성을 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.isEmail' target='_blank'>com.str.isEmail</a></td>
+<td>이메일 주소의 유효성을 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.isPhone' target='_blank'>com.str.isPhone</a></td>
+<td>전화번호의 유효성을 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.replaceAll' target='_blank'>com.str.replaceAll</a></td>
+<td>문자열을 치환한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.trim' target='_blank'>com.str.trim</a></td>
+<td>입력된 문자열의 좌우측 공백을 제거한 문자열을 구한다.</td>
+</tr>
+<tr>
+<td><a href='com.str.html#.getByteLength' target='_blank'>com.str.getByteLength</a></td>
+<td>문자열의 바이트 기준 문자열 길이를 반환한다.</td>
+</tr>
+</tbody>
+</table>
+<h1>com.date</h1>
+<p>날짜 관련 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='com.date.html#.addMinute' target='_blank'>com.date.addMinute</a></td>
+<td>입력된 날짜에 지정된 만큼의 분을 더한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.addHour' target='_blank'>com.date.addHour</a></td>
+<td>입력된 날짜에 지정된 만큼의 시간을 더한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.addDate' target='_blank'>com.date.addDate</a></td>
+<td>입력된 날짜에 지정된 만큼의 날을 더한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.addMonth' target='_blank'>com.date.addMonth</a></td>
+<td>입력된 날짜에 지정된 만큼의 달을 더한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.getServerDateTime' target='_blank'>com.date.getServerDateTime</a></td>
+<td>서버 날짜 반환한다. (default format: yyyyMMdd)</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.formatDate' target='_blank'>com.date.formatDate</a></td>
+<td>문자열에 날짜 Formatter를 적용하여 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.formatTime' target='_blank'>com.date.formatTime</a></td>
+<td>시간 - 입력된 String 또는 Number에 포메터를 적용하여 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.formatDateTime' target='_blank'>com.date.formatDateTime</a></td>
+<td>날짜 객체에 포매팅을 적용한다. (default format: yyyyMMdd)</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.isDate' target='_blank'>com.date.isDate</a></td>
+<td>입력된 값이 Date 형식의 값인지 확인한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.diffDate' target='_blank'>com.date.diffDate</a></td>
+<td>fromDate, toDate 를 입력받아 두 날짜의 차이를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.isLeafYear' target='_blank'>com.date.isLeafYear</a></td>
+<td>입력된 양력의 날짜가 윤년인지 검사한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.getDay' target='_blank'>com.date.getDay</a></td>
+<td>특정 날짜의 요일을 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.getLunar' target='_blank'>com.date.getLunar</a></td>
+<td>특정 날짜의 음력 날짜를 반환한다.</td>
+</tr>
+<tr>
+<td><a href='com.date.html#.getLastDateOfMonth' target='_blank'>com.date.getLastDateOfMonth</a></td>
+<td>해당 월의 마지막 날짜를 반환한다.</td>
+</tr>
+</tbody>
+</table>
+<h1>com.ext</h1>
+<p>외부 솔루션 연동 관련 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
+<h1>console</h1>
+<p>디버그 관련 함수를 작성한다.디버그용 개발자도구 Console 로그 출력 관련 함수를 작성한다.</p>
+<table>
+<thead>
+<tr>
+<th>API Name</th>
+<th>API Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href='console.html#.log' target='_blank'>console.log</a></td>
+<td>일반 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.info' target='_blank'>console.info</a></td>
+<td>정보 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.trace' target='_blank'>console.trace</a></td>
+<td>스택 출력을 웹 브라우저 콘솔에 출력한다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.error' target='_blank'>console.error</a></td>
+<td>정보 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.warn' target='_blank'>console.warn</a></td>
+<td>경고 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.debug' target='_blank'>console.debug</a></td>
+<td>디버그용 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.dir' target='_blank'>console.dir</a></td>
+<td>인자로 전달된 객체를 덤프해서 보기 쉽게 표시한다.JSON이나 Array를 Console창에 출력 시에 적합함</td>
+</tr>
+<tr>
+<td><a href='console.html#.count' target='_blank'>console.count</a></td>
+<td>특정 행이 몇 번 실행되었는지 확인하기 위해서 사용한다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.time' target='_blank'>console.time</a></td>
+<td>콘솔 창에 시간 측정을 시작한다. (밀리초 단위로 표시됨)</td>
+</tr>
+<tr>
+<td><a href='console.html#.timeEnd' target='_blank'>console.timeEnd</a></td>
+<td>콘솔 창에 시간 측정을 종료한다. (밀리초 단위로 표시됨)</td>
+</tr>
+<tr>
+<td><a href='console.html#.log' target='_blank'>console.log</a></td>
+<td>일반 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.info' target='_blank'>console.info</a></td>
+<td>정보 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.trace' target='_blank'>console.trace</a></td>
+<td>스택 출력을 웹 브라우저 콘솔에 출력한다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.error' target='_blank'>console.error</a></td>
+<td>정보 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.warn' target='_blank'>console.warn</a></td>
+<td>경고 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.debug' target='_blank'>console.debug</a></td>
+<td>디버그용 메시지를 웹 브라우저 콘솔에 출력한다.추가 매개변수와 함께 문자열 치환을 사용할 수 있다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.dir' target='_blank'>console.dir</a></td>
+<td>인자로 전달된 객체를 덤프해서 보기 쉽게 표시한다.JSON이나 Array를 Console창에 출력 시에 적합함</td>
+</tr>
+<tr>
+<td><a href='console.html#.count' target='_blank'>console.count</a></td>
+<td>특정 행이 몇 번 실행되었는지 확인하기 위해서 사용한다.</td>
+</tr>
+<tr>
+<td><a href='console.html#.time' target='_blank'>console.time</a></td>
+<td>콘솔 창에 시간 측정을 시작한다. (밀리초 단위로 표시됨)</td>
+</tr>
+<tr>
+<td><a href='console.html#.timeEnd' target='_blank'>console.timeEnd</a></td>
+<td>콘솔 창에 시간 측정을 종료한다. (밀리초 단위로 표시됨)</td>
+</tr>
+</tbody>
+</table></article>
+    </section>
+
+
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Jun 16 2021 13:44:45 GMT+0900 (GMT+09:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

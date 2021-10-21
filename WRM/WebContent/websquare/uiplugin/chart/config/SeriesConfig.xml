@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<div style="position:absolute; width: 500px; height:300px;">
+	<div style="border:1px solid #C7D1D4; position:absolute; background-color:#FFFFFF; left:5px; top:5px; width:208px; height:288px; overflow-y:auto; overflow-x:hidden">
+		<div style="border:border:0px solid #C7D1D4;background-color:#DAE3E8; position:absolute; left:5px; top:5px; width:196px; height:276px; overflow-y:auto; overflow-x:hidden">
+			<div id="SERIES_LIST_LAYER" style="border:0px solid gray; position:absolute; left:5px; top:5px; width:184px; height:20px; overflow-y:auto; overflow-x:hidden">
+				<table style="width:100%" border="0" cellspacing="0" cellpadding="0">
+		            <tr>
+		              <td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+		              <td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">계열 목차 </td>
+		              <td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+		            </tr>
+		          </table>
+			</div>
+			<div id="SERIES_LIST" style="border:0px solid gray; position:absolute; padding-left:3px; padding-top:3px; left:5px; top:25px; width:185px; height:220px; overflow-y:auto; overflow-x:hidden">
+			</div>
+		
+			<div id="MULTI_CONFIG" style="border:0px solid gray; position:absolute; left:5px; top:255px; width:190; height:20px;">
+				<input type="checkbox" class="Checkbox" id="USE_AXIS2" /> 이중 차트 사용
+			</div>
+		</div>
+	</div>
+	<div id="MAIN_CHART_TYPE" style="position:absolute; left:220px; top:0px; width:295px; height:130px ; display:none">
+		<div style="position:absolute; left:5px; top:5px;width:466px;">	
+			<table style="width:100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+                  <td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">주축 </td>
+                  <td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+                </tr>
+              </table>
+        </div>
+		<div id="MAIN_CHART_BIG" style="background-color:#F1F3F4; border:1px solid #C7D1D4; position:absolute; left:10px; top:30px; width:185px; height:120px; overflow-y:auto; overflow-x:hidden; padding:5 5 5 5 ">
+		</div>
+		<div id="MAIN_CHART_SMALL" style="background-color:#F1F3F4; border:1px solid #C7D1D4; position:absolute; left:200px; top:30px; width:255px; height:120px; overflow-y:auto; overflow-x:hidden; padding:5 5 5 5 ">
+		</div>
+		<div id="MAIN_CHART_DISPLAY" style="display:none;">
+		</div>
+	</div>
+	<div id="SUB_CHART_TYPE" style="position:absolute; left:220px; top:160px; width:295px; height:130px; display:none">
+		<div style="position:absolute; left:5px; top:5px;width:466px;">	
+			<table style="width:100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+                  <td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">보조축</td>
+                  <td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+                </tr>
+              </table>
+        </div>
+		<div id="SUB_CHART_BIG" style="background-color:#F1F3F4; border:1px solid #C7D1D4; position:absolute; left:10px; top:30px; width:185px; height:120px; overflow-y:auto; overflow-x:hidden; padding:5 5 5 5 ">
+		</div>
+		<div id="SUB_CHART_SMALL" style="background-color:#F1F3F4; border:1px solid #C7D1D4; position:absolute; left:200px; top:30px; width:255px; height:120px; overflow-y:auto; overflow-x:hidden; padding:5 5 5 5 ">
+		</div>
+		<div id="SUB_CHART_DISPLAY" style="display:none;">
+		</div>
+	</div>
+		
+	<div id="BUTTON_LAYER" style="border:0px insect white; position:absolute; left:50px; top:300px; width:290px; height:25px">
+		<img src="uiplugin/chart/images/chart/default/b_ok.gif" style="cursor:pointer" width="50" height="18" border="0" id="SUBMIT_BUTTON" />
+		<img src="uiplugin/chart/images/chart/default/eng_b_cancel.gif" style="cursor:pointer"  width="50" height="18" border="0" id="CANCEL_BUTTON" />
+	</div>
+</div>

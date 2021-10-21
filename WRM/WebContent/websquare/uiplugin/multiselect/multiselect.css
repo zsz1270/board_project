@@ -1,0 +1,51 @@
+.w2multiselect_div {
+	overflow-x : hidden;
+	overflow-y : auto;
+	scrollbar-face-color: #ffffff;
+	scrollbar-highlight-color: #ffffff;
+	scrollbar-shadow-color: #e7e7e7;
+	scrollbar-3dlight-color: #c7c7c7;
+	scrollbar-arrow-color: #797979;
+	scrollbar-track-color: #c7c7c7;
+	scrollbar-base-color: #ffffff;
+	scrollbardarkshadowcolor: #c7c7c7
+	border :1px solid #b5c5d2;
+}
+
+.w2multiselect_table {
+	position : absolute;
+	left : 1px;
+	top : 1px;
+	bottom : 1px;
+	right : 1px;
+	width : 99%;
+	border-collapse : collapse;
+	table-layout : fixed;
+	border-spacing : 0px;
+	background-color : #ffffff;
+	border :1px solid #b5c5d2;
+}
+
+
+.w2multiselect_ta {
+	width : 100%;
+	border : 1px solid #b5c5d2;
+}
+
+.w2multiselect_tr {
+
+}
+
+.w2multiselect_td {
+	height : 20px;
+	font-size : 12px;
+	font-family : 굴림;
+	text-align : center;
+	vertical-align : middle;
+	padding : 0px;
+	border : 1px dashed #b5c5d2;
+}
+
+.w2multiselect_tr_over {
+	background-color : #fff7d2;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv=Content-Type content="text/html; charset=utf-8" />
+	<title>loading</title>
+	<script type="text/javascript" src="processMsg.js"></script>
+	<script type="text/javascript" src="htmlCommon.js"></script>
+	<script language="javascript">
+		window.onload=init;
+		var str = "";
+		var idx = 0;
+	
+		function init() {
+			str = getParameter("param");
+			if( str == null || str == "" ) {
+				//str = WebSquare.language.getMessage( "E_processMsg_Processing" );
+				str = "loading.";
+			}
+			processText();
+					
+			//alert( window.document.loading.GetVariable("_level0.instance1.text")  );
+		}
+	
+		function processText() {
+			if( idx >= str.length )  {
+				idx = 0;
+			}
+			setText( str.substring( idx ) );
+			idx++
+		}
+	
+	
+		//	하단 아래 박스에 글자를 설정한다.
+		function setText(string) {
+			window.document.loading.SetVariable("_level0.instance1.text", string);
+		}
+    </script>
+</head>
+<body style="margin : 0px 0px 0px 0px; background:#ffffff">
+	<!-- URL's used in the movie-->
+	<!-- text used in the movie-->
+	<!--Loading...-->
+	<script>
+		documentWrite( "<OBJECT classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000' codebase='http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0' WIDTH='270' HEIGHT='72' id='loading' ALIGN='' border='1' style='border-color:#AAAAFF'> <PARAM NAME=movie VALUE='images/loading.swf' /> <PARAM NAME=quality VALUE=high /> <PARAM NAME=bgcolor VALUE=#FFFFFF /> <EMBED src='images/loading.swf' quality=high bgcolor=#FFFFFF  WIDTH='270' HEIGHT='72' id='loading'  NAME='loading' ALIGN='' TYPE='application/x-shockwave-flash' PLUGINSPAGE='http://www.macromedia.com/go/getflashplayer'></EMBED></OBJECT>" );
+	</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_setting">
+					<w2:keyInfo>
+						<w2:key id="MAIN_LAYOUT_PAGE_CODE" name="메인 레이아웃" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_selectMainSetting" ref="" target="data:json,dma_setting" action="/main/selectBmMainSetting"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="" ev:submiterror="">
+			</xf:submission>
+			<xf:submission id="sbm_updateMainSetting" ref="data:json,dma_setting" target="" action="/main/updateBmMainSetting"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="scwin.setUpdateMainSetCallback" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+		
+	scwin.mainSetPop = "";
+
+	scwin.onpageload = function() {
+		var param = com.data.getParameter();
+		scwin.closeCallbackFncName = param.callbackFn;
+		com.sbm.execute(sbm_selectMainSetting);
+	};
+
+	scwin.btn_save_onclick = function() {
+		com.sbm.execute(sbm_updateMainSetting);
+	};
+
+	scwin.btn_cancel_onclick = function() {
+		com.win.closePopup();
+	};
+	
+	scwin.setUpdateMainSetCallback = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			com.win.closePopup(scwin.closeCallbackFncName);
+		} else {
+			com.sbm.resultMsg(e.responseJSON.rsMsg);
+		}
+	};
+	
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    <xf:group id="" class="pop_contents">
+    	<xf:group style="" id="" class="tbbox">
+    		<xf:group adaptive="" adaptiveThreshold="" tagname="table" style="" tabIndex="" id="" class="w2tb tb">
+    			<w2:attributes>
+    				<w2:summary></w2:summary>
+    			</w2:attributes>
+    			<xf:group tagname="colgroup">
+    				<xf:group tagname="col" style="width:100px;"></xf:group>
+    				<xf:group style="" tagname="col"></xf:group>
+    			</xf:group>
+    			<xf:group tagname="tr" style="">
+    				<xf:group tagname="th" style="" class="w2tb_th">
+    					<w2:textbox ref="" style="" userData2="" id="" label="메인화면"></w2:textbox>
+    				</xf:group>
+    				<xf:group tagname="td" style="" class="w2tb_td">
+    					<w2:attributes>
+    						<w2:colspan>1</w2:colspan>
+    						<w2:rowspan>1</w2:rowspan>
+    					</w2:attributes>
+    					<xf:select1 appearance="full" cols="2" disabled="" id="rdo_main" ref="data:dma_setting.MAIN_LAYOUT_PAGE_CODE"
+    						renderType="radiogroup" rows="" selectedIndex="1" style="" name="">
+    						<xf:choices>
+    							<xf:item>
+    								<xf:label><![CDATA[Tab View]]></xf:label>
+    								<xf:value><![CDATA[T]]></xf:value>
+    							</xf:item>
+    							<xf:item>
+    								<xf:label><![CDATA[Multi View]]></xf:label>
+    								<xf:value><![CDATA[W]]></xf:value>
+    							</xf:item>
+    						</xf:choices>
+    					</xf:select1>
+    				</xf:group>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    	<xf:group class="btnbox" id="" style="">
+    		<xf:group class="fr" id="">
+    			<xf:trigger class="btn_cm" id="btn_save" style="" type="button" ev:onclick="scwin.btn_save_onclick">
+    				<xf:label><![CDATA[저장]]></xf:label>
+    			</xf:trigger>
+    			<xf:trigger class="btn_cm" id="btn_cancel" style="" type="button" ev:onclick="scwin.btn_cancel_onclick">
+    				<xf:label><![CDATA[취소]]></xf:label>
+    			</xf:trigger>
+    		</xf:group>
+    	</xf:group>
+    </xf:group>
+	</body>
+</html>

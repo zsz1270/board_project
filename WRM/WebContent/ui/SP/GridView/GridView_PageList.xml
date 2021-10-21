@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="GridView_PageList" meta_programName="샘플화면-페이징(PageList)" meta_programDesc="본 화면은 GridView의 pageList컴포넌트를 이용한 페이징 처리 방법을 제공한다." meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileDesc">
+					<w2:keyInfo>
+						<w2:key id="desc" name="" dataType="text"></w2:key>
+						<w2:key id="test" name="" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<desc><![CDATA[
+<pre class="textNor" style="">
+<div class="etcbox">본 화면은 GridView의 pageList컴포넌트를 이용한 페이징 처리 방법을 제공한다.
+본 페이지는 10건씩 가져오도록 처리되어 있다.
+</div>
+<div class="etc_tit">1. pageList</div>
+  - 최초 조회시에 전체 건수를 함께 조회하여 pageList컴포넌트의 값을 구한다.
+  - pageList의 순번을 클릭할 때마다 해당하는 조회 목록을 화면상에 나타낸다.
+</pre>
+						]]></desc>
+						<test><![CDATA[
+<pre class="textNor" style="">						
+<div class="etc_tit">1. 과정</div>
+1. 화면 로딩시 최초 조회가 실행된다.
+2. pageList의 각 순번을 클릭한다.
+<div class="etc_tit">2. 결과</div>
+1. 화면 로딩시 최초 조회를 실행하여 pageList의 값이 셋팅된다.
+2. pageList의 각 순번을 클릭할 때마다 해당하는 조회목록을 화면 gridView에 나타낸다.
+3. 조회 버튼을 클릭시 다시 최초 조회를 실행한다. 
+</pre>
+						]]></test>
+					</w2:data>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<w2:key id="TOTAL_YN" name="총건수 조회여부" dataType="text" defaultValue="Y"></w2:key>
+						<w2:key id="START_NUM" name="시작 순번" dataType="number" defaultValue="0"></w2:key>
+						<w2:key id="END_NUM" name="끝 순번" dataType="number" defaultValue="5"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataList id="dlt_update" baseNode="list" saveRemovedData="true" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="UPT_SEQ" name="업데이트순번" dataType="text"></w2:column>
+						<w2:column id="UPT_TITLE" name="제목" dataType="text"></w2:column>
+						<w2:column id="UPT_DATE" name="작성일" dataType="text"></w2:column>
+						<w2:column id="UPT_CONTENT" name="내용" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_mainList" ref='data:json,dma_search' target='data:json,{"id":"dlt_update","key":"dlt_update"}'
+				action="/page/selectPageInfo" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler=""
+				mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_mainList_submitdone" ev:submiterror="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	
+	scwin.onpageload = function() {
+		scwin.searchMain(1, "Y");
+	};
+	
+	/**
+	 * 화면 초기화 데이터가 모두 로딩되면 발생하는 이벤트
+	 */
+	scwin.ondataload = function() {
+		scwin.searchMain(1, "Y");
+	};	
+	
+	scwin.sbm_mainList_submitdone = function(e) {
+		// 조회 성공인 경우
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			if (com.util.isEmpty(e.responseJSON.TOTAL_CNT) === false) {
+				spn_totalCnt.setValue(e.responseJSON.TOTAL_CNT.CNT);
+			}
+			
+			var firstYn = dma_search.get("TOTAL_YN");
+	
+			// 최초 조회일 경우에만 전체 건수를 구하여 전역변수에 담는다.
+			if (firstYn == "Y") {
+				var totalCnt = Math.ceil(e.responseJSON.TOTAL_CNT.CNT / 10);
+				pgl_list.setCount(totalCnt);
+			}
+		}
+	};
+	
+	// 처음부터 다시 조회
+	scwin.btn_search_onclick = function(e) {
+		scwin.searchMain(1, "Y");
+	};
+	
+	/*
+	 * 조회 (현재 샘플은 10개씩 조회할 경우 기준) param1 - 조회 시작 순번 param2 - 총 건수 조회 여부
+	 */
+	scwin.searchMain = function(idx, strYn) {
+		dma_search.set("TOTAL_YN", strYn);
+		dma_search.set("START_NUM", (com.num.parseInt(idx) - 1) * 10);
+		dma_search.set("END_NUM", 10);
+	
+		com.sbm.execute(sbm_mainList);
+	};
+	
+	// 페이지 리스트 클릭 시
+	scwin.pgl_list_onclick = function(idx) {
+		scwin.searchMain(idx, "N");
+	};]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents" id="" style="">
+			<w2:wframe id="" style="" src="../../cm/xml/contentHeader.xml" scope=""></w2:wframe>
+			<w2:wframe id="" src="../../cm/xml/contentDesc.xml" scope=""></w2:wframe>
+			<xf:group class="dfbox" id="" style="">
+				<w2:textbox class="df_tit fl" id="" label="예제" style=""></w2:textbox>
+				<xf:group class="fr" id="" style="">
+					<w2:textbox class="sum" id="spn_totalCnt" label="" style=""></w2:textbox><w2:textbox class="" id="" label="건" style=""></w2:textbox><xf:trigger class="btn_cm  search" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
+						<xf:label><![CDATA[조회]]></xf:label>
+					</xf:trigger>	
+				</xf:group>
+			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="allColumn" class="wq_gvw" dataList="data:dlt_update" ev:onscrollend="scwin.gridView1_onscrollend"
+					fixedColumnWithHidden="true" id="gridView1" ignoreCellClick="false" ignoreToggleOnDisabled="false" scrollByColumn="false"
+					scrollByColumnAdaptive="false" style="height:250px;" summaryAuto="false" useShiftKey="true" visibleRowNum="10">
+					<w2:header id="header1" style="">
+						<w2:row id="row1" style="">
+							<w2:column blockSelect="false" displayMode="label" id="column7" inputType="text" style="height:20px" value="업데이트순번"
+								width="100">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column5" inputType="text" style="height:44px;" value="제목"
+								width="100">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column3" inputType="text" style="height:20px" value="작성일"
+								width="100">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column1" inputType="text" style="height:20px" value="내용" width="180">
+							</w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody1" style="">
+						<w2:row id="row2" style="">
+							<w2:column blockSelect="false" displayMode="label" id="UPT_SEQ" inputType="text" style="height:20px" width="70">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="UPT_TITLE" inputType="text" style="height:38px;" width="70" textAlign="left">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="UPT_DATE" inputType="text" style="height:20px" width="70">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="UPT_CONTENT" inputType="text" style="height:20px" width="70">
+							</w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+			</xf:group>
+			<w2:pageList class="wq_pglist" displayButtonType="display" displayFormat="#" id="pgl_list" pageSize="5" pagingType="0"
+				style="" ev:onchange="" ev:onclick="scwin.pgl_list_onclick" renderType="">
+			</w2:pageList>
+
+		</xf:group>
+	</body>
+</html>

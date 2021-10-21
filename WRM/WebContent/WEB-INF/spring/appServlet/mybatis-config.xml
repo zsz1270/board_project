@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- resultType으로 HashMap 지정시, value 값이 null일때, 컬럼 누락되는 문제. -->
+	<settings>
+		<setting name="callSettersOnNulls" value="true"/>
+	</settings>
+</configuration>

@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+
+	scwin.onpageload = function() {
+
+	};
+	
+	/** 
+	 * 좌측 메뉴를 생성한다.
+	 */
+	scwin.setGenerator = function() {
+		gen_firstGenerator.removeAll();
+	
+		var tmpDataArr = $p.parent().wfm_side.getWindow().dlt_menu.getAllJSON();
+		var tmpParentIdx = 0;
+		var thirdIndex = 0;
+	
+		//첫번째 메뉴 세팅
+		for (var i = 0; i < tmpDataArr.length; i++) {
+			var headerData_obj = tmpDataArr[i];
+			var menuDepth = headerData_obj.MENU_LEVEL;
+			var parentKey = headerData_obj.PARENT_MENU_CD; // m1, m2, m3
+			var tmpIdx = 0, tmpIdx2 = 0;
+	
+			if (menuDepth == "1") {
+				tmpParentIdx = gen_firstGenerator.insertChild();
+				var firstMenuLabel = gen_firstGenerator.getChild(tmpParentIdx, "btn_menu1_Label");
+				firstMenuLabel.setValue(headerData_obj.MENU_NM);
+				firstMenuLabel.setUserData("ins_webPath", headerData_obj.SRC_PATH);
+				firstMenuLabel.setUserData("ins_key", headerData_obj.PARENT_MENU_CD);
+				firstMenuLabel.setUserData("ins_label", headerData_obj.MENU_NM);
+				firstMenuLabel.setUserData("ins_code", headerData_obj.MENU_CD);
+			} else if (menuDepth == "2") {
+				var secondGene = gen_firstGenerator.getChild(tmpParentIdx, "gen_SecondGenerator");
+				tmpIdx = secondGene.insertChild();
+				var secondMenuLabel = secondGene.getChild(tmpIdx, "btn_menu2_Label");
+				secondMenuLabel.setValue(headerData_obj.MENU_NM);
+				thirdIndex = tmpIdx;
+			} else if (menuDepth == "3") {
+				var thirdGene = secondGene.getChild(thirdIndex, "gen_thirdGenerator");
+				tmpIdx2 = thirdGene.insertChild();
+				var thirdMenuLabel = thirdGene.getChild(tmpIdx2, "btn_menu3_Label");
+				thirdMenuLabel.setValue(headerData_obj.MENU_NM);
+				thirdMenuLabel.setUserData("ins_webPath", headerData_obj.SRC_PATH);
+				thirdMenuLabel.setUserData("ins_key", headerData_obj.PARENT_MENU_CD);
+				thirdMenuLabel.setUserData("ins_label", headerData_obj.MENU_NM);
+				thirdMenuLabel.setUserData("ins_code", headerData_obj.MENU_CD);
+			}
+		}
+	};
+	
+	/** 
+	 * 생성된 메뉴의 css 적용한다.
+	 */
+	scwin.setMenuCss = function() {
+		// GNB MENU
+		$(function() {
+			$(".gnb_menu a").click(function(){
+				if(!$(this).parent().hasClass("on")){
+					$(this).parent().addClass("on").siblings().removeClass("on");
+				}
+			});
+			$(".dep2 li a").click(function(){ 
+				var pTop = $(this).parent().position().top;
+				$(this).siblings().css("top", pTop + "px");
+			});
+			$(".dep2").mouseleave(function(){
+				$(this).parent().removeClass("on");
+				$(this).children().removeClass("on");
+			});
+			$(".items").mouseleave(function(){
+				$(this).removeClass("on");
+			});
+		});	
+	};
+	
+	/*
+	scwin.btn_NotiClose_onclick = function() {
+		if (txa_messageDetail.hasClass("show")) {
+			$(".notice").animate({ "bottom" : "-300px", "opacity" : "0" }, 700);
+		} else {
+			$(".notice").animate({ "bottom" : "-42px", "opacity" : "0" }, 1000);
+		}
+	};
+
+	
+	scwin.btn_notiMore_onclick = function() {
+		txa_messageDetail.toggleClass("show");
+	};
+	*/
+	
+	/**
+	 * header에 속한 메뉴 클릭 이벤트
+	 */
+	scwin.btn_topMenu_onclick = function() {
+		var urlPath = this.getUserData("ins_webPath");
+		var label = this.getUserData("ins_label");
+		var pageCode = this.getUserData("ins_code");
+	
+		$p.top().wfm_side.getWindow().scwin.setMenuRelation(label, urlPath, pageCode);
+		$p.parent().grp_wrap.setStyle('overflow', 'visible');
+	};
+	
+	/**
+	 * header에 속한 메뉴 클릭 이벤트 1depth
+	 */
+	scwin.btn_menu1_Label_onclick = function() {
+		var urlPath = this.getUserData("ins_webPath");
+		if(urlPath != ""){
+			var label = this.getUserData("ins_label");
+			var pageCode = this.getUserData("ins_code");
+		
+			$p.top().wfm_side.getWindow().scwin.setMenuRelation(label, urlPath, pageCode);
+			$p.parent().grp_wrap.setStyle('overflow', 'visible');
+		}
+	};
+	
+	scwin.btn_menu2_Label_onclick = function() {
+		var urlPath = this.getUserData("ins_webPath");
+		
+		if(urlPath && urlPath != ""){
+			var label = this.getUserData("ins_label");
+			var pageCode = this.getUserData("ins_code");
+		
+			$p.top().wfm_side.getWindow().scwin.setMenuRelation(label, urlPath, pageCode);
+			
+			$(".dep2").removeClass('on');
+			$(".gnb_menu").removeClass('show');
+			$(".gnb_menu li").removeClass('on');		
+		}
+	};
+	
+	scwin.btn_menu3_Label_onclick = function() {
+		var urlPath = this.getUserData("ins_webPath");
+		if(urlPath && urlPath != ""){
+			var label = this.getUserData("ins_label");
+			var pageCode = this.getUserData("ins_code");
+			
+			$p.top().wfm_side.getWindow().scwin.setMenuRelation(label, urlPath, pageCode);
+			$(".dep2 li").removeClass('on');
+			$(".gnb_menu li").removeClass('on');		
+		}	
+	};
+	
+	/** 
+	 * 환경설정 관리 팝업창을 오픈한다.
+	 */
+	scwin.btn_setting_onclick = function() {
+		var data = { "data" : "", callbackFn : "scwin.callbackSetting" };
+
+		var options = {
+			"id" : "mainSettingPop",
+			"width" : "500px",
+			"height" : "200px",
+			"popupName" : "환경설정 관리",
+			"modal" : true
+		};
+		
+		com.win.openPopup("/cm/xml/settingPop.xml", options, data);
+	};
+	
+	scwin.callbackSetting = function() {
+		com.win.confirm("정상 처리되었습니다. 화면을 갱신하시겠습니까?", "scwin.execUpdateMainSettingConfirmCallback");
+	};
+	
+	scwin.execUpdateMainSettingConfirmCallback = function(res) {
+		if (res.clickValue === true) {
+			com.win.goHome();
+		}
+	};
+	
+	scwin.btn_toggle_onclick = function() {
+		scwin.toggleMenu();
+	};
+	
+	scwin.toggleMenu = function() {
+		$(".dim").toggleClass("hide");
+	}
+	
+	scwin.btn_logout_onclick = function(e) {
+		com.win.logout();
+	};
+
+	/**
+	 * 로그인된 사용자의 비밀번호를 변경한다.
+	 */
+	scwin.btn_changePassword_onclick = function(e) {
+		var data = { "empCd" : $p.parent().wfm_side.getWindow().dma_defInfo.get("EMP_CD") };
+		
+		var options = {
+			"id" : "settingPassword",
+			"width" : "500px",
+			"height" : "280px",
+			"popupName" : "비밀번호변경",
+			"modal" : true
+		};
+		
+		com.win.openPopup("/cm/xml/settingPassword.xml", options, data);
+	};
+
+	scwin.btn_logo_onclick = function() {
+		com.win.goHome();
+	};
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="linkarea" id="" style="">
+			<w2:anchor class="btn_inspage" id="" outerDiv="false" style="">
+				<xf:label><![CDATA[인스웨이브 홈페이지]]></xf:label>
+			</w2:anchor>
+			<w2:anchor class="btn_wtechcenter" id="" outerDiv="false" style="">
+				<xf:label><![CDATA[W-Tech Center]]></xf:label>
+			</w2:anchor>
+			<w2:anchor class="btn_demosite" id="" outerDiv="false" style="">
+				<xf:label><![CDATA[데모사이트]]></xf:label>
+			</w2:anchor>
+			<w2:anchor class="btn_allmenu" id="" name="" outerDiv="false" style="">
+				<xf:label><![CDATA[전체메뉴]]></xf:label>
+			</w2:anchor>
+		</xf:group>
+		<w2:anchor class="btn_toggle_menu" id="btn_toggle_menu" name="" outerDiv="false" style="">
+			<xf:label><![CDATA[slide]]></xf:label>
+		</w2:anchor>
+		<xf:group class="" id="" style="" tagname="h1">
+			<w2:anchor class="logo" id="btn_logo" outerDiv="false" style="" ev:onclick="scwin.btn_logo_onclick">
+				<xf:label><![CDATA[inswave systems]]></xf:label>
+			</w2:anchor>
+		</xf:group>
+		<w2:generator style="" id="gen_firstGenerator" class="gnb_menu" tagname="ul">
+			<xf:group style="" id="" tagname="li">
+				<w2:anchor outerDiv="false" style="" id="btn_menu1_Label" ev:onclick="scwin.btn_menu1_Label_onclick">
+					<xf:label><![CDATA[1depth 메뉴]]></xf:label>
+				</w2:anchor>
+				<w2:generator class="dep2" id="gen_SecondGenerator" style="" tagname="ul">
+					<xf:group id="" style="" tagname="li">
+						<w2:anchor id="btn_menu2_Label" outerDiv="false" style="" ev:onclick="scwin.btn_menu2_Label_onclick">
+							<xf:label><![CDATA[2depth 메뉴]]></xf:label>
+						</w2:anchor>
+						<w2:generator class="dep3" id="gen_thirdGenerator" style="" tagname="ul">
+							<xf:group id="" style="" tagname="li">
+								<w2:anchor id="btn_menu3_Label" outerDiv="false" style="" ev:onclick="scwin.btn_menu3_Label_onclick">
+									<xf:label><![CDATA[3depth 메뉴]]></xf:label>
+								</w2:anchor>
+							</xf:group>
+						</w2:generator>
+					</xf:group>
+				</w2:generator>
+			</xf:group>
+		</w2:generator>
+		<xf:group class="option_box" id="" style="">
+			<xf:group class="" id="" style="" tagname="ul">
+				<xf:group class="on mypage" id="" style="" tagname="li">
+					<w2:anchor class="btn_mypage" disabled="" ev:onclick="" id="txt_empNm" outerDiv="false" style="" target="" title="aa">
+						<xf:label><![CDATA[]]></xf:label>
+					</w2:anchor>
+					<xf:group class="items" id="" style="" tagname="ul">
+						<xf:group class="" id="" style="" tagname="li">
+							<w2:anchor ev:onclick="scwin.btn_changePassword_onclick" id="btn_changePassword" outerDiv="false" style="">
+								<xf:label><![CDATA[비밀번호 변경]]></xf:label>
+							</w2:anchor>
+						</xf:group>
+						<xf:group class="" id="" style="" tagname="li">
+							<w2:anchor class="" id="btn_logout" outerDiv="false" style="" ev:onclick="scwin.btn_logout_onclick">
+								<xf:label><![CDATA[Logout]]></xf:label>
+							</w2:anchor>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group class="set" id="" style="" tagname="li">
+					<w2:anchor class="btn_setting" ev:onclick="scwin.btn_setting_onclick" id="btn_setting" outerDiv="false" style="">
+						<xf:label><![CDATA[Setting]]></xf:label>
+					</w2:anchor>
+				</xf:group>
+			</xf:group>
+		</xf:group>
+		<w2:anchor outerDiv="false" style="" id="" class="btn_logout" ev:onclick="scwin.btn_logout_onclick">
+			<xf:label><![CDATA[Logout]]></xf:label>
+		</w2:anchor>
+	</body>
+</html>

@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="BM002M01" meta_programName="권한 관리" meta_programDesc="사용자별 메뉴 권한을 관리하는 화면" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList id="dlt_authority" baseNode="list" saveRemovedData="true" repeatNode="map" ev:oncelldatachange="">
+					<w2:columnInfo>
+						<w2:column id="chk" name="선택" dataType="text" ignoreStatus="true"></w2:column>
+						<w2:column id="AUTHORITY_CD" name="권한코드" dataType="text"></w2:column>
+						<w2:column id="AUTHORITY_NM" name="권한명" dataType="text"></w2:column>
+						<w2:column id="IS_USE" name="사용여부" dataType="text" defaultValue=""></w2:column>
+						<w2:column id="NOTE" name="비고" dataType="text"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="false"></w2:data>
+				</w2:dataList>
+				<w2:dataList id="dlt_authorityMember" baseNode="list" saveRemovedData="true" repeatNode="map" ev:oncelldatachange="">
+					<w2:columnInfo>
+						<w2:column id="chk" name="선택" dataType="text" ignoreStatus="true"></w2:column>
+						<w2:column id="AUTHORITY_CD" name="권한코드" dataType="text"></w2:column>
+						<w2:column id="EMP_CD" name="사원코드" dataType="text"></w2:column>
+						<w2:column id="EMP_NM" name="사원명" dataType="text"></w2:column>
+						<w2:column id="ORG_NM" name="조직" dataType="text"></w2:column>
+						<w2:column id="ASSIGNED_TASK" name="담당업무" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<w2:key id="TYPE" name="name1" dataType="text"></w2:key>
+						<w2:key id="CONTENT" name="name2" dataType="text"></w2:key>
+						<w2:key id="IS_USE" name="name3" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_authority">
+					<w2:keyInfo>
+						<w2:key id="AUTHORITY_CD" name="name1" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataList id="dlt_authoritySearchItem" baseNode="list" saveRemovedData="true" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="AUTHORITY_CD" name="권한코드" dataType="text"></w2:column>
+						<w2:column id="AUTHORITY_NM" name="권한명" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<xf:submission id="sbm_authority" ref='data:json,dma_search' target='data:json,dlt_authority'
+				action="/authority/selectAuthorityList" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace=""
+				errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_authority_submitdone"
+				ev:submiterror="">
+			</xf:submission>
+			<xf:submission id="sbm_authorityMember" ref='data:json,dma_authority' target='data:json,dlt_authorityMember'
+				action="/authority/selectAuthorityMemberList" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace=""
+				errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_authorityMember_submitdone"
+				ev:submiterror="">
+			</xf:submission>
+			<xf:submission id="sbm_saveAuthorityMember" ref='data:json,[{"id":"dlt_authorityMember","action":"modified"}]'
+				target='' action="/authority/saveAuthorityMember" method="post"
+				mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg=""
+				ev:submit="" ev:submitdone="scwin.sbm_saveAuthorityMember_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_saveAuthAll"
+				ref='data:json,[{"id":"dlt_authority","action":"modified"},{"id":"dlt_authorityMember","action":"modified"}]'
+				target="" action="/authority/saveAuthorityAll" method="post" mediatype="application/json" encoding="UTF-8"
+				instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="저장중 입니다..." ev:submit=""
+				ev:submitdone="scwin.sbm_saveAuthAll_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_authoritySearchItem" ref="" target="data:json,dlt_authoritySearchItem"
+				action="/authority/selectAuthoritySearchItem" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace=""
+				errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+			<xf:submission id="sbm_saveAuthority" ref='data:json,{"action":"modified","id":"dlt_authority"}' target='' action="/authority/saveAuthority"
+				method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+				processMsg="" ev:submit="" ev:submitdone="scwin.sbm_saveAuthority_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+
+		<script type="text/javascript" lazy="false"><![CDATA[
+	/**
+	 * 화면 내 전역 변수 선언
+	 */
+	scwin.selectedAuthorityRowIdx = 0;
+
+	/**
+	 * 초기 스크립트 수행 함수 정의
+	 */
+	scwin.onpageload = function() {
+		com.sbm.execute(sbm_authoritySearchItem);
+		com.win.setEnterKeyEvent(tbl_search, scwin.btn_search_onclick);
+		com.util.setGridViewDelCheckBox([grd_authority, grd_authorityMember]);
+	};
+	
+	/**
+	 * 화면 초기화 데이터가 모두 로딩되면 발생하는 이벤트
+	 */
+	scwin.ondataload = function() {
+		scwin.btn_search_onclick();
+	};
+	
+	/**
+	 * 검색항목(selectBox)의 내용이 변경되었을 때 실행된다 
+	 */
+	scwin.sbx_ChoiceBox_onviewchange = function(info) {
+		if (info.newValue == "AUTHORITY_CD") {
+			acb_autoChoiceBox.setNodeSet("data:dlt_authoritySearchItem", "AUTHORITY_CD", "AUTHORITY_CD");
+		} else if (info.newValue == "AUTHORITY_NM") {
+			acb_autoChoiceBox.setNodeSet("data:dlt_authoritySearchItem", "AUTHORITY_NM", "AUTHORITY_NM");
+		}
+	};
+	
+
+	/**
+	 * 팝업창에 선택된 사용자 정보를 DataList( dlt_Member )에 추가시킨다.
+	 */
+	scwin.insertMember = function(obj) {
+		var dLength = obj.length;
+		for (i = 0; i < dLength; i++) {
+			var data = dlt_authorityMember.getMatchedIndex("EMP_CD", obj[i].EMP_CD, true);
+			if (data.length == 0) {
+				obj[i].AUTHORITY_CD = dma_authority.get("AUTHORITY_CD");
+				obj[i].chk = "0";
+				var idx = dlt_authorityMember.insertRow();
+				dlt_authorityMember.setRowJSON(idx, obj[i], true);
+			}
+		}
+	};
+	
+	/**
+	 * 권한조회 버튼 클릭시 발생하며, 조건에 따른 권한리스트를 조회한다.
+	 */
+	scwin.btn_search_onclick = function() {
+		dlt_authorityMember.removeAll();
+		dma_search.set("CONTENT", acb_autoChoiceBox.getValue());
+		scwin.selectedAuthorityRowIdx = 0;
+		com.sbm.execute(sbm_authority);
+	};
+	
+	/**
+	 * sbm_authority submitdone 이벤트로 조회해온 건수를 셋팅한다.
+	 */
+	scwin.sbm_authority_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			spn_authorityCnt.setValue(dlt_authority.getRowCount());
+			dlt_authorityMember.removeAll();
+			spn_authorityMemberCnt.setValue("0");
+			grd_authority.setFocusedCell(scwin.selectedAuthorityRowIdx, "AUTHORITY_NM");
+		}
+	};
+	
+	/**
+	 * 권한 리스트의 row 인덱스 위치가 바뀔때 마다 실행되며 권한에 해당하는 멤버 목록을 가져온다.
+	 */
+	scwin.grd_authority_onrowindexchange = function(row, oldRow) {
+		scwin.selectedAuthorityRowIdx = row;
+		if (com.data.isModified(dlt_authorityMember)) {
+			scwin.btn_saveAuth_onclick();
+		} else {
+			var status_row = dlt_authority.getRowStatus(row);
+	
+			if (status_row == "C") {
+				dlt_authorityMember.removeAll();
+				dlt_authorityMember.reform();
+			} else {
+				var authorityCd = dlt_authority.getCellData(row, "AUTHORITY_CD");
+				if (authorityCd) {
+					dma_authority.set("AUTHORITY_CD", authorityCd);
+					com.sbm.execute(sbm_authorityMember);
+				}
+			}
+		}
+	};
+	
+	/**
+	 * 권한별 등록사원 조회의 콜백메소드
+	 * 건수 조회, ReadOnly 그리드뷰 컬럼색 변경. ReadOnly속성을 설정한다.  
+	 */
+	scwin.sbm_authorityMember_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			spn_authorityMemberCnt.setValue(grd_authorityMember.getTotalRow());
+		}
+	};
+	
+	/**
+	 * 권한 리스트의 row를 추가한다.
+	 */
+	scwin.btn_addAuth_onclick = function() {
+		var insertIndex = dlt_authority.insertRow();
+		dlt_authority.setCellData(insertIndex, "IS_USE", 'Y');
+		grd_authority.setReadOnly("cell", insertIndex, "AUTHORITY_CD", false);
+		grd_authority.setFocusedCell(insertIndex, "AUTHORITY_CD", true);
+	};
+	
+	/**
+	 * 권한 리스트에서 선택된 항목을 삭제 상태로 변경한다. ( rowStauts : D )
+	 */
+	scwin.btn_delAuth_onclick = function() {
+		if (grd_authorityMember.getAllVisibleData() == "") {
+			dlt_authority.deleteRows(grd_authority.getCheckedIndex("chk"));
+		} else {
+			com.win.alert(com.data.getMessage("MSG_CM_00016"));
+		}
+	};
+	
+	/**
+	 * 권한 리스트에서 취소 버튼클릭시 데이타를 이전 상태로 바꾸고 추가된 것들은 삭제한다.
+	 */
+	scwin.btn_cancelAuth_onclick = function() {
+		com.data.undoAll(dlt_authority);
+	};
+	
+	/**
+	 * 권한등록사원 리스트에서 등록 버튼클릭시 수행되며, 사원등록 페이지를 layer popup으로 표현해준다.
+	 */
+	scwin.btn_addAuthMemebr_onclick = function() {
+		var focusRowIdx = scwin.selectedAuthorityRowIdx;
+		if (focusRowIdx == -1) {
+			com.win.alert(com.data.getMessage("MSG_CM_00017"));
+		} else {
+			var rowStatus = dlt_authority.getRowStatus(focusRowIdx);
+			if (rowStatus == "C") {
+				com.win.alert(com.data.getMessage("MSG_CM_00018"));
+			} else {
+				var auth_cd = dma_authority.get("AUTHORITY_CD");
+				if (auth_cd != "") {
+					var data = { data : dma_authority.getJSON(), callbackFn : "scwin.insertMember" };
+					var options = { id : "AuthorityMemberPop",
+									popupName : "직원 조회", 
+									modal : true,
+									width : 680, height: 460 };
+					com.win.openPopup("/ui/BM/BM002P01.xml", options, data);
+				}
+			}
+		}
+	};
+	
+	/**
+	 * 권한 등록 사원 리스트에서 취소 버튼클릭시 데이타를 이전 상태로 바꾸고 추가된 것들은 삭제한다.
+	 */
+	scwin.btn_cancelAuthMember_onclick = function() {
+		com.data.undoAll(dlt_authorityMember);
+	};
+	
+	/**
+	 * 권한의 입력, 수정, 삭제한다.
+	 */
+	scwin.btn_saveAuth_onclick = function() { 
+		var valAuthInfo = [ { id : "AUTHORITY_CD", mandatory : true }, 
+							{ id : "AUTHORITY_NM", mandatory : true } ];
+							
+		var valMemInfo = [ { id : "EMP_CD", mandatory : true }, 
+						   { id : "EMP_NM", mandatory : true } ];
+						   
+		if (com.data.isModified(dlt_authority) && com.data.isModified(dlt_authorityMember)) {
+			if (com.data.validateGridView(grd_authority, valAuthInfo) && com.data.validateGridView(grd_authorityMember, valMemInfo)) {
+				com.win.confirm(com.data.getMessage("MSG_CM_00019") + " " + com.data.getMessage("MSG_CM_00010"), scwin.saveAuthAll);
+			}
+		} else if (com.data.isModified(dlt_authority)) {
+			if (com.data.validateGridView(grd_authority, valAuthInfo)) {
+				com.win.confirm(com.data.getMessage("MSG_CM_00020") + " " + com.data.getMessage("MSG_CM_00010"), scwin.saveAuth);
+			}
+		} else if (com.data.isModified(dlt_authorityMember)) {
+			if (com.data.validateGridView(grd_authorityMember, valMemInfo)) {
+				com.win.confirm(com.data.getMessage("MSG_CM_00021") + " " + com.data.getMessage("MSG_CM_00010"), scwin.saveAuthMember);
+			}
+		} else {
+			com.win.alert(com.data.getMessage("MSG_CM_00005"));
+		}
+	};
+	
+	/**
+	 * 권한 리스트 및 권한별 등록사원리스트에서 rowStatus C,U,D,E 상태(Modify)인것만 저장한다.
+	 */
+	scwin.saveAuthAll = function(res) { 
+		if (res.clickValue === true) {
+			com.sbm.execute(sbm_saveAuthAll);
+		}
+	};
+	
+	/**
+	 * 권한 리스트에서 rowStatus C,U,D,E 상태(Modify)인것만 저장한다.
+	 */
+	scwin.saveAuth = function(res) { 
+		if (res.clickValue === true) {
+			com.sbm.execute(sbm_saveAuthority);
+		}
+	}
+	
+	/**
+	 * 권한별 등록사원리스트에서 rowStatus C,U,D,E 상태(Modify)인것만 저장한다.
+	 */
+	scwin.saveAuthMember = function(res) {
+		if (res.clickValue === true) {
+			com.sbm.execute(sbm_saveAuthorityMember);
+		}
+	};
+	
+	scwin.btn_excelAuth_onclick = function() {
+		com.data.downloadGridViewExcel(grd_authority);
+	};
+	
+	scwin.btn_excelAuthMember_onclick = function() {
+		com.data.downloadGridViewExcel(grd_authorityMember);
+	};
+	
+	scwin.sbm_saveAuthAll_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			dlt_authorityMember.undoAll();
+			scwin.btn_search_onclick();
+		}
+	};
+	
+	scwin.sbm_saveAuthority_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			scwin.btn_search_onclick();
+		}
+	};
+	
+	scwin.sbm_saveAuthorityMember_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			dma_authority.set("AUTHORITY_CD", dlt_authority.getCellData(grd_authority.getFocusedRowIndex(), "AUTHORITY_CD"));
+			com.sbm.execute(sbm_authorityMember);
+		}
+	};
+	
+	
+	]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="sub_contents" id="" style="">
+			<w2:wframe id="" src="../../cm/xml/contentHeader.xml" style=""></w2:wframe>
+			<xf:group class="shbox" id="" style="">
+				<xf:group class="shbox_inner" id="tbl_search" style="">
+					<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb" id="" style="width:100%;" tagname="table">
+						<w2:attributes>
+							<w2:summary></w2:summary>
+						</w2:attributes>
+						<xf:group tagname="colgroup">
+							<xf:group style="width:100px;" tagname="col"></xf:group>
+							<xf:group style="" tagname="col"></xf:group>
+							<xf:group style="width:100px;" tagname="col"></xf:group>
+							<xf:group style="" tagname="col"></xf:group>
+						</xf:group>
+						<xf:group style="" tagname="tr">
+							<xf:group class="w2tb_th " style="" tagname="th">
+								<w2:textbox class="req" id="" label="검색항목" style=""></w2:textbox>
+							</xf:group>
+							<xf:group class="w2tb_td" style="" tagname="td">
+								<xf:select1 ref="data:dma_search.TYPE" submenuSize="auto" appearance="minimal" disabledClass="w2selectbox_disabled" chooseOption=""
+									disabled="false" style="width:100px;" allOption="" id="sbx_ChoiceBox" renderType="native" class="" direction="auto" ev:onviewchange="scwin.sbx_ChoiceBox_onviewchange" refreshSelectedIndex="">
+									<xf:choices>
+									<xf:item>
+										<xf:label><![CDATA[권한명]]></xf:label>
+										<xf:value><![CDATA[AUTHORITY_NM]]></xf:value>
+									</xf:item>
+									<xf:item>
+										<xf:label><![CDATA[권한코드]]></xf:label>
+										<xf:value><![CDATA[AUTHORITY_CD]]></xf:value>
+									</xf:item>
+								</xf:choices>
+								</xf:select1>
+								<w2:autoComplete allOption="" appearance="minimal" chooseOption="true" class="" direction="auto"
+									textAlign="left" disabled="false" disabledClass="w2selectbox_disabled" id="acb_autoChoiceBox" ref="" renderType="native"
+									style="width:150px;" submenuSize="auto" keyInputRef="" search="start" chooseOptionLabel="-전체-" noResult="useData">
+									<w2:choices>
+										<w2:itemset nodeset="data:dlt_authoritySearchItem">
+											<w2:label ref="AUTHORITY_NM"></w2:label>
+											<w2:value ref="AUTHORITY_NM"></w2:value>
+										</w2:itemset>
+									</w2:choices>
+								</w2:autoComplete>
+							</xf:group>
+							<xf:group class="w2tb_th" style="" tagname="th">
+								<w2:textbox class="" id="" label="사용여부" style=""></w2:textbox>
+							</xf:group>
+							<xf:group class="w2tb_td" style="" tagname="td" id="">
+								<xf:select1 appearance="full" cols="" disabled="" id="" ref="data:dma_search.IS_USE" renderType="radiogroup"
+									rows="1" selectedIndex="0" style="" tabIndex="">
+									<xf:choices>
+										<xf:item>
+											<xf:label><![CDATA[전체]]></xf:label>
+											<xf:value><![CDATA[]]>
+											</xf:value>
+										</xf:item>
+										<xf:item>
+											<xf:label><![CDATA[사용]]></xf:label>
+											<xf:value><![CDATA[Y]]>
+											</xf:value>
+										</xf:item>
+										<xf:item>
+											<xf:label><![CDATA[미사용]]></xf:label>
+											<xf:value><![CDATA[N]]>
+											</xf:value>
+										</xf:item>
+									</xf:choices>
+								</xf:select1>
+							</xf:group>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+				<xf:group class="btn_shbox" id="" style="">
+					<xf:trigger class="btn_cm sch" disabled="" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
+						<xf:label><![CDATA[조회]]></xf:label>
+					</xf:trigger>
+
+				</xf:group>
+			</xf:group>
+			<xf:group style="" id="" class="dfbox">
+				<w2:textbox label="권한" style="" id="" class="df_tit fl"></w2:textbox>
+				<xf:group style="" id="" class="fr">
+					<w2:textbox class="sum" id="spn_authorityCnt" label="0" style=""></w2:textbox>
+					<w2:textbox class="" id="" label="건" style=""></w2:textbox>
+
+					<xf:trigger type="button" style="" id="btn_addAuth" class="btn_cm " ev:onclick="scwin.btn_addAuth_onclick">
+						<xf:label><![CDATA[등록]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm " ev:onclick="scwin.btn_delAuth_onclick" id="btn_delAuth" style="display:none;" type="button" title="">
+						<xf:label><![CDATA[삭제]]></xf:label>
+					</xf:trigger><xf:trigger class="btn_cm" id="btn_cancelAuth" style="" type="button" ev:onclick="scwin.btn_cancelAuth_onclick">
+						<xf:label><![CDATA[취소]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm xls_down" id="btn_excelAuth" style="" type="button"
+						ev:onclick="scwin.btn_excelAuth_onclick">
+						<xf:label><![CDATA[엑셀다운로드]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="allColumn" autoFitMinWidth="1187" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw"
+					dataList="data:dlt_authority" defaultCellHeight="37" id="grd_authority"
+					rowStatusWidth="50" scrollByColumn="false" scrollByColumnAdaptive="false" style="height:241px;" visibleRowNum="5"
+					rowStatusVisible="true" rowStatusHeaderValue="상태" keepDefaultColumnWidth="true" ev:onrowindexchange="scwin.grd_authority_onrowindexchange" captionAuto="">
+					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
+					<w2:header id="header1" style="">
+						<w2:row id="row1" style="">
+							<w2:column removeBorderStyle="false" width="50" inputType="checkbox" style="height:44px" id="chk" value=""
+								blockSelect="false" displayMode="label" checkboxLabel="선택" fixColumnWidth="true">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column18" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="권한코드" width="90" class="req">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column17" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="권한명" width="150" class="req">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column15" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="사용여부" width="70">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column14" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="비고" width="362">
+							</w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody1" style="">
+						<w2:row id="row2" style="">
+							<w2:column removeBorderStyle="false" width="70" inputType="checkbox" style="height:38px" id="chk" value=""
+								blockSelect="false" displayMode="label" checkboxLabel="선택">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="AUTHORITY_CD" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="90" readOnly="true">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="AUTHORITY_NM" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="150" textAlign="left">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="IS_USE" inputType="checkbox" removeBorderStyle="false"
+								style="height:38px;" value="" width="70" checkboxLabel="선택" defaultValue="" trueValue="Y" falseValue="N" validator="" valueType="other">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="NOTE" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="182" textAlign="left">
+							</w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+
+			</xf:group>
+			<xf:group class="dfbox" id="" style="">
+				<w2:textbox class="df_tit fl" id="" label="권한별 등록사원" style=""></w2:textbox>
+				<xf:group class="fr" id="" style="">
+					<w2:textbox class="sum" id="spn_authorityMemberCnt" label="0" style=""></w2:textbox>
+					<w2:textbox class="" id="" label="건" style=""></w2:textbox>
+					<xf:trigger class="btn_cm " id="btn_addAuthMemebr" style="" type="button" ev:onclick="scwin.btn_addAuthMemebr_onclick">
+						<xf:label><![CDATA[등록]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm" id="btn_cancelAuthMember" style="" type="button" ev:onclick="scwin.btn_cancelAuthMember_onclick">
+						<xf:label><![CDATA[취소]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm xls_down" id="btn_excelAuthMember" style="" type="button" ev:onclick="scwin.btn_excelAuthMember_onclick">
+						<xf:label><![CDATA[엑셀다운로드]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="allColumn" autoFitMinWidth="1187" captionTitle="" checkReadOnlyOnCut="" class="wq_gvw"
+					dataList="data:dlt_authorityMember" defaultCellHeight="37" id="grd_authorityMember"
+					rowStatusHeaderValue="상태" rowStatusVisible="true" rowStatusWidth="50" scrollByColumn="false" scrollByColumnAdaptive="false" 
+					style="height:241px;" visibleRowNum="5" keepDefaultColumnWidth="true" disabledScrollHidden="">
+					<w2:caption id="caption1" style="" value="this is a grid caption."></w2:caption>
+					<w2:header id="header1" style="">
+						<w2:row id="row1" style="">
+							<w2:column blockSelect="false" checkboxLabel="선택" displayMode="label" fixColumnWidth="true" id="chk"
+								inputType="checkbox" removeBorderStyle="false" style="height:44px" value="" width="50">
+							</w2:column>
+							<w2:column blockSelect="false" class="req" displayMode="label" id="column18" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="사원코드" width="106">
+							</w2:column>
+							<w2:column blockSelect="false" class="req" displayMode="label" id="column17" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="사원명" width="152">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column16" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="조직" width="150">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column14" inputType="text" removeBorderStyle="false"
+								style="height:44px;" value="담당업무" width="237">
+							</w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody1" style="">
+						<w2:row id="row2" style="">
+							<w2:column blockSelect="false" displayMode="label" id="chk" inputType="checkbox" removeBorderStyle="false"
+								style="height:38px" value="" width="70" checkboxLabel="선택">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="EMP_CD" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="106" readOnly="true">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="EMP_NM" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="152" readOnly="true">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="ORG_NM" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="90" readOnly="true" textAlign="left">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="ASSIGNED_TASK" inputType="text" removeBorderStyle="false"
+								style="height:38px;" value="" width="237" readOnly="true" textAlign="left">
+							</w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+			</xf:group>
+			<xf:group class="btnbox" id="" style="">
+				<xf:group class="fr" id="" style="">
+					<xf:trigger class="btn_cm " id="btn_saveAuth" style="" type="button" ev:onclick="scwin.btn_saveAuth_onclick">
+						<xf:label><![CDATA[저장]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+
+		</xf:group>
+
+
+	</body>
+</html>

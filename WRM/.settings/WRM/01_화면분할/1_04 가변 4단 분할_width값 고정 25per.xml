@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="1.04 가변 4단 분할_width값 고정 25per"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:group class="lybox col4" id="" style="">
+	<xf:group class="ly_column" id="" style="">
+		<w2:textbox id="" label="가로 : 25%" style="line-height:28px;height: 30px;text-align:center;width: 100%;border:1px solid #ccc;">
+</w2:textbox>
+</xf:group>
+	<xf:group class="ly_column" id="" style="">
+		<w2:textbox id="" label="가로 : 25%" style="line-height:28px;height: 30px;text-align:center;width: 100%;border:1px solid #ccc;">
+</w2:textbox>
+</xf:group>
+	<xf:group class="ly_column" id="" style="">
+		<w2:textbox id="" label="가로 : 25%" style="line-height:28px;height: 30px;text-align:center;width: 100%;border:1px solid #ccc;">
+</w2:textbox>
+</xf:group>
+	<xf:group class="ly_column" id="" style="">
+		<w2:textbox id="" label="가로 : 25%" style="line-height:28px;height: 30px;text-align:center;width: 100%;border:1px solid #ccc;">
+</w2:textbox>
+</xf:group>
+</xf:group>
+</body>
+</html>

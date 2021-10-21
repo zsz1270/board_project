@@ -1,0 +1,156 @@
+/* scatterChart */
+.w2scatterChart .w2chart_xAxis { 
+	position : absolute; 
+	left : 10%;
+	top : 90%;
+	width : 90%;
+	height : 10%;
+	text-align : left top;
+}
+
+.w2scatterChart .w2chart_yAxis { 
+	position : absolute; 
+	left : 0%;
+	top : 10%;
+	width : 10%;
+	height : 80%;
+	text-align : right;
+}
+.w2scatterChart .w2chart_chartSpace {
+	position : absolute; 
+	left : 0%;
+	top : 0%;
+	width : 100%;
+	height : 100%;
+}
+
+.w2scatterChart .w2chart_chartSpace_Left_1 {
+	position : absolute; 
+	left : 10%;
+	top : 0%;
+	width : 90%;
+	height : 100%;
+}
+
+.w2scatterChart .w2chart_chartSpace_Right_1 {
+	position : absolute; 
+	left : 0%;
+	top : 0%;
+	width : 90%;
+	height : 100%;
+}
+
+.w2scatterChart .w2chart_chartSpace_Bottom_1 {
+	position : absolute; 
+	left : 0%;
+	top : 0%;
+	width : 100%;
+	height : 90%;
+}
+
+
+.w2scatterChart .w2chart_dataDiv {
+
+	position : absolute;
+	left :10%;
+	top : 10%;
+	width : 85%;
+	height : 80%;
+	z-index : 50;
+}
+
+.w2scatterChart .w2chart_xAxis_line {
+	border-left : solid 1px #AAAAAA;
+	position : absolute;
+	z-index : 60;
+
+}
+.w2scatterChart .w2chart_yAxis_line {
+	border-right : solid 0px #BBBBBB;
+	 border-bottom : solid 1px #DDDDDD;
+	 background : #FFFFFF;
+	 position : absolute;
+	 z-index : 60;
+}
+
+.w2scatterChart .w2chart_yAxis_line_fill {
+	border-right : solid 0px #BBBBBB;
+	border-bottom : solid 1px #DDDDDD;
+	background : #EEEEEE;
+	position : absolute ;
+	z-index : 60;
+}
+
+.w2scatterChart .w2chart_background {
+	height : 100%;
+	width :100%;
+	position : absolute;
+}
+.w2scatterChart .w2chart_seriesLayer {
+	background-color:#ffffff;
+}
+
+.w2scatterChart_Point {
+	z-index : 80;
+}
+.w2scatterChart_onTooltip {
+	display : none;
+	position : absolute;
+	border:2px solid #7BAFE4;
+	background-color:#ffffff;
+	cursor : default;
+	font-size : 15px;
+	z-index : 110;
+}
+.w2scatterChart_dragTooltip {
+	display : none;
+	position : absolute;
+	border:2px solid #7BAFE4;
+	background-color:#ffffff;
+	cursor : default;
+	font-size : 15px;
+	z-index : 100;
+}
+.w2scatterchart_dragLayer {
+
+	position : absolute;
+	border:2px solid #7BAFE4;
+	z-index : 70;
+}
+.w2scatterChart_drag_range_select {
+
+	position : absolute;
+	border:1px solid #9DCFF7;
+	background-color:transparent;
+	cursor : default;
+	font-size : 15px;
+	z-index : 70;
+}
+.w2scatterChart .w2graphicUtil {
+	z-index : 75;
+
+}
+.w2scatterChart_w2drag_select_div {
+	margin-left : 1px;
+	margin-top : 1px;
+}
+.w2scatterChart .w2chart_seriesLayerLeft {
+	position: absolute;
+	height: 100%;
+	width: 10%;
+	left: 0%;
+}
+
+.w2scatterChart .w2chart_seriesLayerRight {
+	position: absolute;
+	height: 100%;
+	left: 90%;
+	width: 10%;
+}
+
+.w2scatterChart .w2chart_seriesLayerBottom {
+	position: absolute;
+	height: 10%;
+	top: 90%;
+	width: 100%;
+}

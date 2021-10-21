@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.sample.dao.TemplateDao">
+	<select id="selectMemberInfoForTemplate" resultType="Map" parameterType="Map">
+		SELECT EMP_NM, EMP_CN_NM, EMP_EN_NM, JOIN_DATE, ASSIGNED_TASK, OFFICE_PHONE1, OFFICE_PHONE2, OFFICE_PHONE3 
+		  FROM HM_MEMBER_BASIC
+		 WHERE EMP_CD = #{EMP_CD}
+	</select>
+	
+	<select id="selectMemberFavoriteForTemplate" resultType="Map" parameterType="Map">
+		SELECT M.MENU_CD, M.MENU_NM, M.SRC_PATH, F.CREATED_DATE
+		 FROM (SELECT M.MENU_CD, M.MENU_NM, P.SRC_PATH 
+				 FROM BM_MENU M, BM_PROGRAM P 
+				WHERE M.PROGRAM_CD = P.PROGRAM_CD
+				  AND M.IS_USE = 'Y'
+				  AND P.IS_USE = 'Y') M,
+			  (SELECT EMP_CD, MENU_CD, CREATED_DATE 
+				 FROM BM_FAVORITE 
+				WHERE EMP_CD = #{EMP_CD}) F
+		 WHERE F.MENU_CD = M.MENU_CD
+		 ORDER BY M.MENU_NM
+	</select>
+</mapper>

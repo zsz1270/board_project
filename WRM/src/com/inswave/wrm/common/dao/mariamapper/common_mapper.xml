@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.common.dao.CommonDao">
+	
+	<!-- 코드 테이블의 전체 데이타 읽어오기  IS_USE = 'Y' -->
+	<select id="selectCommonCode" resultType="Map" parameterType="Map">
+		SELECT A.GRP_CD, A.COM_CD, A.CODE_NM, A.SORT_ORDER 
+		  FROM BM_CODE A, BM_CODE_GRP B
+		 WHERE B.GRP_CD = A.GRP_CD 
+		   AND B.IS_USE = 'Y' 
+		   AND A.IS_USE = 'Y' 
+		 ORDER BY A.GRP_CD, A.SORT_ORDER
+	</select>
+	
+	<!-- 코드 테이블의 전체 데이타 읽어오기  IS_USE = 'Y' -->
+	<select id="selectCodeList" resultType="Map">
+		SELECT A.GRP_CD, A.COM_CD, A.CODE_NM, A.SORT_ORDER 
+		  FROM BM_CODE A, BM_CODE_GRP B
+		 WHERE B.GRP_CD = A.GRP_CD 
+		   AND B.IS_USE = 'Y' 
+		   AND A.IS_USE = 'Y' 
+		   AND A.GRP_CD IN
+		<foreach collection="CODE" item="item" index="index"  open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+		ORDER BY A.GRP_CD, A.SORT_ORDER
+	</select>
+	
+	<!-- 코드 테이블의 데이타 읽어오기 GRP_CD = ? -->
+	<select id="selectCommonCodeList" resultType="Map">
+		SELECT GRP_CD, COM_CD, CODE_NM, SORT_ORDER, IS_USE, ATTR_VALUE1, ATTR_VALUE2, ATTR_VALUE3, NOTE
+		  FROM BM_CODE A
+		 WHERE A.GRP_CD = #{GRP_CD} 
+		 ORDER BY A.SORT_ORDER
+	</select>	
+	
+	<select id="selectCommonSearchItem" resultType="Map">
+		SELECT GRP_CD, GRP_NM, NOTE
+		  FROM BM_CODE_GRP 
+		 ORDER BY GRP_CD
+	</select>	
+	
+	<!-- 사용자별 메뉴 리스트 -->
+	<select id="selectMenuList" resultType="Map" parameterType="Map">
+		SELECT DISTINCT ME.MENU_CD, ME.MENU_NM, ME.PARENT_MENU_CD, ME.PARENT_MENU_CD, ME.MENU_LEVEL, ME.PROGRAM_CD, PR.SRC_PATH
+		  FROM BM_MENU ME LEFT OUTER JOIN BM_PROGRAM PR ON ME.PROGRAM_CD = PR.PROGRAM_CD
+			   LEFT OUTER JOIN BM_PROGRAM_AUTHORITY AP ON PR.PROGRAM_CD = AP.PROGRAM_CD
+			   LEFT OUTER JOIN HM_MEMBER_AUTHORITY MA ON AP.AUTHORITY_CD = MA.AUTHORITY_CD
+		 WHERE ME.PROGRAM_CD IS NULL
+			OR ME.PROGRAM_CD = ''
+			OR MA.EMP_CD = #{EMP_CD}
+		   AND ME.IS_USE = 'Y'
+		   AND PR.IS_USE = 'Y'
+		 ORDER BY ME.MENU_CD, ME.SORT_ORDER
+	</select>
+	
+	<!-- 사용자별 프로그램 권한 리스트 -->
+	<select id="selectProgramAuthorityList" resultType="Map" parameterType="Map">
+		SELECT DISTINCT PA.PROGRAM_CD, PA.IS_AUTH_SELECT, PA.IS_AUTH_SAVE, PA.IS_AUTH_EXCEL
+		  FROM HM_MEMBER_AUTHORITY MA INNER JOIN BM_PROGRAM_AUTHORITY PA ON MA.AUTHORITY_CD = PA.AUTHORITY_CD
+		 WHERE MA.EMP_CD = #{EMP_CD}
+	</select>
+		
+	<!-- 공통 코드그룹 리스트 -->
+	<select id="selectCommonGroup" resultType="Map" parameterType="Map">
+		SELECT *
+		  FROM BM_CODE_GRP
+		<where>
+			<if test="TYPE == 'GRP_NM'">
+				AND GRP_NM LIKE CONCAT('%',#{CONTENT},'%')
+			</if>
+			<if test="TYPE == 'GRP_CD'">
+				AND GRP_CD LIKE CONCAT('%',#{CONTENT},'%') 
+			</if>
+			<if test="TYPE == 'NOTE'">
+				AND NOTE LIKE CONCAT('%',#{CONTENT},'%') 
+			</if>
+			<if test="IS_USE != 'all'">
+				AND IS_USE = #{IS_USE}  
+			</if>
+		</where>
+		ORDER BY GRP_CD
+	</select>	
+	<delete id="deleteCommonGrp" parameterType="java.util.Map">
+		DELETE FROM BM_CODE_GRP WHERE GRP_CD = #{GRP_CD}
+	</delete>
+	
+	<insert id="insertCommonGrp" parameterType="java.util.Map" >
+		INSERT INTO BM_CODE_GRP(GRP_CD, GRP_NM, SORT_ORDER, IS_USE, NOTE)
+		VALUES (#{GRP_CD}, #{GRP_NM}, #{SORT_ORDER}, #{IS_USE}, #{NOTE})
+	</insert>
+
+	<update id="saveCommonGrp" parameterType="java.util.Map">
+		UPDATE BM_CODE_GRP 
+		   SET GRP_NM = #{GRP_NM}, SORT_ORDER = #{SORT_ORDER}, IS_USE = #{IS_USE}, NOTE = #{NOTE}
+		 WHERE GRP_CD = #{GRP_CD}	
+	</update>
+	
+	<delete id="deleteCommonCodeAll" parameterType="java.util.Map">
+		DELETE FROM BM_CODE 
+		 WHERE GRP_CD = #{GRP_CD}
+	</delete>
+	
+	<delete id="deleteCommonCode" parameterType="java.util.Map">
+		DELETE FROM BM_CODE 
+		 WHERE GRP_CD = #{GRP_CD} AND COM_CD = #{COM_CD}
+	</delete>
+	
+	<insert id="insertCommonCode" parameterType="java.util.Map" >
+		INSERT INTO BM_CODE(GRP_CD, COM_CD, CODE_NM, SORT_ORDER, IS_USE, ATTR_VALUE1, ATTR_VALUE2, ATTR_VALUE3, NOTE )
+		VALUES (#{GRP_CD}, #{COM_CD}, #{CODE_NM}, #{SORT_ORDER}, #{IS_USE}, #{ATTR_VALUE1}, #{ATTR_VALUE2}, #{ATTR_VALUE3}, #{NOTE} )
+	</insert>
+
+	<update id="updateCommonCode" parameterType="java.util.Map">
+		UPDATE BM_CODE 
+		   SET CODE_NM = #{CODE_NM}, SORT_ORDER = #{SORT_ORDER}, IS_USE = #{IS_USE}, ATTR_VALUE1 = #{ATTR_VALUE1}
+			 , ATTR_VALUE2 = #{ATTR_VALUE2}, ATTR_VALUE3 = #{ATTR_VALUE3}, NOTE = #{NOTE}
+		 WHERE GRP_CD = #{GRP_CD}
+		   AND COM_CD = #{COM_CD}
+	</update>
+	
+	<select id="selectFavListByEmpCd" resultType="Map" parameterType="String">
+		SELECT M.MENU_CD, M.MENU_NM, M.SRC_PATH
+		  FROM (SELECT M.MENU_CD, M.MENU_NM, P.SRC_PATH 
+				  FROM BM_MENU M, BM_PROGRAM P
+				 WHERE M.PROGRAM_CD = P.PROGRAM_CD
+				   AND M.IS_USE='Y') M,
+			   (SELECT EMP_CD, MENU_CD 
+				  FROM BM_FAVORITE 
+				 WHERE EMP_CD = #{EMP_CD}) F
+		WHERE F.MENU_CD = M.MENU_CD
+		ORDER BY M.MENU_NM
+	</select>
+	
+	<insert id="insertBmFavorite" parameterType="java.util.HashMap" >
+		INSERT INTO BM_FAVORITE(EMP_CD, MENU_CD) 
+		VALUES (#{EMP_CD}, #{MENU_CD})
+	</insert>
+
+	<delete id="deleteBmFavorite" parameterType="java.util.HashMap">
+		DELETE FROM BM_FAVORITE 
+		WHERE EMP_CD = #{EMP_CD} AND MENU_CD = #{MENU_CD} 
+	</delete>
+	
+	<insert id="insertBmMainSetting" parameterType="map">
+		INSERT INTO BM_MAIN_SETTING(EMP_CD, MAIN_LAYOUT_PAGE_CODE) 
+		VALUES (#{EMP_CD}, #{MAIN_LAYOUT_PAGE_CODE})
+	</insert>
+	
+	<update id="updateBmFavorite" parameterType="java.util.HashMap">
+		UPDATE BM_FAVORITE
+		   SET MENU_CD = #{MENU_CD}
+		 WHERE EMP_CD = #{EMP_CD} 
+	</update>
+	
+	<!-- bmMainSetting update -->
+	<update id="updateBmMainSetting" parameterType="java.util.HashMap">
+		UPDATE BM_MAIN_SETTING
+		   SET MAIN_LAYOUT_PAGE_CODE = #{MAIN_LAYOUT_PAGE_CODE}
+		 WHERE EMP_CD = #{EMP_CD} 
+	</update>
+	
+	<select id="selectBmMainSetting" parameterType="Map" resultType="Map">
+		SELECT MAIN_LAYOUT_PAGE_CODE
+		  FROM BM_MAIN_SETTING 
+		 WHERE EMP_CD = #{EMP_CD}
+	</select>
+
+	<select id="selectShortcutList" parameterType="String" resultType="Map">
+		SELECT * 
+		  FROM BM_SHORTCUT 
+		 WHERE PROGRAM_CD = #{programCd}
+	</select>
+
+	<!-- shortCut insert -->
+	<insert id="insertShortcut" parameterType="Map" >
+		INSERT INTO BM_SHORTCUT(PROGRAM_CD, COMPLEX_KEY, LAST_KEY, EVENT_TYPE, EVENT_TARGET, EVENT_DETAIL, EVENT_YN, EVENT_NAME) 
+		VALUES (#{PROGRAM_CD}, #{COMPLEX_KEY}, #{LAST_KEY}, #{EVENT_TYPE}, #{EVENT_TARGET}, #{EVENT_DETAIL}, #{EVENT_YN}, #{EVENT_NAME})
+	</insert>
+
+	<!-- shortCut update -->
+	<update id="updateShortcut" parameterType="Map">
+		UPDATE BM_SHORTCUT
+		   SET PROGRAM_CD = #{PROGRAM_CD},
+			   COMPLEX_KEY = #{COMPLEX_KEY},
+			   LAST_KEY = #{LAST_KEY},
+			   EVENT_TYPE = #{EVENT_TYPE},
+			   EVENT_TARGET = #{EVENT_TARGET},
+			   EVENT_DETAIL = #{EVENT_DETAIL},
+			   EVENT_YN = #{EVENT_YN},
+			   EVENT_NAME = #{EVENT_NAME}
+		WHERE SHORTCUT_SEQ = #{SHORTCUT_SEQ}
+	</update>
+
+	<!-- shortCut delete -->
+	<delete id="deleteShortcut" parameterType="Map">
+		DELETE FROM BM_SHORTCUT 
+		WHERE SHORTCUT_SEQ = #{SHORTCUT_SEQ}
+	</delete>
+</mapper>

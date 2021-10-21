@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:aliasDataMap id="sdm_fileDesc" scope="../dma_fileDesc" studio_src="/ui/HM/HM003M01.xml"/>
+			</w2:dataCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	scwin.onpageload = function() {
+
+	};
+		
+	scwin.wfTitleDesc_btn_DescTitleBtn_onclick = function() {
+		this.getParent().getParent().toggleClass("on");
+	};
+	
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    	<xf:group class="accr_wrap mt20" id="" style="" tagname="">
+    		<xf:group class="items accr_info" id="grp_excelBasicDescription" style="" tagname="" text="">
+    			<xf:group class="tit_box" id="" style="" userData1="">
+    				<w2:anchor id="btn_info" outerDiv="false" style="" ev:onclick="scwin.wfTitleDesc_btn_DescTitleBtn_onclick" userData1="grp_infoItem">
+    					<xf:label><![CDATA[화면설명]]></xf:label>
+    				</w2:anchor>
+    			</xf:group>
+    			<xf:group class="con_box" id="" style="">
+    				<w2:textbox escape="false" id=""
+    					label="1. Release 게시물 조회&lt;br/&gt; &amp;nbsp;- 메인화면의 Release 게시물을 조회할 수 있다.&lt;br/&gt;2. Release 게시물 변경&lt;br/&gt; &amp;nbsp;- 메인화면의 Release 게시물을 입력, 수정, 삭제 할 수 있다."
+    					style="" ref="data:sdm_fileDesc.desc" class="accr_info">
+    				</w2:textbox>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group class="items" id="grp_excelBasicTest" style="" tagname="" text="">
+    			<xf:group class="tit_box" id="" style="">
+    				<w2:anchor id="btn_test" outerDiv="false" style="" userData1="grp_testItem" ev:onclick="scwin.wfTitleDesc_btn_DescTitleBtn_onclick">
+    					<xf:label><![CDATA[테스트방법]]></xf:label>
+    				</w2:anchor>
+    			</xf:group>
+    			<xf:group class="con_box" id="" style="">
+    				<w2:textbox escape="false" id=""
+    					label="1. Release 게시물 조회&lt;br/&gt; &amp;nbsp;- 메인화면의 Release 게시물을 조회할 수 있다.&lt;br/&gt;2. Release 게시물 변경&lt;br/&gt; &amp;nbsp;- 메인화면의 Release 게시물을 입력, 수정, 삭제 할 수 있다."
+    					style="" ref="data:sdm_fileDesc.test">
+    				</w2:textbox>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>		
+		
+	</body>
+</html>

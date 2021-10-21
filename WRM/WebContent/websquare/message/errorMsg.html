@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="expires" content="0" />
+	<meta http-equiv="pragma" content="no-cache" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Warning</title>
+	<style type="text/css">
+	body		{ background-color:#F6F4F1; margin-top:0pt; margin-left:5pt; margin-right:0pt }
+	
+	#title 		{ height:16pt; text-align:center; color:#1D0E3E; font-size:9pt; font-family:굴림; line-height:14pt; visibility:visible }
+	#main 		{ text-align:center; visibility:visible; overflow-x:hidden; overflow-y:auto}
+	#sub 		{ margin-top:5px; text-align:center; visibility:visible; }
+	</style>
+	<script type="text/javascript" src="htmlCommon.js"></script>
+    <script>
+		window.onload = function () {
+			setTimeout(init, 100);
+		};
+		window.document.onclick=flagCheck;
+		window.onblur=flagCount;
+		
+		var flag = 0;
+		
+		function flagCount() {
+			flag += 2;
+		}
+		
+		function flagCheck() {
+			flag = 10;
+		}
+		
+		function callFocus() {
+			if( flag++ < 6 ) {
+				focus();
+				window.setTimeout("callFocus", 1);
+			}
+		}
+		
+		function init() {
+			document.getElementById("main").style.height = document.documentElement.clientHeight - 50 + "px";
+		
+			var obj = getPopupParam();
+			var str = "";
+			var cnt = 0;
+			for ( var idx in obj )	{
+				cnt ++;
+			}
+			var layerY = ((document.documentElement.clientHeight - 50)/cnt) + "px";
+			for ( var idx in obj )	{
+				var tempObj = obj[idx];
+				if ( idx == "arguments" )	{
+					str = str + "<div style='width:100%; border:1px #777777; border-style:solid; text-align:left; overflow: scroll;  overflow-x: auto;'><b>" + idx + "</b><br /><br /><table style='width:100%'>"
+					for ( var i = 0 ; i < tempObj.length ; i++ )	{
+						str = str + "<tr><td>" + tempObj[i] + "</td></tr>"
+					}
+					str = str + "</table></div>"
+				} else {
+					str = str + "<div style='width:100%; border:1px #777777; border-style:solid; text-align:left; overflow: scroll;  overflow-x: auto;'><b>" + idx + "</b><br /><br /><xmp>" + obj[idx] + "</xmp></div>"
+				}
+			}
+			var strTitle = "";
+			try {
+	            if(opener) {
+	                strTitle = "<b>" + opener.WebSquare.language.getMessage( "E_errorMsg_ErrorInfo" ) + "</b>";
+	            } else {
+	                strTitle = "<b>" + WebSquare.language.getMessage( "E_errorMsg_ErrorInfo" ) + "</b>";
+	            }
+			} catch(e) {
+				opener.WebSquare.exception.printStackTrace(e);
+			}
+			document.getElementById("main").innerHTML = str;
+			document.getElementById("title").innerHTML = strTitle;
+			window.setTimeout("callFocus", 1);
+		}
+</script>
+</head>
+
+<body ondblclick="self.close()">
+	<div id="title"></div>
+	<div id="main"></div>
+	<div id="sub">
+	<input type="button" class="Button1" value=" OK " onClick="self.close()" />
+	</div>
+</body>
+</html>

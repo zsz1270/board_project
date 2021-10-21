@@ -1,0 +1,329 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<div id="CHART_OPTION_MAIN_5123" style="padding: 5px 5px 5px 5px; position:absolute; width:500px; height:300px" >
+
+	<div  style=" position:absolute; left:5px;top:5px; width:490px; border:0px solid blue" zindexValue = '1000' bOptionID='TITLE_CONFIG' >
+		<div id="TITLE_CONFIG_TAB" style="cursor:pointer; position:absolute; display:block; border:0px solid blue; top:0; left:0px; width:70px; " subID="TITLE_CONFIG" onclick="
+			var bOptionID = this.parentNode.getAttribute('bOptionID');
+			var subID = this.getAttribute('subID');
+			document.getElementById(bOptionID).style.display='none' ; 
+			document.getElementById(bOptionID+'_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			document.getElementById(bOptionID+'_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			document.getElementById(bOptionID+'_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.setAttribute('bOptionID', subID);
+			document.getElementById(subID).style.display='block';
+			
+			document.getElementById('TITLE_CONFIG_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			document.getElementById('TITLE_CONFIG_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			document.getElementById('TITLE_CONFIG_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+		" >
+			<table style="width:70px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="TITLE_CONFIG_TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_on_01.gif); width:7px; height:23px;"></td>
+                <td id="TITLE_CONFIG_TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_on_02.gif); height:23px; ">차트제목</td>
+                <td id="TITLE_CONFIG_TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_on_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+		</div>
+		<div id="SERIES_CONFIG_TAB" style="cursor:pointer; position:absolute; display:block; border:0px solid blue; top:0px; left:70px; width:50px; " subID="SERIES_CONFIG" onclick="	
+			var bOptionID = this.parentNode.getAttribute('bOptionID');
+			var subID = this.getAttribute('subID');
+			document.getElementById(bOptionID).style.display='none' ; 
+			document.getElementById(bOptionID+'_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			document.getElementById(bOptionID+'_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			document.getElementById(bOptionID+'_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ;
+			this.parentNode.setAttribute('bOptionID', subID);
+			document.getElementById(subID).style.display='block';
+			document.getElementById('SERIES_CONFIG_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			document.getElementById('SERIES_CONFIG_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			document.getElementById('SERIES_CONFIG_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:50px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="SERIES_CONFIG_TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="SERIES_CONFIG_TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif); height:23px; ">범례</td>
+                <td id="SERIES_CONFIG_TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+		</div>
+		<div id="AXIS_CONFIG_TAB" style="cursor:pointer; position:absolute; display:block; border:0px solid blue; top:0px; left:120px; width:50px; " subID="AXIS_CONFIG" onclick="			
+			var bOptionID = this.parentNode.getAttribute('bOptionID');
+			var subID = this.getAttribute('subID');
+			document.getElementById(bOptionID).style.display='none' ; 
+			document.getElementById(bOptionID+'_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			document.getElementById(bOptionID+'_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			document.getElementById(bOptionID+'_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.setAttribute('bOptionID', subID);
+			document.getElementById(subID).style.display='block';
+			document.getElementById('AXIS_CONFIG_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			document.getElementById('AXIS_CONFIG_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			document.getElementById('AXIS_CONFIG_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:50px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="AXIS_CONFIG_TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="AXIS_CONFIG_TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif); height:23px; ">축</td>
+                <td id="AXIS_CONFIG_TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+			 
+		</div>
+		<div id="DATA_TABLE_CONFIG_TAB" style="cursor:pointer; position:absolute; display:block; border:0px solid blue; top:0px; left:170px; width:100px; " subID="DATA_TABLE_CONFIG" onclick="
+			var bOptionID = this.parentNode.getAttribute('bOptionID');
+			var subID = this.getAttribute('subID');
+			document.getElementById(bOptionID).style.display='none' ; 
+			document.getElementById(bOptionID+'_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			document.getElementById(bOptionID+'_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			document.getElementById(bOptionID+'_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.setAttribute('bOptionID', subID);
+			document.getElementById(subID).style.display='block';
+			document.getElementById('DATA_TABLE_CONFIG_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			document.getElementById('DATA_TABLE_CONFIG_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			document.getElementById('DATA_TABLE_CONFIG_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:100px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="DATA_TABLE_CONFIG_TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="DATA_TABLE_CONFIG_TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif); height:23px; ">데이터 테이블</td>
+                <td id="DATA_TABLE_CONFIG_TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+			 
+		</div>
+		<div id="DATA_LABEL_CONFIG_TAB" style="cursor:pointer; position:absolute; display:block; border:0px solid blue; top:0; left:270px; width:100px; " subID="DATA_LABEL_CONFIG" onclick="	
+			var bOptionID = this.parentNode.getAttribute('bOptionID');
+			var subID = this.getAttribute('subID');
+			document.getElementById(bOptionID).style.display='none' ; 
+			document.getElementById(bOptionID+'_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			document.getElementById(bOptionID+'_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			document.getElementById(bOptionID+'_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.setAttribute('bOptionID', subID);
+			document.getElementById(subID).style.display='block';
+			document.getElementById('DATA_LABEL_CONFIG_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			document.getElementById('DATA_LABEL_CONFIG_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			document.getElementById('DATA_LABEL_CONFIG_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:100px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="DATA_LABEL_CONFIG_TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="DATA_LABEL_CONFIG_TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif); height:23px; ">DATA LABEL</td>
+                <td id="DATA_LABEL_CONFIG_TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+			 
+		</div>
+		<div id="GUID_LINE_CONFIG_TAB" style="cursor:pointer; position:absolute; display:block; border:0px solid blue; top:0px; left:370px; width:100px; " subID="GUID_LINE_CONFIG" onclick="	
+			var bOptionID = this.parentNode.getAttribute('bOptionID');
+			var subID = this.getAttribute('subID');
+			document.getElementById(bOptionID).style.display='none' ; 
+			document.getElementById(bOptionID+'_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_01.gif)' ; 
+			document.getElementById(bOptionID+'_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_02.gif)' ; 
+			document.getElementById(bOptionID+'_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_off_03.gif)' ; 
+			this.parentNode.setAttribute('bOptionID', subID);
+			document.getElementById(subID).style.display='block';
+			document.getElementById('GUID_LINE_CONFIG_TABL1').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_01.gif)' ; 
+			document.getElementById('GUID_LINE_CONFIG_TABL2').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_02.gif)' ; 
+			document.getElementById('GUID_LINE_CONFIG_TABL3').style.backgroundImage='url(uiplugin/chart/images/tab/tab_on_03.gif)' ; 
+			
+		" >
+			<table style="width:100px" border="0px" cellspacing="0px" cellpadding="0px">
+              <tr>
+                <td id="GUID_LINE_CONFIG_TABL1" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_01.gif); width:7px; height:23px;"></td>
+                <td id="GUID_LINE_CONFIG_TABL2" style="text-align:center; font-size:12px; padding-top:2px; background:repeat-x url(uiplugin/chart/images/tab/tab_off_02.gif); height:23px; ">눈금선</td>
+                <td id="GUID_LINE_CONFIG_TABL3" style="background:no-repeat url(uiplugin/chart/images/tab/tab_off_03.gif); width:7px; height:23px;"></td>
+              </tr>
+            </table>
+			
+		</div>
+	</div>
+	<div id="TITLE_CONFIG" style="border:0px solid black; position:absolute; display:block; width:480px; height:240px; top: 28px; background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">TITLE_CONFIG</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background-color: #c9d8df; height:19px; padding-top:1px; font-size:12px;">
+					<input type="checkbox" id='VISIBILITY' class="Checkbox" align="absmiddle" />	제목 표시
+				</td>
+			</tr>
+			<tr>
+				<td style="height:5px"></td>
+			</tr>
+			<tr>
+				<td>
+					<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+						<tr>
+							<td style="width:80px; font-size:12px;">차트 제목 </td>
+							<td style='text-align:left'><input type="text" id="TITLE" /></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+						<tr>
+							<td style="width:80px; font-size:12px;">표시 위치</td>
+							<td>
+								<select id="POSITION">
+									<option value="top">위쪽</option>
+									<option value="bottom">아래쪽</option>
+									<option value="left">왼쪽</option>
+									<option value="right">오른쪽</option>
+								</select>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="SERIES_CONFIG" style="border:0px solid black; position:absolute; display:none; width:480px; height:240px; top: 28px;  background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">범례 설정 </td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+            <tr>
+              <td style="background-color: #c9d8df; height:19px;  font-size:12px; padding-top:1px;">
+              	<input type="checkbox" id="SERIES_VISIBILITY" class="Checkbox" align="absmiddle" />범례 표시</td>
+            </tr>
+            <tr>
+              <td style="height:5px"></td>
+            </tr>
+            <tr>
+              <td><table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+                  <tr>
+                    <td style="background-color: transparent;  font-size:12px; width: 80px; height: 18px;">POSITION</td>
+                    <td><select id="SERIES_POSITION">
+                        <option value="top">위쪽</option>
+						<option value="bottom">아래쪽</option>
+						<option value="left">왼쪽</option>
+						<option value="right">오른쪽</option>
+                      </select></td>
+                  </tr>
+                </table></td>
+            </tr>
+          </table>
+	</div>
+
+	<div id="AXIS_CONFIG" style="border:0px solid black; position:absolute; width:480px; display:none; height:240px; top: 28px;  background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">AXIS VISIBLE</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		 <table width="100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background-color: transparent; font-size:12px; height: 18px;">
+					<input type="checkbox" id="X_VISIBILITY" class="Checkbox" align="absmiddle" />X축
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: transparent; font-size:12px;  height: 18px;">
+					<input type="checkbox" id="Y_VISIBILITY" class="Checkbox" align="absmiddle" />Y축
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="DATA_TABLE_CONFIG" style="border:0px solid black; position:absolute; width:480px; display:none; height:240px; top: 28px;  background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">DATA TABLE</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<table width="100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background-color: transparent;  font-size:12px; height:19px; padding-top:1px;">
+					<input type="checkbox" id="DATA_TABLE" class="Checkbox" align="absmiddle" />테이블 표시 
+				</td>
+			</tr>
+			<tr>
+				<td style="background-color: transparent; font-size:12px; height: 18px;">
+					<input type="checkbox" id="DATA_AXIS_CHANGE" class="Checkbox" align="absmiddle" />	데이타 축 변환 
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="DATA_LABEL_CONFIG" style="border:0px solid black; position:absolute; width:480px; display:none; height:240px; top: 28px;  background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">DATA_LABEL</td>
+				<td style=" background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<table width="100%" border="0px" cellspacing="0px" cellpadding="0px">
+        	<tr>
+          		<td style="height: 18px; font-size:12px;">
+          			<input type="checkbox" id="LABEL_SERIES" class="Checkbox" align="absmiddle" /> 계열 이름
+          		</td>
+	        </tr>
+	        <tr>
+	        	<td style="height: 18px; font-size:12px;">
+					<input type="checkbox" id="LABEL_DATA" class="Checkbox" align="absmiddle" /> 항목 이름
+				</td>
+	        </tr>
+	        <tr>
+				<td style="height: 18px; font-size:12px;">
+					<input type="checkbox" id="LABEL_VALUE" class="Checkbox" align="absmiddle" /> 값
+				</td>
+	        </tr>
+	        <tr>
+				<td style="height: 18px; font-size:12px;">
+					<input type="checkbox" id="LABEL_PER_VALUE" class="Checkbox" align="absmiddle" /> 백분율 
+				</td>
+	        </tr>
+	        <tr>
+				<td style="height: 18px; font-size:12px;">
+					<input type="checkbox" id="LABEL_ONMOUSEOVER" class="Checkbox" align="absmiddle" /> 마우스가 차트위에 올라갔을때만 레이블 표시 
+				</td>
+	        </tr>
+	        <tr>
+	         	<td style="height: 18px; font-size:12px;">
+	          		표시구분자 <input type="text" id="LABEL_SEPARTOR" style="width:20px" />
+	          	</td>
+	        </tr>
+      	</table>
+	</div>
+	<div id="GUID_LINE_CONFIG" style="border:0px solid black; position:absolute; width:480px; display:none; height:240px; top: 28px;  background-color:#DAE3E8; padding:5px 5px 5px 5px">
+		<table style="width:100%" border="0px" cellspacing="0px" cellpadding="0px">
+			<tr>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_01.gif); width:8px;"> </td>
+				<td style="background:repeat-x url(uiplugin/chart/images/popup/ps/ps_title_02.gif); font-weight: bold; color: #045a73; font-family:tahoma; font-size: 8pt;">눈금선</td>
+				<td style="background:no-repeat url(uiplugin/chart/images/popup/ps/ps_title_03.gif); width: 8px;"> </td>
+			</tr>
+		</table>
+		<table width="100%" border="0px" cellspacing="0px" cellpadding="0px">
+            <tr>
+				<td style="height: 18px; font-size:12px;">
+					<input type="checkbox" id="MAIN_GUID" class="Checkbox" align="absmiddle" /> 주축 눈금선
+				</td>
+			</tr>
+			<tr>
+				<td style="height: 18px; font-size:12px;">
+					<input type="checkbox" id="SUB_GUID" class="Checkbox" align="absmiddle" /> 보조축 눈금선 
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="BUTTON_LAYER" style="border:1px insect white; position:absolute; left:205px; top:275px; width:480px; height:25px">
+		<img src="uiplugin/chart/images/chart/default/b_ok.gif" style="cursor:pointer" width="50px" height="18px" border="0px" id="SUBMIT_BUTTON" />
+		<img src="uiplugin/chart/images/chart/default/eng_b_cancel.gif" style="cursor:pointer"  width="50px" height="18px" border="0px" id="CANCEL_BUTTON" />
+	</div>
+</div>

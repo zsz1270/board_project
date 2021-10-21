@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="HM003P01" meta_programName="사진 파일 업로드 팝업" meta_programDesc="사진 파일을 업로드하는 팝업 화면" meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection>
+			</w2:dataCollection>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[ 
+	
+	/**
+	 * 화면 초기화에 필요한 로직을 수행한다.
+	 */
+	scwin.onpageload = function() {
+		var param = com.data.getParameter();
+		scwin.closeCallbackFncName = param.callbackFn;
+	};
+	
+	/**
+	 * 사진 업로드를 반환한다.
+	 */
+	scwin.btn_confirm_onclick = function() {
+		upd_image.setSubDir('HM003'); 
+		upd_image.submit();
+	};
+	
+	scwin.upd_image_ondone = function(retXml) {
+		var param = {
+			fileStorePath : upd_image.getSubDir(),
+			localfileList : WebSquare.xml.getValue(retXml, "ret/localfileList"),
+			storedFileList : WebSquare.xml.getValue(retXml, "ret/storedFileList")
+		};
+		com.win.closePopup(scwin.closeCallbackFncName, param);
+	};
+	
+	/**
+	 * 사진 업로드를 취소한다.
+	 */
+	scwin.btn_cancel_onclick = function() {
+		com.win.closePopup();
+	};
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    	<xf:group id="" class="pop_contents">
+    		<xf:group style="" id="" class="tbbox">
+    			<xf:group adaptive="layout" adaptiveThreshold="1024" tagname="table" style="" tabIndex="" id="" class="w2tb tb">
+    				<w2:attributes>
+    					<w2:summary></w2:summary>
+    				</w2:attributes>
+    				<xf:group tagname="colgroup">
+    					<xf:group tagname="col" style="width:150px;"></xf:group>
+    					<xf:group style="" tagname="col"></xf:group>
+    				</xf:group>
+    				<xf:group tagname="tr" style="">
+    					<xf:group tagname="th" style="" class="w2tb_th">
+    						<w2:attributes>
+    							<w2:colspan>1</w2:colspan>
+    							<w2:rowspan>1</w2:rowspan>
+    						</w2:attributes>
+    						<w2:textbox ref="" style="" userData2="" id="" label="사진업로드"></w2:textbox>
+    					</xf:group>
+    					<xf:group tagname="td" style="" class="w2tb_td">
+    						<w2:attributes>
+    							<w2:colspan>1</w2:colspan>
+    							<w2:rowspan>1</w2:rowspan>
+    						</w2:attributes>
+    						<w2:upload imageStyle="position:absolute;vertical-align:middle;word-wrap:break-word"
+    							inputStyle="vertical-align:middle;word-wrap:break-word" style="width: 250px;height: 27px;" id="upd_image" type="image" ev:ondone="scwin.upd_image_ondone" action="">
+    						</w2:upload>
+    					</xf:group>
+    				</xf:group>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group class="btnbox" id="" style="">
+    			<xf:group class="fr" id="">
+    				<xf:trigger class="btn_cm" id="btn_confirm" style="" type="button" ev:onclick="scwin.btn_confirm_onclick">
+    					<xf:label><![CDATA[확인]]></xf:label>
+    				</xf:trigger>
+    				<xf:trigger class="btn_cm" id="btn_cancel" style="" type="button" ev:ondblclick="" ev:onclick="scwin.btn_cancel_onclick">
+    					<xf:label><![CDATA[취소]]></xf:label>
+    				</xf:trigger>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+	</body>
+</html>

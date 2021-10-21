@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+        <w2:buildDate/>
+        <w2:userPalette defaultIcon="mix.png" desc="9.01 아코디언"/>
+        <xf:model>
+            <xf:instance>
+                <data xmlns=""/>
+            </xf:instance>
+        </xf:model>
+        <script type="text/javascript"><![CDATA[ ]]></script>
+    </head>
+    <body><xf:group id="" class="aodbox">
+	<w2:accordion style="" id="" class="wq_aod">
+		<w2:panels style="" id="panels1" class="">
+			<w2:panelTitle style="" id="panelTitle1" label="타이틀" class="">
+			</w2:panelTitle>
+			<w2:panelContent style="" id="panelContent1" class="">
+				<w2:textbox tagname="span" style="" id="" label="내용">
+				</w2:textbox>
+</w2:panelContent>
+</w2:panels>
+		<w2:panels style="" id="panels2" class="">
+			<w2:panelTitle style="" id="panelTitle2" label="타이틀">
+			</w2:panelTitle>
+			<w2:panelContent style="" id="panelContent2">
+				<w2:textbox id="" label="내용" style="" tagname="span">
+				</w2:textbox>
+</w2:panelContent>
+</w2:panels>
+</w2:accordion>
+</xf:group>
+</body>
+</html>

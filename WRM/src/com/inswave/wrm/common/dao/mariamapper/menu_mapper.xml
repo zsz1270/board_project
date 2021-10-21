@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.common.dao.MenuDao">
+
+	<select id="selectMenu" resultType="Map" parameterType="Map">
+		SELECT M.MENU_CD, M.MENU_NM
+			 , M.MENU_LEVEL, M.SORT_ORDER, M.PROGRAM_CD, P.PROGRAM_GROUP_CD, C.CODE_NM AS PROGRAM_GROUP_NM
+			 , P.PROGRAM_CD, P.PROGRAM_NM, M.IS_USE, M.NOTE, M.PARENT_MENU_CD
+			 , COALESCE((SELECT S.MENU_NM from BM_MENU S WHERE S.MENU_CD = M.PARENT_MENU_CD), 'Parent Category') AS PARENT_MENU_NM
+		  FROM BM_MENU M LEFT OUTER JOIN BM_PROGRAM P ON M.PROGRAM_CD = P.PROGRAM_CD
+			   LEFT OUTER JOIN BM_CODE C ON C.COM_CD = P.PROGRAM_GROUP_CD AND C.GRP_CD = '00026'
+		<where>
+			<if test="TYPE == 'MENU_CD'">
+				AND M.MENU_CD LIKE CONCAT('%', #{CONTENT}, '%')
+			</if>
+			<if test="TYPE == 'MENU_NM'">
+				AND M.MENU_NM LIKE CONCAT('%', #{CONTENT}, '%')
+			</if>
+			<if test="TYPE == 'PARENT_MENU_CD'">
+				AND M.PARENT_MENU_CD LIKE CONCAT('%', #{CONTENT}, '%')
+			</if>
+			<if test="TYPE == 'MENU_LEVEL'">
+				<if test="CONTENT == ''">
+					AND M.MENU_LEVEL IS NOT NULL
+				</if>
+				<if test="CONTENT != ''">
+					AND M.MENU_LEVEL = #{CONTENT}
+				</if>
+			</if>
+		</where>
+		ORDER BY M.MENU_CD, M.SORT_ORDER
+	</select>
+
+	<insert id="insertMenu" parameterType="Map">
+		INSERT INTO BM_MENU(MENU_CD, MENU_NM, PARENT_MENU_CD, MENU_LEVEL, SORT_ORDER, PROGRAM_CD, IS_USE, NOTE)
+		VALUES (#{MENU_CD}, #{MENU_NM}, #{PARENT_MENU_CD}, #{MENU_LEVEL}, #{SORT_ORDER}, #{PROGRAM_CD}, #{IS_USE}, #{NOTE})
+	</insert>
+
+	<update id="saveMenu" parameterType="Map">
+		UPDATE BM_MENU
+		   SET MENU_NM = #{MENU_NM}, PARENT_MENU_CD = #{PARENT_MENU_CD}, MENU_LEVEL = #{MENU_LEVEL}
+			 , SORT_ORDER = #{SORT_ORDER}, PROGRAM_CD = #{PROGRAM_CD}, IS_USE = #{IS_USE}, NOTE = #{NOTE}
+		 WHERE MENU_CD = #{MENU_CD}
+	</update>
+
+	<delete id="deleteMenu" parameterType="Map">
+		DELETE FROM BM_MENU WHERE MENU_CD = #{MENU_CD}
+	</delete>
+	
+</mapper>

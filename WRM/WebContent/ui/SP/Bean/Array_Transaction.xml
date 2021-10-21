@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="Array_Transaction" meta_programName="샘플화면-Dataformat 종류(Array)" meta_programDesc="본 화면은 Array방식으로 통신하는 조회 Sample 이다." meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileDesc">
+					<w2:keyInfo>
+						<w2:key id="desc" name="파일 설명" dataType="text"></w2:key>
+						<w2:key id="test" name="파일 테스트 방법" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<desc><![CDATA[
+<pre class="textNor">
+<div class="etcbox">본 화면은 Array방식으로 통신하는 조회 Sample 이다.
+</div>
+						]]></desc>
+						<test><![CDATA[
+<pre class="textNor" style="">						
+<div class="etc_tit">1. 과정</div>
+1. [조회]를 클릭하여 조회 내용을 확인한다. 초기 조회조건 - <font color=red><B>'test'</B></font>
+<div class="etc_tit">2. 결과</div>
+1. Array 방식으로 조회하므로, submission 후 setArray를 통하여 dataList에 값을 셋팅한다.
+  ex) dlt_temp.setArray( e.responseJSON.dlt_temp );
+2. 정상적으로 조회가 되는지 확인한다.
+</pre>
+						]]></test>
+					</w2:data>
+				</w2:dataMap>
+				<w2:dataMap baseNode="map" id="dma_search">
+					<w2:keyInfo>
+						<w2:key id="CUST_NM" name="성명" dataType="text"></w2:key>
+					</w2:keyInfo>
+				</w2:dataMap>
+				<w2:dataList id="dlt_temp" baseNode="list" saveRemovedData="true" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="id" name="id" dataType="text"></w2:column>
+						<w2:column id="SEQ" name="SEQ" dataType="text"></w2:column>
+						<w2:column id="CUST_NM" name="성명" dataType="text"></w2:column>
+						<w2:column id="CUST_TEL_NO" name="전화번호" dataType="text"></w2:column>
+						<w2:column id="CUST_EMAIL" name="이메일" dataType="text"></w2:column>
+						<w2:column id="PRDT_CMPNY_NM" name="소속" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_selectTemp" ref='data:json,dma_search' target='' action="/sample/Array/tempArraySelect" method="post" mediatype="application/json"
+				encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_selectTemp_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[ 
+	
+	scwin.onpageload = function() {
+		com.win.setEnterKeyEvent(grp_search, scwin.btn_search_onclick);
+	};
+	
+	scwin.btn_search_onclick = function() {
+		if (com.data.validateGroup(grp_search) === false) {
+			return;
+		} else {
+			com.sbm.execute(sbm_selectTemp);
+		}
+	};			
+
+	scwin.sbm_selectTemp_submitdone = function(e) {
+		if (com.sbm.getResultCode(e) == gcm.MESSAGE_CODE.STATUS_SUCCESS) {
+			// array type 으로 받아와서 처리
+			dlt_temp.setArray(e.responseJSON.dlt_temp);
+		}
+	};
+
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+    	<xf:group class="sub_contents" id="" style="">
+		<w2:wframe id="" style="" src="../../cm/xml/contentHeader.xml" scope=""></w2:wframe>
+		<w2:wframe id="" src="../../cm/xml/contentDesc.xml" scope=""></w2:wframe>
+    		<xf:group class="shbox" id="" style="">
+    			<xf:group class="shbox_inner" id="" style="">
+    				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tb row1" id="grp_search" style="" tagname="table">
+    					<w2:attributes>
+    						<w2:summary></w2:summary>
+    					</w2:attributes>
+    					<xf:group tagname="colgroup">
+    						<xf:group style="width:110px;" tagname="col"></xf:group>
+    						<xf:group style="" tagname="col"></xf:group>
+    					</xf:group>
+    					<xf:group class="" id="" style="" tagname="tr">
+    						<xf:group class="w2tb_th" style="" tagname="th">
+    							<w2:textbox class="" id="" label="성명" style=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" style="" tagname="td">
+    							<xf:input id="ibx_custNm" ref="data:dma_search.CUST_NM" style="width:150px;" class="" mandatory="true" placeholder="" refSync="true"></xf:input>
+    						</xf:group>
+    					</xf:group>
+    					<xf:group class="" id="" style="" tagname="tr">
+    						<xf:group class="w2tb_th" style="" tagname="th">
+    							<w2:textbox class="" id="" label="기준년월" style=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" style="" tagname="td">
+    							<xf:select1 allOption="" appearance="minimal" chooseOption="" class="w2selectbox" direction="auto"
+    								disabled="false" disabledClass="w2selectbox_disabled" id="" ref="" renderType="native" style="width:120px;"
+    								submenuSize="auto">
+    								<xf:choices>
+    									<xf:item>
+    										<xf:label><![CDATA[1월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[2월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[3월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[4월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[5월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[6월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[7월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[8월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[9월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[10월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[11월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[12월]]></xf:label>
+    										<xf:value></xf:value>
+    									</xf:item>
+    								</xf:choices>
+    							</xf:select1>
+    						</xf:group>
+    					</xf:group>
+    					<xf:group style="" tagname="tr">
+    						<xf:group class="w2tb_th" style="" tagname="th">
+    							<w2:textbox class="" id="" label="기준년월" style=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" style="" tagname="td">
+    							<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+    								renderDiv="true" renderType="native" rightAlign="false" style="width: 170px;">
+    							</w2:inputCalendar>
+    						</xf:group>
+    					</xf:group>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group class="btn_shbox" id="" style="">
+    				<xf:trigger class="btn_cm sch" disabled="" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
+    					<xf:label><![CDATA[조회]]></xf:label>
+    				</xf:trigger>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+    			<w2:gridView adaptive="crosstab" adaptiveThreshold="1024" autoFit="allColumn" autoFitMinWidth="800" class="wq_gvw"
+    				dataList="data:dlt_temp" editModeEvent="onclick" fixedColumnWithHidden="true" id="grd_customer" keyMoveEditMode="true" readOnly="true"
+    				rowNumVisible="true" rowStatusVisible="" scrollByColumn="false" style="height:300px;" useShiftKey="true" visibleRowNum="10">
+    				<w2:header id="header1" style="">
+    					<w2:row id="row1" style="">
+    						<w2:column blockSelect="false" displayMode="label" id="column11" inputType="text" style="height:20px" value="ID"
+    							width="50">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column9" inputType="text" style="height:20px" value="순번"
+    							width="50">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column7" inputType="text" style="height:20px" value="성명"
+    							width="100">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column5" inputType="text" style="height:44px;"
+    							value="전화번호" width="120">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column3" inputType="text" style="height:20px" value="이메일"
+    							width="120">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="column1" inputType="text" style="height:20px" value="소속"
+    							width="220">
+    						</w2:column>
+    					</w2:row>
+    				</w2:header>
+    				<w2:gBody id="gBody1" style="">
+    					<w2:row id="row2" style="">
+    						<w2:column blockSelect="false" displayMode="label" hidden="true" id="id" inputType="text" style="height:20px"
+    							textAlign="center" width="70">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" hidden="true" id="SEQ" inputType="text" style="height:20px"
+    							textAlign="center" width="70">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="CUST_NM" inputType="text" style="height:20px"
+    							textAlign="center" width="70">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="CUST_TEL_NO" inputType="text" style="height:38px;"
+    							textAlign="center" width="70">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="CUST_EMAIL" inputType="text" style="height:20px"
+    							textAlign="left" width="70">
+    						</w2:column>
+    						<w2:column blockSelect="false" displayMode="label" id="PRDT_CMPNY_NM" inputType="text" style="height:20px"
+    							textAlign="left" width="70">
+    						</w2:column>
+    					</w2:row>
+    				</w2:gBody>
+    			</w2:gridView>
+
+    		</xf:group>
+
+    	</xf:group>
+
+	</body>
+</html>

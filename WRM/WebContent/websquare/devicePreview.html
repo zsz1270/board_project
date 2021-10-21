@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<HTML>
+	 <HEAD>
+	  <TITLE> WebSquare Device Preview </TITLE> 
+	  <META NAME="Description" CONTENT="">		
+		<style >
+			.deviceBody {background: #363636; text-align:center; table-layout:auto}
+			table {border-collapse: collapse; border:none; cellpadding:0; cellspacing:0; margin:0 auto;}
+			#top01 { width:52px; height:51px; background: url(./images/devicePreview/top01.png) no-repeat 0 bottom  }	
+			#top02 {height:51px;background: url(./images/devicePreview/bg_top.png) repeat-x 0 bottom  }		
+			#top03 {width:52px; height:51px; background: url(./images/devicePreview/top02.png) no-repeat 0 bottom  }	
+			#bot01 { width:52px; height:59px; background: url(./images/devicePreview/footer01.png) no-repeat 0 0 }	
+			#bot02 { height:59px; background: url(./images/devicePreview/bg_footer.png) repeat-x 0 0 }
+			#bot03 {width:52px; height:59px; background: url(./images/devicePreview/footer02.png) no-repeat 0 0 }	
+			#left { background: url(./images/devicePreview/bg_left.png) repeat-y 0 0 ; text-align:right; vertical-align:top}
+			#left img {margin-right:20px;}
+			#right {background: url(./images/devicePreview/bg_right.png) repeat-y right 0 }
+			.tac {text-align:center}
+			.imgtop01 {position: relative;float:left;width:18px;padding-top:3px}
+			.imgtop02 {position: relative;float:right;width:40px;padding-top:3px}
+			.bgbar {position:relative;background:#000;height:23px;}	
+			.whiteBackground {background-color:white;}
+		</style>
+		<script type="text/javascript" src="javascript.wq?q=/bootloader"></script>
+		<script type="text/javascript">
+			window.onload = init;
+			var websquareEntryPoint = "";
+			var webSquareIFrame;
+			var panelTable;
+			var width = 0;
+			var height = 0;
+			function init() {
+				var w2xPath = WebSquare.net.getParameter("w2xPath");
+				width = parseInt(WebSquare.net.getParameter("width"),10)||0;
+				height = parseInt(WebSquare.net.getParameter("height"),10)||0;
+				if(! width) width = 1024;
+				if(! height) height = 768;
+				if(width<300) width = 300;
+				if(height<150) height = 150;
+				websquareEntryPoint = "/websquare/websquare.html?w2xPath=" + w2xPath;
+				webSquareIFrame = document.getElementById("websquareFrame");
+				panelTable = document.getElementById("panelTable");
+				var resizeObject = {};
+				if(width) resizeObject.width = (width + 108)  + "";
+				if(height) resizeObject.height = (height + 133) + "";
+				panelTable.style.width = panelTable.offsetWidth + "px";
+				panelTable.style.height = panelTable.offsetHeight + "px";
+				WebSquare.style.animate(panelTable, resizeObject, {
+					key: webSquareIFrame.id + "_resizeAnimation",
+					easing: "ease-out",
+					duration: 1000,
+					complete: function() {
+						webSquareIFrame.style.width = parseInt(width,10) + "px";
+						webSquareIFrame.style.height = parseInt(height,10) + "px";
+						webSquareIFrame.src = websquareEntryPoint;
+						appendDeviectSize(width, height);
+					}
+				});
+			}
+			
+			function appendDeviectSize(width, height) {
+				var element = document.createElement("div");
+				var deviceImage = document.getElementById("deviceImage");
+				var top = WebSquare.style.getAbsoluteTop(deviceImage) + 33;
+				var limitRight = webSquareIFrame.offsetLeft + webSquareIFrame.offsetWidth;
+				//var left = WebSquare.style.getAbsoluteLeft(deviceImage) + deviceImage.offsetWidth;
+				var left = limitRight - 120;
+				element.innerHTML = "(" + width + "px * " + height + "px" + ")";
+				element.style.position = "absolute";
+				element.id = "deviceTitle";
+				element.style.top = top + "px";
+				element.style.width = "120px";
+				element.style.left = left + "px";
+				element.style.fontSize = "7pt";
+				element.style.fontWeight = "bold";
+				element.style.color = "#535353";
+				document.body.appendChild(element);
+				
+			}
+			
+			var resizeTimer;
+			window.onresize = function() {
+				if(resizeTimer) clearTimeout(resizeTimer);
+				resizeTimer = setTimeout(function() {
+					var deviceTitle = document.getElementById("deviceTitle");
+					if(deviceTitle) deviceTitle.parentElement.removeChild(deviceTitle);
+					appendDeviectSize(width,height);	
+				},100);
+			};
+		</script>
+	 </HEAD>
+	 <BODY class="deviceBody">
+		 <table id="panelTable" summary="" style="" cellpadding="0" cellspacing="0">
+			<caption></caption>	
+			<tr>
+				<td id="top01"></td>		
+				<td id="top02">
+					<div class="tac">
+						<img id="deviceImage" src="./images/devicePreview/icon_top.png"/>
+					</div>
+				</td>		
+				<td id="top03" ></td>
+			</tr>
+			<tr >
+				<td id="left" class="whiteBackground"><img src="./images/devicePreview/icon_left.png"></td>
+				<td id="center" class="whiteBackground" style="vertical-align:top;">
+					<div class="bgbar">
+						<div class="imgtop01"><img src="./images/devicePreview/icon01.gif"></div>
+						<div class="imgtop02"><img src="./images/devicePreview/icon02.gif"></div>
+					</div>
+					<iframe id="websquareFrame" frameBorder="0" class="whiteBackground" src="about:blank" style="position:relative;width:200px;height:150px;"></iframe></td>
+				<td id="right" class="whiteBackground"></td>		
+			</tr>	
+			<tr >
+				<td id="bot01" ></td>		
+				<td id="bot02"></td>		
+				<td id="bot03" ></td>
+			</tr>			
+		</table>
+	 </BODY>
+</HTML>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="">
+				</data>
+			</xf:instance>
+		</xf:model>
+		<script src="../../cm/js/main.js" />
+		<script type="text/javascript" lazy="false"><![CDATA[
+		
+	scwin.onpageload = function() {
+		// Mobile일때 메뉴 동작	
+			if(WebSquare.util.isMobile()){
+				grp_wrap.removeClass("show_menu");
+
+				$(".btn_toggle_menu").click(function(){
+					$(".wrap").toggleClass("show_menu");
+					$(".btn_toggle_menu").toggleClass("on");
+					$(".dim").toggleClass("on");
+				});
+			} else {
+				$(".btn_toggle_menu").click(function(){
+					grp_wrap.toggleClass("show_menu");
+					$(".btn_toggle_menu").toggleClass("on");
+				});
+			}
+	
+		// 검색영역 show/hide
+		$(".btn_all_search").click(function(){
+			
+			$(".search_field").toggleClass("active");
+		});
+		
+		// 탭 타이틀 on/off
+		$(".tab_tit a").click(function(){
+			$(this).parent().addClass("on").siblings().removeClass("on");
+		});
+		
+		// 트리뷰 접기
+		$(".btn_fold").click(function(){
+			$(this).addClass("on");
+			$(".btn_fold_list").removeClass("on");
+		});
+		// 트리뷰 펼치기
+		$(".btn_fold_list").click(function(){
+			$(this).addClass("on");
+			$(".btn_fold").removeClass("on");
+		});
+		
+		// USER NAME CLICK
+		$(".btn_mypage").click(function(){
+			$(".mypage .items").toggleClass("on");
+		});
+		scwin.initMainLoad();
+	};
+	
+	]]></script>
+		<style type="text/css"><![CDATA[ ]]></style>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group class="wrap show_menu" id="grp_wrap" style="">
+			<w2:wframe class="header" id="wfm_header" scope="true" src="../../cm/xml/header.xml" style=""></w2:wframe>
+			<xf:group class="container" id="" style="">
+				<xf:group style="" id="" class="contents">
+					<w2:windowContainer class="win_c" controlIconPosition="allright" fixArrangeFullScreen="false" frameMode="wframe"
+						hideTitleOnMaximize="false" horizontalArrangeNum="2" id="wdc_main" sequentialArrangeColNum="2" sequentialArrangeRowNum="2"
+						spaInitCount="0" stopMinimizeOnNameLayer="false" stopToggleOnLast="false" style="" toolbarPosition="bottom" tooltipDisplay="true"
+						tooltipGroupClass="false" useCloseButton="true" useControlIconTitle="false" useCustomMsg="false" useFixButton="false"
+						useNameContainer="true" useStatusMsg="false" verticalArrangeNum="2" windowAutoResize="false" windowMaxNum="30"
+						windowMaximizeAll="false" windowTooltipDisplay="true" closeType="">
+						<w2:windowToolbar>
+							<w2:controlIconLayer>
+								<w2:controlIcon></w2:controlIcon>
+								<w2:controlIcon></w2:controlIcon>
+								<w2:controlIcon></w2:controlIcon>
+								<w2:controlIcon></w2:controlIcon>
+								<w2:controlIcon></w2:controlIcon>
+							</w2:controlIconLayer>
+							<w2:nameLayer></w2:nameLayer>
+							<w2:selectedNameLayer></w2:selectedNameLayer>
+						</w2:windowToolbar>
+					</w2:windowContainer>
+					<xf:group id="" style="position: absolute;bottom:40px;left:10px;min-width:calc( 98% - 20px );z-index: 9980;">
+						<xf:group style="display:none;" id="msg_success" class="msg_box success">
+							<w2:textbox tagname="" style="min-height:20px" id="txt_success" label="정상 처리 되었습니다." class="txt_msg"></w2:textbox>
+						</xf:group>
+						<xf:group style="display:none;" id="msg_info" class="msg_box info">
+							<w2:textbox tagname="" style="" id="txt_info" label="정상 처리 되었습니다." class="txt_msg"></w2:textbox>
+						</xf:group>
+						<xf:group style="display:none;" id="msg_warning" class="msg_box warning">
+							<xf:group style="" id="">
+								<w2:textbox tagname="" style="" id="txt_warning" label="처리 도중 오류가 발생하였습니다." class="txt_msg"></w2:textbox>
+								<xf:trigger ev:onclick="scwin.removeWarnMsg" disabled="" style="" id="btn_warnig" type="button" class="btn_close">
+									<xf:label><![CDATA[테이블버튼]]></xf:label>
+								</xf:trigger>
+							</xf:group>
+							<xf:textarea style="min-height: 100px;" id="textarea_warning" placeholder=""></xf:textarea>
+						</xf:group>
+						<xf:group style="display:none;" id="msg_error" class="msg_box error">
+							<xf:group style="" id="">
+								<w2:textbox tagname="" style="" id="txt_error" label="처리 도중 오류가 발생하였습니다." class="txt_msg"></w2:textbox>
+								<xf:trigger ev:onclick="scwin.removeErrorMsg" disabled="" style="" id="btn_error" type="button" class="btn_close">
+									<xf:label><![CDATA[테이블버튼]]></xf:label>
+								</xf:trigger>
+							</xf:group>
+							<xf:textarea style="min-height: 100px;" id="textarea_error" placeholder=""></xf:textarea>
+						</xf:group>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<w2:wframe style="" id="wfm_side" class="side" scope="true" src="../../cm/xml/side.xml"></w2:wframe>
+			<w2:wframe style="" id="wfm_footer" scope="true" src="../../cm/xml/footer.xml"></w2:wframe>
+			<xf:group style="" id="" class="dim"></xf:group>
+		</xf:group>
+	</body>
+</html>

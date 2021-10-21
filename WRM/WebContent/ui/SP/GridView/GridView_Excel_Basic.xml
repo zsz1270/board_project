@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_programId="GridView_Excel_Basic" meta_programName="샘플화면-엑셀 CSV업/다운" meta_programDesc="그리드뷰의 데이터를 파일 형태(xlsx, xls, csv)에 따라 엑셀 다운로드/업로드 하는 기능을 제공한다." meta_author="Inswave Systems" meta_date="2021.02.25">
+		<w2:type>DEFAULT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map">
+				<w2:dataMap baseNode="map" id="dma_fileDesc">
+					<w2:keyInfo>
+						<w2:key id="desc" name="" dataType="text"></w2:key>
+						<w2:key id="test" name="" dataType="text"></w2:key>
+					</w2:keyInfo>
+					<w2:data use="true">
+						<desc><![CDATA[
+<pre class="textNor">
+<div class="etcbox">그리드뷰의 데이터를 파일 형태(xlsx, xls, csv)에 따라 엑셀 다운로드/업로드 하는 기능을 제공한다.
+파일명을 제외하고 별도의 다운로드/업로드 옵션 설정이 없는 기본 예제이다.	
+</div> 
+</pre>
+						]]></desc>
+						<test><![CDATA[
+<pre class="textNor">
+<div class="etc_tit">다운로드 과정</div>
+  1. [조회] 버튼을 클릭하여 데이터를 조회한다.
+  2. 파일 형태 (xlsx, xls, csv) 중 하나를 선택한다.  
+  3. [다운로드] 버튼을 클릭한다.	
+<div class="etc_tit">업로드 과정</div>
+  1. 파일 형태 (xlsx, xls)중 하나를 선택한다.   
+  2. [업로드 포맷] 버튼을 클릭하여 헤더만 있는 템플릿 파일을 다운로드 한다. (csv는 지원하지 않는다.)
+  3. 다운받은 템플릿 파일을 변경한다.
+  4. 그리드뷰에  데이터가 있는 경우, [지우기] 버튼을 클릭하여 데이터를 지운다.  
+  5. [업로드] 버튼을  클릭하여 파일 업로드 한다.
+<div class="etc_tit">결과</div>
+  1. 다운로드 : data.xlsx, data.xls,  data.csv  
+  2. 업로드 : header.xlsx, header.xls
+</pre>
+						]]></test>
+					</w2:data>
+				</w2:dataMap>
+				<w2:dataList id="dlt_advancedExcel" baseNode="list" saveRemovedData="true" repeatNode="map">
+					<w2:columnInfo>
+						<w2:column id="MENU_CD" name="메뉴코드" dataType="text"></w2:column>
+						<w2:column id="MENU_NM" name="메뉴명" dataType="text"></w2:column>
+						<w2:column id="PARENT_MENU_NM" name="부모메뉴명" dataType="text"></w2:column>
+						<w2:column id="MENU_LEVEL" name="메뉴레벨" dataType="text"></w2:column>
+						<w2:column id="SRC_PATH" name="경로" dataType="text"></w2:column>
+						<w2:column id="IS_USE" name="사용여부" dataType="text"></w2:column>
+						<w2:column id="SORT_ORDER" name="순서" dataType="text"></w2:column>
+						<w2:column id="PARENT_MENU_CD" name="부모메뉴코드" dataType="text"></w2:column>
+					</w2:columnInfo>
+				</w2:dataList>
+			</w2:dataCollection>
+			<w2:workflowCollection></w2:workflowCollection>
+			<xf:submission id="sbm_advancedExcel" ref="" target="data:json,dlt_advancedExcel" action="/ui/SP/JsonData/advancedExcel.json" method="get" mediatype="application/json" encoding="UTF-8"
+				instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_advancedExcel_submitdone" ev:submiterror="" abortTrigger="">
+			</xf:submission>
+		</xf:model>
+		<script type="text/javascript" lazy="false"><![CDATA[
+	/**
+	 * 초기 스크립트 수행 함수 정의
+	 */
+	scwin.onpageload = function() {
+		
+	};
+	
+	/**
+	 * 초기 스크립트 수행 함수 정의
+	 */
+	scwin.onpageunload = function() {
+		com.sbm.execute(sbm_advancedExcel);
+	};	
+	
+	/** 
+	 * /ui/SP/Data/advancedExcel.json 파일을 읽어온다.
+	 */ 
+	scwin.btn_search_onclick = function() {
+		com.sbm.execute(sbm_advancedExcel);
+	};
+	
+	/**
+	 * sbm_advancedExcel의 submitdone, 조회된 행의 총 갯수를 count한다.
+	 */
+	scwin.sbm_advancedExcel_submitdone = function(e) {
+		spn_excelBasicCnt.setValue( dlt_advancedExcel.getRowCount() );
+	};
+	
+	
+	/** 
+	 * 그리드뷰의 데이터를 엑셀로 다운로드 한다.
+	 * 필요한 옵션이 있다면 options, infoArr배열에 옵션을 넣는다.
+	 */
+	scwin.btn_downloadExcelBasic_onclick = function() {
+		var option = {};
+		var info = {};
+	
+		if (rad_excelType.getValue() == "csv") {
+			option.fileName = "data." + rad_excelType.getValue();
+			com.data.downloadGridViewCSV(grd_excelGrid, option, info);
+		} else if (rad_excelType.getValue() == "xls" || rad_excelType.getValue() == "xlsx") {
+			option.fileName = "data." + rad_excelType.getValue();
+			com.data.downloadGridViewExcel(grd_excelGrid, option, info);
+		} else {
+			com.win.alert("지원하지 않는 파일 형식입니다.");
+		}
+		
+	};
+	
+	/**	 
+	 * 엑셀의 데이터를 그리드뷰로 업로드 한다.
+	 * 필요한 옵션이 있다면 options배열에 옵션을 넣는다.
+	 */
+	scwin.btn_uploadDataBasic_onclick = function() {
+		var option = {};
+		
+		if (rad_excelType.getValue() == "csv") {
+			com.data.uploadGridViewCSV(grd_excelGrid, option);
+		} else if (rad_excelType.getValue() == "xls" || rad_excelType.getValue() == "xlsx") {
+			com.data.uploadGridViewExcel(grd_excelGrid, option);
+		} else {
+			com.win.alert("지원하지 않는 파일 형식입니다.");
+		}
+	};
+	
+	/**
+	 * 엑셀 업로드 후, 건수를 체크한다.
+	 */
+	scwin.grd_excelGrid_onfilereadend = function(value) {
+		spn_excelBasicCnt.setValue(grd_excelGrid.getTotalRow());
+	};
+	
+	/**
+	 * 그리드의 데이터가 지워진다.
+	 */
+	scwin.btn_gridRemoveExcelBasic_onclick = function() {
+		dlt_advancedExcel.removeAll();
+	};
+	
+	/**
+	 * 그리드 Excel 포맷을 다운로드 하는 기능 ( 업로드용  Excel 포맷 )
+	 */
+	scwin.btn_defaultExcelFormat_onclick = function() {
+		if ( rad_excelType.getValue() == "csv" ) {
+			com.win.alert("csv는 header 포맷 다운로드 기능을 제공하지 않습니다.");
+			return;
+		}
+		  
+		var option = {};
+		option.fileName = "header." + rad_excelType.getValue();
+		option.dataProvider = "com.inswave.template.provider.ExcelDownHeader";
+		var info = {};
+		
+		com.data.downloadGridViewExcel(grd_excelGrid, option, info);	
+		
+	};
+
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload" ev:onpageunload="scwin.onpageunload">
+		<xf:group class="sub_contents" id="" style="">
+			<w2:wframe id="" style="" src="../../cm/xml/contentHeader.xml" scope=""></w2:wframe>
+			<w2:wframe id="" src="../../cm/xml/contentDesc.xml" scope=""></w2:wframe>
+			<xf:group style="" id="" class="dfbox">
+				<xf:group id="" class="fr" style="float:left;line-height: 34px"><w2:textbox style="" id="spn_excelBasicCnt" label="0" class="sum"></w2:textbox><w2:textbox style="" id="" label="건" class=""></w2:textbox></xf:group><xf:group style="" id="" class="fr">
+					
+					
+					<w2:textbox class="ett" id="" label="파일형태 :" style=""></w2:textbox>
+					<xf:select1 appearance="full" cols="" disabled="" id="rad_excelType" ref="" renderType="radiogroup" rows="1"
+						selectedIndex="0" style="" class="mr10">
+						<xf:choices>
+							<xf:item>
+								<xf:label><![CDATA[xlsx]]></xf:label>
+								<xf:value><![CDATA[xlsx]]>
+								</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label><![CDATA[xls]]></xf:label>
+								<xf:value><![CDATA[xls]]>
+								</xf:value>
+							</xf:item>
+							<xf:item>
+								<xf:label><![CDATA[csv]]></xf:label>
+								<xf:value><![CDATA[csv]]>
+								</xf:value>
+							</xf:item>
+						</xf:choices>
+					</xf:select1>
+
+					<xf:trigger type="button" style="" id="btn_defaultExcelFormat" class="btn_cm " toolTip="그리드의 Header만 엑셀로 다운로드 한다."
+						ev:onclick="scwin.btn_defaultExcelFormat_onclick">
+						<xf:label><![CDATA[업로드포맷]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm xls_up" id="btn_uploadDataBasic" style="" type="button" toolTip="엑셀의 데이터를 그리드로 업로드 한다."
+						ev:onclick="scwin.btn_uploadDataBasic_onclick">
+						<xf:label><![CDATA[엑셀업로드]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm  xls_down" id="btn_downloadExcelBasic" style="" type="button" toolTip="그리드의 데이터를 엑셀로 다운로드 한다."
+						ev:onclick="scwin.btn_downloadExcelBasic_onclick">
+						<xf:label><![CDATA[엑셀다운로드]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm " id="btn_gridRemoveExcelBasic" style="" type="button" toolTip="현재 그리드에 업로드 되어있는 데이터를 삭제한다."
+						ev:onclick="scwin.btn_gridRemoveExcelBasic_onclick">
+						<xf:label><![CDATA[지우기]]></xf:label>
+					</xf:trigger>
+					<xf:trigger class="btn_cm  search" id="btn_search" style="" type="button" ev:onclick="scwin.btn_search_onclick">
+						<xf:label><![CDATA[조회]]></xf:label>
+					</xf:trigger>
+				</xf:group>
+			</xf:group>
+			<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+				<w2:gridView autoFit="allColumn" class="wq_gvw" columnMove="" columnMoveWithFooter="" dataList="data:dlt_advancedExcel"
+					ev:onafteredit="" ev:onfilereadend="scwin.grd_excelGrid_onfilereadend" fixedColumnWithHidden="true" id="grd_excelGrid"
+					ignoreCellClick="false" rowNumHeaderValue="순서" rowNumVisible="true" rowStatusHeaderValue="상태" rowStatusVisible="true"
+					scrollByColumn="false" sortEvent="ondblclick" sortable="true" style="height:300px;" useShiftKey="true" visibleRowNum="10">
+					<w2:header id="header1" style="">
+						<w2:row id="row2" style="">
+							<w2:column blockSelect="false" displayMode="label" id="column11" inputType="text" style="height:44px;"
+								value="메뉴코드" width="50">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column9" inputType="text" value="메뉴명" width="100">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column7" inputType="text" value="부모메뉴명" width="100">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column3" inputType="text" value="메뉴레벨" width="50">
+							</w2:column>
+							<w2:column blockSelect="false" id="column12" inputType="text" value="경로" width="150"></w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="column15" inputType="text" value="부모메뉴코드" width="50">
+							</w2:column>
+						</w2:row>
+					</w2:header>
+					<w2:gBody id="gBody4" style="">
+						<w2:row id="row5" style="">
+							<w2:column blockSelect="false" displayMode="label" id="MENU_CD" inputType="text" style="height:38px;"
+								width="50">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="MENU_NM" inputType="text" style="height:25px;"
+								width="40" textAlign="left">
+							</w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="PARENT_MENU_NM" inputType="text" style="height:25px;"
+								textAlign="left" width="50">
+							</w2:column>
+							<w2:column blockSelect="false" falseValue="N" id="MENU_LEVEL" inputType="text" style="height:25px;"
+								textAlign="center" trueValue="Y" valueType="other" width="50">
+							</w2:column>
+							<w2:column blockSelect="false" id="SRC_PATH" inputType="text" width="50" textAlign="left"></w2:column>
+							<w2:column blockSelect="false" displayMode="label" id="PARENT_MENU_CD" inputType="text" style="height:25px"
+								width="150">
+							</w2:column>
+						</w2:row>
+					</w2:gBody>
+				</w2:gridView>
+
+			</xf:group>
+
+		</xf:group>
+	</body>
+</html>

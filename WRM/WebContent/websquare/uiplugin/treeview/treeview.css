@@ -1,0 +1,190 @@
+.w2treeview {
+	background-color : #ffffff;
+	padding : 0px;
+	margin : 0px;
+	overflow : auto;
+}
+
+.w2treeview_group {
+	margin : 0px;
+	padding : 0px;
+}
+
+.w2treeview_node {
+	width : 100%;	/* 이거 안주면 ie8에서 td가 벌어지는 경우있음	*/
+	position : relative;
+	left : 0px;
+	height : 0px;
+}
+
+.w2treeview_row_parent {
+	height : 18px;
+}
+
+.w2treeview_row_child {
+}
+
+.w2treeview_noguideline {
+	width : 16px;
+}
+
+.w2treeview_guideline {
+	width : 16px;
+	background : url(uiplugin/treeview/images/vline.gif) repeat-y center center;
+}
+
+.w2treeview_row_depth0 {	
+	/* 하위호환 : 0번째 depths는 보여주지 않는다*/
+	display : none;
+}
+
+.w2treeview_col_depth0 {	
+	/* 하위호환 : 0번째 depths는 보여주지 않는다*/
+	display : none;
+}
+
+.w2treeview_over {
+/*	background-color : #80ffff;	*/
+}
+
+.w2treeview_select_node {
+	background-color : #0A246A;
+	color : #ffffff;
+}
+
+
+.w2treeview_table_node {
+	table-layout : fixed;		 
+/*	table-layout : auto;	*/		
+	border-collapse : collapse;
+}
+
+.w2treeview_table_node td {
+	padding : 0px 1px 0px 1px;
+	margin : 0px;
+}
+
+.w2treeview_col {
+/*	vertical-align : middle;	*/
+} 
+
+.w2treeview_child {
+/*	margin-left : 20px; */
+}
+
+.w2treeview_open_child {
+}
+
+.w2treeview_none {
+	display : none;
+}
+
+.w2treeview_label {
+	position : relative;	/* relative, absolute 주면 min-width는 대신 display:block, none왔다갔다할때 위치를 td안에 잘 못찾음..*/
+/*	min-width : 75px;	*/
+	cursor : pointer;
+/*	background-color : #0080ff; */
+	white-space : nowrap;
+	font-size : 11px;
+	padding : 3px 3px 3px 3px;
+}
+
+.w2treeview_col_icon_navi {
+	width : 16px;
+}
+
+.w2treeview_col_icon_checkbox {
+	width : 16px;
+}
+
+.w2treeview_col_icon_label {
+	width : 16px;
+}
+
+
+
+.w2treeview_checkbox {
+	height : 14px;
+	width : 14px;x
+}
+
+.w2treeview_icon_navi {
+	width : 16px;
+	height : 16px;
+	margin-bottom : 2px;
+	text-align : center;
+}
+
+.w2treeview_icon_none {
+/* background 없이 크기만 차지 */
+	width : 16px;
+}
+
+.w2treeview_icon_label {
+/*	display : none;	*/
+	width : 20px;
+	height : 16px;
+	text-align : center;
+	background-repeat : no-repeat;
+	background-position : center cetner;
+}
+
+.w2treeview_icon_label_none {
+	display : none;
+}
+
+.w2treeview_tooltip {
+	display : none;
+	position : absolute;
+	border:2px solid #7BAFE4; 
+	background-color:#ffffff;
+	cursor : default;
+	font-size : 15px;
+}
+
+
+/* open */
+.w2treeview_open_child .w2treeview_icon_navi {
+	background : url(uiplugin/treeview/images/minus.gif) no-repeat center center;
+}
+
+.w2treeview_open_child .w2treeview_icon_label {
+/*	background : url(uiplugin/treeview/images/folder_open.gif) no-repeat center center;	*/	
+}
+
+/* close */
+.w2treeview_close_child .w2treeview_icon_navi {
+	background : url(uiplugin/treeview/images/plus.gif) no-repeat center center;	
+}
+
+.w2treeview_close_child .w2treeview_icon_label {
+/*	background : url(uiplugin/treeview/images/folder_close.gif) no-repeat center center;	*/	
+}
+
+
+.w2treeview_leaf .w2treeview_icon_navi {
+	background : url(uiplugin/treeview/images/middle.gif) no-repeat center center;
+}	
+
+.w2treeview_last_leaf .w2treeview_icon_navi {
+	background : url(uiplugin/treeview/images/last.gif) no-repeat center center;
+}
+
+/*
+.w2treeview_leaf .w2treeview_icon_label {
+	width : 16px;
+	background : url(uiplugin/treeview/images/doc1.gif) no-repeat center center;
+}
+*/
+
+
+.w2treeview_drag {
+	visibility : hidden;
+	position : absolute;
+	border:2px solid #7BAFE4; 
+	background-color:#ffffff;
+	cursor : default;
+	font-size : 15px;
+	margin-left : -2px;
+	margin-top : -10px;
+}

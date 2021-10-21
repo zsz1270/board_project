@@ -1,0 +1,10352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>data - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Namespaces</h3><ul><li><a href="com.html">com</a></li><li><a href="com.sbm.html">sbm</a><ul class='methods'></ul></li><li><a href="com.data.html">data</a><ul class='methods'></ul></li><li><a href="com.util.html">util</a><ul class='methods'></ul></li><li><a href="com.win.html">win</a><ul class='methods'></ul></li><li><a href="com.num.html">num</a><ul class='methods'></ul></li><li><a href="com.str.html">str</a><ul class='methods'></ul></li><li><a href="com.date.html">date</a><ul class='methods'></ul></li><li><a href="com.hkey.html">hkey</a><ul class='methods'></ul></li><li><a href="com.ext.html">ext</a></li><li><a href="console.html">console</a></li><li></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">data</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="com.html">com</a>.</span>
+        
+        data
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+                <div class="description usertext"><p>공통 코드 &amp; 메세지, DataCollection 제어, 글로벌 데이터 제어(gcm의 함수를 호출), 화면 간 데이터 전달, 데이터 유효성 검사 함수를 작성한다.</p></div>
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".setCommonCode"><span class="type-signature">(static) </span>setCommonCode<span class="signature">(codeOptions, callbackFunc)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>코드성 데이터와 컴포넌트의 nodeSet(아이템 리스트)연동 기능을 제공한다.</p>
+<p>cdGrp별로 JSON객체를 생성하여 array에 담아 첫번째 파라메터로 넘겨준다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var codeOptions = [ { cdGrp : "00001", compID : "sbx_Duty" },
+					{ cdGrp : "00002", compID : "sbx_Postion" },
+					{ cdGrp : "00021", compID : "sbx_JoinClass" },
+					{ cdGrp : "00005", compID : "sbx_CommCodePart1, sbx_CommCodePart2"},
+					{ cdGrp : "00024", compID : "grd_CommCodeSample:JOB_CD"} ];
+com.data.setCommonCode(codeOptions);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>codeOptions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>{&quot;cdGrp&quot; : &quot;코드그룹&quot;, &quot;compID&quot; : &quot;적용할 컴포넌트명&quot;}</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callbackFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">requestCallback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>콜백 함수</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getCommonCodeDataList"><span class="type-signature">(static) </span>getCommonCodeDataList<span class="signature">(cdGrp)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>서버에서 전달된 데이터가 아닌 화면 상에서 데이터 가공이 필요한 경우 DataList 객체를 전달 받아서 필터링하거나 데이터를 조작할 수 있다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var comDataList1 = com.data.getCommonCodeDataList("00024");
+comDataList1.setColumnFilter( 
+    {type:'regExp', colIndex:'COM_CD', key:/01|02|04|05/gi, condition:'and'}
+);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cdGrp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>코드그룹</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".executeCommonCode"><span class="type-signature">(static) </span>executeCommonCode<span class="signature">(cdGrp)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>scwin.onpageload 이벤트에 정의된 com.data.setCommonCode 함수를 통해서 생성된 공통 코드 조회 Submission은 scwin.ondataload 함수가 실행되기 전에
+UI 공통 프레임워크 내에서 자동으로 실행시켜 준다.
+하지만, TabControl의 alwaysDraw=false 등의 옵션 적용 등으로 인해서 화면이 로딩된 이후에 어떤 이벤트 시점 이후에 공통 코드를 로딩하려면
+com.data.executeCommonCode() 함수를 실행하면 된다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var codeOptions = [ { code : "00002", compID : "sbx_Postion" },
+                    { code : "00024", compID : "grd_CommCodeSample:JOB_CD"} ];
+com.data.setCommonCode(codeOptions);
+com.data.executeCommonCode();</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>cdGrp</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>코드그룹</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getParameter"><span class="type-signature">(static) </span>getParameter<span class="signature">(파라미터)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>파라미터를 읽어 온다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var code = com.data.getParameter("code");  // 특정 파라미터 값을 얻어오기
+var param = com.data.getParameter();	   // 전체 파라미터 값을 얻어오기</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>파라미터</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>키</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>파라미터 값</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getColumnName"><span class="type-signature">(static) </span>getColumnName<span class="signature">(comObj)</span><span class="type-signature"> &rarr; {String}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>특정 컴포넌트에 바인된 DataList나 DataMap의 컬럼 이름을 반환한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>com.data.getColumnName(ibx_name);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>comObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>컴포넌트 객체</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>컬럼명</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getDataCollection"><span class="type-signature">(static) </span>getDataCollection<span class="signature">(comObj)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>특정 컴포넌트에 바인된 DataList나 DataMap의 정보를 반환한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>com.data.getDataCollection(ibx_applUserId);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>comObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>callerObj 컴포넌트 객체</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>dataCollection정보</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getMessage"><span class="type-signature">(static) </span>getMessage<span class="signature">(sysMsgId, arguments)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>공통 메시지에 코드에 해당하는 공통 메시지 코드를 반환합니다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>com.data.getMessage("MSG_CM_00001");  // "변경된 데이터를 저장하시겠습니까?"
+com.data.getMessage("MSG_CM_00002", com.str.attachPostposition("전화번호"));  // "전화번호는 필수입력값입니다."
+com.data.getMessage("MSG_CM_00003", "세션이 종료되어");  // "세션이 종료되어 로그인 화면으로 이동하겠습니다."</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sysMsgId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>메시지 ID , Array 형식인 경우는 첫번째 인덱스가 sysMsgId가 되고 두번째 인덱스부터 치환문자가 됨</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>arguments</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>메시지 치환 문자열 (메시지 ID에서 치환이 필요한 만큼 문자열 매개변수를 전달함)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isModified"><span class="type-signature">(static) </span>isModified<span class="signature">(dcObjArr)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>DataCollection 객체의 변경된 데이터가 있는지 검사한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>if (com.data.validateGridView(grd_indexPage, valInfo) &amp;&amp; com.data.isModified(dlt_grdAllData)) {
+	com.win.confirm("저장하시겠습니까?", "scwin.saveData");
+};</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dcObjArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>DataCollection 또는 배열</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>검사결과 (true or false)</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".downloadMultipleDataList"><span class="type-signature">(static) </span>downloadMultipleDataList<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>DataList의 데이터를 엑셀 파일로 저장한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// id가 a,b,c,d,e인 5개 컬럼이 존재하는 DataList
+var options = {
+	common: {
+		fileName : "excel_data.xlsx",
+		showProcess : true,
+		multipleSheet : true,
+		printSet : {
+			landScape : "true",
+			fitToPage : "true",
+			fitWidth : "1",
+			fitHeight : "1",
+			scale : "222"
+		}
+	},
+	excelInfo: [
+		{
+			dataListId : "dlt_data1",
+			sheetName : "첫번째 sheet",
+			removeColumns : "1,3",
+			foldColumns : "2",
+			startRowIndex : 3,
+			startColumnIndex : 0,
+			headerColor : "#DBEEF3",
+			bodyColor : "#92CDDC",
+			infoArr : [
+				{
+					rowIndex : 1, colIndex : 3, rowSpan : 1, colSpan : 2, text : "데이터표시" , textAlign : "center"
+				}
+			]
+		},
+		{
+			dataListId : "dlt_data2",
+			sheetName : "두번째 sheet",
+			removeColumns : "1,3",
+			foldColumns : "2",
+			startRowIndex : 3,
+			startColumnIndex : 0,
+			headerColor : "#DBEEF3",
+			bodyColor : "#92CDDC",
+			infoArr : [
+				{
+					rowIndex : 1, colIndex : 3, rowSpan : 1, colSpan : 2, text : "데이터표시" , textAlign : "center"
+				}
+			]
+		}
+	]
+};
+com.data.downloadMultipleDataList(options);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options.common</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 dataList의 엑셀 다운로드 옵션</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fileName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: excel.xls] 다운로드하려는 파일의 이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showProcess</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 다운로드 시 프로세스 창을 보여줄지 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>multipleSheet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 다운로드시 dataList별 sheet분리 출력유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>printSet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 Excel Print관련 설정</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fitToPage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 엑셀 프린터 출력시 쪽맞춤 사용 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>landScape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 엑셀 프린터 출력시 가로 방향 출력 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fitWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1] 엑셀 프린터 출력시 용지너비</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fitHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1] 엑셀 프린터 출력시 용지높이</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 100] 엑셀 프린터 출력시 확대/축소 배율, scale을 사용할 경우 fitToPage는 false로 설정 해야 한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pageSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: A4] 엑셀 프린터 출력시 인쇄 용지 크기 (예: &quot;A3&quot;, &quot;A4&quot;, &quot;A5&quot;, &quot;B4&quot;) 단, fitToPage: true 인 경우에만 유효.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.excelInfo</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 dataList의 옵션 정보</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dataListId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel의 sheet에 저장한 DataList의 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sheetName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: sheet] excel의 sheet의 이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 excel에서 삭제하려는 열의 번호(여러 개일 경우 ,로 구분)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>foldColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 excel에서 fold하려는 열의 번호(여러 개일 경우 ,로 구분)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startRowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 dataList의 데이터가 시작되는 행의 번호(헤더 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startColumnIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 dataList의 데이터가 시작되는 열의 번호(헤더 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: #33CCCC] excel파일에서 dataList의 header부분의 색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 dataList의 header부분의 font name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>wframeId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 현재 WFrame Id] DataList가 위치한 WFrame Id 정보</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>infoArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>dataList에 대한 내용을 추가로 다른 셀에 표현하는 경우 사용하는 배열</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>내용을 표시할 행번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>내용을 표시할 열번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>병합할 행의 수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>병합할 열의 수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>표시할 내용</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>textAlign</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>표시할 내용의 정렬 방법 (left, center, right)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font size 설정 ( ex) &quot;20px&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font name 설정</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font color 설정 ( ex) &quot;red&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontWeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font weight 설정 ( ex) &quot;bold&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>drawBorder</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 border 지정 ( ex) true )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>wordWrap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 줄 바꿈 기능 ( ex) &quot;true&quot; )</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".downloadMultipleGridView"><span class="type-signature">(static) </span>downloadMultipleGridView<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>DataList의 데이터를 엑셀 파일로 저장한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>// id가 a,b,c,d,e인 5개 컬럼이 존재하는 DataList
+var options = {
+	common: {
+		fileName : "excel_data.xlsx",
+		showProcess : true,
+		multipleSheet : true,
+		printSet : {
+			landScape : "true",
+			fitToPage : "true",
+			fitWidth : "1",
+			fitHeight : "1",
+			scale : "222"
+		}
+	},
+	excelInfo: [
+		{
+			gridId : "grd_data1",
+			sheetName : "첫번째 sheet",
+			removeColumns : "1,3",
+			foldColumns : "2",
+			startRowIndex : 3,
+			startColumnIndex : 0,
+			headerColor : "#DBEEF3",
+			bodyColor : "#92CDDC",
+			infoArr : [
+				{
+					rowIndex : 1, colIndex : 3, rowSpan : 1, colSpan : 2, text : "데이터표시" , textAlign : "center"
+				}
+			]
+		},
+		{
+			gridId : "grd_data2",
+			sheetName : "두번째 sheet",
+			removeColumns : "1,3",
+			foldColumns : "2",
+			startRowIndex : 3,
+			startColumnIndex : 0,
+			headerColor : "#DBEEF3",
+			bodyColor : "#92CDDC",
+			infoArr : [
+				{
+					rowIndex : 1, colIndex : 3, rowSpan : 1, colSpan : 2, text : "데이터표시" , textAlign : "center"
+				}
+			]
+		}
+	]
+};
+com.data.downloadMultipleGridView(options);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options.common</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 dataList의 엑셀 다운로드 옵션</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fileName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: excel.xls] 다운로드하려는 파일의 이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showProcess</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 다운로드 시 프로세스 창을 보여줄지 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>multipleSheet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 다운로드시 dataList별 sheet분리 출력유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>printSet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 Excel Print관련 설정</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fitToPage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 엑셀 프린터 출력시 쪽맞춤 사용 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>landScape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 엑셀 프린터 출력시 가로 방향 출력 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fitWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1] 엑셀 프린터 출력시 용지너비</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fitHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1] 엑셀 프린터 출력시 용지높이</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 100] 엑셀 프린터 출력시 확대/축소 배율, scale을 사용할 경우 fitToPage는 false로 설정 해야 한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pageSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: A4] 엑셀 프린터 출력시 인쇄 용지 크기 (예: &quot;A3&quot;, &quot;A4&quot;, &quot;A5&quot;, &quot;B4&quot;) 단, fitToPage: true 인 경우에만 유효.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.excelInfo</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 dataList의 옵션 정보</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>gridId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel의 sheet에 저장한 GridView의 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sheetName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: sheet] excel의 sheet의 이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 excel에서 삭제하려는 열의 번호(여러 개일 경우 ,로 구분)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>foldColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 excel에서 fold하려는 열의 번호(여러 개일 경우 ,로 구분)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startRowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 dataList의 데이터가 시작되는 행의 번호(헤더 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startColumnIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 dataList의 데이터가 시작되는 열의 번호(헤더 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: #33CCCC] excel파일에서 dataList의 header부분의 색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 dataList의 header부분의 font name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>wframeId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 현재 WFrame Id] DataList가 위치한 WFrame Id 정보</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>infoArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>dataList에 대한 내용을 추가로 다른 셀에 표현하는 경우 사용하는 배열</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>내용을 표시할 행번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>내용을 표시할 열번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>병합할 행의 수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>병합할 열의 수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>표시할 내용</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>textAlign</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>표시할 내용의 정렬 방법 (left, center, right)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font size 설정 ( ex) &quot;20px&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font name 설정</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font color 설정 ( ex) &quot;red&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontWeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font weight 설정 ( ex) &quot;bold&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>drawBorder</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 border 지정 ( ex) true )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>wordWrap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 줄 바꿈 기능 ( ex) &quot;true&quot; )</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".downloadGridViewExcel"><span class="type-signature">(static) </span>downloadGridViewExcel<span class="signature">(grdObj, options, infoArr<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {file}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>설정된 옵션으로 엑셀을 다운로드 한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var gridId = "grd_advancedExcel";
+var infoArr = {};
+var options = {
+   fileName : "downLoadExcel.xlsx" //[default : excel.xlsx] options.fileName 값이 없을 경우 default값 세팅
+};
+com.data.downloadGridViewExcel(grdObj, options, infoArr);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>grdObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>GridView 객체</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 그리드의 엑셀 다운로드 옵션</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>hiddenVisible</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] GridView 내 Hidden 컬럼을 엑셀 다운로드 시 포함시킬지 여부 (true : 포함, false : 미포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fileName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: excel.xls] 다운로드하려는 파일의 이름으로 필수 입력 값이다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sheetName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: sheet] excel의 sheet의 이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] type이 0인 경우 실제 데이터 1인 경우 눈에 보이는 데이터를 2이면 들어가 있는 data 그대로(filter무시 expression 타입의 셀은 나오지 않음)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 excel에서 삭제하려는 열의 번호(여러 개일 경우 ,로 구분)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeHeaderRows</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 excel에서 삭제하려는 Header의 row index(여러 개일 경우 ,로 구분)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>foldColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 excel에서 fold하려는 열의 번호(여러 개일 경우 ,로 구분)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startRowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 그리드의 데이터가 시작되는 행의 번호(헤더 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startColumnIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 그리드의 데이터가 시작되는 열의 번호(헤더 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: #33CCCC] excel파일에서 그리드의 header부분의 색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 header부분의 font name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 10] excel파일에서 그리드의 header부분의 font size</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 header부분의 font색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bodyColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: #FFFFFF] excel파일에서 그리드의 body부분의 색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bodyFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 body부분의 font name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bodyFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 10] excel파일에서 그리드의 body부분의 font size</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bodyFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 body부분의 font색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subTotalColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: #CCFFCC] excel파일에서 그리드의 subtotal부분의 색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subTotalFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 subtotal부분의 font name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subTotalFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 10] excel파일에서 그리드의 subtotal부분의 font size</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subTotalFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 subtotal부분의 font색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>footerColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: #008000] excel파일에서 그리드의 footer부분의 색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>footerFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 footer부분의 font name</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>footerFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 10] excel파일에서 그리드의 footer부분의 font size</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>footerFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드의 footer부분의 font색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>oddRowBackgroundColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드 body의 홀수줄의 배경색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>evenRowBackgroundColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] excel파일에서 그리드 body의 짝수줄의 배경색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumHeaderColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 header 영역의 배경색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumHeaderFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 header 영역의 폰트이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumHeaderFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 header 영역의 폰트크기</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumHeaderFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 header 영역의 폰트색상</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumBodyColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Body 영역의 배경색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumBodyFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Body 영역의 폰트이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumBodyFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Body 영역의 폰트크기</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumBodyFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Body 영역의 폰트색상</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumFooterColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Footer 영역의 배경색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumFooterFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Footer 영역의 폰트이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumFooterFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Footer 영역의 폰트크기</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumFooterFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Footer 영역의 폰트색상</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumSubTotalColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Subtotal 영역의 배경색</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumSubTotalFontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Subtotal 영역의 폰트이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumSubTotalFontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Subtotal 영역의 폰트크기</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumSubTotalFontColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Subtotal 영역의 폰트색상</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumHeaderValue</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] rowNumVisible 속성이 true인 경우 순서출력 Header 영역의 출력값</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowNumVisible</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 순서출력 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showProcess</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 다운로드 시 프로세스 창을 보여줄지 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>massStorage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 대용량 다운로드 여부 (default는 true 이 옵션을 true로 하고 showConfirm을 false로 한 경우에 IE에서 신뢰할만한 사이트를 체크하는 옵션이 뜬다.)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>numberToText</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] numberExtraction=&quot;true&quot;이고 dataType=&quot;number&quot;로 설정된 열의 데이터를 Excel 파일로 다운로드할 때 콤마 등 포맷에 포함된 기호를 유지.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>showConfirm</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드 확인창을 띄울지 여부(옵션을 킨 경우 advancedExcelDownload를 호출후 사용자가 window의 버튼을 한번더 클릭해야 한다. massStorage는 자동으로 true가 된다)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dataProvider</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 대량데이터 처리 및 사용자 데이터를 가공할 수 있는 Provider Package</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>splitProvider</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 대량데이터 처리를 위해 데이터를 분할해서 처리할 수 있는 Provider Package</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>providerRequestXml</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] Provider 내부에서 사용할 XML 문자열</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userDataXml</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 사용자가 서버모듈 개발 시 필요한 데이터를 전송 할 수 있는 변수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bodyWordwrap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드시 body의 줄 바꿈 기능</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subtotalWordwrap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드시 subtotal의 줄 바꿈 기능</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>footerWordwrap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드시 footer의 줄 바꿈 기능</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useEuroLocale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드시 유로화 처리 기능(,와 .이 반대인 경우처리)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useHeader</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 다운로드시 Header를 출력 할지 여부( &quot;true&quot;인경우 출력, &quot;false&quot;인경우 미출력)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useSubTotal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드시 SubTotal을 출력 할지 여부( &quot;true&quot;인경우 출력, &quot;false&quot;인경우 미출력), expression을 지정한 경우 avg,sum,min,max,targetColValue,숫자를 지원 함.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useFooter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 다운로드시 Footer를 출력 할지 여부( &quot;true&quot;인경우 출력, &quot;false&quot;인경우 미출력)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useHeaderCheckBoxLabel</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드시 header가 checkbox인 경우 checked 값 대신 label을 출력 할지 여부( &quot;true&quot;인경우 header column value 출력, &quot;false&quot;인경우 checked값 출력)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>separator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: ,] 다운로드시 서버로 데이터 전송할때, 데이터를 구분짓는 구분자, default는 comma(,)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subTotalScale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: -1] 다운로드시 subTotal 평균계산시 소수점 자리수를 지정</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subTotalRoundingMode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 다운로드시 subTotal 평균계산시 Round를 지정 한다. (&quot;CEILING&quot;,&quot;FLOOR&quot;,&quot;HALF_UP&quot;)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useStyle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 다운로드시 css를 제외한, style을 excel에도 적용할 지 여부 (배경색,폰트)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>freezePane</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: &quot;&quot;] 틀고정을 위한 좌표값 및 좌표값의 오픈셋 ( ex) freezePane=&quot;3,4&quot; X축 3, Y축 4에서 틀고정, freezePane=&quot;0,1,0,5&quot; X축 0, Y축 1에서 X축으로 0, Y축으로 5로 틀공정 )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>autoSizeColumn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 너비자동맞춤 설정 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>displayGridlines</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 엑셀 전체 셀의 눈금선 제거 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colMerge</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] colMerge된 컬럼을 Merge해서 출력 할 지 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colMergeTextAlign</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: center] colMerge된 컬럼의 textAlign설정 (bottom, center, top 설정)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mergeCell</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] gridView mergeCell API로 cell 머지시, excel에도 동일하게 머지되어 다운로드 할지 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useDataFormat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] &quot;true&quot;인 경우 dataType에 따라 Excel 파일에 표시 형식을 출력. dataType=&quot;text&quot;인 셀은 Excel의 표시형식에 '텍스트' 출력, dataType=&quot;number&quot; 혹은 &quot;bigDecimal&quot; 셀은 &quot;숫자&quot; 출력.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>indent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 그리드 dataType이 drilldown인 경우, indent 표시를 위한 공백 삽입 개수, default값은 0</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnMove</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 그리드 컬럼이동시 이동된 상태로 다운로드 유무 ( &quot;true&quot;인경우 컬럼이동 순서대로 출력 )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnOrder</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 엑셀 다운로드시 다운로드되는 컬럼 순서를 지정 할 수 있는 속성 ( ex) &quot;0,3,2,1&quot;로 지정시 지정한 순서로 다운로드된다 )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnMoveWithFooter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 그리드 컬럼이동시 Footer영역이 이동된 상태로 다운로드 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>optionParam</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] DRM 연계시 사용자 정의 class에 HashMap 인자로 전달할 값. key는 &quot;optionParam&quot;으로 참조한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 엑셀 파일로 다운로드 할 때 엑셀의 셀 높이. (단위: pixel)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pwd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 엑셀 파일로 다운로드할 때 비밀번호를 설정. 사용 조건: (1) 비밀번호는 BASE64로 인코딩후 전송해야 함. (2) websquare.xml에 <encrypt tempDir>을 설정해야 함. (3) POI 3.10으로 업그레이드 필요.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxCellCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 엑셀 다운로드를 제한할 셀 개수 ( ex) 1000 설정시 grid의 셀 개수가 1000개를 넘어가면 서버로 요청을 보내지 않는다. )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>maxRowCount</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 엑셀 다운로드를 제한할 행 개수 ( ex) 1000 설정시 grid의 행 개수가 1000개를 넘어가면 서버로 요청을 보내지 않는다. )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerAutoFilter</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] Header에 filter를 적용할지 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filterRowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: -1] filter를 적용할 header의 row Index</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>printSet</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 Excel Print관련 설정</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fitToPage</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 엑셀 프린터 출력시 쪽맞춤 사용 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>landScape</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 엑셀 프린터 출력시 가로 방향 출력 유무</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fitWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1] 엑셀 프린터 출력시 용지너비</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fitHeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1] 엑셀 프린터 출력시 용지높이</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 100] 엑셀 프린터 출력시 확대/축소 배율, scale을 사용할 경우 fitToPage는 false로 설정 해야 한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pageSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: A4] 엑셀 프린터 출력시 인쇄 용지 크기 (예: &quot;A3&quot;, &quot;A4&quot;, &quot;A5&quot;, &quot;B4&quot;) 단, fitToPage: true 인 경우에만 유효.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>timeout</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 요청 최대 대기시간. millisecond 단위. timeout까지 응답이 오지 않을 시 다운로드를 fail 처리한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkInterval</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1000] 응답 확인 간격. millisecond 단위. 지정된 주기마다 응답을 확인한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onSuccessCallback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 요청 성공 시 불리는 callback 함수.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>onFailureCallback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 요청 실패 시 불리는 callback 함수.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>infoArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>subTotalFontName 그리드에 대한 내용을 추가로 다른 셀에 표현하는 경우 사용하는 배열</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>내용을 표시할 행번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>내용을 표시할 열번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rowSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>병합할 행의 수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>병합할 열의 수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>표시할 내용</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>textAlign</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>표시할 내용의 정렬 방법 (left, center, right)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontSize</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font size 설정 ( ex) &quot;20px&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font name 설정</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font color 설정 ( ex) &quot;red&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fontWeight</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>font weight 설정 ( ex) &quot;bold&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>drawBorder</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 border 지정 ( ex) true )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>borderColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 border color를 지정 ( ex) &quot;#FF0000&quot;, &quot;red&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>borderWidth</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 border width 지정 ( &quot;thin&quot;, &quot;medium&quot;, &quot;thick&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>wordWrap</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 줄 바꿈 기능 ( ex) &quot;true&quot; )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bgColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>cell의 배경 color 설정 ( ex) &quot;red&quot; )</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p><b>Excel file</b></p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">file</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".downloadGridViewCSV"><span class="type-signature">(static) </span>downloadGridViewCSV<span class="signature">(grdObj, options)</span><span class="type-signature"> &rarr; {file}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>설정된 옵션으로 CSV파일을 다운로드 한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var gridId = "grd_AdvancedExcel";
+var options = {
+	fileName : "downLoadCSV.csv" //[default : excel.csv] options.fileName 값이 없을 경우 default값 세팅
+};
+com.data.downloadGridViewCSV(grdObj, options);
+//return 예시) 엑셀 파일 다운로드</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>grdObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GridView Object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 그리드의 엑셀 다운로드 옵션</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>fileName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: csvfile.csv] 엑셀파일 선택 대화상자가 나타날 때 기본으로 지정 될 파일 이름</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1, 0] Grid 저장 형태 (0이면 데이터 형태,1이면 표시 방식)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delim</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: ';'] CSV 파일에서 데이터를 구분할 구분자</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 저장 하지 않을 columns index, 여러컬럼인 경우 콤마(,)로 구분해서 정의 한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>header</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1, 0] Grid의 숨겨진 Column에 대한 저장 여부(0이면 저장 하지 않음,1이면 저장)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hidden</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1] Grid의 숨겨진 Column에 대한 저장 여부(0이면 저장 하지 않음,1이면 저장)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>checkButton</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1, 0] Grid의 Control(Check, Radio, Button) Column에 대해 히든 여부 (0이면 control Coliumn히든,1이면 보여줌)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>saveList</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] hidden에 관계없이 최우선순위로 저장할 column id들의 array</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnMove</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 그리드 컬럼이동시 이동된 상태로 다운로드 유무 ( &quot;true&quot;인경우 컬럼이동 순서대로 출력 )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>columnOrder</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] csv 다운로드시 다운로드되는 컬럼 순서를 지정 할 수 있는 속성 ( ex) &quot;0,3,2,1&quot;로 지정시 지정한 순서로 다운로드된다 )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>spanAll</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] drilldown gridView인 경우 전체목록을 펼쳐서 다운로드 할 수 있는 속성. (true이면 전체출력, false면 보여지는 목록만 출력)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>aposPrefixOnNum</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1] dataType이 number이고 length가 12자리이상인 경우 '(apos)를 붙일지 여부 (0 이면 apos를 붙이지않음, 1이면 붙임)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>ignoreSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1] span되어 있는 경우 span을 무시하고 데이터를 채울지 여부 (0이면 저장하지 않음, 1이면 저장)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeQuotation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1] value에 &quot;, ' 가 들어있는 경우 &quot;, '를 지울지 여부 (0이면 지원지 않음, 1이면 지움)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeNewLine</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1, 0] value내에 \r\n이 있을 경우 삭제유무 (0이면 지원지 않음, 1이면 지움)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>optionParam</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] DRM 연계시 사용자 정의 class에 HashMap 인자로 전달할 값. key는 &quot;optionParam&quot;으로 참조한다.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>CSV file</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">file</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uploadGridViewExcel"><span class="type-signature">(static) </span>uploadGridViewExcel<span class="signature">(grdObj, options)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>엑셀 xls, xlsx 업로드</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var gridId = "grd_AdvancedExcel";
+var type = "xlsx";
+var options = {
+	fileName : "gridDataUpload.xlsx" // default값이 존재하지 않으므로 꼭 fileName 값을 넣어야 한다.
+};
+com.data.uploadGridViewExcel(grd_basicInfo,  options);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>grdObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GridView Object</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>JSON형태로 저장된 그리드의 엑셀 업로드 옵션</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] 1이면 엑셀 파일이 그리드의 보이는 결과로 만들어져있을때 0이면 엑셀 파일이 그리드의 실제 데이터로 구성되어있을때</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>sheetNo</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 그리드의 데이터가 있는 sheet번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startRowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 그리드의 데이터가 시작되는 행의 번호(헤더 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>startColumnIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 그리드의 데이터가 시작되는 열의 번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>endColumnIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 그리드의 데이터가 끝나는 열의 index ( 엑셀컬럼수가 그리드컬럼수 보다 작은 경우 그리드 컬러수를 설정)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>headerExist</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 그리드의 데이터에 header가 있는지 여부(1이면 header 존재 0이면 없음)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>footerExist</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1] excel파일에서 그리드의 데이터에 footer가 있는지 여부(1이면 footer 존재 0이면 없음 기본값은 1 그리드에 footer가 없으면 적용되지 않음)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>append</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] excel파일에서 가져온 데이터를 그리드에 append시킬지 여부(1이면 현재 그리드에 데이터를 추가로 넣어줌 0이면 현재 그리드의 데이터를 삭제하고 넣음)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>hidden</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] 읽어들이려는 엑셀파일에 hidden column이 저장되어 있는지 여부를 설정하는 int형 숫자(0이면 엑셀파일에 hidden 데이터가 없으므로 그리드 hidden column에 빈 데이터를 삽입 1 : 엑셀파일에 hidden 데이터가 있으므로 엑셀 파일로부터 hidden 데이터를 삽입 )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fillHidden</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] Grid에 hiddenColumn에 빈 값을 넣을지를 결정하기 위한 int형 숫자(1이면 hidden Column에 빈 값을 저장하지 않음,0이면 hidden column이 저장되어있지 않은 Excel File이라 간주하고 hidden Column에 빈 값을 넣어줌)(hidden이 0인 경우에는 fillhidden은 영향을 끼치지 않음)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>skipSpace</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] 공백무시 여부(1이면 무시 0이면 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>insertColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>radio, checkbox와 같은 컬럼을 엑셀에서 받아 오지 않고, 사용자 컬럼 설정 으로 업로드 ( 데이터 구조 : [ { columnIndex:1, columnValue:&quot;1&quot; } ] )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>removeColumns</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] 저장 하지 않을 column index, 여러컬럼인 경우 콤마(,)로 구분해서 정의 한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>popupUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>업로드시에 호출할 popup의 url</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>delim</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>업로드시 데이터를 구분하는 구분자 (default: , )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: R]업로드된 데이터의 초기 상태값, 설정하지 않으면 &quot;R&quot;로 설정되며 &quot;C&quot;값을 설정 할 수 있다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>pwd</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>엑셀파일에 암호가 걸려 있는 경우, 비밀번호</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>optionParam</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] DRM 연계시 사용자 정의 class에 HashMap 인자로 전달할 값. key는 &quot;optionParam&quot;으로 참조한다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>cellDataConvertor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: true] 컬럼값을 사용자가 수정할수 있는 연계 클래스의 전체 패키지명. (AbstractCellDataProvider class를 상속후 convertValue method를 구현해야 함.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>decimal</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 4] 셀의 데이터가 소수인 경우, 최종 소수점 자리수. (기본값: 4) (예: 3인경우 4자리에서 반올림해서 3자리를 최종 표시.)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useModalDisable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] 업로드 팝업창이 활성화 될때 부모창의 컴포넌트 disabled 처리 유무.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useMaxByteLength</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: false] ignoreChar 속성으로 설정한 문자를 제외하고 maxByteLength 속성으로 설정한 길이만큼의 데이터만 업로드.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dateFormat</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: yyyy-MM-dd] 엑셀의 셀포맷이 날짜형식으로 되어 있는경우 format. 기본값은 &quot;yyyy-MM-dd&quot;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>byteCheckEncoding</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: EUC-KR] useMaxByteLength 설정되어 있는경우 byte처리시 지정할 인코딩. EUC-KR인경우 2byte처리 UTF-8일경우 3byte처리한다. (default는 EUC-KR)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>features</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>upload화면이 뜰 때 string 형식의 스타일 정보. 지정되지 않은경우 upload창이 기본 스타일로 생성</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".uploadGridViewCSV"><span class="type-signature">(static) </span>uploadGridViewCSV<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>엑셀 CSV 업로드</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var gridId = "grd_advancedExcel";
+var options = {};
+com.data.uploadGridViewCSV(gridId,  options);
+// return 예시) 엑셀 파일(.CSV) 업로드</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options.type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1, 0]데이터 형태 (0이면 실 데이터 형태,1이면 display 표시 방식)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.header</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1, 0]Grid header 존재 유무 (0이면 header row수를 무시하고 전부 업로드하고 1이면 header row수 만큼 skip한다.)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.delim</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: ',']CSV 파일에서 데이터를 구분할 구분자</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.escapeChar</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>CSV 데이터에서 제거해야 되는 문자셋 ( ex) ''' )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.startRowIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0] csv파일에서 그리드의 데이터가 시작되는 행의 번호, startRowIndex가 설정되면, header 설정은 무시된다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.append</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1]csv파일에서 가져온 데이터를 그리드에 append시킬지 여부(1이면 현재 그리드에 데이터를 추가로 넣어줌 0이면 현재 그리드의 데이터를 삭제하고 넣음)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.hidden</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1]hidden Column에 대한 저장 여부(0이면 저장하지않음,1이면 저장)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.fillHidden</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1]hidden Column에 빈 값을 넣을지를 결정하기 위한 int형 숫자(1이면 hidden Column에 빈 값을 저장하지 않음,0이면 hidden column이 저장되어있지 않은 csv File이라 간주하고 hidden Column에 빈 값을 넣어줌)(hidden이 0인 경우에는 fillhidden은 영향을 끼치지 않음)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.skipSpace</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1]공백무시 여부(1이면 무시 0이면 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.expression</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 1, 0]expression 컬럼 데이터를 포함하고 있는지 여부, 기본값은 미포함(1이면 미포함, 0이면 포함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.popupUrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>업로드시에 호출할 popup의 url</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.status</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: R]업로드된 데이터의 초기 상태값, 설정하지 않으면 &quot;R&quot;로 설정되며 &quot;C&quot;값을 설정 할 수 있다.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.ignoreSpan</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 0, 1] span되어 있는 경우 span을 무시하고 데이터를 읽을지 여부 (0이면 머지되어 있는 컬럼을 하나로 본다, 1이면 머지되어 있는 컬럼을 각각읽는다)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options.optionParam</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>[default: 없음] DRM 연계시 사용자 정의 class에 HashMap 인자로 전달할 값. key는 &quot;optionParam&quot;으로 참조한다.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".validateGroup"><span class="type-signature">(static) </span>validateGroup<span class="signature">(grpObj, options, tacId, tabId)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>필수 입력, 입력 허용 문자, 입력 허용 불가 문자, 최대, 최소 입력 문자수 설정은 컴포넌트의 속성에서 설정한다. <br/></p>
+<ul>
+<li>mandatory : 필수 입력 항목 여부 <br/></li>
+<li>allowChar : 입력 허용 문자 <br/></li>
+<li>ignoreChar : 입력 허용 불가 문자 <br/></li>
+<li>maxLength : 최대 입력 문자수 <br/></li>
+<li>maxByteLength : 최대 입력 바이트수 <br/></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>if (com.data.validateGroup(grp_LoginInfo)) {
+	if (confirm("변경된 데이터를 저장하시겠습니까?")) {
+		com.sbm.execute("sbm_saveData");
+	}
+}
+
+var valInfo = [ { id : "grpCd", mandatory : true, minLength : 5 },
+				{ id : "grpNm", mandatory : true } ];
+
+if (com.data.validateGroup(grp_LoginInfo, valInfo)) {
+	if (confirm("변경된 데이터를 저장하시겠습니까?")) {
+		com.sbm.execute("sbm_saveCode");
+	}
+}
+
+var valInfo = [ { id : "grpCd", label : "공통그룹코드", mandatory : true, minLength : 5 },
+				{ id : "grpNm", label : "공통그룹명", mandatory : true } ];
+
+if (com.data.validateGroup(grp_code, valInfo)) {
+	if (win.com.win.confirm("변경된 데이터를 저장하시겠습니까?")) {
+		com.sbm.execute("sbm_saveCode");
+	}
+};
+
+var valInfo = [ { id : "prntMenuCd", mandatory : true },
+				{ id : "menuCd", mandatory : true,
+					valFunc : function(value) {
+						if (dmaMenu.get("prntMenuCd") == dmaMenu.get("menuCd")) {
+							return "상위 메뉴 코드와 메뉴 코드가 같아서는 안됩니다.";
+						}
+					} },
+				 { id : "menuNm", mandatory : true },
+				 { id : "menuLevel", mandatory : true },
+				 { id : "menuSeq", mandatory : true },
+				 { id : "urlPath", mandatory : true },
+				 { id : "isUse", mandatory : true } ];
+
+if (com.data.validateGroup(tblMenuInfo, valInfo, tacMenuInfo, "tabMenuInfo1") == false) {
+	return false;
+}</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>grpObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>그룹 컴포넌트 객체</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>유효성 검사 옵션 <br/></p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>유효성 검사 대상 DataCollection 컬럼 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>label</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>유효성 검사 실패 시 출력할 레이블 명 (DataCollection 컬럼명을 참조하지 않고 싶은 경우 사용함)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mandatory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>필수 입력 값 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minLength</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>최소 입력 자리수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minByteLength</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>최소 입력 자리수 (Byte 단위)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isEmail</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>이메일 유효성 검사 실행</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isPhone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>전화번호 유효성 검사 수행</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>valFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">requestCallback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>사용자 유효성 검사 함수</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tacId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>그룹이 포함된 TabControl 컴포넌트 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tabId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>그룹이 포함된 TabControl 컴포넌트의 Tab 아이디</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>유효성 검사 결과</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".validateGridView"><span class="type-signature">(static) </span>validateGridView<span class="signature">(gridViewObj, options, tacObj, tabId)</span><span class="type-signature"> &rarr; {Boolean}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>입력 허용 문자, 입력 허용 불가 문자, 최대 입력 문자수 설정은 GridView의 Column의 속성에서 설정한다. <br/></p>
+<ul>
+<li>allowChar : 입력 허용 문자 <br/></li>
+<li>ignoreChar : 입력 허용 불가 문자 <br/></li>
+<li>maxLength : 최대 입력 문자수 <br/></li>
+<li>maxByteLength : 최대 입력 바이트수 <br/></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var valInfo = [ {id: "grpCd", mandatory: true, minLength: 5},
+			   {id: "grpNm", mandatory: true} ];
+
+if (com.data.validateGridView(grd_MenuAuthority, valInfo)) {
+   if (confirm("변경된 데이터를 저장하시겠습니까?")) {
+	   scwin.saveGroup();
+   }
+}
+
+var valInfo = [ {id: "grpCd", label : "공통그룹코드", mandatory: true, minLength: 5},
+			   {id: "grpNm", label : "공통그룹명", mandatory: true} ];
+
+if (com.data.validateGridView(grd_MenuAuthority, valInfo)) {
+   if (confirm("변경된 데이터를 저장하시겠습니까?")) {
+	   scwin.saveGroup();
+   }
+}
+
+var valInfo = [ { id : "prntMenuCd", mandatory : true },
+				{ id : "menuCd", mandatory : true,
+				  valFunc : function() {
+					if (dmaMenu.get("prntMenuCd") == dmaMenu.get("menuCd")) {
+						return "상위 메뉴 코드와 메뉴 코드가 같아서는 안됩니다.";
+					}
+				  }
+				},
+				{ id : "menuNm", mandatory : true },
+				{ id : "menuLevel", mandatory : true },
+				{ id : "menuSeq", mandatory : true },
+				{ id : "urlPath", mandatory : true },
+				{ id : "isUse", mandatory : true } ];
+
+if (com.data.validateGridView(grd_MenuAuthority, valInfo, tacMenuInfo, "tabMenuInfo1") == false) {
+   return false;
+}</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>gridViewObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GridView 객체</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>데이터 유효성 검증 옵션</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>유효성 검사 대상 DataCollection 컬럼 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mandatory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>필수 입력 값 여부</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minLength</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>최소 입력 자리수</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isEmail</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>이메일 유효성 검사 실행</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>isPhone</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>전화번호 유효성 검사 수행</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>valFunc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">requestCallback</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>사용자 유효성 검사 함수</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tacObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GridView가 포함된 TabControl 컴포넌트 객체</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>tabId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>GridView가 포함된 TabControl 컴포넌트의 Tab 아이디</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>유효성검사 결과</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Boolean</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".createDataList"><span class="type-signature">(static) </span>createDataList<span class="signature">(dsId, colArr, typeArr, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>DataList를 동적으로 생성한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var dcoptions = {
+	baseNode : "list",
+	repeatNode : "map",
+	saveRemovedData : "true"
+};
+var dlObj = com.data.createDataList("dlt_code", ["cdGrp", "cd", "nm","ord"], ["text", "text", "text", "text"] , dcoptions);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dsId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>:: I :: Y ::  :: DataList의 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>:: I :: Y ::  :: 컬럼정보</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>typeArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>:: I :: Y ::  :: 컬럼들의 dataType 정의</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>:: I :: N ::  :: dataCollection의 속성[baseNode, repeatNode, saveRemovedData, scwinObj]</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>dataCollection(dataList)</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".createDataMap"><span class="type-signature">(static) </span>createDataMap<span class="signature">(dsId, colArr, options)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>DataMap을 동적으로 생성한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var mapObj = com.data.createDataMap("dma_test", ["col1", "col2", "col3"] , ["text", "text", "text"]);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dsId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>:: I :: Y ::  :: dataMap 의 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>colArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>:: I :: Y ::  :: 컬럼정보</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>:: I :: N ::  :: DataMap 생성 옵션</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>dataCollection(dataMap)</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".undoAll"><span class="type-signature">(static) </span>undoAll<span class="signature">(dltId)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>전체 데이터를 초기 설정 된 데이터(originalData)로 바꾸고 행의 상태를 초기화(R) 시킨다.
+초기 설정 된 데이터 란 setJSON, setXML 등과 같은 API들을 통해 설정 된 데이터가 이에 속한다.
+추가(C)된 행은 제거한다</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>com.data.undoAll(dlt_grdAllData);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dltId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>DataList 객체 또는 DataList 아이디</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".undoRow"><span class="type-signature">(static) </span>undoRow<span class="signature">(dltId)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>지정한 GridView에 선택컬럼(chk)이 체크된 Row들을 취소(Undo) 처리한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>com.data.undoRow(dlt_data1);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dltId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>DataList 객체 또는 DataList 아이디</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".deleteRow"><span class="type-signature">(static) </span>deleteRow<span class="signature">(dltId)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>지정한 GridView에 선택컬럼(chk)이 체크된 Row들을 삭제(Delete) 처리한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>com.data.deleteRow(dlt_data1);</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dltId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>DataList 객체 또는 DataList 아이디</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".getMatchedJSON"><span class="type-signature">(static) </span>getMatchedJSON<span class="signature">(dataListObj, condArr)</span><span class="type-signature"> &rarr; {Object}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Inswave Systems</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    <p>검색 조건에 맞는 데이터를 반환한다.</p>
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>com.data.getMatchedJSON(dlt_memberList, { columnId : "POSITION_CD", operator : "==", value : "03"});
+
+com.data.getMatchedJSON(dlt_memberList, [
+	{ columnId : "POSITION_CD", operator : "==", value : "03" },
+	{ columnId : "DUTY_CD", operator : "==", value : "02", logical : "&amp;&amp;" }
+]);
+
+com.data.getMatchedJSON(dlt_memberList, [
+	{ columnId : "POSITION_CD", operator : "==", value : "03" },
+	{ columnId : "DUTY_CD", operator : "==", value : "02" }
+]);
+
+com.data.getMatchedJSON(dlt_memberList, [
+	{ columnId : "POSITION_CD", operator : "==", value : "03"},
+	{ columnId : "DUTY_CD", operator : "lIKE", value : "0", logical : "||" }
+]);
+};</code></pre>
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dataListObj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>: DataList Id 또는 DataList 객체</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>condArr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+|
+
+<span class="param-type">Object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>비교 조건</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>columnId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>컬럼 아이디</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>operator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>비교 연산자 ( ==, !=, &gt;, &lt;, &gt;=, &lt;=, LIKE )</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+|
+
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">Boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>비교 값</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>logical</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>논리 연산자 ( &amp;&amp;, ||)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    <p>DataList Id 또는 DataList 객체</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a> on Wed Jun 16 2021 13:44:45 GMT+0900 (GMT+09:00) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

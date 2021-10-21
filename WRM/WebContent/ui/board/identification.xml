@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+    	<w2:type>DEFAULT</w2:type>
+        <w2:buildDate/>
+        <xf:model>
+        	<xf:instance>
+        		<data xmlns="" />
+        	</xf:instance>
+        	<w2:dataCollection baseNode="map">
+        		<w2:dataMap baseNode="map" id="identiInfo">
+        			<w2:keyInfo>
+        				<w2:key id="CON_NO" name="no" dataType="text"></w2:key>
+        				<w2:key id="CON_ID" name="id" dataType="text"></w2:key>
+        				<w2:key id="CON_PASSWORD" name="pw" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        		<w2:dataMap baseNode="map" id="identifyCheck">
+        			<w2:keyInfo>
+        				<w2:key id="result" name="name1" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        		<w2:dataMap baseNode="map" id="delcon">
+        			<w2:keyInfo>
+        				<w2:key id="CON_NO" name="CON_NO" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        		<w2:dataMap baseNode="map" id="delResult">
+        			<w2:keyInfo>
+        				<w2:key id="result" name="result" dataType="text"></w2:key>
+        			</w2:keyInfo>
+        		</w2:dataMap>
+        	</w2:dataCollection>
+        	<w2:workflowCollection></w2:workflowCollection>
+        	<xf:submission id="sbm_delcheck" ref="data:json,identiInfo" target="data:json,identifyCheck"
+        		action="/websViews/wscheckIdentify.do" method="post" mediatype="application/json" encoding="UTF-8" instance="" replace=""
+        		errorHandler="" customHandler="" mode="asynchronous" processMsg="" ev:submit="" ev:submitdone="scwin.sbm_delcheck_submitdone" ev:submiterror=""
+        		abortTrigger="">
+        	</xf:submission>
+        	<xf:submission id="sbm_editcheck" ref="data:json,identiInfo" target="data:json,identifyCheck" action="/websViews/wscheckIdentify.do" method="post"
+        		mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous"
+        		processMsg="" ev:submit="" ev:submitdone="scwin.sbm_editcheck_submitdone" ev:submiterror="" abortTrigger="">
+        	</xf:submission>
+        	<xf:submission id="sbm_delete" ref="data:json,delcon" target="data:json,delResult" action="/websViews/delete.do" method="post" mediatype="application/json"
+        		encoding="UTF-8" instance="" replace="" errorHandler="" customHandler="" mode="asynchronous" processMsg="삭제중" ev:submit=""
+        		ev:submitdone="scwin.sbm_delete_submitdone" ev:submiterror="" abortTrigger="">
+        	</xf:submission>
+        </xf:model>
+        <script type="text/javascript" lazy="false"><![CDATA[
+        
+	scwin.onpageload = function() {
+		// 수정/삭제 화면인지 판단하는 변수
+		var decideView =  $p.getParameter("popupParam");
+		// 게시물 고유번호 DataCollectio에 저장
+		identiInfo.set("CON_NO", decideView.CON_NO);
+		
+		if (decideView.keyValue == 1) {		
+			
+			del_btn.hide();
+		} 
+		else {
+			
+			edit_btn.hide();
+		}
+	};
+	
+	scwin.onpageunload = function() {
+				
+	};
+	scwin.edit_btn_ondblclick = function(e) {
+		$p.executeSubmission("sbm_editcheck");
+	};
+	
+	scwin.sbm_editcheck_submitdone = function(e) {
+		if (identifyCheck.get("result") == true) {
+			alert("본인 인증 성공");
+			
+			var x2xPath = "/ui/board/editContent.xml";
+			var options = 	{"CON_NO" : identiInfo.get("CON_NO")};
+			$w.url(x2xPath, { "spa" : true, "param" : options });
+			
+			$w.closePopup("popup1");
+		}
+
+		else {
+			alert("인증 실패");
+		}
+	};
+	
+	scwin.del_btn_ondblclick = function(e) {
+		$p.executeSubmission("sbm_delcheck");
+	};
+	
+	scwin.sbm_delcheck_submitdone = function(e) {
+		if (identifyCheck.get("result") == true) {
+			if (confirm("본인 인증 성공! 정말로 삭제 하시겠습니까?")) {
+				delcon.set("CON_NO", identiInfo.get("CON_NO"));
+				
+				$p.executeSubmission("sbm_delete");
+			} 
+			else {
+				alert("삭제를 취소하였습니다.");	
+					
+				$w.closePopup("popup1");	
+			}
+		}
+		
+		else {
+			alert("인증 실패");
+		}
+	};
+		
+	scwin.sbm_delete_submitdone = function(e) {
+		if ( delResult.get("result") == 1 ) {
+			alert("삭제가 완료 되었습니다.");	
+			// 메인화면으로 전환
+			var x2xPath = "/ui/board/boardList.xml";
+			$w.url(x2xPath);
+		} else {
+			alert("삭제가 실패 되었습니다.");	
+		}
+	};
+	]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onpageunload="scwin.onpageunload">
+    	<w2:textbox id="" label="개인정보확인" style="width: 150px;height: 23px;font-size:20px;"></w2:textbox>
+    	<xf:group tagname="table" style="position:static;top:104px;left:136px;width:50%;height:30;" id="" class="w2tb">
+    		<w2:attributes>
+    			<w2:summary></w2:summary>
+    		</w2:attributes>
+    		<xf:group tagname="caption"></xf:group>
+    		<xf:group tagname="colgroup">
+    			<xf:group tagname="col" style="width:9.68%;"></xf:group>
+    			<xf:group tagname="col" style="width:61.75%;"></xf:group>
+    		</xf:group>
+    		<xf:group tagname="tr" style="">
+    			<xf:group tagname="th" style=";width:20%;" class="w2tb_th">
+    				ID
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group tagname="td" style=";width:70%;" class="w2tb_td">
+    				<xf:input adjustMaxLength="false" id=""
+    					style="position:static;top:37px;left:137px;width:82px;height:21px;outline-style:hidden;" ref="data:identiInfo.CON_ID">
+    				</xf:input>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group tagname="tr" style="">
+    			<xf:group tagname="th" style=";width:20%;" class="w2tb_th">
+    				PW
+    				<w2:attributes>
+    					<w2:scope>row</w2:scope>
+    				</w2:attributes>
+    			</xf:group>
+    			<xf:group tagname="td" style=";width:70%;" class="w2tb_td">
+    				<xf:secret id="" style="width:82px;height:21px;outline-style:hidden;" ref="data:identiInfo.CON_PASSWORD"></xf:secret>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    	<xf:group id="">
+
+    		<xf:trigger style="position:static; top:131px; left:84px; width:80px; height:23px; " id="btn_trigger11" type="button"
+    			ev:ondblclick="scwin.btn_trigger11_ondblclick">
+    			<xf:label><![CDATA[취소]]></xf:label>
+    		</xf:trigger>
+    		<xf:trigger style="position:static; top:148px; left:246px; width:80px; height:23px; " id="edit_btn" type="button"
+    			ev:onclick="" ev:ondblclick="scwin.edit_btn_ondblclick">
+    			<xf:label><![CDATA[수정]]></xf:label>
+    		</xf:trigger>
+    		<xf:trigger type="button" style="position:static; top:100px; left:199px; width:80px; height:23px; " id="del_btn" ev:ondblclick="scwin.del_btn_ondblclick">
+    			<xf:label><![CDATA[삭제]]></xf:label>
+    		</xf:trigger>
+    	</xf:group>
+    	
+    </body>
+</html>

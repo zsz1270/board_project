@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenName="게시물 리스트 조회" meta_vertical_guides="" meta_horizontal_guides="">
+    	<w2:type>DEFAULT</w2:type>
+    	<w2:buildDate />
+    	<xf:model>
+    		<xf:instance>
+    			<data xmlns="" />
+    		</xf:instance>
+    		<w2:dataCollection baseNode="map">
+    			<w2:dataList baseNode="list" repeatNode="map" id="boardList" saveRemovedData="true">
+    				<w2:columnInfo>
+    					<w2:column id="RN" name="No." dataType="text"></w2:column>
+    					<w2:column id="CON_TITLE" name="제목" dataType="text"></w2:column>
+    					<w2:column id="CON_ID" name="작성자" dataType="text"></w2:column>
+    					<w2:column id="REG_DATE" name="작성일" dataType="text"></w2:column>
+    					<w2:column id="READ_COUNT" name="조회수" dataType="text"></w2:column>
+    					<w2:column id="CON_NO" name="게시글번호" dataType="text"></w2:column>
+    					<w2:column id="TOTALCOUNT" name="총게시글" dataType="text"></w2:column>
+    				</w2:columnInfo>
+    			</w2:dataList>
+    			<w2:dataMap baseNode="map" id="searchData">
+    				<w2:keyInfo>
+    					<w2:key id="keyword" name="키워드" dataType="text"></w2:key>
+    					<w2:key id="searchType" name="검색조건" dataType="text"></w2:key>
+    					<w2:key id="page" name="현재페이지" dataType="text"></w2:key>
+    					<w2:key id="display" name="화면표시될게시물수" dataType="text"></w2:key>
+    				</w2:keyInfo>
+    				<w2:data>
+    					<keyword><![CDATA[]]></keyword>
+    					<searchType></searchType>
+
+    					<page></page>
+    					<display></display>
+    				</w2:data>
+    			</w2:dataMap>
+    		</w2:dataCollection>
+    		<w2:workflowCollection></w2:workflowCollection>
+    		<xf:submission id="searchBoardList" ref="data:json,searchData" target="data:json,boardList" action="/reference/list.do"
+    			method="post" mediatype="application/json" encoding="UTF-8" instance="" replace="" errorHandler="" customHandler=""
+    			mode="asynchronous" processMsg="검색중..." ev:submit="scwin.searchBoardList_submit" ev:submitdone="scwin.searchBoardList_submitdone" ev:submiterror=""
+    			abortTrigger="">
+    		</xf:submission>
+    		<xf:submission abortTrigger="" action="/reference/list.do" customHandler="" encoding="UTF-8" errorHandler="" ev:submit=""
+    			ev:submitdone="" ev:submiterror="" id="pagingBoardList" instance="" mediatype="application/json"
+    			method="post" mode="asynchronous" processMsg="검색중..." ref="data:json,searchData" replace="" target="data:json,boardList" style="">
+    		</xf:submission>
+    	</xf:model>
+    	<script type="text/javascript" lazy="false"><![CDATA[
+	scwin.onpageload = function() {
+		$p.executeSubmission("searchBoardList");
+	};
+	
+	scwin.onpageunload = function() {
+		
+	};
+	
+	scwin.grd_grid1_oncelldblclick = function(row,col,colId) {
+		// Grid View 셀클릭 기능
+		if(colId == "CON_TITLE" ){
+			var x2xPath = "/ui/BOARD/boardContent.xml";
+			var conNo = boardList.getCellData(row, "CON_NO");
+			var options = 	{
+				"CON_NO" : conNo	
+			};
+			
+			$w.url(x2xPath, { "spa" : true, "param" : options });
+		}
+		
+	};
+	
+	scwin.write_btn_onclick = function(e) {
+		var x2xPath = "/ui/BOARD/editContent.xml";
+		var options = 	{
+				"keyValue" : 0
+			};
+		$w.url(x2xPath, { "spa" : true, "param" : options });
+	};
+	
+	scwin.search_btn_onclick = function(e) {
+		// 검색시 현재 페이지 초기화
+		searchData.set("page", "1");
+		
+		$p.executeSubmission("searchBoardList");
+	};
+	
+	scwin.searchBoardList_submitdone = function(e) { 
+		// pageList view 선언
+		var totalCount = boardList.getDataRow(0).TOTALCOUNT;
+		var display = searchData.get("display", display); // 화면에 보여줄 게시물의 수
+		
+		var remainderYn = (totalCount % display) ? 1 : 0; // 페이징수보다 데이터 많으면 +1 
+		var count = parseInt(totalCount / display , 10) + remainderYn;
+				   // parseInt(String , 진법(10진법,2진법 등))
+		page.setCount(count);
+	};
+	
+	scwin.page_onchange = function(current,before) {	
+		// 클릭된 페이지 등록	
+		searchData.set("page", current);
+		$p.executeSubmission("pagingBoardList");
+	};
+
+	
+	scwin.searchBoardList_submit = function(e) {
+		// 현재 페이지
+		var page = 1;
+		searchData.set("page", page);
+		var display = 10; // 화면에 보여줄 게시물의 수
+		searchData.set("display", display);
+	};
+	
+	scwin.back_btn_onclick = function(e) {
+		location.href='/boardMain.do';
+	};
+	]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onpageunload="scwin.onpageunload">
+    	<xf:group id="">
+    		<xf:group id="">
+    			<xf:group id="">
+    				<w2:gridView scrollByColumnAdaptive="false" dataList="data:boardList"
+    					style="position:absolute;top:48px;left:6px;width:734px;height:306px;" scrollByColumn="false" readOnly="true" id="grd_grid1"
+    					ev:oncelldblclick="scwin.grd_grid1_oncelldblclick" visibleRowNum="" defaultCellHeight="20" autoFitMinWidth=""
+    					autoFit="lastColumn">
+    					<w2:caption style="" id="caption1" value="this is a grid caption."></w2:caption>
+    					<w2:header style="" id="header1">
+    						<w2:row style="" id="row1">
+    							<w2:column width="70" inputType="text" style="height:20px" id="column1" value="No." displayMode="label"></w2:column>
+    							<w2:column width="323" id="column12" value="제목"></w2:column>
+    							<w2:column width="107" id="column13" value="작성자" />
+    							<w2:column width="120" id="column14" value="작성일"></w2:column>
+    							<w2:column width="89" id="column15" value="조회수"></w2:column>
+    						</w2:row>
+    					</w2:header>
+    					<w2:gBody style="" id="gBody1">
+    						<w2:row style="" id="row2">
+    							<w2:column width="70" inputType="text" style="height:20px" id="RN" value="" displayMode="label"></w2:column>
+    							<w2:column editModeEvent="" width="323" inputType="text" id="CON_TITLE"></w2:column>
+    							<w2:column width="107" id="CON_ID"></w2:column>
+    							<w2:column width="120" id="REG_DATE"></w2:column>
+    							<w2:column width="89" id="READ_COUNT"></w2:column>
+    						</w2:row>
+    					</w2:gBody>
+    				</w2:gridView>
+    			</xf:group>
+    		</xf:group>
+    		<w2:span style="position:absolute;top:15px;left:100px;width:100px;height:23px;text-align: center;" label="자료실" id=""></w2:span>
+
+    		<xf:trigger style="position:absolute;top:362px;left:660px;width:80px;height:23px;" id="write_btn" type="button"
+    			ev:onclick="scwin.write_btn_onclick">
+    			<xf:label><![CDATA[글쓰기]]></xf:label>
+    		</xf:trigger>
+    	</xf:group>
+    	<xf:group id="">
+
+
+    	</xf:group>
+    	<xf:group id=""></xf:group>
+    	<xf:group id=""></xf:group>
+    	<xf:group id="">
+    		<xf:select1 submenuSize="auto" chooseOptionLabel="" ref="data:searchData.searchType" appearance="minimal"
+    			disabledClass="w2selectbox_disabled" chooseOption="" style="position:absolute;top:23px;left:365px;width:116px;height:21px;"
+    			disabled="false" id="" allOption="true" direction="auto">
+    			<xf:choices>
+    				<xf:item>
+    					<xf:label><![CDATA[제목]]></xf:label>
+    					<xf:value><![CDATA[title]]></xf:value>
+    				</xf:item>
+    				<xf:item>
+    					<xf:label><![CDATA[작성자]]></xf:label>
+    					<xf:value><![CDATA[id]]></xf:value>
+    				</xf:item>
+    			</xf:choices>
+    		</xf:select1>
+    		<w2:searchbox style="position:absolute;top:23px;left:483px;width:197px;height:21px;" id="" ref="data:searchData.keyword"></w2:searchbox>
+    		<xf:trigger style="position:absolute;top:24px;left:688px;width:50px;height:23px;" id="search_btn" type="button"
+    			ev:onclick="scwin.search_btn_onclick">
+    			<xf:label><![CDATA[검색]]></xf:label>
+    		</xf:trigger>
+    	</xf:group>
+    	<w2:pageList pageSize="10" displayButtonType="display" id="page" displayFormat="#"
+    		style="position:absolute;top:363px;left:209px;width:350px;height:21px;" ev:onchange="scwin.page_onchange" ev:onviewchange="">
+    	</w2:pageList>
+    	<xf:trigger type="button" style="position:absolute;top:12px;left:7px;width:80px;height:23px;" id="back_btn" ev:onclick="scwin.back_btn_onclick">
+    		<xf:label><![CDATA[<]]></xf:label>
+    	</xf:trigger>
+    </body>
+</html>

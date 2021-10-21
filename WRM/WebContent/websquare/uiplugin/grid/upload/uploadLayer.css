@@ -1,0 +1,27 @@
+html, body {margin:0px; padding:0px; font-family:"맑은 고딕"; font-size:11px;}
+    p {margin:0px; padding:0px;}
+	img, fieldset {border:0;}
+	table {width:100%; background:#fff; border-collapse:collapse; border-spacing:0; empty-cells:show;}
+	table caption, table summary {width:0; height:0; font-size:0; line-height:0; overflow:hidden; visibility:hidden;}
+	
+	.none {display:none;}
+	.block {display:block;}
+
+	.wrap {width:444px; min-height:106px; border:1px solid #b3b3b3;}
+	.header {height:27px; background:url(/websquare/uiplugin/grid/upload/images/bg_header.gif) repeat-x left top;}
+	.header .title {padding-left:28px; font-weight:bold; line-height:23px; background:url(/websquare/uiplugin/grid/upload/images/bul_title.gif) no-repeat 11px 6px; float:left;}
+	.header .title2 {padding-left:28px; font-weight:bold; line-height:23px; float:left;}
+	.header span {padding-right:20px; float:right; display:block;}
+	.header span input[type=checkbox] {position:relative; top:1px;}
+	/*.header span table {position:relative; top:1px;}*/
+	.spanGroup {background-color:transparent;}
+	.content {padding:15px 10px 12px;}
+	.content .filebox {padding:8px 0 0 11px; width:408px; height:33px; border:1px solid #d3d3d3; background:#f6f6f6;}
+	.content .filebox input[type=file] {width:397px; height:21px; font-family:Verdana; font-size:12px; background:#fff;}
+
+	.tbl {margin:15px auto 0; width:400px;}
+	.tbl th, .tbl td {min-width:100px; height:24px; text-align:left;}
+	.tbl th .dot {padding-left:14px; background:url(/websquare/uiplugin/grid/upload/images/dot.gif) no-repeat left center;}
+	.tbl td .ipt {width:74px; height:16px; /*bordeR:1px solid #abadb3;*/}
+	.tbl td .sel {width:80px; height:20px;}
+	.btn_file {margin-bottom:14px; width:90px; position:relative; left:333px; border-radius:4px;}

@@ -1,0 +1,11 @@
+{
+  "ecmaVersion": 6,
+  "plugins": {
+    "outline": {
+      
+    }
+  },
+  "libs": [
+    "WebSquare"
+  ]
+}

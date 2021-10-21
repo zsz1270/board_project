@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.common.dao.ProgramDao">
+
+	<select id="selectProgram" resultType="Map" parameterType="Map">
+		SELECT P.PROGRAM_CD, P.PROGRAM_NM, P.PROGRAM_GROUP_CD, C.CODE_NM AS PROGRAM_GROUP_NM, P.SRC_PATH
+			 , P.IS_USE, P.NOTE
+		  FROM BM_PROGRAM P INNER JOIN BM_CODE C ON C.COM_CD = P.PROGRAM_GROUP_CD AND C.GRP_CD = '00026'
+		<where>
+			<if test="PROGRAM_GROUP_CD != null and PROGRAM_GROUP_CD != '' and PROGRAM_GROUP_CD != 'all'">
+				AND P.PROGRAM_GROUP_CD = #{PROGRAM_GROUP_CD}
+			</if>
+			<if test="PROGRAM != null and PROGRAM != ''">
+				AND (P.PROGRAM_CD LIKE CONCAT('%', #{PROGRAM}, '%') OR P.PROGRAM_NM LIKE CONCAT('%', #{PROGRAM}, '%'))
+			</if>
+			<if test="IS_USE != null and IS_USE != '' and IS_USE != 'all'">
+				AND P.IS_USE = #{IS_USE}
+			</if>
+		</where>
+		ORDER BY P.PROGRAM_CD
+	</select>
+
+	<insert id="insertProgram" parameterType="Map">
+		INSERT INTO BM_PROGRAM(PROGRAM_CD, PROGRAM_NM, PROGRAM_GROUP_CD, SRC_PATH, IS_USE, NOTE)
+		VALUES (#{PROGRAM_CD}, #{PROGRAM_NM}, #{PROGRAM_GROUP_CD}, #{SRC_PATH}, #{IS_USE}, #{NOTE})
+	</insert>
+
+	<update id="saveProgram" parameterType="Map">
+		UPDATE BM_PROGRAM
+		   SET PROGRAM_NM = #{PROGRAM_NM}, PROGRAM_GROUP_CD = #{PROGRAM_GROUP_CD}
+			 , SRC_PATH = #{SRC_PATH}, IS_USE = #{IS_USE}, NOTE = #{NOTE}
+		 WHERE PROGRAM_CD = #{PROGRAM_CD}
+	</update>
+
+	<delete id="deleteProgram" parameterType="Map">
+		DELETE FROM BM_PROGRAM WHERE PROGRAM_CD = #{PROGRAM_CD}
+	</delete>
+
+	<select id="selectProgramAuthority" resultType="Map" parameterType="Map">
+		SELECT P.PROGRAM_CD, P.AUTHORITY_CD, A.AUTHORITY_NM, P.IS_AUTH_SELECT, P.IS_AUTH_SAVE, P.IS_AUTH_EXCEL
+		  FROM BM_PROGRAM_AUTHORITY P, BM_AUTHORITY A 
+		 WHERE P.AUTHORITY_CD = A.AUTHORITY_CD
+		   AND P.PROGRAM_CD = #{PROGRAM_CD}
+		   AND A.IS_USE = 'Y'
+		 ORDER BY AUTHORITY_CD
+	</select>
+
+	<select id="selectExcludeProgramAuthority" resultType="Map" parameterType="Map">
+		SELECT AUTHORITY_CD, AUTHORITY_NM, NOTE
+		  FROM BM_AUTHORITY 
+		 WHERE AUTHORITY_CD NOT IN (SELECT AUTHORITY_CD
+									  FROM BM_PROGRAM_AUTHORITY 
+									 WHERE PROGRAM_CD = #{PROGRAM_CD})
+		   AND IS_USE = 'Y'
+		<if test="SEARCH_WORD != null and SEARCH_WORD != ''">
+			AND (AUTHORITY_CD LIKE CONCAT('%', #{SEARCH_WORD}, '%') OR AUTHORITY_NM LIKE CONCAT('%', #{SEARCH_WORD}, '%'))
+		</if>
+		ORDER BY AUTHORITY_CD
+	</select>
+
+	<insert id="insertProgramAuthority" parameterType="Map">
+		INSERT INTO BM_PROGRAM_AUTHORITY(AUTHORITY_CD, PROGRAM_CD, IS_AUTH_SELECT, IS_AUTH_SAVE, IS_AUTH_EXCEL)
+		VALUES (#{AUTHORITY_CD}, #{PROGRAM_CD}, #{IS_AUTH_SELECT}, #{IS_AUTH_SAVE}, #{IS_AUTH_EXCEL})
+	</insert>
+	
+	<update id="saveProgramAuthority" parameterType="java.util.HashMap">
+		UPDATE BM_PROGRAM_AUTHORITY
+		   SET IS_AUTH_SELECT = #{IS_AUTH_SELECT}
+			 , IS_AUTH_SAVE = #{IS_AUTH_SAVE}
+			 , IS_AUTH_EXCEL = #{IS_AUTH_EXCEL}
+		 WHERE PROGRAM_CD = #{PROGRAM_CD}
+		   AND AUTHORITY_CD = #{AUTHORITY_CD}
+	</update>
+
+	<delete id="deleteProgramAuthority" parameterType="Map">
+		DELETE FROM BM_PROGRAM_AUTHORITY 
+		 WHERE PROGRAM_CD = #{PROGRAM_CD} 
+		<if test="AUTHORITY_CD != null and AUTHORITY_CD != ''">
+		   AND AUTHORITY_CD = #{AUTHORITY_CD}
+		</if>
+	</delete>
+</mapper>

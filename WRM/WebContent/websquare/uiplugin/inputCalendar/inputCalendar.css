@@ -1,0 +1,49 @@
+.w2inputCalendar {
+}
+
+.w2inputCalendar_table {
+	table-layout:fixed;
+	position : relative;
+	width : 100%;
+	height : 100%;
+	border-collapse : collapse;
+}
+
+
+.w2inputCalendar_col_input {
+	padding:0px 0px 0px 0px;
+}
+
+.w2inputCalendar_input {
+	margin-top : -1px;
+	border : solid 1px #9db0c1;
+}
+
+.w2inputCalendar_col_img {
+	vertical-align:middle;
+	text-align : center;
+	width:18px;
+	padding:0px 0px 0px 0px;
+}
+
+.w2inputCalendar_img {
+	width : 18px;
+	height : 16px;
+	background-image : url(uiplugin/inputCalendar/images/icon_calendar.gif);
+	background-repeat : no-repeat;
+	background-position : center right;
+	cursor : pointer;
+}
+
+.w2inputCalendar_img_over {
+	background-image : url(uiplugin/inputCalendar/images/icon_calendar_over.gif);
+}
+
+.w2inputCalendar_calendar {
+	display : none;
+	position : absolute;
+	left : 0px;
+	top : 0px;
+	width : 199px;
+	height : 196px;
+}

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.common.dao.ReleaseInfoDao">
+	<select id="selectReleaseForSummary" resultType="Map" parameterType="Map">
+		SELECT SEQ, TITLE, CONTENT, DATA_SEQ, DATE_FORMAT(CREATED_DATE, '%Y%m%d') AS CREATED_DATE
+		FROM BM_RELEASE_INFO
+		WHERE IS_USE = #{IS_USE}
+		<choose>
+			<when test="SORT_COLUMN == 'SEQ'">
+				ORDER BY SEQ
+			</when>
+		</choose>
+		<choose>
+			<when test="SORT_METHOD == 'DESC'">
+				DESC
+			</when>
+			<when test="SORT_METHOD == 'ASC'">
+				ASC
+			</when>
+		</choose>
+		LIMIT #{START_NUM}, #{END_NUM}
+	</select>
+	
+	<insert id="insertRelease" parameterType="Map">
+		INSERT INTO BM_RELEASE_INFO(SEQ, TITLE, CONTENT, DATA_SEQ, CREATED_DATE)
+		VALUES ((SELECT MAX(SEQ)+1 FROM BM_RELEASE_INFO AS SP_REL_INFO), #{TITLE}, #{CONTENT}, NEXTVAL(SQ_DATA_SEQ), #{CREATED_DATE})
+	</insert>
+	
+	<update id="updateRelease" parameterType="Map">
+		UPDATE BM_RELEASE_INFO
+		   SET TITLE = #{TITLE}, CONTENT = #{CONTENT}, CREATED_DATE = #{CREATED_DATE}
+		WHERE SEQ = #{SEQ}
+	</update>
+	
+	<delete id="deleteRelease" parameterType="Map">
+		DELETE FROM BM_RELEASE_INFO WHERE SEQ = #{SEQ}
+	</delete>
+	
+	<select id="selectReleasetTotalCnt" resultType="Map">
+		SELECT COUNT(*) AS CNT FROM BM_RELEASE_INFO
+	</select>
+</mapper>
+	
+	

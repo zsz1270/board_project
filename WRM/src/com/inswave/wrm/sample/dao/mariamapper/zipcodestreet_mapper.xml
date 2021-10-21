@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.inswave.wrm.sample.dao.ZipCodeStreetDao">
+	<select id="selectZipCodeStreet" resultType="Map" parameterType="Map" fetchSize="10000">
+		SELECT SEQ_NO, SIGUNGUCODE, STREETNUM, STREET, STREETENG, DONGSEQ, SIDO, SIGUNGU, DONGTYPE, DONGCODE, DONG, PARENTSTREETNUM, PARENTSTREET, ISUSE, CHANGEREASON, CHANGEHISTORY, SIDOENG, SIGUNGUENG, DONGENG, OPENDATE, CLOSEDATE 
+		  FROM SP_ZIP_CODE_STREET
+		<where>
+			<choose>
+				<when test="SEQ_NO != null and !SEQ_NO.equals('')"><![CDATA[
+					SEQ_NO <= #{SEQ_NO}
+				]]></when>
+				<otherwise><![CDATA[
+					SEQ_NO <= 1000
+				]]></otherwise>
+			</choose>
+		</where> 
+	</select>
+	
+	<!-- SELECT * FROM sp_zip_code_street -->
+	<select id="selectZipCodeStreetByStreetPaging" resultType="Map" parameterType="Map" >
+		SELECT SIGUNGUCODE, STREETNUM, STREET, STREETENG, DONGSEQ, SIDO, SIGUNGU, DONGTYPE, DONGCODE, DONG, 
+			   PARENTSTREETNUM, PARENTSTREET, ISUSE, CHANGEREASON, CHANGEHISTORY, SIDOENG, SIGUNGUENG, DONGENG, OPENDATE, CLOSEDATE 
+		  FROM SP_ZIP_CODE_STREET
+		<where>
+			<if test="!STREET.equals('')" ><![CDATA[
+				and STREET like concat('%',#{STREET},'%')  
+			]]></if>
+		</where>
+		<choose>
+			<when test="(OFFSET_ROW != null and !OFFSET_ROW.equals('')) and (PAGE_SIZE != null and !PAGE_SIZE.equals(''))" ><![CDATA[
+				limit #{OFFSET_ROW}, #{PAGE_SIZE}
+			]]></when>
+			<when test="(START_IDX != null and !START_IDX.equals('')) and (END_IDX != null and !END_IDX.equals(''))" ><![CDATA[
+				limit #{OFFSET_ROW}, 100
+			]]></when>
+		</choose>
+	</select>
+	
+	<select id="selectZipCodeStreetByStreetTotalCnt" resultType="int" parameterType="Map" >
+		SELECT COUNT(*) AS NCNT 
+		  FROM SP_ZIP_CODE_STREET
+		<where>
+			<if test="!STREET.equals('')" ><![CDATA[
+				and STREET like concat('%',#{STREET},'%')  
+			]]></if>
+		</where>
+	</select>
+</mapper>

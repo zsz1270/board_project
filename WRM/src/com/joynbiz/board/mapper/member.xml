@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="memberMapper">
+	
+	<!-- 게시글 전체 조회 -->
+	<select id="getBoardList" parameterType="HASHMAP" resultType="HASHMAP">
+		 SELECT (TOTALCOUNT - rNum )+1 AS RNO,TOTALCOUNT, rNum RN, CON_DV, CON_NO, CON_TITLE, CON_ID, CON_PASSWORD, READ_COUNT, REG_DATE, UPD_DATE , CON_TXT
+                FROM(SELECT CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, 
+                            READ_COUNT, TO_CHAR(REG_DATE,'MM-DD HH24:MI:SS') as REG_DATE, UPD_DATE,
+                            row_number() over(order by ABS(CON_NO) DESC) as rNum,COUNT(*)OVER() AS TOTALCOUNT
+                        FROM contents_data WHERE CON_DV = #{con_dv} AND DEL_YN='N'
+                 
+                     <if test= 'searchType eq "title" '>
+	 					AND CON_TITLE 
+	 					<include refid="search" />
+					</if>
+					<if test= 'searchType eq "id" '>
+				 		AND CON_ID
+				 		<include refid="search" />
+					</if>
+					 )A	
+					 WHERE rNum BETWEEN  #{rowStart} AND #{rowEnd}
+	                 order by ABS(CON_NO) DESC
+	</select>
+	
+	<!-- 게시글 상세 조회-->
+	<select id="detailContents" parameterType="HASHMAP" resultType="HASHMAP">
+		SELECT CON_NO,CON_TITLE,CON_TXT
+		FROM CONTENTS_DATA
+		WHERE <include refid="div_no" />
+	</select>
+	
+	 <!--조회수 증가-->
+	<update id="viewCount" parameterType="HASHMAP" >
+		UPDATE CONTENTS_DATA 
+		SET READ_COUNT = READ_COUNT+1 
+		WHERE <include refid="div_no" />
+	</update>
+	
+	<!-- 게시글 작성 -->
+	<insert id="insertBoard" parameterType="HASHMAP">
+   		INSERT INTO CONTENTS_DATA (CON_DV, CON_NO, CON_TITLE, CON_TXT, CON_ID, CON_PASSWORD, REG_IP) 
+   			 VALUES (#{con_dv}, (SELECT NVL(MAX(ABS(CON_NO))+1,1) 
+   			 	FROM CONTENTS_DATA), #{con_title}, #{con_txt}, #{con_id}, #{con_password}, #{reg_ip})
+   </insert>
+   
+   <!-- 글 수정 -->
+	<update id="updateBoard" parameterType="HASHMAP" >
+		UPDATE CONTENTS_DATA 
+			SET CON_TITLE = #{CON_TITLE}, CON_TXT = #{CON_TXT}, UPD_DATE = SYSDATE
+				WHERE <include refid="div_no" />
+	</update>
+	
+	 <!-- 본인 인증 -->
+   <select id="isCheckIdentify" parameterType="HASHMAP" resultType="boolean">
+   		SELECT CASE WHEN count(*)=1 THEN 1 ELSE 0 END
+   			FROM CONTENTS_DATA
+   				WHERE <include refid="div_no" /> AND CON_ID = #{CON_ID} AND CON_PASSWORD = #{CON_PASSWORD}
+   	</select>
+   	
+   <!-- 글 삭제 -->
+	<update id="deleteBoard" parameterType="HASHMAP" >
+		UPDATE CONTENTS_DATA 
+			SET DEL_YN = 'Y'
+				WHERE <include refid="div_no" />
+	</update>
+	
+	
+	<!-- 게시판 목록 총 갯수 조회 -->
+	<select id="countBoardList" parameterType="HASHMAP" resultType="HASHMAP">
+		SELECT COUNT(*)
+			FROM CONTENTS_DATA
+				WHERE CON_DV = #{con_dv} AND DEL_YN='N'
+				<if test= 'searchType eq "title" '> <!-- 검색 조건에 해당되는 게시물 갯수 -->
+					AND CON_TITLE <include refid="search" />
+				</if>
+				<if test= 'searchType eq "id" '>
+					AND CON_ID <include refid="search" />
+				</if>
+	</select>
+	
+	<!-- 중복 쿼리 정리 -->
+	<sql id="div_no">
+		CON_DV = #{con_dv} AND CON_NO = #{CON_NO}
+	</sql>
+	
+	<sql id="search">
+		 LIKE '%'||#{keyword}||'%'
+	</sql>
+</mapper>
